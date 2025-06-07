@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Phiếu Giao Hàng</title>
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .container {
+      border: 1px solid #000;
+      padding: 20px;
+      width: 350px;
+    }
+    .section {
+      margin-bottom: 15px;
+    }
+    .label {
+      font-weight: bold;
+    }
+    #barcode, #qrcode {
+      margin-top: 10px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>PHIẾU GIAO HÀNG</h2>
+
+    <div class="section">
+      <span class="label">Người gửi:</span> Công ty ABC
+    </div>
+
+    <div class="section">
+      <span class="label">Tên người nhận:</span> Nguyễn Văn A<br>
+      <span class="label">SĐT:</span> 0987654321<br>
+      <span class="label">Địa chỉ:</span> 123 Đường Lê Lợi, Quận 1, TP.HCM
+    </div>
+
+    <div class="section">
+      <span class="label">Mã đơn hàng:</span> <span id="order-id">ABC123456789</span><br>
+      <svg id="barcode"></svg>
+      <canvas id="qrcode"></canvas>
+    </div>
+  </div>
+
+  <script>
+    const orderId = document.getElementById("order-id").textContent;
+    JsBarcode("#barcode", orderId, { format: "CODE128", width: 2, height: 50 });
+    QRCode.toCanvas(document.getElementById('qrcode'), orderId, function (error) {
+      if (error) console.error(error);
+    });
+  </script>
+</body>
+</html>
