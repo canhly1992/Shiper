@@ -50,9 +50,14 @@
       text-align: center;
       margin-bottom: 20px;
     }
-    .barcode img, .qrcode img {
+    .barcode img {
       max-width: 250px;
       height: 40px;
+      object-fit: contain;
+    }
+    .qrcode img {
+      height: 100px;
+      width: 100px;
       object-fit: contain;
     }
     .info-section {
@@ -149,7 +154,7 @@
     </div>
 
     <div class="qrcode">
-      <img id="qrcode-img" src="" alt="QR Code" style="height:100px;width:100px;" />
+      <img id="qrcode-img" src="" alt="QR Code" />
     </div>
 
     <div class="info-section">
