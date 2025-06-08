@@ -149,16 +149,20 @@
     </div>
 
     <div class="info-section">
-      <div class="label">Mã vận đơn:</div><div class="value" id="mavandon"></div>
-      <div class="label">Khối lượng:</div><div class="value" id="khoiluong"></div>
-      <div class="label">Người gửi:</div><div class="value" id="guitai"></div>
-      <div class="label">Người nhận:</div><div class="value" id="nguoinhan"></div>
-      <div class="label">SĐT người nhận:</div><div class="value" id="sdt"></div>
-      <div class="label">Địa chỉ người nhận:</div><div class="value" id="diachi"></div>
-      <div class="label">COD:</div><div class="value" id="cod"></div>
-      <div class="label">Đồng kiểm:</div><div class="value" id="dongkiem"></div>
-      <div class="label">Free ship:</div><div class="value" id="freeship"></div>
-      <div class="label">Cước:</div><div class="value" id="cuoc"></div>
+      <div class="label">Mã vận đơn:</div>
+      <div class="value" id="mavandon">...</div>
+
+      <div class="label">Người gửi:</div>
+      <div class="value" id="nguoi-gui">...</div>
+
+      <div class="label">Người nhận:</div>
+      <div class="value" id="nguoi-nhan">...</div>
+
+      <div class="label">SĐT người nhận:</div>
+      <div class="value" id="sdt-nhan">...</div>
+
+      <div class="label">Địa chỉ người nhận:</div>
+      <div class="value" id="diachi-nhan">...</div>
     </div>
 
     <div class="footer">
@@ -178,25 +182,25 @@
   </div>
 
   <script>
-    function getUrlParam(param) {
+    function getUrlParam(key) {
       const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(param);
+      return urlParams.get(key) || "";
     }
 
-    const barcode = getUrlParam("barcode") || "";
-    document.getElementById("barcode-img").src = "https://barcode.tec-it.com/barcode.ashx?data=" + encodeURIComponent(barcode);
-    document.getElementById("qr-code").src = "https://chart.googleapis.com/chart?cht=qr&chs=100x100&chl=" + encodeURIComponent(barcode);
+    const barcodeData = getUrlParam("barcode");
+    const nguoiGui = getUrlParam("guitai");
+    const nguoiNhan = getUrlParam("nguoinhan");
+    const sdtNhan = getUrlParam("sdt");
+    const diaChiNhan = getUrlParam("diachi");
 
-    document.getElementById("mavandon").textContent = barcode;
-    document.getElementById("khoiluong").textContent = getUrlParam("khoiluong") || "";
-    document.getElementById("guitai").textContent = getUrlParam("guitai") || "";
-    document.getElementById("nguoinhan").textContent = getUrlParam("nguoinhan") || "";
-    document.getElementById("sdt").textContent = getUrlParam("sdt") || "";
-    document.getElementById("diachi").textContent = getUrlParam("diachi") || "";
-    document.getElementById("cod").textContent = getUrlParam("cod") || "";
-    document.getElementById("dongkiem").textContent = getUrlParam("dongkiem") || "";
-    document.getElementById("freeship").textContent = getUrlParam("freeship") || "";
-    document.getElementById("cuoc").textContent = getUrlParam("cuoc") || "";
+    document.getElementById("mavandon").textContent = barcodeData;
+    document.getElementById("nguoi-gui").textContent = nguoiGui;
+    document.getElementById("nguoi-nhan").textContent = nguoiNhan;
+    document.getElementById("sdt-nhan").textContent = sdtNhan;
+    document.getElementById("diachi-nhan").textContent = diaChiNhan;
+
+    document.getElementById("barcode-img").src = "https://barcode.tec-it.com/barcode.ashx?data=" + encodeURIComponent(barcodeData) + "&code=Code128&dpi=96";
+    document.getElementById("qr-code").src = "https://chart.googleapis.com/chart?cht=qr&chs=100x100&chl=" + encodeURIComponent(barcodeData);
   </script>
 </body>
 </html>
