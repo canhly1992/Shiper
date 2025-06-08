@@ -145,24 +145,24 @@
     </div>
 
     <div class="barcode">
-      <img src="https://barcode.tec-it.com/barcode.ashx?data=123456789012&code=EAN13&dpi=96" alt="Barcode" />
+      <img id="barcode-img" src="" alt="Barcode" />
     </div>
 
     <div class="info-section">
       <div class="label">Mã vận đơn:</div>
-      <div class="value">123456789012</div>
+      <div class="value" id="mavandon">...</div>
 
       <div class="label">Người gửi:</div>
-      <div class="value">Nguyễn Văn A</div>
+      <div class="value" id="nguoi-gui">...</div>
 
       <div class="label">Người nhận:</div>
-      <div class="value">Trần Thị B</div>
+      <div class="value" id="nguoi-nhan">...</div>
 
       <div class="label">SĐT người nhận:</div>
-      <div class="value">0909123456</div>
+      <div class="value" id="sdt-nhan">...</div>
 
       <div class="label">Địa chỉ người nhận:</div>
-      <div class="value">123 Đường ABC, Quận 1, TP.HCM</div>
+      <div class="value" id="diachi-nhan">...</div>
     </div>
 
     <div class="footer">
@@ -173,12 +173,43 @@
         <div class="signature-label">Người nhận</div>
       </div>
       <div class="signature-box">
-        <img class="qr-code" src="https://chart.googleapis.com/chart?cht=qr&chs=100x100&chl=123456789012" alt="QR Code" />
+        <img id="qr-code-img" class="qr-code" src="" alt="QR Code" />
         <div class="qr-label">QR Code Mã vận đơn</div>
       </div>
     </div>
 
     <button class="print-btn" onclick="window.print()">In phiếu</button>
   </div>
+
+  <script>
+    // Hàm lấy tham số URL
+    function getUrlParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param) || "";
+    }
+
+    // Lấy dữ liệu từ URL
+    const barcodeData = getUrlParam("barcode") || "123456789012";
+    const qrData = getUrlParam("qr") || barcodeData;
+    const nguoiGui = getUrlParam("guitai") || "Người gửi";
+    const nguoiNhan = getUrlParam("nguoinhan") || "Người nhận";
+    const sdtNhan = getUrlParam("sdt") || "0000000000";
+    const diaChiNhan = getUrlParam("diachi") || "Địa chỉ";
+
+    // Đặt ảnh barcode (dùng service barcode.tec-it.com EAN13)
+    document.getElementById("barcode-img").src =
+      "https://barcode.tec-it.com/barcode.ashx?data=" + encodeURIComponent(barcodeData) + "&code=EAN13&dpi=96";
+
+    // Đặt QR code (Google Chart API)
+    document.getElementById("qr-code-img").src =
+      "https://chart.googleapis.com/chart?cht=qr&chs=100x100&chl=" + encodeURIComponent(qrData);
+
+    // Điền thông tin vào phiếu
+    document.getElementById("mavandon").textContent = barcodeData;
+    document.getElementById("nguoi-gui").textContent = nguoiGui;
+    document.getElementById("nguoi-nhan").textContent = nguoiNhan;
+    document.getElementById("sdt-nhan").textContent = sdtNhan;
+    document.getElementById("diachi-nhan").textContent = diaChiNhan;
+  </script>
 </body>
 </html>
