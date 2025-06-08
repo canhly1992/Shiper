@@ -145,24 +145,20 @@
     </div>
 
     <div class="barcode">
-      <img id="barcodeImg" src="" alt="Barcode" />
+      <img id="barcode-img" src="" alt="Barcode" />
     </div>
 
     <div class="info-section">
-      <div class="label">Mã vận đơn:</div>
-      <div class="value" id="maVanDon">...</div>
-
-      <div class="label">Người gửi:</div>
-      <div class="value" id="nguoiGui">...</div>
-
-      <div class="label">Người nhận:</div>
-      <div class="value" id="nguoiNhan">...</div>
-
-      <div class="label">SĐT người nhận:</div>
-      <div class="value" id="sdtNhan">...</div>
-
-      <div class="label">Địa chỉ người nhận:</div>
-      <div class="value" id="diaChiNhan">...</div>
+      <div class="label">Mã vận đơn:</div><div class="value" id="mavandon"></div>
+      <div class="label">Khối lượng:</div><div class="value" id="khoiluong"></div>
+      <div class="label">Người gửi:</div><div class="value" id="guitai"></div>
+      <div class="label">Người nhận:</div><div class="value" id="nguoinhan"></div>
+      <div class="label">SĐT người nhận:</div><div class="value" id="sdt"></div>
+      <div class="label">Địa chỉ người nhận:</div><div class="value" id="diachi"></div>
+      <div class="label">COD:</div><div class="value" id="cod"></div>
+      <div class="label">Đồng kiểm:</div><div class="value" id="dongkiem"></div>
+      <div class="label">Free ship:</div><div class="value" id="freeship"></div>
+      <div class="label">Cước:</div><div class="value" id="cuoc"></div>
     </div>
 
     <div class="footer">
@@ -173,7 +169,7 @@
         <div class="signature-label">Người nhận</div>
       </div>
       <div class="signature-box">
-        <img id="qrCodeImg" class="qr-code" src="" alt="QR Code" />
+        <img class="qr-code" id="qr-code" src="" alt="QR Code" />
         <div class="qr-label">QR Code Mã vận đơn</div>
       </div>
     </div>
@@ -182,42 +178,25 @@
   </div>
 
   <script>
-    // Hàm lấy tham số URL
-    function getUrlParam(name) {
-      const params = new URLSearchParams(window.location.search);
-      return params.get(name);
+    function getUrlParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
     }
 
-    document.addEventListener("DOMContentLoaded", function() {
-      const barcodeData = getUrlParam("barcode") || "";
-      const qrData = getUrlParam("qr") || barcodeData;
-      const nguoiGui = getUrlParam("guitai") || "Người gửi";
-      const nguoiNhan = getUrlParam("nguoinhan") || "Người nhận";
-      const sdtNhan = getUrlParam("sdt") || "0000000000";
-      const diaChiNhan = getUrlParam("diachi") || "Địa chỉ";
+    const barcode = getUrlParam("barcode") || "";
+    document.getElementById("barcode-img").src = "https://barcode.tec-it.com/barcode.ashx?data=" + encodeURIComponent(barcode);
+    document.getElementById("qr-code").src = "https://chart.googleapis.com/chart?cht=qr&chs=100x100&chl=" + encodeURIComponent(barcode);
 
-      // Gán dữ liệu vào phần tử
-      document.getElementById("maVanDon").textContent = barcodeData;
-      document.getElementById("nguoiGui").textContent = nguoiGui;
-      document.getElementById("nguoiNhan").textContent = nguoiNhan;
-      document.getElementById("sdtNhan").textContent = sdtNhan;
-      document.getElementById("diaChiNhan").textContent = diaChiNhan;
-
-      // Set hình barcode
-      if (barcodeData) {
-        document.getElementById("barcodeImg").src =
-          "https://barcode.tec-it.com/barcode.ashx?data=" +
-          encodeURIComponent(barcodeData) +
-          "&code=EAN13&dpi=96";
-      }
-
-      // Set hình QR code
-      if (qrData) {
-        document.getElementById("qrCodeImg").src =
-          "https://chart.googleapis.com/chart?cht=qr&chs=100x100&chl=" +
-          encodeURIComponent(qrData);
-      }
-    });
+    document.getElementById("mavandon").textContent = barcode;
+    document.getElementById("khoiluong").textContent = getUrlParam("khoiluong") || "";
+    document.getElementById("guitai").textContent = getUrlParam("guitai") || "";
+    document.getElementById("nguoinhan").textContent = getUrlParam("nguoinhan") || "";
+    document.getElementById("sdt").textContent = getUrlParam("sdt") || "";
+    document.getElementById("diachi").textContent = getUrlParam("diachi") || "";
+    document.getElementById("cod").textContent = getUrlParam("cod") || "";
+    document.getElementById("dongkiem").textContent = getUrlParam("dongkiem") || "";
+    document.getElementById("freeship").textContent = getUrlParam("freeship") || "";
+    document.getElementById("cuoc").textContent = getUrlParam("cuoc") || "";
   </script>
 </body>
 </html>
