@@ -2,223 +2,196 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Phiếu Giao Hàng A5</title>
+  <title>Phiếu Giao Nhận</title>
   <style>
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
       font-family: Arial, sans-serif;
     }
 
     @page {
       size: A5;
-      margin: 5mm;
+      margin: 0;
     }
 
     body {
+      margin: 5mm;
       width: 138mm;
-      margin: auto;
       font-size: 13px;
-      line-height: 1.4;
     }
 
     .container {
       border: 1px solid #000;
-      padding: 8px;
+      padding: 5px;
     }
 
-    .header {
+    .top {
       display: flex;
       justify-content: space-between;
-      align-items: center;
     }
 
-    .brand {
+    .left-top {
+      width: 68%;
+    }
+
+    .logo-line {
       display: flex;
       align-items: center;
-      gap: 10px;
+      margin-bottom: 5px;
     }
 
-    .brand-title {
-      font-size: 24px;
-      font-weight: bold;
+    .logo-line h1 {
+      font-size: 28px;
       color: orange;
+      margin-right: 5px;
     }
 
-    .brand-logo img {
-      width: 40px;
-      height: 40px;
+    .logo-line img {
+      width: 50px;
+      height: auto;
     }
 
-    .barcode-section {
+    .barcode-block {
       text-align: right;
       font-size: 12px;
+      width: 30%;
     }
 
-    .barcode-section img {
-      height: 30px;
+    .barcode-block img {
+      width: 100%;
+      height: 35px;
     }
 
-    .info {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+    .info-row {
+      display: flex;
       border: 1px solid #000;
-      margin: 5px 0;
+      margin-top: 4px;
     }
 
-    .info div {
-      padding: 4px;
+    .info-row div {
       border-right: 1px solid #000;
-      height: 40px;
+      padding: 4px;
+      height: 38px;
+      flex: 1;
     }
 
-    .info div:last-child {
+    .info-row div:last-child {
       border-right: none;
-    }
-
-    .table-container {
-      margin-top: 5px;
-      border: 1px solid #000;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
+      margin-top: 5px;
     }
 
     th, td {
       border: 1px solid #000;
       padding: 4px;
+      text-align: left;
     }
 
     th {
       font-style: italic;
     }
 
-    .note-section {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
+    .table-right {
+      width: 32%;
       font-size: 12px;
+      margin-left: 5px;
+    }
+
+    .table-right table {
+      width: 100%;
+      font-size: 12px;
+    }
+
+    .cod-box {
       border: 1px solid #000;
-      border-top: none;
-    }
-
-    .note-section div {
-      padding: 4px;
-      border-right: 1px solid #000;
-      border-bottom: 1px solid #000;
-    }
-
-    .note-section div:nth-child(2n) {
-      border-right: none;
-    }
-
-    .cod-line {
-      padding: 4px;
+      text-align: center;
       font-weight: bold;
-      border: 1px solid #000;
-      border-top: none;
-    }
-
-    .bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
       margin-top: 5px;
-    }
-
-    .signature {
-      width: 32%;
-      border: 1px solid #000;
-      height: 60px;
-      text-align: center;
+      padding: 3px;
       font-size: 12px;
-      padding-top: 5px;
     }
 
-    .qr-box {
-      width: 32%;
+    .qr {
       text-align: center;
-    }
-
-    .qr-box img {
-      width: 80px;
-      height: 80px;
-      border: 1px solid #000;
-    }
-
-    .qr-label {
-      font-weight: bold;
-      font-size: 12px;
       margin-top: 4px;
     }
 
-    .ghichu {
-      margin-top: 5px;
+    .qr img {
+      width: 90px;
+      height: 90px;
       border: 1px solid #000;
-      height: 30px;
-      padding-left: 5px;
     }
+
+    .bottom {
+      margin-top: 10px;
+    }
+
+    .note-line {
+      height: 25px;
+      border-top: 1px solid #000;
+      padding-top: 3px;
+      font-size: 13px;
+    }
+
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="header">
-      <div class="brand">
-        <div class="brand-title">Ship Đến Ngay</div>
-        <div class="brand-logo">
-          <img src="https://www.appsheet.com/template/gettablefileurl?appName=Appsheet-325045268&tableName=Kho%20%E1%BA%A3nh&fileName=Kho%20%E1%BA%A3nh_Images%2Fa5e5adca.%E1%BA%A2nh.144011.jpg" alt="logo" />
+    <div class="top">
+      <div class="left-top">
+        <div class="logo-line">
+          <h1>Ship Đến Ngay</h1>
+          <img src="https://www.appsheet.com/template/gettablefileurl?appName=Appsheet-325045268&tableName=Kho%20%E1%BA%A3nh&fileName=Kho%20%E1%BA%A3nh_Images%2Fa5e5adca.%E1%BA%A2nh.144011.jpg" alt="Logo">
         </div>
+
+        <div class="info-row">
+          <div>Người nhận:<br>SDT:</div>
+          <div>Địa chỉ:</div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>STT & Tên</th>
+              <th>Tiền</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1 dép tổ ong</td><td>100.000</td></tr>
+            <tr><td>2 balo</td><td>200.000</td></tr>
+            <tr><td>3 tạ thóc</td><td>500.000</td></tr>
+          </tbody>
+        </table>
       </div>
-      <div class="barcode-section">
-        <div>Hotline: 035.3873.488</div>
-        <img id="barcode-img" src="" alt="Barcode" />
+
+      <div class="table-right">
+        <div style="text-align:right;">Hotline: 035.3873.488</div>
+        <img id="barcode-img" src="" alt="Barcode">
         <div>MVD:</div>
         <div>Note Lưu Ý: (Cố Định)</div>
+
+        <table>
+          <tr><td>Trọng lượng tính cước:</td></tr>
+          <tr><td>Thời gian in:</td></tr>
+          <tr><td>Free Ship: Có/ Không</td></tr>
+          <tr><td>Tổng COD:</td></tr>
+        </table>
+
+        <div class="cod-box">Không/Được phép đóng kiểm</div>
+
+        <div class="qr">
+          <img id="qrcode-img" src="" alt="QR Code">
+        </div>
       </div>
     </div>
-
-    <div class="info">
-      <div>Người nhận:<br>SDT:</div>
-      <div>Địa chỉ:</div>
-    </div>
-
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>STT & Tên</th>
-            <th>Tiền</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>1 dép tổ ong</td><td>100.000</td></tr>
-          <tr><td>2 balo</td><td>200.000</td></tr>
-          <tr><td>3 tạ thóc</td><td>500.000</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="note-section">
-      <div>Trọng lượng tính cước:</div>
-      <div>Thời gian in:</div>
-      <div>Free Ship: Có / Không</div>
-      <div>Tổng COD:</div>
-    </div>
-
-    <div class="cod-line">Không/Được phép đóng kiểm</div>
 
     <div class="bottom">
-      <div class="signature">Người gửi</div>
-      <div class="signature">Người nhận</div>
-      <div class="qr-box">
-        <img id="qrcode-img" src="" alt="QR Code" />
-        <div class="qr-label">035.3873.488</div>
-      </div>
+      <div class="note-line">Ghi chú:</div>
     </div>
-
-    <div class="ghichu">Ghi chú:</div>
   </div>
 
   <script>
