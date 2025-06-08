@@ -5,82 +5,87 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Phiếu Giao Nhận Hàng</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    .info-row { margin-bottom: 8px; }
-    .label { font-weight: bold; }
-    #barcode-img, #qr-img { max-width: 150px; display: block; margin-bottom: 15px; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+    }
+    .info-row {
+      margin-bottom: 8px;
+    }
+    .label {
+      font-weight: bold;
+    }
+    #barcode-img, #qr-img {
+      max-width: 150px;
+      display: block;
+      margin-bottom: 15px;
+    }
   </style>
 </head>
 <body>
-
   <h2>Phiếu Giao Nhận Hàng</h2>
-
+  
   <img id="barcode-img" src="" alt="Barcode" />
   
-  <div class="info-row"><span class="label">Mã vận đơn:</span> <span id="mvd"></span></div>
-  <div class="info-row"><span class="label">Tên cửa hàng:</span> <span id="guitai"></span></div>
-  <div class="info-row"><span class="label">Người nhận:</span> <span id="nguoinhan"></span></div>
-  <div class="info-row"><span class="label">Địa chỉ:</span> <span id="diachi"></span></div>
-  <div class="info-row"><span class="label">SĐT người nhận:</span> <span id="sdt"></span></div>
-  <div class="info-row"><span class="label">Tổng COD:</span> <span id="cod"></span></div>
-  <div class="info-row"><span class="label">Đồng kiểm:</span> <span id="dongkiem"></span></div>
-  <div class="info-row"><span class="label">Free ship:</span> <span id="freeship"></span></div>
-  <div class="info-row"><span class="label">Cước:</span> <span id="cuoc"></span></div>
-
+  <div class="info-row"><span class="label">Mã vận đơn: </span><span id="mvd"></span></div>
+  <div class="info-row"><span class="label">Tên cửa hàng: </span><span id="guitai"></span></div>
+  <div class="info-row"><span class="label">Người nhận: </span><span id="nguoinhan"></span></div>
+  <div class="info-row"><span class="label">Địa chỉ: </span><span id="diachi"></span></div>
+  <div class="info-row"><span class="label">SĐT người nhận: </span><span id="sdt"></span></div>
+  <div class="info-row"><span class="label">Tổng COD: </span><span id="cod"></span></div>
+  <div class="info-row"><span class="label">Đồng kiểm: </span><span id="dongkiem"></span></div>
+  <div class="info-row"><span class="label">Free ship: </span><span id="freeship"></span></div>
+  <div class="info-row"><span class="label">Cước: </span><span id="cuoc"></span></div>
+  
   <h3>Mã QR</h3>
   <img id="qr-img" src="" alt="QR code" />
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
+  <script>
     function getUrlParam(name) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(name);
+      const params = new URLSearchParams(window.location.search);
+      return params.get(name);
     }
 
-    // Lấy các tham số
-    const barcodeImg = getUrlParam('barcode_img');
-    const mvd = getUrlParam('mvd') || '';
-    const guitai = getUrlParam('guitai') || '';
-    const nguoinhan = getUrlParam('nguoinhan') || '';
-    const diachi = getUrlParam('diachi') || '';
-    const sdt = getUrlParam('sdt') || '';
-    const cod = getUrlParam('cod') || '';
-    const dongkiem = getUrlParam('dongkiem') || '';
-    const freeship = getUrlParam('freeship') || 'Không';
-    const cuoc = getUrlParam('cuoc') || '0';
+    window.onload = function() {
+      // Lấy tham số
+      const barcodeImg = getUrlParam('barcode_img');
+      const mvd = getUrlParam('mvd') || '';
+      const guitai = getUrlParam('guitai') || '';
+      const nguoinhan = getUrlParam('nguoinhan') || '';
+      const diachi = getUrlParam('diachi') || '';
+      const sdt = getUrlParam('sdt') || '';
+      const cod = getUrlParam('cod') || '';
+      const dongkiem = getUrlParam('dongkiem') || '';
+      const freeship = getUrlParam('freeship') || 'Không';
+      const cuoc = getUrlParam('cuoc') || '0';
 
-    // Hiển thị barcode
-    if (barcodeImg) {
-      document.getElementById('barcode-img').src = barcodeImg;
-    } else {
-      document.getElementById('barcode-img').alt = "Chưa có hình mã vạch";
+      // Gán ảnh mã vạch
+      if(barcodeImg) {
+        document.getElementById('barcode-img').src = barcodeImg;
+      } else {
+        document.getElementById('barcode-img').alt = "Chưa có ảnh mã vạch";
+      }
+
+      // Gán text
+      document.getElementById('mvd').textContent = mvd;
+      document.getElementById('guitai').textContent = guitai;
+      document.getElementById('nguoinhan').textContent = nguoinhan;
+      document.getElementById('diachi').textContent = diachi;
+      document.getElementById('sdt').textContent = sdt;
+      document.getElementById('cod').textContent = cod;
+      document.getElementById('dongkiem').textContent = dongkiem;
+      document.getElementById('freeship').textContent = freeship;
+      document.getElementById('cuoc').textContent = cuoc;
+
+      // Tạo QR code dựa trên URL (bỏ tham số qr nếu có)
+      const baseUrl = window.location.origin + window.location.pathname;
+      const params = new URLSearchParams(window.location.search);
+      params.delete('qr'); // nếu có tham số qr thì xóa
+
+      const fullUrl = baseUrl + '?' + params.toString();
+      const qrCodeUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + encodeURIComponent(fullUrl);
+      document.getElementById('qr-img').src = qrCodeUrl;
     }
-
-    // Hiển thị thông tin
-    document.getElementById('mvd').textContent = mvd;
-    document.getElementById('guitai').textContent = guitai;
-    document.getElementById('nguoinhan').textContent = nguoinhan;
-    document.getElementById('diachi').textContent = diachi;
-    document.getElementById('sdt').textContent = sdt;
-    document.getElementById('cod').textContent = cod;
-    document.getElementById('dongkiem').textContent = dongkiem;
-    document.getElementById('freeship').textContent = freeship;
-    document.getElementById('cuoc').textContent = cuoc;
-
-    // Tạo QR code dựa trên URL đầy đủ có tham số (không tính qr)
-    const baseUrl = window.location.origin + window.location.pathname;
-    const urlParams = new URLSearchParams(window.location.search);
-
-    // Xóa tham số qr nếu có để tránh lặp lại
-    urlParams.delete('qr');
-
-    const fullUrl = baseUrl + '?' + urlParams.toString();
-
-    const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(fullUrl)}`;
-
-    document.getElementById('qr-img').src = qrCodeUrl;
-  });
-</script>
-
+  </script>
 </body>
 </html>
