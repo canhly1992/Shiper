@@ -145,24 +145,24 @@
     </div>
 
     <div class="barcode">
-      <img id="barcode-img" src="" alt="Barcode" />
+      <img id="barcodeImg" src="" alt="Barcode" />
     </div>
 
     <div class="info-section">
       <div class="label">Mã vận đơn:</div>
-      <div class="value" id="mavandon">...</div>
+      <div class="value" id="maVanDon"></div>
 
       <div class="label">Người gửi:</div>
-      <div class="value" id="nguoi-gui">...</div>
+      <div class="value" id="nguoiGui"></div>
 
       <div class="label">Người nhận:</div>
-      <div class="value" id="nguoi-nhan">...</div>
+      <div class="value" id="nguoiNhan"></div>
 
       <div class="label">SĐT người nhận:</div>
-      <div class="value" id="sdt-nhan">...</div>
+      <div class="value" id="sdtNhan"></div>
 
       <div class="label">Địa chỉ người nhận:</div>
-      <div class="value" id="diachi-nhan">...</div>
+      <div class="value" id="diaChiNhan"></div>
     </div>
 
     <div class="footer">
@@ -173,7 +173,7 @@
         <div class="signature-label">Người nhận</div>
       </div>
       <div class="signature-box">
-        <img id="qr-code-img" class="qr-code" src="" alt="QR Code" />
+        <img id="qrCodeImg" class="qr-code" src="" alt="QR Code" />
         <div class="qr-label">QR Code Mã vận đơn</div>
       </div>
     </div>
@@ -182,34 +182,40 @@
   </div>
 
   <script>
-    // Hàm lấy tham số URL
-    function getUrlParam(param) {
+    // Hàm lấy tham số URL theo tên
+    function getUrlParam(name) {
       const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(param) || "";
+      return urlParams.get(name);
     }
 
-    // Lấy dữ liệu từ URL
-    const barcodeData = getUrlParam("barcode") || "123456789012";
-    const qrData = getUrlParam("qr") || barcodeData;
-    const nguoiGui = getUrlParam("guitai") || "Người gửi";
-    const nguoiNhan = getUrlParam("nguoinhan") || "Người nhận";
-    const sdtNhan = getUrlParam("sdt") || "0000000000";
-    const diaChiNhan = getUrlParam("diachi") || "Địa chỉ";
+    // Lấy tham số từ URL, không có thì để rỗng
+    const barcodeData = getUrlParam("barcode") || "";
+    const qrData = getUrlParam("qr") || "";
+    const nguoiGui = getUrlParam("guitai") || "";
+    const nguoiNhan = getUrlParam("nguoinhan") || "";
+    const sdtNhan = getUrlParam("sdt") || "";
+    const diaChiNhan = getUrlParam("diachi") || "";
 
-    // Đặt ảnh barcode (dùng service barcode.tec-it.com EAN13)
-    document.getElementById("barcode-img").src =
-      "https://barcode.tec-it.com/barcode.ashx?data=" + encodeURIComponent(barcodeData) + "&code=EAN13&dpi=96";
+    // Gán nội dung vào các phần tử trong page
+    document.getElementById("maVanDon").textContent = barcodeData;
+    document.getElementById("nguoiGui").textContent = nguoiGui;
+    document.getElementById("nguoiNhan").textContent = nguoiNhan;
+    document.getElementById("sdtNhan").textContent = sdtNhan;
+    document.getElementById("diaChiNhan").textContent = diaChiNhan;
 
-    // Đặt QR code (Google Chart API)
-    document.getElementById("qr-code-img").src =
-      "https://chart.googleapis.com/chart?cht=qr&chs=100x100&chl=" + encodeURIComponent(qrData);
+    // Gán hình barcode
+    if(barcodeData) {
+      document.getElementById("barcodeImg").src = `https://barcode.tec-it.com/barcode.ashx?data=${encodeURIComponent(barcodeData)}&code=EAN13&dpi=96`;
+    } else {
+      document.getElementById("barcodeImg").alt = "Chưa có mã vận đơn";
+    }
 
-    // Điền thông tin vào phiếu
-    document.getElementById("mavandon").textContent = barcodeData;
-    document.getElementById("nguoi-gui").textContent = nguoiGui;
-    document.getElementById("nguoi-nhan").textContent = nguoiNhan;
-    document.getElementById("sdt-nhan").textContent = sdtNhan;
-    document.getElementById("diachi-nhan").textContent = diaChiNhan;
+    // Gán hình QR code
+    if(qrData) {
+      document.getElementById("qrCodeImg").src = `https://chart.googleapis.com/chart?cht=qr&chs=100x100&chl=${encodeURIComponent(qrData)}`;
+    } else {
+      document.getElementById("qrCodeImg").alt = "Chưa có QR code";
+    }
   </script>
 </body>
 </html>
