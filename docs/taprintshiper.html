@@ -210,8 +210,9 @@
     document.getElementById("diachi-nhan").textContent = diaChiNhan;
 
     document.getElementById("barcode-img").src = "https://barcode.tec-it.com/barcode.ashx?data=" + encodeURIComponent(barcodeData) + "&code=Code128&dpi=96";
-    document.getElementById("qr-code").src = "https://chart.googleapis.com/chart?cht=qr&chs=100x100&chl=" + encodeURIComponent(qrData);
-    document.getElementById("qrcode-img").src = "https://chart.googleapis.com/chart?cht=qr&chs=100x100&chl=" + encodeURIComponent(qrData);
+    document.getElementById("qr-code").src = "https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=" + encodeURIComponent(qrData);
+    document.getElementById("qrcode-img").src = "https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=" + encodeURIComponent(qrData);
+
   </script>
 </body>
 </html>
