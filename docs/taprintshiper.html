@@ -2,234 +2,217 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <title>Phiếu Giao Nhận</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Phiếu Giao Nhận Hàng - A5</title>
   <style>
     * {
       box-sizing: border-box;
+      margin: 0; padding: 0;
       font-family: Arial, sans-serif;
     }
-
     @page {
       size: A5;
-      margin: 0;
+      margin: 10mm;
     }
-
     body {
-      margin: 5mm;
-      width: 138mm;
-      font-size: 13px;
+      width: 148mm;
+      min-height: 210mm;
+      padding: 15mm 20mm;
+      background: #fff;
+      color: #222;
+      font-size: 14px;
+      line-height: 1.4;
     }
-
     .container {
-      border: 1px solid #000;
-      padding: 8px;
-      max-width: 138mm;
-      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      border: 1px solid #222;
+      padding: 10px 15px;
+      box-sizing: border-box;
     }
-
-    .top {
+    .header {
+      text-align: center;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 8px;
+    }
+    .header h1 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #2c3e50;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .barcode, .qrcode {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .barcode img {
+      max-width: 250px;
+      height: 40px;
+      object-fit: contain;
+    }
+    .qrcode img {
+      height: 100px;
+      width: 100px;
+      object-fit: contain;
+    }
+    .info-section {
+      flex-grow: 1;
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      row-gap: 10px;
+      column-gap: 15px;
+      margin-bottom: 20px;
+    }
+    .label {
+      font-weight: 600;
+      color: #555;
+      align-self: center;
+    }
+    .value {
+      color: #000;
+      word-break: break-word;
+    }
+    .footer {
       display: flex;
       justify-content: space-between;
-      gap: 8px;
+      gap: 20px;
     }
-
-    .left-top {
-      width: 58%;
-    }
-
-    .logo-line {
-      display: flex;
-      align-items: center;
-      margin-bottom: 5px;
-    }
-
-    .logo-line h1 {
-      font-size: 28px;
-      color: orange;
-      margin-right: 8px;
-    }
-
-    .logo-line img {
-      width: 50px;
-      height: auto;
-    }
-
-    .info-row {
-      display: flex;
-      border: 1px solid #000;
-      margin-top: 6px;
-      font-size: 13px;
-    }
-
-    .info-row div {
-      border-right: 1px solid #000;
-      padding: 6px 8px;
-      height: 42px;
+    .signature-box {
       flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .info-row div:last-child {
-      border-right: none;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 6px;
-    }
-
-    th, td {
-      border: 1px solid #000;
-      padding: 6px 8px;
-      text-align: left;
-    }
-
-    th {
-      font-style: italic;
-    }
-
-    .table-right {
-      width: 40%;
-      font-size: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .hotline-text {
-      font-weight: bold;
-      font-size: 14px;
-      text-align: right;
-      white-space: nowrap;
-    }
-
-    .barcode-block {
-      max-width: 100%;
-      width: 100%;
-      text-align: right;
-    }
-
-    .barcode-block img {
-      max-width: 100%;
-      max-height: 60px;
-      object-fit: contain;
-    }
-
-    .barcode-block > div {
-      text-align: right;
-      font-size: 12px;
-      margin-top: 3px;
-    }
-
-    .table-right table {
-      width: 100%;
-      font-size: 12px;
-      margin-top: 0;
-    }
-
-    .cod-box {
-      border: 1px solid #000;
+      border: 1px solid #888;
+      border-radius: 4px;
+      padding: 10px 5px;
       text-align: center;
-      font-weight: bold;
-      padding: 6px 0;
-      font-size: 12px;
-    }
-
-    .qr {
-      text-align: center;
-      margin-top: 6px;
-    }
-
-    .qr img {
-      width: 90px;
-      height: 90px;
-      border: 1px solid #000;
-      object-fit: contain;
-    }
-
-    .bottom {
-      margin-top: 12px;
-    }
-
-    .note-line {
-      height: 25px;
-      border-top: 1px solid #000;
-      padding-top: 5px;
       font-size: 13px;
+    }
+    .signature-label {
+      margin-top: 6px;
+      font-weight: 600;
+      color: #333;
+    }
+    .qr-code {
+      width: 100px;
+      height: 100px;
+      border: 1px solid #888;
+      border-radius: 4px;
+      object-fit: contain;
+      margin: 0 auto 8px;
+      display: block;
+    }
+    .qr-label {
+      text-align: center;
+      font-weight: 600;
+      color: #333;
+      font-size: 13px;
+    }
+    @media print {
+      body {
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        background: white;
+        font-size: 12px;
+      }
+      .container {
+        border: none;
+        padding: 0;
+      }
+      .print-btn {
+        display: none;
+      }
+    }
+    .print-btn {
+      margin-top: 10px;
+      align-self: flex-end;
+      background-color: #3498db;
+      border: none;
+      color: white;
+      padding: 8px 16px;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    .print-btn:hover {
+      background-color: #2980b9;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="top">
-      <div class="left-top">
-        <div class="logo-line">
-          <h1>Ship Đến Ngay</h1>
-          <img src="https://www.appsheet.com/template/gettablefileurl?appName=Appsheet-325045268&tableName=Kho%20%E1%BA%A3nh&fileName=Kho%20%E1%BA%A3nh_Images%2Fa5e5adca.%E1%BA%A2nh.144011.jpg" alt="Logo" />
-        </div>
+    <div class="header">
+      <h1>Phiếu Giao Nhận Hàng</h1>
+    </div>
 
-        <div class="info-row">
-          <div>Người nhận:<br>SDT:</div>
-          <div>Địa chỉ:</div>
-        </div>
+    <div class="barcode">
+      <img id="barcode-img" src="" alt="Barcode" />
+    </div>
 
-        <table>
-          <thead>
-            <tr>
-              <th>STT & Tên</th>
-              <th>Tiền</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>1 dép tổ ong</td><td>100.000</td></tr>
-            <tr><td>2 balo</td><td>200.000</td></tr>
-            <tr><td>3 tạ thóc</td><td>500.000</td></tr>
-          </tbody>
-        </table>
+    <div class="qrcode">
+      <img id="qrcode-img" src="" alt="QR Code" />
+    </div>
+
+    <div class="info-section">
+      <div class="label">Mã vận đơn:</div>
+      <div class="value" id="mavandon">...</div>
+
+      <div class="label">Người gửi:</div>
+      <div class="value" id="nguoi-gui">...</div>
+
+      <div class="label">Người nhận:</div>
+      <div class="value" id="nguoi-nhan">...</div>
+
+      <div class="label">SĐT người nhận:</div>
+      <div class="value" id="sdt-nhan">...</div>
+
+      <div class="label">Địa chỉ người nhận:</div>
+      <div class="value" id="diachi-nhan">...</div>
+    </div>
+
+    <div class="footer">
+      <div class="signature-box">
+        <div class="signature-label">Người gửi</div>
       </div>
-
-      <div class="table-right">
-        <div class="hotline-text">Hotline: 035.3873.488</div>
-
-        <div class="barcode-block">
-          <img id="barcode-img" src="" alt="Barcode" />
-        </div>
-
-        <table>
-          <tr><td>Trọng lượng tính cước:</td></tr>
-          <tr><td>Thời gian in:</td></tr>
-          <tr><td>Free Ship: Có/ Không</td></tr>
-          <tr><td>Tổng COD:</td></tr>
-        </table>
-
-        <div class="cod-box">Không/Được phép đóng kiểm</div>
-
-        <div class="qr">
-          <img id="qrcode-img" src="" alt="QR Code" />
-        </div>
+      <div class="signature-box">
+        <div class="signature-label">Người nhận</div>
+      </div>
+      <div class="signature-box">
+        <img class="qr-code" id="qr-code" src="" alt="QR Code" />
+        <div class="qr-label">QR Code Mã vận đơn</div>
       </div>
     </div>
 
-    <div class="bottom">
-      <div class="note-line">Ghi chú:</div>
-    </div>
+    <button class="print-btn" onclick="window.print()">In phiếu</button>
   </div>
 
   <script>
-    const barcodeData = new URLSearchParams(window.location.search).get("barcode") || "SHIP123456";
-    const qrData = barcodeData;
+    function getUrlParam(key) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(key) || "";
+    }
 
-    document.getElementById("barcode-img").src =
-      "https://barcode.tec-it.com/barcode.ashx?data=" +
-      encodeURIComponent(barcodeData) +
-      "&code=Code128&dpi=96";
+    const barcodeData = getUrlParam("barcode");
+    const qrData = getUrlParam("qrcode") || barcodeData;
+    const nguoiGui = getUrlParam("guitai");
+    const nguoiNhan = getUrlParam("nguoinhan");
+    const sdtNhan = getUrlParam("sdt");
+    const diaChiNhan = getUrlParam("diachi");
 
-    document.getElementById("qrcode-img").src =
-      "https://chart.googleapis.com/chart?cht=qr&chs=100x100&chl=" +
-      encodeURIComponent(qrData);
+    document.getElementById("mavandon").textContent = barcodeData;
+    document.getElementById("nguoi-gui").textContent = nguoiGui;
+    document.getElementById("nguoi-nhan").textContent = nguoiNhan;
+    document.getElementById("sdt-nhan").textContent = sdtNhan;
+    document.getElementById("diachi-nhan").textContent = diaChiNhan;
+
+    document.getElementById("barcode-img").src = "https://barcode.tec-it.com/barcode.ashx?data=" + encodeURIComponent(barcodeData) + "&code=Code128&dpi=96";
+    document.getElementById("qr-code").src = "https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=" + encodeURIComponent(qrData);
+    document.getElementById("qrcode-img").src = "https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=" + encodeURIComponent(qrData);
+
   </script>
 </body>
 </html>
