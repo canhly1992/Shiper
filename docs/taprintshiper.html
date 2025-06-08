@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Phiếu Giao Nhận</title>
   <style>
     * {
@@ -55,11 +55,18 @@
       text-align: right;
       font-size: 12px;
       width: 30%;
+      max-width: 130px; /* Giới hạn chiều rộng của khung barcode */
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
     }
 
     .barcode-block img {
       width: 100%;
-      height: 35px;
+      max-height: 40px; /* Giới hạn chiều cao ảnh barcode */
+      object-fit: contain;
+      display: inline-block;
     }
 
     .info-row {
@@ -136,7 +143,6 @@
       padding-top: 3px;
       font-size: 13px;
     }
-
   </style>
 </head>
 <body>
@@ -145,7 +151,7 @@
       <div class="left-top">
         <div class="logo-line">
           <h1>Ship Đến Ngay</h1>
-          <img src="https://www.appsheet.com/template/gettablefileurl?appName=Appsheet-325045268&tableName=Kho%20%E1%BA%A3nh&fileName=Kho%20%E1%BA%A3nh_Images%2Fa5e5adca.%E1%BA%A2nh.144011.jpg" alt="Logo">
+          <img src="https://www.appsheet.com/template/gettablefileurl?appName=Appsheet-325045268&tableName=Kho%20%E1%BA%A3nh&fileName=Kho%20%E1%BA%A3nh_Images%2Fa5e5adca.%E1%BA%A2nh.144011.jpg" alt="Logo" />
         </div>
 
         <div class="info-row">
@@ -170,9 +176,11 @@
 
       <div class="table-right">
         <div style="text-align:right;">Hotline: 035.3873.488</div>
-        <img id="barcode-img" src="" alt="Barcode">
-        <div>MVD:</div>
-        <div>Note Lưu Ý: (Cố Định)</div>
+        <div class="barcode-block">
+          <img id="barcode-img" src="" alt="Barcode" />
+          <div>MVD:</div>
+          <div>Note Lưu Ý: (Cố Định)</div>
+        </div>
 
         <table>
           <tr><td>Trọng lượng tính cước:</td></tr>
@@ -184,7 +192,7 @@
         <div class="cod-box">Không/Được phép đóng kiểm</div>
 
         <div class="qr">
-          <img id="qrcode-img" src="" alt="QR Code">
+          <img id="qrcode-img" src="" alt="QR Code" />
         </div>
       </div>
     </div>
@@ -202,6 +210,7 @@
       "https://barcode.tec-it.com/barcode.ashx?data=" +
       encodeURIComponent(barcodeData) +
       "&code=Code128&dpi=96";
+
     document.getElementById("qrcode-img").src =
       "https://chart.googleapis.com/chart?cht=qr&chs=100x100&chl=" +
       encodeURIComponent(qrData);
