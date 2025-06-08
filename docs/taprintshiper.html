@@ -46,11 +46,11 @@
       text-transform: uppercase;
       letter-spacing: 1px;
     }
-    .barcode {
+    .barcode, .qrcode {
       text-align: center;
       margin-bottom: 20px;
     }
-    .barcode img {
+    .barcode img, .qrcode img {
       max-width: 250px;
       height: 40px;
       object-fit: contain;
@@ -148,6 +148,10 @@
       <img id="barcode-img" src="" alt="Barcode" />
     </div>
 
+    <div class="qrcode">
+      <img id="qrcode-img" src="" alt="QR Code" style="height:100px;width:100px;" />
+    </div>
+
     <div class="info-section">
       <div class="label">Mã vận đơn:</div>
       <div class="value" id="mavandon">...</div>
@@ -188,6 +192,7 @@
     }
 
     const barcodeData = getUrlParam("barcode");
+    const qrData = getUrlParam("qr") || barcodeData;
     const nguoiGui = getUrlParam("guitai");
     const nguoiNhan = getUrlParam("nguoinhan");
     const sdtNhan = getUrlParam("sdt");
@@ -200,7 +205,8 @@
     document.getElementById("diachi-nhan").textContent = diaChiNhan;
 
     document.getElementById("barcode-img").src = "https://barcode.tec-it.com/barcode.ashx?data=" + encodeURIComponent(barcodeData) + "&code=Code128&dpi=96";
-    document.getElementById("qr-code").src = "https://chart.googleapis.com/chart?cht=qr&chs=100x100&chl=" + encodeURIComponent(barcodeData);
+    document.getElementById("qr-code").src = "https://chart.googleapis.com/chart?cht=qr&chs=100x100&chl=" + encodeURIComponent(qrData);
+    document.getElementById("qrcode-img").src = "https://chart.googleapis.com/chart?cht=qr&chs=100x100&chl=" + encodeURIComponent(qrData);
   </script>
 </body>
 </html>
