@@ -150,19 +150,19 @@
 
     <div class="info-section">
       <div class="label">Mã vận đơn:</div>
-      <div class="value" id="maVanDon"></div>
+      <div class="value" id="maVanDon">...</div>
 
       <div class="label">Người gửi:</div>
-      <div class="value" id="nguoiGui"></div>
+      <div class="value" id="nguoiGui">...</div>
 
       <div class="label">Người nhận:</div>
-      <div class="value" id="nguoiNhan"></div>
+      <div class="value" id="nguoiNhan">...</div>
 
       <div class="label">SĐT người nhận:</div>
-      <div class="value" id="sdtNhan"></div>
+      <div class="value" id="sdtNhan">...</div>
 
       <div class="label">Địa chỉ người nhận:</div>
-      <div class="value" id="diaChiNhan"></div>
+      <div class="value" id="diaChiNhan">...</div>
     </div>
 
     <div class="footer">
@@ -182,40 +182,42 @@
   </div>
 
   <script>
-    // Hàm lấy tham số URL theo tên
+    // Hàm lấy tham số URL
     function getUrlParam(name) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(name);
+      const params = new URLSearchParams(window.location.search);
+      return params.get(name);
     }
 
-    // Lấy tham số từ URL, không có thì để rỗng
-    const barcodeData = getUrlParam("barcode") || "";
-    const qrData = getUrlParam("qr") || "";
-    const nguoiGui = getUrlParam("guitai") || "";
-    const nguoiNhan = getUrlParam("nguoinhan") || "";
-    const sdtNhan = getUrlParam("sdt") || "";
-    const diaChiNhan = getUrlParam("diachi") || "";
+    document.addEventListener("DOMContentLoaded", function() {
+      const barcodeData = getUrlParam("barcode") || "";
+      const qrData = getUrlParam("qr") || barcodeData;
+      const nguoiGui = getUrlParam("guitai") || "Người gửi";
+      const nguoiNhan = getUrlParam("nguoinhan") || "Người nhận";
+      const sdtNhan = getUrlParam("sdt") || "0000000000";
+      const diaChiNhan = getUrlParam("diachi") || "Địa chỉ";
 
-    // Gán nội dung vào các phần tử trong page
-    document.getElementById("maVanDon").textContent = barcodeData;
-    document.getElementById("nguoiGui").textContent = nguoiGui;
-    document.getElementById("nguoiNhan").textContent = nguoiNhan;
-    document.getElementById("sdtNhan").textContent = sdtNhan;
-    document.getElementById("diaChiNhan").textContent = diaChiNhan;
+      // Gán dữ liệu vào phần tử
+      document.getElementById("maVanDon").textContent = barcodeData;
+      document.getElementById("nguoiGui").textContent = nguoiGui;
+      document.getElementById("nguoiNhan").textContent = nguoiNhan;
+      document.getElementById("sdtNhan").textContent = sdtNhan;
+      document.getElementById("diaChiNhan").textContent = diaChiNhan;
 
-    // Gán hình barcode
-    if(barcodeData) {
-      document.getElementById("barcodeImg").src = `https://barcode.tec-it.com/barcode.ashx?data=${encodeURIComponent(barcodeData)}&code=EAN13&dpi=96`;
-    } else {
-      document.getElementById("barcodeImg").alt = "Chưa có mã vận đơn";
-    }
+      // Set hình barcode
+      if (barcodeData) {
+        document.getElementById("barcodeImg").src =
+          "https://barcode.tec-it.com/barcode.ashx?data=" +
+          encodeURIComponent(barcodeData) +
+          "&code=EAN13&dpi=96";
+      }
 
-    // Gán hình QR code
-    if(qrData) {
-      document.getElementById("qrCodeImg").src = `https://chart.googleapis.com/chart?cht=qr&chs=100x100&chl=${encodeURIComponent(qrData)}`;
-    } else {
-      document.getElementById("qrCodeImg").alt = "Chưa có QR code";
-    }
+      // Set hình QR code
+      if (qrData) {
+        document.getElementById("qrCodeImg").src =
+          "https://chart.googleapis.com/chart?cht=qr&chs=100x100&chl=" +
+          encodeURIComponent(qrData);
+      }
+    });
   </script>
 </body>
 </html>
