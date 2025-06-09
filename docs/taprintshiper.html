@@ -1,218 +1,178 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Phiếu Giao Nhận Hàng - A5</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0; padding: 0;
-      font-family: Arial, sans-serif;
-    }
-    @page {
-      size: A5;
-      margin: 10mm;
-    }
-    body {
-      width: 148mm;
-      min-height: 210mm;
-      padding: 15mm 20mm;
-      background: #fff;
-      color: #222;
-      font-size: 14px;
-      line-height: 1.4;
-    }
-    .container {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      border: 1px solid #222;
-      padding: 10px 15px;
-      box-sizing: border-box;
-    }
-    .header {
-      text-align: center;
-      margin-bottom: 15px;
-      border-bottom: 2px solid #3498db;
-      padding-bottom: 8px;
-    }
-    .header h1 {
-      font-size: 20px;
-      font-weight: 700;
-      color: #2c3e50;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    .barcode, .qrcode {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .barcode img {
-      max-width: 250px;
-      height: 40px;
-      object-fit: contain;
-    }
-    .qrcode img {
-      height: 100px;
-      width: 100px;
-      object-fit: contain;
-    }
-    .info-section {
-      flex-grow: 1;
-      display: grid;
-      grid-template-columns: 120px 1fr;
-      row-gap: 10px;
-      column-gap: 15px;
-      margin-bottom: 20px;
-    }
-    .label {
-      font-weight: 600;
-      color: #555;
-      align-self: center;
-    }
-    .value {
-      color: #000;
-      word-break: break-word;
-    }
-    .footer {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-    }
-    .signature-box {
-      flex: 1;
-      border: 1px solid #888;
-      border-radius: 4px;
-      padding: 10px 5px;
-      text-align: center;
-      font-size: 13px;
-    }
-    .signature-label {
-      margin-top: 6px;
-      font-weight: 600;
-      color: #333;
-    }
-    .qr-code {
-      width: 100px;
-      height: 100px;
-      border: 1px solid #888;
-      border-radius: 4px;
-      object-fit: contain;
-      margin: 0 auto 8px;
-      display: block;
-    }
-    .qr-label {
-      text-align: center;
-      font-weight: 600;
-      color: #333;
-      font-size: 13px;
-    }
-    @media print {
-      body {
-        margin: 0;
-        padding: 0;
-        box-shadow: none;
-        background: white;
-        font-size: 12px;
-      }
-      .container {
-        border: none;
-        padding: 0;
-      }
-      .print-btn {
-        display: none;
-      }
-    }
-    .print-btn {
-      margin-top: 10px;
-      align-self: flex-end;
-      background-color: #3498db;
-      border: none;
-      color: white;
-      padding: 8px 16px;
-      font-size: 14px;
-      cursor: pointer;
-      border-radius: 4px;
-      transition: background-color 0.3s ease;
-    }
-    .print-btn:hover {
-      background-color: #2980b9;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Form Đơn Hàng</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: white;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+        }
+        td, th {
+            border: 1px dashed #000;
+            padding: 4px;
+            vertical-align: top;
+            background-color: white;
+        }
+        .note {
+            height: 120px;
+        }
+        .col-half {
+            width: 50%;
+            vertical-align: top;
+        }
+        .nested-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .nested-table td {
+            border: 1px dashed #000;
+            background-color: white;
+        }
+        .img-container {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .img-container img#anh1 {
+            max-width: 100%;
+            height: auto;
+        }
+        #anh2 {
+            width: 160px; /* Tăng gấp đôi */
+            height: auto;
+            display: block;
+            margin: 5px auto;
+        }
+        #anh3 {
+            width: 180px;   /* Lớn hơn */
+            height: 180px;
+            object-fit: cover;
+            border: 1px solid #000;
+            display: block;
+            margin: 5px auto;
+        }
+        .white-bg {
+            background-color: white;
+            padding: 5px;
+        }
+    </style>
+    <script>
+        function getParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name) || "";
+        }
+
+        window.onload = function () {
+            const nguoigui = getParam("nguoigui");
+            const nguoinhan = getParam("nguoinhan");
+            const diachi = getParam("diachi");
+            const sdt = getParam("sdt");
+            const data = getParam("data");
+
+            const mvd = getParam("mvd");
+            const note = getParam("note");
+            const trongluong = getParam("trongluong");
+            const thoigian = getParam("thoigian");
+            const freeship = getParam("freeship");
+            const tongcode = getParam("tongcode");
+            const dongkiem = getParam("dongkiem");
+
+            const anh1 = getParam("anh1");
+            const anh2 = getParam("anh2");
+            const anh3 = getParam("anh3");
+
+            document.getElementById("nguoigui").innerText = nguoigui;
+            document.getElementById("nguoinhan").innerText = nguoinhan;
+            document.getElementById("diachi").innerText = diachi;
+            document.getElementById("sdt").innerText = sdt;
+
+            const rows = data.split("_b_");
+            let tableBody = "";
+            rows.forEach((item, index) => {
+                const [ten, tien] = item.split("_a_");
+                tableBody += `<tr><td>${index + 1}</td><td>${ten}</td><td>${tien}</td></tr>`;
+            });
+            document.getElementById("data-rows").innerHTML = tableBody;
+
+            document.getElementById("mvd").innerText = mvd;
+            document.getElementById("note").innerText = note;
+            document.getElementById("trongluong").innerText = trongluong;
+            document.getElementById("thoigian").innerText = thoigian;
+            document.getElementById("freeship").innerText = freeship;
+            document.getElementById("tongcode").innerText = tongcode;
+            document.getElementById("dongkiem").innerText = dongkiem;
+
+            if (anh1) document.getElementById("anh1").src = anh1;
+            if (anh2) document.getElementById("anh2").src = anh2;
+            if (anh3) document.getElementById("anh3").src = anh3;
+        };
+    </script>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h1>Phiếu Giao Nhận Hàng</h1>
-    </div>
 
-    <div class="barcode">
-      <img id="barcode-img" src="" alt="Barcode" />
-    </div>
+<table>
+    <tr>
+        <!-- Cột 1 -->
+        <td class="col-half">
+            <div class="img-container">
+                <img id="anh1" src="" alt="Ảnh 1">
+            </div>
+            Người gửi: <span id="nguoigui"></span>
+            <br><br>
+            <table class="nested-table">
+                <tr>
+                    <td>Người nhận: <span id="nguoinhan"></span></td>
+                    <td>Địa chỉ: <span id="diachi"></span></td>
+                </tr>
+            </table>
+            <br>
+            SĐT: <span id="sdt"></span>
+            <br><br>
+            <table class="nested-table">
+                <tr>
+                    <td>STT</td>
+                    <td>Tên</td>
+                    <td>Tiền</td>
+                </tr>
+                <tbody id="data-rows"></tbody>
+            </table>
+            <br>
+            <div class="note">Ghi chú:</div>
+        </td>
 
-    <div class="qrcode">
-      <img id="qrcode-img" src="" alt="QR Code" />
-    </div>
+        <!-- Cột 2 -->
+        <td class="col-half">
+            <div class="white-bg">
+                HOTLINE: 035.3873.488<br>
+                <img id="anh2" src="" alt="Ảnh 2">
+            </div>
+            <br>
+            <table class="nested-table">
+                <tr><td>MVD: <span id="mvd"></span></td></tr>
+                <tr><td>Note lưu ý: <span id="note"></span></td></tr>
+                <tr><td>Trọng lượng tính cước: <span id="trongluong"></span></td></tr>
+                <tr><td>Thời gian in: <span id="thoigian"></span></td></tr>
+                <tr><td>Freeship: <span id="freeship"></span></td></tr>
+                <tr><td>Tổng code: <span id="tongcode"></span></td></tr>
+                <tr><td>Đồng kiểm: <span id="dongkiem"></span></td></tr>
+            </table>
+            <br>
+            <div class="white-bg">
+                <img id="anh3" src="" alt="Ảnh 3">
+            </div>
+        </td>
+    </tr>
+</table>
 
-    <div class="info-section">
-      <div class="label">Mã vận đơn:</div>
-      <div class="value" id="mavandon">...</div>
-
-      <div class="label">Người gửi:</div>
-      <div class="value" id="nguoi-gui">...</div>
-
-      <div class="label">Người nhận:</div>
-      <div class="value" id="nguoi-nhan">...</div>
-
-      <div class="label">SĐT người nhận:</div>
-      <div class="value" id="sdt-nhan">...</div>
-
-      <div class="label">Địa chỉ người nhận:</div>
-      <div class="value" id="diachi-nhan">...</div>
-    </div>
-
-    <div class="footer">
-      <div class="signature-box">
-        <div class="signature-label">Người gửi</div>
-      </div>
-      <div class="signature-box">
-        <div class="signature-label">Người nhận</div>
-      </div>
-      <div class="signature-box">
-        <img class="qr-code" id="qr-code" src="" alt="QR Code" />
-        <div class="qr-label">QR Code Mã vận đơn</div>
-      </div>
-    </div>
-
-    <button class="print-btn" onclick="window.print()">In phiếu</button>
-  </div>
-
-  <script>
-    function getUrlParam(key) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(key) || "";
-    }
-
-    const barcodeData = getUrlParam("barcode");
-    const qrData = getUrlParam("qrcode") || barcodeData;
-    const nguoiGui = getUrlParam("guitai");
-    const nguoiNhan = getUrlParam("nguoinhan");
-    const sdtNhan = getUrlParam("sdt");
-    const diaChiNhan = getUrlParam("diachi");
-
-    document.getElementById("mavandon").textContent = barcodeData;
-    document.getElementById("nguoi-gui").textContent = nguoiGui;
-    document.getElementById("nguoi-nhan").textContent = nguoiNhan;
-    document.getElementById("sdt-nhan").textContent = sdtNhan;
-    document.getElementById("diachi-nhan").textContent = diaChiNhan;
-
-    document.getElementById("barcode-img").src = "https://barcode.tec-it.com/barcode.ashx?data=" + encodeURIComponent(barcodeData) + "&code=Code128&dpi=96";
-    document.getElementById("qr-code").src = "https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=" + encodeURIComponent(qrData);
-    document.getElementById("qrcode-img").src = "https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=" + encodeURIComponent(qrData);
-
-  </script>
 </body>
 </html>
+
+
+
