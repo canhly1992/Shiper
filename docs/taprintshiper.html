@@ -72,8 +72,8 @@
         window.onload = function () {
             const nguoigui = getParam("nguoigui");
             const nguoinhan = getParam("nguoinhan");
-            const diachi = getParam("diachi");
             const sdt = getParam("sdt");
+            const diachi = getParam("diachi");
             const data = getParam("data");
 
             const mvd = getParam("mvd");
@@ -90,8 +90,8 @@
 
             document.getElementById("nguoigui").innerText = nguoigui;
             document.getElementById("nguoinhan").innerText = nguoinhan;
-            document.getElementById("diachi").innerText = diachi;
             document.getElementById("sdt").innerText = sdt;
+            document.getElementById("diachi").innerText = diachi;
 
             const rows = data.split("_b_");
             let tableBody = "";
@@ -130,11 +130,11 @@
             <table class="nested-table">
                 <tr>
                     <td>Người nhận: <span id="nguoinhan"></span></td>
-                    <td>Địa chỉ: <span id="diachi"></span></td>
+                    <td>SĐT: <span id="sđt"></span></td>
                 </tr>
             </table>
             <br>
-            SĐT: <span id="sdt"></span>
+            Địa chỉ:: <span id="diachi"></span>
             <br><br>
             <table class="nested-table">
                 <tr>
