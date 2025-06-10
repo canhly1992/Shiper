@@ -1,176 +1,158 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <title>CHI TIẾT ĐƠN HÀNG</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            background-color: white;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: white;
-        }
-        td, th {
-            border: 1px dashed #000;
-            padding: 4px;
-            vertical-align: top;
-            background-color: white;
-        }
-        .note {
-            height: 100px;
-        }
-        .col-half {
-            width: 50%;
-            vertical-align: top;
-        }
-        .nested-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .nested-table td {
-            border: 1px dashed #000;
-            background-color: white;
-        }
-        .img-container {
-            width: 100%;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-        .img-container img#anh1 {
-            max-width: 100%;
-            height: auto;
-        }
-        #anh2 {
-            width: 160px; /* Tăng gấp đôi */
-            height: auto;
-            display: block;
-            margin: 5px auto;
-        }
-        #anh3 {
-            width: 100px;   /* Lớn hơn */
-            height: 100px;
-            object-fit: cover;
-            border: 1px solid #000;
-            display: block;
-            margin: 5px auto;
-        }
-        .white-bg {
-            background-color: white;
-            padding: 5px;
-        }
-    </style>
-    <script>
-        function getParam(name) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(name) || "";
-        }
+  <meta charset="UTF-8">
+  <title>Form Đơn Hàng</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: white;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+    }
+    td, th {
+      border: 1px dashed #000;
+      padding: 4px;
+      vertical-align: top;
+      background-color: white;
+    }
+    .note {
+      height: 120px;
+    }
+    .col-half {
+      width: 50%;
+      vertical-align: top;
+    }
+    .nested-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .nested-table td {
+      border: 1px dashed #000;
+    }
+    .img-container {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    #anh1 {
+      max-width: 100%;
+      height: auto;
+    }
+    #anh2 {
+      width: 160px;
+      height: auto;
+      display: block;
+      margin: 5px auto;
+    }
+    #anh3 {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border: 1px solid #000;
+      display: block;
+      margin: 5px auto;
+    }
+    .white-bg {
+      background-color: white;
+      padding: 5px;
+    }
+  </style>
+  <script>
+    function getParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name) || "";
+    }
 
-        window.onload = function () {
-            const nguoigui = getParam("nguoigui");
-            const nguoinhan = getParam("nguoinhan");
-            const diachi = getParam("diachi");
-            const sdt = getParam("sdt");
-            const data = getParam("data");
+    window.onload = function () {
+      const fields = [
+        "nguoigui", "nguoinhan", "diachi", "sdt", "mvd", "note",
+        "trongluong", "thoigian", "freeship", "tongcode", "dongkiem",
+        "anh1", "anh2", "anh3", "data"
+      ];
 
-            const mvd = getParam("mvd");
-            const note = getParam("note");
-            const trongluong = getParam("trongluong");
-            const thoigian = getParam("thoigian");
-            const freeship = getParam("freeship");
-            const tongcode = getParam("tongcode");
-            const dongkiem = getParam("dongkiem");
+      fields.forEach(field => {
+        const value = getParam(field);
+        if (field.startsWith("anh") && value) {
+          document.getElementById(field).src = value;
+        } else if (field !== "data") {
+          document.getElementById(field).innerText = value;
+        }
+      });
 
-            const anh1 = getParam("anh1");
-            const anh2 = getParam("anh2");
-            const anh3 = getParam("anh3");
-
-            document.getElementById("nguoigui").innerText = nguoigui;
-            document.getElementById("nguoinhan").innerText = nguoinhan;
-            document.getElementById("diachi").innerText = diachi;
-            document.getElementById("sdt").innerText = sdt;
-
-            const rows = data.split("_b_");
-            let tableBody = "";
-            rows.forEach((item, index) => {
-                const [ten, tien] = item.split("_a_");
-                tableBody += <tr><td>${index + 1}</td><td>${ten}</td><td>${tien}</td></tr>;
-            });
-            document.getElementById("data-rows").innerHTML = tableBody;
-
-            document.getElementById("mvd").innerText = mvd;
-            document.getElementById("note").innerText = note;
-            document.getElementById("trongluong").innerText = trongluong;
-            document.getElementById("thoigian").innerText = thoigian;
-            document.getElementById("freeship").innerText = freeship;
-            document.getElementById("tongcode").innerText = tongcode;
-            document.getElementById("dongkiem").innerText = dongkiem;
-            
-
-            if (anh1) document.getElementById("anh1").src = anh1;
-            if (anh2) document.getElementById("anh2").src = anh2;
-            if (anh3) document.getElementById("anh3").src = anh3;
-        };
-    </script>
+      const data = getParam("data");
+      if (data) {
+        const rows = data.split("_b_");
+        const tableBody = rows.map((item, index) => {
+          const [ten, tien] = item.split("_a_");
+          return `<tr><td>${index + 1}</td><td>${ten}</td><td>${tien}</td></tr>`;
+        }).join("");
+        document.getElementById("data-rows").innerHTML = tableBody;
+      }
+    };
+  </script>
 </head>
 <body>
 
-<table>
+  <table>
     <tr>
-        <!-- Cột 1 -->
-        <td class="col-half">
-            <div class="img-container">
-                <img id="anh1" src="" alt="Ảnh 1">
-            </div>
-            Người gửi: <span id="nguoigui"></span>
-            <br><br>
-            <table class="nested-table">
-                <tr>
-                    <td>Người nhận: <span id="nguoinhan"></span></td>
-                    <td>Địa chỉ: <span id="diachi"></span></td>
-                </tr>
-            </table>
-            <br>
-            SĐT: <span id="sdt"></span>
-            <br><br>
-            <table class="nested-table">
-                <tr>
-                    <td>STT</td>
-                    <td>Tên</td>
-                    <td>Tiền</td>
-                </tr>
-                <tbody id="data-rows"></tbody>
-            </table>
-            <br>
-            <div class="note">Ghi chú:</div>
-        </td>
+      <!-- Cột 1 -->
+      <td class="col-half">
+        <div class="img-container">
+          <img id="anh1" src="" alt="Ảnh 1">
+        </div>
+        Người gửi: <span id="nguoigui"></span><br><br>
 
-        <!-- Cột 2 -->
-        <td class="col-half">
-            <div class="white-bg">
-                HOTLINE: 035.3873.488<br>
-                <img id="anh2" src="" alt="Ảnh 2">
-            </div>
-            <br>
-            <table class="nested-table">
-                <tr><td>MVD: <span id="mvd"></span></td></tr>
-                <tr><td>Note lưu ý: <span id="note"></span></td></tr>
-                <tr><td>Trọng lượng tính cước: <span id="trongluong"></span></td></tr>
-                <tr><td>Thời gian in: <span id="thoigian"></span></td></tr>
-                <tr><td>Freeship: <span id="freeship"></span></td></tr>
-                <tr><td>Tổng code: <span id="tongcode"></span></td></tr>
-                <tr><td>Đồng kiểm: <span id="dongkiem"></span></td></tr>
-            </table>
-            <br>
-            <div class="white-bg">
-                <img id="anh3" src="" alt="Ảnh 3">
-            </div>
-        </td>
+        <table class="nested-table">
+          <tr>
+            <td>Người nhận: <span id="nguoinhan"></span></td>
+            <td>Địa chỉ: <span id="diachi"></span></td>
+          </tr>
+        </table>
+
+        <br>SĐT: <span id="sdt"></span><br><br>
+
+        <table class="nested-table">
+          <tr>
+            <td>STT</td>
+            <td>Tên</td>
+            <td>Tiền</td>
+          </tr>
+          <tbody id="data-rows"></tbody>
+        </table>
+
+        <br>
+        <div class="note">Ghi chú:</div>
+      </td>
+
+      <!-- Cột 2 -->
+      <td class="col-half">
+        <div class="white-bg">
+          HOTLINE: 035.3873.488<br>
+          <img id="anh2" src="" alt="Ảnh 2">
+        </div>
+        <br>
+
+        <table class="nested-table">
+          <tr><td>MVD: <span id="mvd"></span></td></tr>
+          <tr><td>Note lưu ý: <span id="note"></span></td></tr>
+          <tr><td>Trọng lượng tính cước: <span id="trongluong"></span></td></tr>
+          <tr><td>Thời gian in: <span id="thoigian"></span></td></tr>
+          <tr><td>Freeship: <span id="freeship"></span></td></tr>
+          <tr><td>Tổng code: <span id="tongcode"></span></td></tr>
+          <tr><td>Đồng kiểm: <span id="dongkiem"></span></td></tr>
+        </table>
+
+        <br>
+        <div class="white-bg">
+          <img id="anh3" src="" alt="Ảnh 3">
+        </div>
+      </td>
     </tr>
-</table>
+  </table>
 
 </body>
 </html>
