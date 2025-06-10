@@ -83,15 +83,17 @@
         }
       });
 
-      const data = getParam("data");
-      if (data) {
-        const rows = data.split("_b_");
-        const tableBody = rows.map((item, index) => {
-          const [ten, tien] = item.split("_a_");
-          return `<tr><td>${index + 1}</td><td>${ten}</td><td>${tien}</td></tr>`;
-        }).join("");
-        document.getElementById("data-rows").innerHTML = tableBody;
-      }
+const data = getParam("data");
+if (data) {
+  const rows = data.split("_b_");
+  const tableBody = rows.map((item, index) => {
+    const [ten, tien] = item.split("_a_");
+    const tienFormatted = Number(tien).toLocaleString("vi-VN");
+    return `<tr><td>${index + 1}</td><td>${ten}</td><td>${tienFormatted}</td></tr>`;
+  }).join("");
+  document.getElementById("data-rows").innerHTML = tableBody;
+}
+
     };
   </script>
 </head>
