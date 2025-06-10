@@ -5,157 +5,177 @@
   <title>THÔNG TIN KHÁCH HÀNG</title>
   <style>
     body {
-      font-family: "Times New Roman", serif;
+      font-family: 'Times New Roman', serif;
       padding: 20px;
       background-color: white;
     }
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 10px;
     }
     td, th {
-      border: 1px solid black;
+      border: 1px solid #000;
       padding: 4px;
       vertical-align: top;
-      font-size: 14px;
     }
-    .title {
+    .center {
       text-align: center;
+    }
+    .bold {
       font-weight: bold;
-      font-size: 18px;
-      margin: 10px 0;
     }
-    .subhead {
-      text-align: center;
-      font-size: 14px;
-    }
-    .section-title {
-      background-color: #f2f2f2;
-      font-weight: bold;
-      text-align: center;
+    .no-border {
+      border: none;
     }
   </style>
   <script>
     function getParam(name) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(name) || "";
+      const url = new URL(window.location.href);
+      return decodeURIComponent(url.searchParams.get(name) || "");
     }
 
     window.onload = function () {
       const fields = [
-        "CuaHang", "DiaChiCH", "HotlineCH", "HoTen", "MaSo", "GioiTinh", "SinhNgay", "SDT", "DiaChi", "BacSi", "Ngay",
-        "MP", "MT", "TLP", "DCP", "TRUP", "TRUCP", "TLCKMP",
-        "TLT", "DCT", "TRUT", "TRUCT", "TLCKMT",
-        "CKCP", "CKTP", "CKTRUCP", "ADD", "GP", "CKMPTLCK",
+        "CuaHang", "DiaChiCH", "Hotline",
+        "HoTen", "MaSo", "GioiTinh", "SinhNgay", "SDT", "DiaChi",
+        "BacSi", "Ngay",
+        "MP", "MT", "TLP", "TLT",
+        "DCP", "TRUP", "TRUCP", "TLCKMP",
+        "DCT", "TRUT", "TRUCT", "TLCKMT",
+        "CKCP", "CKTP", "CKTRUCP", "CKMPTLCK",
         "CKCT", "CKTT", "CKTRUCT", "CKMTTLCK",
-        "A", "A2", "PD", "KhoangCach", "Kinh"
+        "PD", "A", "A2", "GP", "GT", "KhoangCach", "KinhDeNghi", "ADD"
       ];
-      fields.forEach(field => {
-        document.getElementById(field).innerText = getParam(field);
+
+      fields.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = getParam(id);
       });
 
-      // In sau 1s
       setTimeout(() => window.print(), 1000);
     };
   </script>
 </head>
 <body>
 
-  <div class="title"><<span id="CuaHang"></span>></div>
-  <div class="subhead">
-    Địa chỉ: <<span id="DiaChiCH"></span>> <br>
-    Điện thoại: <<span id="HotlineCH"></span>>
+  <div class="center bold">
+    << <span id="CuaHang"></span> >><br>
+    Địa chỉ: << <span id="DiaChiCH"></span> >><br>
+    Điện thoại: << <span id="Hotline"></span> >>
   </div>
 
-  <div class="title">THÔNG TIN KHÁCH HÀNG</div>
+  <h2 class="center">THÔNG TIN KHÁCH HÀNG</h2>
 
   <table>
     <tr>
-      <td>Họ và tên: <<span id="HoTen"></span>></td>
-      <td>Mã số (ID): <<span id="MaSo"></span>></td>
+      <td colspan="3">Họ và tên (Full name): << <span id="HoTen"></span> >></td>
+      <td>Mã số (ID): << <span id="MaSo"></span> >></td>
     </tr>
     <tr>
-      <td>Giới tính: <<span id="GioiTinh"></span>> - Năm sinh: <<span id="SinhNgay"></span>></td>
-      <td>SĐT: <<span id="SDT"></span>></td>
+      <td>Giới (Sex): << <span id="GioiTinh"></span> >></td>
+      <td>Năm sinh (DOB): << <span id="SinhNgay"></span> >></td>
+      <td colspan="2">SĐT (Tel): << <span id="SDT"></span> >></td>
     </tr>
     <tr>
-      <td colspan="2">Địa chỉ: <<span id="DiaChi"></span>></td>
+      <td colspan="4">Địa Chỉ (Address): << <span id="DiaChi"></span> >></td>
     </tr>
     <tr>
-      <td>Bác sĩ / KTV: <<span id="BacSi"></span>></td>
-      <td>Ngày kiểm tra: <<span id="Ngay"></span>></td>
+      <td colspan="2">Bác sĩ / KTV (Doctor / Optician): << <span id="BacSi"></span> >></td>
+      <td colspan="2">Ngày kiểm tra: << <span id="Ngay"></span> >></td>
     </tr>
   </table>
 
-  <table>
-    <tr class="section-title">
-      <td rowspan="2">KÍNH CŨ</td>
-      <td>THỊ LỰC (VA)</td><td>ĐỘ CẦU (Sphere)</td><td>ĐỘ LOẠN (Cylinder)</td><td>TRỤC (Axis)</td>
-    </tr>
-    <tr>
-      <td>Mắt Phải (OD): <<span id="MP"></span>></td>
-      <td colspan="3"></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td>Mắt Trái (OS): <<span id="MT"></span>></td>
-      <td colspan="3"></td>
-    </tr>
-  </table>
+  <br>
 
   <table>
-    <tr class="section-title">
+    <tr class="center bold">
+      <td rowspan="2"> </td>
+      <td rowspan="2">THỊ LỰC<br>(VA)</td>
+      <td colspan="3">KÍNH CŨ</td>
+    </tr>
+    <tr class="center bold">
+      <td>ĐỘ CẦU<br>(Sphere)</td>
+      <td>ĐỘ LOẠN<br>(Cylinder)</td>
+      <td>TRỤC<br>(Axis)</td>
+    </tr>
+    <tr>
+      <td>Mắt Phải (OD)</td>
+      <td id="MP"></td>
+      <td colspan="3"></td>
+    </tr>
+    <tr>
+      <td>Mắt Trái (OS)</td>
+      <td id="MT"></td>
+      <td colspan="3"></td>
+    </tr>
+    <tr class="center bold">
       <td rowspan="2">KHÚC XẠ HIỆN TẠI</td>
-      <td>TL KO KÍNH (UCVA)</td><td>ĐỘ CẦU</td><td>ĐỘ LOẠN</td><td>TRỤC</td><td>TL CHỈNH KÍNH (BCVA)</td>
+      <td rowspan="2">TL KO KÍNH (UCVA)</td>
+      <td>ĐỘ CẦU</td>
+      <td>ĐỘ LOẠN</td>
+      <td>TRỤC</td>
+      <td>TL CHỈNH KÍNH (BCVA)</td>
     </tr>
     <tr>
-      <td>MP: <<span id="TLP"></span>></td>
-      <td><<span id="DCP"></span>></td><td><<span id="TRUP"></span>></td><td><<span id="TRUCP"></span>></td><td><<span id="TLCKMP"></span>></td>
+      <td>Mắt Phải (OD)</td>
+      <td id="DCP"></td>
+      <td id="TRUP"></td>
+      <td id="TRUCP"></td>
+      <td id="TLCKMP"></td>
     </tr>
     <tr>
-      <td></td>
-      <td>MT: <<span id="TLT"></span>></td>
-      <td><<span id="DCT"></span>></td><td><<span id="TRUT"></span>></td><td><<span id="TRUCT"></span>></td><td><<span id="TLCKMT"></span>></td>
+      <td>Mắt Trái (OS)</td>
+      <td id="DCT"></td>
+      <td id="TRUT"></td>
+      <td id="TRUCT"></td>
+      <td id="TLCKMT"></td>
     </tr>
-  </table>
-
-  <table>
-    <tr class="section-title">
+    <tr class="center bold">
       <td rowspan="2">KHÚC XẠ ĐIỀU CHỈNH</td>
-      <td>ĐỘ CẦU</td><td>ĐỘ LOẠN</td><td>TRỤC</td><td>ADD</td><td>TL GẦN</td><td>TL CHỈNH KÍNH (BCVA)</td>
+      <td>ĐỘ CẦU</td>
+      <td>ĐỘ LOẠN</td>
+      <td>TRỤC</td>
+      <td>ADD</td>
+      <td>TL GẦN</td>
+      <td>TL CHỈNH KÍNH</td>
     </tr>
     <tr>
-      <td>MP: <<span id="CKCP"></span>></td>
-      <td><<span id="CKTP"></span>></td>
-      <td><<span id="CKTRUCP"></span>></td>
-      <td><<span id="ADD"></span>></td>
-      <td><<span id="GP"></span>></td>
-      <td><<span id="CKMPTLCK"></span>></td>
+      <td>Mắt Phải (OD)</td>
+      <td id="CKCP"></td>
+      <td id="CKTP"></td>
+      <td id="CKTRUCP"></td>
+      <td id="ADD"></td>
+      <td id="GP"></td>
+      <td id="CKMPTLCK"></td>
     </tr>
     <tr>
-      <td></td>
-      <td>MT: <<span id="CKCT"></span>></td>
-      <td><<span id="CKTT"></span>></td>
-      <td><<span id="CKTRUCT"></span>></td>
-      <td><<span id="ADD"></span>></td>
-      <td><<span id="A"></span>></td>
-      <td><<span id="CKMTTLCK"></span>></td>
+      <td>Mắt Trái (OS)</td>
+      <td id="CKCT"></td>
+      <td id="CKTT"></td>
+      <td id="CKTRUCT"></td>
+      <td id="ADD"></td>
+      <td id="GT"></td>
+      <td id="CKMTTLCK"></td>
+    </tr>
+    <tr>
+      <td>PD</td>
+      <td colspan="6" id="PD"></td>
+    </tr>
+    <tr>
+      <td>KÍNH ĐỀ NGHỊ:</td>
+      <td colspan="6" id="KinhDeNghi"></td>
+    </tr>
+    <tr>
+      <td>A:</td>
+      <td id="A"></td>
+      <td>PD:</td>
+      <td id="PD"></td>
+      <td colspan="3">Nhìn gần tốt nhất ở khoảng cách: << <span id="KhoangCach"></span> >> Cm</td>
+    </tr>
+    <tr>
+      <td colspan="7" class="bold">Tái khám 6 tháng / lần</td>
     </tr>
   </table>
-
-  <table>
-    <tr>
-      <td>PD: <<span id="PD"></span>></td>
-      <td>KÍNH ĐỀ NGHỊ: <<span id="Kinh"></span>></td>
-    </tr>
-    <tr>
-      <td><<span id="A2"></span>></td>
-      <td>Nhìn gần tốt nhất ở khoảng cách: <<span id="KhoangCach"></span>> cm</td>
-    </tr>
-  </table>
-
-  <p><strong>Tái Khám 6 tháng / lần</strong></p>
 
 </body>
 </html>
