@@ -2,127 +2,160 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>BÁO CÁO KHÚC XẠ</title>
+  <title>THÔNG TIN KHÁCH HÀNG</title>
   <style>
     body {
-      font-family: 'Times New Roman', serif;
+      font-family: "Times New Roman", serif;
       padding: 20px;
-      background: white;
-      font-size: 14px;
+      background-color: white;
     }
     table {
       width: 100%;
       border-collapse: collapse;
+      margin-bottom: 10px;
     }
     td, th {
-      border: 1px solid #000;
-      padding: 5px;
+      border: 1px solid black;
+      padding: 4px;
       vertical-align: top;
-    }
-    .no-border td {
-      border: none;
+      font-size: 14px;
     }
     .title {
       text-align: center;
-      font-size: 18px;
       font-weight: bold;
-      margin-bottom: 10px;
+      font-size: 18px;
+      margin: 10px 0;
+    }
+    .subhead {
+      text-align: center;
+      font-size: 14px;
+    }
+    .section-title {
+      background-color: #f2f2f2;
+      font-weight: bold;
+      text-align: center;
     }
   </style>
   <script>
     function getParam(name) {
-      return new URLSearchParams(window.location.search).get(name) || "";
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name) || "";
     }
 
     window.onload = function () {
       const fields = [
-        "id", "ngaykiemtra", "maso", "hoten", "namsinh", "gioitinh", "sdt", "diachi", "bs", "chuandoan",
-        "mp", "mt", "tlp", "dcp", "trup", "trucp", "tlckmp",
-        "tlt", "dct", "trut", "truct", "tlckmt",
-        "ckcp", "cktp", "cktrucp", "cktlckmp", "ckct", "cktt", "cktruct", "cktlckmt",
-        "kc", "addmp", "addmt", "gp", "gt", "a", "a2", "pd", "kinh"
+        "CuaHang", "DiaChiCH", "HotlineCH", "HoTen", "MaSo", "GioiTinh", "SinhNgay", "SDT", "DiaChi", "BacSi", "Ngay",
+        "MP", "MT", "TLP", "DCP", "TRUP", "TRUCP", "TLCKMP",
+        "TLT", "DCT", "TRUT", "TRUCT", "TLCKMT",
+        "CKCP", "CKTP", "CKTRUCP", "ADD", "GP", "CKMPTLCK",
+        "CKCT", "CKTT", "CKTRUCT", "CKMTTLCK",
+        "A", "A2", "PD", "KhoangCach", "Kinh"
       ];
-
-      fields.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.innerText = getParam(id);
+      fields.forEach(field => {
+        document.getElementById(field).innerText = getParam(field);
       });
 
-      // Gọi in tự động sau 1 giây
+      // In sau 1s
       setTimeout(() => window.print(), 1000);
     };
   </script>
 </head>
 <body>
 
-  <div class="title">BÁO CÁO KHÚC XẠ</div>
+  <div class="title"><<span id="CuaHang"></span>></div>
+  <div class="subhead">
+    Địa chỉ: <<span id="DiaChiCH"></span>> <br>
+    Điện thoại: <<span id="HotlineCH"></span>>
+  </div>
 
-  <table class="no-border">
-    <tr>
-      <td>Ngày: <span id="ngaykiemtra"></span></td>
-      <td>Mã số: <span id="maso"></span></td>
-      <td>ID: <span id="id"></span></td>
-    </tr>
-    <tr>
-      <td>Họ tên: <span id="hoten"></span></td>
-      <td>Sinh ngày: <span id="namsinh"></span></td>
-      <td>Giới tính: <span id="gioitinh"></span></td>
-    </tr>
-    <tr>
-      <td>SĐT: <span id="sdt"></span></td>
-      <td colspan="2">Địa chỉ: <span id="diachi"></span></td>
-    </tr>
-    <tr>
-      <td colspan="3">Bác sĩ phụ trách: <span id="bs"></span></td>
-    </tr>
-    <tr>
-      <td colspan="3">Chẩn đoán: <span id="chuandoan"></span></td>
-    </tr>
-  </table>
+  <div class="title">THÔNG TIN KHÁCH HÀNG</div>
 
-  <br>
   <table>
-    <tr><th colspan="4">MẮT PHẢI (MP)</th><th colspan="4">MẮT TRÁI (MT)</th></tr>
     <tr>
-      <td>ĐC</td><td>TRỤ</td><td>TRỤC</td><td>TLCK</td>
-      <td>ĐC</td><td>TRỤ</td><td>TRỤC</td><td>TLCK</td>
+      <td>Họ và tên: <<span id="HoTen"></span>></td>
+      <td>Mã số (ID): <<span id="MaSo"></span>></td>
     </tr>
     <tr>
-      <td id="dcp"></td><td id="trup"></td><td id="trucp"></td><td id="tlckmp"></td>
-      <td id="dct"></td><td id="trut"></td><td id="truct"></td><td id="tlckmt"></td>
-    </tr>
-    <tr><th colspan="8">KÍNH GỌNG ĐEO</th></tr>
-    <tr>
-      <td colspan="4">MẮT PHẢI: <span id="mp"></span></td>
-      <td colspan="4">MẮT TRÁI: <span id="mt"></span></td>
-    </tr>
-    <tr><th colspan="8">KÍNH CẬN THỊ</th></tr>
-    <tr>
-      <td>CK CP</td><td>CKTP</td><td>TRỤC</td><td>TLCK</td>
-      <td>CK CT</td><td>CKTT</td><td>TRỤC</td><td>TLCK</td>
+      <td>Giới tính: <<span id="GioiTinh"></span>> - Năm sinh: <<span id="SinhNgay"></span>></td>
+      <td>SĐT: <<span id="SDT"></span>></td>
     </tr>
     <tr>
-      <td id="ckcp"></td><td id="cktp"></td><td id="cktrucp"></td><td id="cktlckmp"></td>
-      <td id="ckct"></td><td id="cktt"></td><td id="cktruct"></td><td id="cktlckmt"></td>
+      <td colspan="2">Địa chỉ: <<span id="DiaChi"></span>></td>
     </tr>
     <tr>
-      <td colspan="2">TLP: <span id="tlp"></span></td>
-      <td colspan="2">TLT: <span id="tlt"></span></td>
-      <td colspan="4">Khoảng cách: <span id="kc"></span></td>
-    </tr>
-    <tr>
-      <td>ADD MP</td><td id="addmp"></td>
-      <td>ADD MT</td><td id="addmt"></td>
-      <td>GP</td><td id="gp"></td>
-      <td>GT</td><td id="gt"></td>
-    </tr>
-    <tr>
-      <td>A</td><td id="a"></td>
-      <td>A2</td><td id="a2"></td>
-      <td>PD</td><td id="pd"></td>
-      <td colspan="2">Kính đề nghị: <span id="kinh"></span></td>
+      <td>Bác sĩ / KTV: <<span id="BacSi"></span>></td>
+      <td>Ngày kiểm tra: <<span id="Ngay"></span>></td>
     </tr>
   </table>
+
+  <table>
+    <tr class="section-title">
+      <td rowspan="2">KÍNH CŨ</td>
+      <td>THỊ LỰC (VA)</td><td>ĐỘ CẦU (Sphere)</td><td>ĐỘ LOẠN (Cylinder)</td><td>TRỤC (Axis)</td>
+    </tr>
+    <tr>
+      <td>Mắt Phải (OD): <<span id="MP"></span>></td>
+      <td colspan="3"></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Mắt Trái (OS): <<span id="MT"></span>></td>
+      <td colspan="3"></td>
+    </tr>
+  </table>
+
+  <table>
+    <tr class="section-title">
+      <td rowspan="2">KHÚC XẠ HIỆN TẠI</td>
+      <td>TL KO KÍNH (UCVA)</td><td>ĐỘ CẦU</td><td>ĐỘ LOẠN</td><td>TRỤC</td><td>TL CHỈNH KÍNH (BCVA)</td>
+    </tr>
+    <tr>
+      <td>MP: <<span id="TLP"></span>></td>
+      <td><<span id="DCP"></span>></td><td><<span id="TRUP"></span>></td><td><<span id="TRUCP"></span>></td><td><<span id="TLCKMP"></span>></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>MT: <<span id="TLT"></span>></td>
+      <td><<span id="DCT"></span>></td><td><<span id="TRUT"></span>></td><td><<span id="TRUCT"></span>></td><td><<span id="TLCKMT"></span>></td>
+    </tr>
+  </table>
+
+  <table>
+    <tr class="section-title">
+      <td rowspan="2">KHÚC XẠ ĐIỀU CHỈNH</td>
+      <td>ĐỘ CẦU</td><td>ĐỘ LOẠN</td><td>TRỤC</td><td>ADD</td><td>TL GẦN</td><td>TL CHỈNH KÍNH (BCVA)</td>
+    </tr>
+    <tr>
+      <td>MP: <<span id="CKCP"></span>></td>
+      <td><<span id="CKTP"></span>></td>
+      <td><<span id="CKTRUCP"></span>></td>
+      <td><<span id="ADD"></span>></td>
+      <td><<span id="GP"></span>></td>
+      <td><<span id="CKMPTLCK"></span>></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>MT: <<span id="CKCT"></span>></td>
+      <td><<span id="CKTT"></span>></td>
+      <td><<span id="CKTRUCT"></span>></td>
+      <td><<span id="ADD"></span>></td>
+      <td><<span id="A"></span>></td>
+      <td><<span id="CKMTTLCK"></span>></td>
+    </tr>
+  </table>
+
+  <table>
+    <tr>
+      <td>PD: <<span id="PD"></span>></td>
+      <td>KÍNH ĐỀ NGHỊ: <<span id="Kinh"></span>></td>
+    </tr>
+    <tr>
+      <td><<span id="A2"></span>></td>
+      <td>Nhìn gần tốt nhất ở khoảng cách: <<span id="KhoangCach"></span>> cm</td>
+    </tr>
+  </table>
+
+  <p><strong>Tái Khám 6 tháng / lần</strong></p>
 
 </body>
 </html>
