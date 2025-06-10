@@ -83,17 +83,21 @@
         }
       });
 
-const data = getParam("data");
-if (data) {
-  const rows = data.split("_b_");
-  const tableBody = rows.map((item, index) => {
-    const [ten, tien] = item.split("_a_");
-    const tienFormatted = Number(tien).toLocaleString("vi-VN");
-    return `<tr><td>${index + 1}</td><td>${ten}</td><td>${tienFormatted}</td></tr>`;
-  }).join("");
-  document.getElementById("data-rows").innerHTML = tableBody;
-}
+      const data = getParam("data");
+      if (data) {
+        const rows = data.split("_b_");
+        const tableBody = rows.map((item, index) => {
+          const [ten, tien] = item.split("_a_");
+          const tienFormatted = Number(tien).toLocaleString("vi-VN");
+          return `<tr><td>${index + 1}</td><td>${ten}</td><td>${tienFormatted}</td></tr>`;
+        }).join("");
+        document.getElementById("data-rows").innerHTML = tableBody;
+      }
 
+      // 🔸 Gọi in sau 1 giây để đảm bảo dữ liệu được hiển thị xong
+      setTimeout(function () {
+        window.print();
+      }, 1000);
     };
   </script>
 </head>
@@ -108,13 +112,13 @@ if (data) {
         </div>
         Người gửi: <span id="nguoigui"></span><br><br>
         
-       <table class="nested-table">
-  <tr>
-    <td>Người nhận: <span id="nguoinhan"></span></td>
-    <td>SĐT: <span id="sdt"></span></td>
-  </tr>
-</table>
-<br>Địa chỉ: <span id="diachi"></span><br><br>
+        <table class="nested-table">
+          <tr>
+            <td>Người nhận: <span id="nguoinhan"></span></td>
+            <td>SĐT: <span id="sdt"></span></td>
+          </tr>
+        </table>
+        <br>Địa chỉ: <span id="diachi"></span><br><br>
 
         <table class="nested-table">
           <tr>
