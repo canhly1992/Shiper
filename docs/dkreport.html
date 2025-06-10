@@ -2,137 +2,125 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>PHIẾU KHÁM MẮT</title>
+  <title>BÁO CÁO KHÚC XẠ</title>
   <style>
     body {
       font-family: 'Times New Roman', serif;
-      background-color: white;
       padding: 20px;
-    }
-    h2, h3 {
-      text-align: center;
-      margin: 0;
+      background: white;
+      font-size: 14px;
     }
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 10px;
     }
     td, th {
-      border: 1px dashed black;
-      padding: 6px;
+      border: 1px solid #000;
+      padding: 5px;
+      vertical-align: top;
+    }
+    .no-border td {
+      border: none;
+    }
+    .title {
       text-align: center;
-    }
-    .no-border {
-      border: none !important;
-    }
-    .header, .sub-header {
-      text-align: center;
-    }
-    .info-table td {
-      text-align: left;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
     }
   </style>
   <script>
     function getParam(name) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(name) || "";
+      return new URLSearchParams(window.location.search).get(name) || "";
     }
 
     window.onload = function () {
       const fields = [
-        "hoten", "namsinh", "gioitinh", "diachi", "sdt", "id",
-        "ngaykiemtra", "bs",
-        "od_ucva", "os_ucva",
-        "od_sphere_now", "os_sphere_now",
-        "od_cylinder_now", "os_cylinder_now",
-        "od_axis_now", "os_axis_now",
-        "od_sphere_fix", "os_sphere_fix",
-        "od_cylinder_fix", "os_cylinder_fix",
-        "od_axis_fix", "os_axis_fix",
-        "od_add", "os_add",
-        "od_bcva", "os_bcva",
-        "pd", "tlgan", "ghichu"
+        "id", "ngaykiemtra", "maso", "hoten", "namsinh", "gioitinh", "sdt", "diachi", "bs", "chuandoan",
+        "mp", "mt", "tlp", "dcp", "trup", "trucp", "tlckmp",
+        "tlt", "dct", "trut", "truct", "tlckmt",
+        "ckcp", "cktp", "cktrucp", "cktlckmp", "ckct", "cktt", "cktruct", "cktlckmt",
+        "kc", "addmp", "addmt", "gp", "gt", "a", "a2", "pd", "kinh"
       ];
 
-      fields.forEach(field => {
-        const el = document.getElementById(field);
-        if (el) {
-          el.innerText = getParam(field);
-        }
+      fields.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerText = getParam(id);
       });
 
+      // Gọi in tự động sau 1 giây
       setTimeout(() => window.print(), 1000);
     };
   </script>
 </head>
 <body>
 
-  <h3>3H OPTICAL</h3>
-  <div class="header">Địa chỉ: 314 Nguyễn Thượng Hiền, P5, Q.Phú Nhuận, TPHCM</div>
-  <div class="header">Điện thoại: 756000</div>
+  <div class="title">BÁO CÁO KHÚC XẠ</div>
 
-  <h2>THÔNG TIN KHÁCH HÀNG</h2>
-
-  <table class="info-table">
+  <table class="no-border">
     <tr>
-      <td>Họ và tên: <span id="hoten"></span></td>
-      <td>Mã số (ID): <span id="id"></span></td>
+      <td>Ngày: <span id="ngaykiemtra"></span></td>
+      <td>Mã số: <span id="maso"></span></td>
+      <td>ID: <span id="id"></span></td>
     </tr>
     <tr>
+      <td>Họ tên: <span id="hoten"></span></td>
+      <td>Sinh ngày: <span id="namsinh"></span></td>
       <td>Giới tính: <span id="gioitinh"></span></td>
-      <td>Năm sinh: <span id="namsinh"></span></td>
     </tr>
     <tr>
-      <td>Địa chỉ: <span id="diachi"></span></td>
       <td>SĐT: <span id="sdt"></span></td>
+      <td colspan="2">Địa chỉ: <span id="diachi"></span></td>
     </tr>
     <tr>
-      <td>Bác sĩ / KTV: <span id="bs"></span></td>
-      <td>Ngày kiểm tra: <span id="ngaykiemtra"></span></td>
-    </tr>
-  </table>
-
-  <h3>KHÚC XẠ HIỆN TẠI</h3>
-  <table>
-    <tr>
-      <th></th>
-      <th>UCVA</th><th>Sphere</th><th>Cylinder</th><th>Axis</th>
+      <td colspan="3">Bác sĩ phụ trách: <span id="bs"></span></td>
     </tr>
     <tr>
-      <td>Mắt Phải (OD)</td>
-      <td id="od_ucva"></td><td id="od_sphere_now"></td><td id="od_cylinder_now"></td><td id="od_axis_now"></td>
-    </tr>
-    <tr>
-      <td>Mắt Trái (OS)</td>
-      <td id="os_ucva"></td><td id="os_sphere_now"></td><td id="os_cylinder_now"></td><td id="os_axis_now"></td>
-    </tr>
-  </table>
-
-  <h3>KHÚC XẠ ĐIỀU CHỈNH</h3>
-  <table>
-    <tr>
-      <th></th>
-      <th>Sphere</th><th>Cylinder</th><th>Axis</th><th>ADD</th><th>BCVA</th>
-    </tr>
-    <tr>
-      <td>Mắt Phải (OD)</td>
-      <td id="od_sphere_fix"></td><td id="od_cylinder_fix"></td><td id="od_axis_fix"></td><td id="od_add"></td><td id="od_bcva"></td>
-    </tr>
-    <tr>
-      <td>Mắt Trái (OS)</td>
-      <td id="os_sphere_fix"></td><td id="os_cylinder_fix"></td><td id="os_axis_fix"></td><td id="os_add"></td><td id="os_bcva"></td>
+      <td colspan="3">Chẩn đoán: <span id="chuandoan"></span></td>
     </tr>
   </table>
 
   <br>
   <table>
+    <tr><th colspan="4">MẮT PHẢI (MP)</th><th colspan="4">MẮT TRÁI (MT)</th></tr>
     <tr>
-      <td>PD: <span id="pd"></span></td>
-      <td>Thị lực gần tốt nhất (TL Gần): <span id="tlgan"></span></td>
+      <td>ĐC</td><td>TRỤ</td><td>TRỤC</td><td>TLCK</td>
+      <td>ĐC</td><td>TRỤ</td><td>TRỤC</td><td>TLCK</td>
     </tr>
     <tr>
-      <td colspan="2">Ghi chú: <span id="ghichu"></span></td>
+      <td id="dcp"></td><td id="trup"></td><td id="trucp"></td><td id="tlckmp"></td>
+      <td id="dct"></td><td id="trut"></td><td id="truct"></td><td id="tlckmt"></td>
+    </tr>
+    <tr><th colspan="8">KÍNH GỌNG ĐEO</th></tr>
+    <tr>
+      <td colspan="4">MẮT PHẢI: <span id="mp"></span></td>
+      <td colspan="4">MẮT TRÁI: <span id="mt"></span></td>
+    </tr>
+    <tr><th colspan="8">KÍNH CẬN THỊ</th></tr>
+    <tr>
+      <td>CK CP</td><td>CKTP</td><td>TRỤC</td><td>TLCK</td>
+      <td>CK CT</td><td>CKTT</td><td>TRỤC</td><td>TLCK</td>
+    </tr>
+    <tr>
+      <td id="ckcp"></td><td id="cktp"></td><td id="cktrucp"></td><td id="cktlckmp"></td>
+      <td id="ckct"></td><td id="cktt"></td><td id="cktruct"></td><td id="cktlckmt"></td>
+    </tr>
+    <tr>
+      <td colspan="2">TLP: <span id="tlp"></span></td>
+      <td colspan="2">TLT: <span id="tlt"></span></td>
+      <td colspan="4">Khoảng cách: <span id="kc"></span></td>
+    </tr>
+    <tr>
+      <td>ADD MP</td><td id="addmp"></td>
+      <td>ADD MT</td><td id="addmt"></td>
+      <td>GP</td><td id="gp"></td>
+      <td>GT</td><td id="gt"></td>
+    </tr>
+    <tr>
+      <td>A</td><td id="a"></td>
+      <td>A2</td><td id="a2"></td>
+      <td>PD</td><td id="pd"></td>
+      <td colspan="2">Kính đề nghị: <span id="kinh"></span></td>
     </tr>
   </table>
 
