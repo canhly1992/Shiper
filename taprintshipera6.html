@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>CHI TIẾT ĐƠN HÀNG</title>
+  <title>Tem Giao Hàng A6</title>
   <style>
     @page {
       size: A6 portrait;
@@ -13,52 +13,62 @@
       font-family: "Times New Roman", sans-serif;
       font-size: 12px;
       padding: 5mm;
-      background-color: white;
-    }
-
-    .section {
-      margin-bottom: 8px;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      background-color: white;
+      border: 1px solid black;
     }
 
-    th, td {
-      border: 1px dashed #000;
-      padding: 3px;
+    td, th {
+      border: 1px solid black;
+      padding: 2px;
       vertical-align: top;
-      font-size: 11px;
     }
 
-    .img-center {
+    .barcode {
       text-align: center;
-      margin-bottom: 5px;
+      margin-bottom: 4px;
     }
 
-    #anh1 {
-      max-width: 100%;
-      height: auto;
+    .mvd {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+      padding: 4px 0;
     }
 
-    #anh2 {
-      width: 100px;
-      display: block;
-      margin: 5px auto;
+    .label-title {
+      font-weight: bold;
     }
 
-    #anh3 {
+    .item-table td {
+      border: none;
+      padding: 1px;
+    }
+
+    .notes {
+      min-height: 40px;
+      border: 1px solid black;
+      padding: 4px;
+    }
+
+    .qr-section {
+      text-align: center;
+    }
+
+    .logo {
       width: 60px;
-      height: 60px;
-      object-fit: cover;
-      border: 1px solid #000;
       display: block;
-      margin: 5px auto;
+      margin: 5px auto 2px;
+    }
+
+    .qr {
+      width: 80px;
+      height: 80px;
     }
   </style>
-
   <script>
     function getParam(name) {
       const urlParams = new URLSearchParams(window.location.search);
@@ -66,80 +76,58 @@
     }
 
     window.onload = function () {
-      const fields = [
-        "nguoigui", "nguoinhan", "diachi", "sdt", "mvd", "note",
-        "trongluong", "thoigian", "freeship", "tongcode", "dongkiem",
-        "anh1", "anh2", "anh3", "data"
-      ];
+      const fields = ["mvd", "sdt", "cod", "cuoc", "dongkiem", "freeship", "ghichu", "items", "barcode", "logo", "qr"];
 
       fields.forEach(field => {
         const value = getParam(field);
-        if (field.startsWith("anh") && value) {
-          document.getElementById(field).src = value;
-        } else if (field !== "data") {
+        if (field === "logo" || field === "qr" || field === "barcode") {
+          if (value) document.getElementById(field).src = value;
+        } else if (field === "items" && value) {
+          const rows = value.split("_b_").map(item => {
+            const [left, right] = item.split("_a_");
+            return `<tr><td>${left}</td><td>${right || ""}</td></tr>`;
+          }).join("");
+          document.getElementById("items-table").innerHTML = rows;
+        } else {
           document.getElementById(field).innerText = value;
         }
       });
 
-      const data = getParam("data");
-      if (data) {
-        const rows = data.split("_b_");
-        const tableBody = rows.map((item, index) => {
-          const [ten, tien] = item.split("_a_");
-          const tienFormatted = Number(tien).toLocaleString("vi-VN");
-          return `<tr><td>${index + 1}</td><td>${ten}</td><td>${tienFormatted}</td></tr>`;
-        }).join("");
-        document.getElementById("data-rows").innerHTML = tableBody;
-      }
-
-      // Gọi in sau khi tải xong
-      setTimeout(function () {
-        window.print();
-      }, 1500);
+      setTimeout(() => window.print(), 1500);
     };
   </script>
 </head>
-
 <body>
-
-  <div class="img-center">
-    <img id="anh1" src="" alt="Ảnh 1">
+  <div class="barcode">
+    <img id="barcode" src="" alt="Barcode" style="height:40px">
   </div>
 
-  <div class="section">
-    <strong>Người gửi:</strong> <span id="nguoigui"></span><br>
-    <strong>Người nhận:</strong> <span id="nguoinhan"></span><br>
-    <strong>SĐT:</strong> <span id="sdt"></span><br>
-    <strong>Địa chỉ:</strong> <span id="diachi"></span>
+  <div class="mvd">
+    <span class="label-title">MVĐ:</span>
+    <span id="mvd"></span>
   </div>
 
-  <div class="section">
-    <table>
-      <thead>
-        <tr>
-          <th>STT</th>
-          <th>Tên</th>
-          <th>Tiền</th>
-        </tr>
-      </thead>
-      <tbody id="data-rows"></tbody>
-    </table>
+  <div class="label-title">Gửi:</div>
+  <div>Người Nhận: Tên<br>Địa Chỉ:</div>
+  <div>SDT: <span id="sdt"></span></div>
+
+  <div class="label-title">COD: <span id="cod"></span> &nbsp;&nbsp;&nbsp;&nbsp; Cước: <span id="cuoc"></span></div>
+  <div><span id="dongkiem"></span> / Được đồng kiểm</div>
+  <div>Free Ship: <span id="freeship"></span></div>
+
+  <table class="item-table">
+    <tbody id="items-table"></tbody>
+  </table>
+
+  <div class="notes">
+    <strong>Ghi chú:</strong><br>
+    <span id="ghichu"></span>
   </div>
 
-  <div class="section">
-    <strong>MVĐ:</strong> <span id="mvd"></span><br>
-    <strong>Note:</strong> <span id="note"></span><br>
-    <strong>Trọng lượng:</strong> <span id="trongluong"></span><br>
-    <strong>Thời gian lên đơn:</strong> <span id="thoigian"></span><br>
-    <strong>Freeship:</strong> <span id="freeship"></span><br>
-    <strong>Tổng COD:</strong> <span id="tongcode"></span><br>
-    <strong>Đồng kiểm:</strong> <span id="dongkiem"></span>
+  <div class="qr-section">
+    <img id="qr" class="qr" src="" alt="QR">
+    <img id="logo" class="logo" src="" alt="Logo">
+    <div><strong>Ship Đến Ngay</strong><br>035.3873.488</div>
   </div>
-
-  <div class="img-center">
-    <img id="anh2" src="" alt="Ảnh 2">
-    <img id="anh3" src="" alt="Ảnh 3">
-  </div>
-
 </body>
 </html>
