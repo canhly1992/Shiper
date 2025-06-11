@@ -2,98 +2,65 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>PHIẾU GỬI HÀNG</title>
+  <title>CHI TIẾT ĐƠN HÀNG</title>
   <style>
-    @page {
-      size: A6 portrait;
-      margin: 5mm;
-    }
-
     body {
-      font-family: 'Times New Roman', serif;
-      font-size: 11px;
+      font-family: "Times New Roman", sans-serif;
+      font-size: 8px; /* Giảm cỡ chữ từ ~16px xuống còn 8px */
+      padding: 15px;
       background-color: white;
-      padding: 0;
-      margin: 0;
     }
-
-    .container {
+    table {
       width: 100%;
-      box-sizing: border-box;
-      padding: 5mm;
+      border-collapse: collapse;
+      background-color: white;
     }
-
-    .barcode {
+    td, th {
+      border: 1px dashed #000;
+      padding: 3px; /* Cũng giảm padding cho nhỏ gọn */
+      vertical-align: top;
+      background-color: white;
+    }
+    .note {
+      height: 20px;
+    }
+    .col-half {
+      width: 50%;
+      vertical-align: top;
+    }
+    .nested-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .nested-table td {
+      border: 1px dashed #000;
+      padding: 2px;
+    }
+    .img-container {
       text-align: center;
       margin-bottom: 5px;
     }
-
-    .barcode img {
+    #anh1 {
       max-width: 100%;
       height: auto;
     }
-
-    .info-table, .item-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 4px;
-      margin-bottom: 4px;
-    }
-
-    .info-table td {
-      vertical-align: top;
-      padding: 2px;
-    }
-
-    .bold {
-      font-weight: bold;
-    }
-
-    .boxed {
-      border: 1px solid black;
-      padding: 2px;
-    }
-
-    .item-table td {
-      border: 1px solid black;
-      padding: 2px 4px;
-    }
-
-    .item-table th {
-      border: 1px solid black;
-      padding: 2px 4px;
-      text-align: left;
-      font-weight: normal;
-    }
-
-    .footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-top: 8px;
-    }
-
-    .footer-left {
-      width: 35%;
-      text-align: center;
-    }
-
-    .footer-left img {
-      max-width: 100%;
+    #anh2 {
+      width: 120px;
       height: auto;
+      display: block;
+      margin: 3px auto;
     }
-
-    .footer-right {
-      width: 60%;
-      text-align: center;
-    }
-
-    #qr {
-      width: 80px;
-      height: 80px;
+    #anh3 {
+      width: 60px;
+      height: 60px;
       object-fit: cover;
       border: 1px solid #000;
-      display: inline-block;
+      display: block;
+      margin: 3px auto;
+    }
+    .white-bg {
+      background-color: white;
+      padding: 3px;
     }
   </style>
   <script>
@@ -103,109 +70,94 @@
     }
 
     window.onload = function () {
-      const mapping = {
-        "mvd": "mvd",
-        "sdt": "sdt",
-        "cod": "cod",
-        "cuoc": "cuoc",
-        "dongkiem": "dongkiem",
-        "freeship": "freeship",
-        "ghichu": "ghichu"
-      };
+      const fields = [
+        "nguoigui", "nguoinhan", "diachi", "sdt", "mvd", "note",
+        "trongluong", "thoigian", "freeship", "tongcode", "dongkiem",
+        "anh1", "anh2", "anh3", "data"
+      ];
 
-      for (const key in mapping) {
-        const value = getParam(key);
-        document.getElementById(mapping[key]).innerText = value;
-      }
-
-      const itemsRaw = getParam("items"); // e.g. "2 Dép_a_1 Găng_b_4 Chổi"
-      if (itemsRaw) {
-        const rows = itemsRaw.split("_");
-        const colA = [];
-        const colB = [];
-        for (let i = 0; i < rows.length; i++) {
-          const val = rows[i];
-          if (val === "a") continue;
-          if (val === "b") continue;
-          if (i > 0 && rows[i - 1] === "a") {
-            colA.push(val);
-          } else if (i > 0 && rows[i - 1] === "b") {
-            colB.push(val);
-          }
+      fields.forEach(field => {
+        const value = getParam(field);
+        if (field.startsWith("anh") && value) {
+          document.getElementById(field).src = value;
+        } else if (field !== "data") {
+          document.getElementById(field).innerText = value;
         }
-        document.getElementById("colA").innerHTML = colA.map(item => `<div>${item}</div>`).join("");
-        document.getElementById("colB").innerHTML = colB.map(item => `<div>${item}</div>`).join("");
+      });
+
+      const data = getParam("data");
+      if (data) {
+        const rows = data.split("_b_");
+        const tableBody = rows.map((item, index) => {
+          const [ten, tien] = item.split("_a_");
+          const tienFormatted = Number(tien).toLocaleString("vi-VN");
+          return `<tr><td>${index + 1}</td><td>${ten}</td><td>${tienFormatted}</td></tr>`;
+        }).join("");
+        document.getElementById("data-rows").innerHTML = tableBody;
       }
 
-      const barcode = getParam("barcode");
-      const qr = getParam("qr");
-      const logo = getParam("logo");
-
-      if (barcode) document.getElementById("barcode").src = barcode;
-      if (qr) document.getElementById("qr").src = qr;
-      if (logo) document.getElementById("logo").src = logo;
-
-      setTimeout(() => window.print(), 1500);
+      setTimeout(function () {
+        window.print();
+      }, 2000);
     };
   </script>
 </head>
 <body>
-  <div class="container">
-    <div class="barcode">
-      <img id="barcode" src="" alt="Barcode">
-    </div>
 
-    <table class="info-table">
-      <tr>
-        <td><span class="bold">MVĐ:</span></td>
-        <td class="boxed" id="mvd"></td>
-      </tr>
-      <tr>
-        <td colspan="2"><span class="bold">Gửi:</span></td>
-      </tr>
-      <tr>
-        <td colspan="2">Người Nhận: Tên<br>Địa Chỉ:</td>
-      </tr>
-      <tr>
-        <td colspan="2">SDT: <span id="sdt"></span></td>
-      </tr>
-    </table>
+  <table>
+    <tr>
+      <!-- Cột 1 -->
+      <td class="col-half">
+        <div class="img-container">
+          <img id="anh1" src="" alt="Ảnh 1">
+        </div>
+        Người gửi: <span id="nguoigui"></span><br><br>
+        
+        <table class="nested-table">
+          <tr>
+            <td>Người nhận: <span id="nguoinhan"></span></td>
+            <td>SĐT: <span id="sdt"></span></td>
+          </tr>
+        </table>
+        <br>Địa chỉ: <span id="diachi"></span><br><br>
 
-    <table class="info-table">
-      <tr>
-        <td class="bold">COD:</td>
-        <td id="cod"></td>
-        <td class="bold">Cước:</td>
-        <td id="cuoc"></td>
-      </tr>
-      <tr>
-        <td colspan="2" class="bold">0/Được đồng kiểm</td>
-        <td class="bold">Free Ship:</td>
-        <td id="freeship"></td>
-      </tr>
-    </table>
+        <table class="nested-table">
+          <tr>
+            <td>STT</td>
+            <td>Tên</td>
+            <td>Tiền</td>
+          </tr>
+          <tbody id="data-rows"></tbody>
+        </table>
 
-    <table class="item-table">
-      <tr>
-        <th colspan="2">Hàng Hóa</th>
-      </tr>
-      <tr>
-        <td id="colA"></td>
-        <td id="colB"></td>
-      </tr>
-    </table>
+        <br>
+        <div class="note">Ghi chú:</div>
+      </td>
 
-    <div><strong>Ghi chú:</strong> <span id="ghichu"></span></div>
+      <!-- Cột 2 -->
+      <td class="col-half">
+        <div class="white-bg">
+          HOTLINE: 035.3873.488<br>
+          <img id="anh2" src="" alt="Ảnh 2">
+        </div>
+        <br>
+        <table class="nested-table">
+          <tr><td>MVĐ: <span id="mvd"></span></td></tr>
+          <tr><td>Note lưu ý: <span id="note"></span></td></tr>
+          <tr><td>Trọng lượng tính cước: <span id="trongluong"></span></td></tr>
+          <tr><td>Thời gian lên đơn: <span id="thoigian"></span></td></tr>
+          <tr><td>Freeship: <span id="freeship"></span></td></tr>
+          <tr><td>Tổng COD: <span id="tongcode"></span></td></tr>
+          <tr><td>Đồng kiểm: <span id="dongkiem"></span></td></tr>
+        </table>
 
-    <div class="footer">
-      <div class="footer-left">
-        <img id="logo" src="" alt="Logo">
-        <div>Ship Đến Ngay<br><strong>035.3873.488</strong></div>
-      </div>
-      <div class="footer-right">
-        <img id="qr" src="" alt="QR Code">
-      </div>
-    </div>
-  </div>
+        <br>
+        <div class="white-bg">
+          <img id="anh3" src="" alt="Ảnh 3">
+        </div>
+      </td>
+    </tr>
+  </table>
+
 </body>
 </html>
