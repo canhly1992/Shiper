@@ -35,7 +35,8 @@
     }
     .nested-table td {
       border: 1px dashed #000;
-      text-align: center;
+      text-align: left;
+      padding-left: 4px;
     }
     .img-container {
       text-align: center;
@@ -66,6 +67,9 @@
     .stt-col {
       width: 30px;
     }
+    .soluong-col {
+      width: 30px;
+    }
   </style>
   <script>
     function getParam(name) {
@@ -93,13 +97,14 @@
       if (data) {
         const rows = data.split("_b_");
         const tableBody = rows.map((item, index) => {
-          const [ten, soluong, tien] = item.split("_a_");
+          const [ten, soluong, tien, ghichu] = item.split("_a_");
           const tienFormatted = Number(tien).toLocaleString("vi-VN");
           return `<tr>
             <td>${index + 1}</td>
             <td>${ten}</td>
             <td>${soluong}</td>
             <td>${tienFormatted}</td>
+            <td>${ghichu}</td>
           </tr>`;
         }).join("");
         document.getElementById("data-rows").innerHTML = tableBody;
@@ -134,8 +139,9 @@
           <tr>
             <th class="stt-col">STT</th>
             <th>Tên</th>
-            <th>Số lượng</th>
+            <th class="soluong-col">Số lượng</th>
             <th>Tiền</th>
+            <th>Ghi chú</th>
           </tr>
           <tbody id="data-rows"></tbody>
         </table>
@@ -152,13 +158,13 @@
         </div>
         <br>
         <table class="nested-table">
-          <tr><td>MVĐ: <span id="mvd"></span></td></tr>
-          <tr><td>Note lưu ý: <span id="note"></span></td></tr>
-          <tr><td>Trọng lượng tính cước: <span id="trongluong"></span></td></tr>
-          <tr><td>Thời gian lên đơn: <span id="thoigian"></span></td></tr>
-          <tr><td>Freeship: <span id="freeship"></span></td></tr>
-          <tr><td>Tổng COD: <span id="tongcode"></span></td></tr>
-          <tr><td>Đồng kiểm: <span id="dongkiem"></span></td></tr>
+          <tr><td>MVĐ: <span id="mvd">cly-20250612112922-0037</span></td></tr>
+          <tr><td>Note lưu ý: <span id="note">123</span></td></tr>
+          <tr><td>Trọng lượng tính cước: <span id="trongluong">12345</span></td></tr>
+          <tr><td>Thời gian lên đơn: <span id="thoigian">12/06/2025 11:29</span></td></tr>
+          <tr><td>Freeship: <span id="freeship">Không</span></td></tr>
+          <tr><td>Tổng COD: <span id="tongcode">20.000</span></td></tr>
+          <tr><td>Đồng kiểm: <span id="dongkiem">m</span></td></tr>
         </table>
 
         <br>
