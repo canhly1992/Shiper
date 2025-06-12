@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>CHI TIẾT ĐƠN HÀNG001</title>
+  <title>CHI TIẾT ĐƠN HÀNG</title>
   <style>
     body {
       font-family: "Times New Roman", sans-serif;
@@ -86,6 +86,9 @@
     .left-align {
       text-align: left;
     }
+    .center-align {
+      text-align: center;
+    }
   </style>
   <script>
     function getParam(name) {
@@ -95,17 +98,18 @@
 
     window.onload = function () {
       const fields = [
-        "nguoigui", "nguoinhan", "diachi", "sdt", "mvd", "note", "ghichu",
+        "nguoigui", "nguoinhan", "diachi", "sdt", "mvd", "note", "ghichu-don",
         "trongluong", "thoigian", "freeship", "tongcode", "dongkiem",
         "anh1", "anh2", "anh3"
       ];
 
       fields.forEach(field => {
+        const element = document.getElementById(field);
         const value = getParam(field);
         if (field.startsWith("anh") && value) {
-          document.getElementById(field).src = value;
+          element.src = value;
         } else {
-          document.getElementById(field).innerText = value;
+          element.innerText = value;
         }
       });
 
@@ -114,11 +118,11 @@
         const rows = data.split("_b_");
         const tableBody = rows.map((item, index) => {
           const [ten, soluong, tien] = item.split("_a_");
-          const tienFormatted = Number(tien).toLocaleString("vi-VN") + " Vnđ";
+          const tienFormatted = Number(tien).toLocaleString("vi-VN");
           return `<tr>
-            <td class="stt-col">${index + 1}</td>
+            <td class="stt-col center-align">${index + 1}</td>
             <td class="ten-col">${ten}</td>
-            <td class="soluong-col">${soluong}</td>
+            <td class="soluong-col center-align">${soluong}</td>
             <td class="tien-col">${tienFormatted}</td>
           </tr>`;
         }).join("");
@@ -154,9 +158,9 @@
         <table class="nested-table">
           <tr>
             <th class="stt-col">STT</th>
-            <th class="ten-col">Tên</th>
+            <th class="ten-col center-align">Tên</th>
             <th class="soluong-col">SL</th>
-            <th class="tien-col">Tiền</th>
+            <th class="tien-col center-align">Tiền</th>
           </tr>
           <tbody id="data-rows"></tbody>
         </table>
@@ -181,7 +185,7 @@
 
         <div class="white-bg">
           <img id="anh3" src="" alt="Ảnh 3">
-          <div class="ghichu-don">Ghi chú: <span id="ghichu"></span></div>
+          <div class="ghichu-don">Ghi chú: <span id="ghichu-don"></span></div>
         </div>
       </td>
     </tr>
