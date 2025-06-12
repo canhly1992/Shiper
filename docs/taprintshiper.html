@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>CHI TIẾT ĐƠN HÀNG1</title>
+  <title>CHI TIẾT ĐƠN HÀNG001</title>
   <style>
     body {
       font-family: "Times New Roman", sans-serif;
@@ -19,6 +19,8 @@
       padding: 4px;
       vertical-align: top;
       background-color: white;
+    }
+    th {
       text-align: center;
     }
     .col-half {
@@ -62,9 +64,11 @@
     }
     .stt-col {
       width: 30px;
+      text-align: center;
     }
     .soluong-col {
       width: 30px;
+      text-align: center;
     }
     .ten-col {
       width: 60%;
@@ -91,16 +95,16 @@
 
     window.onload = function () {
       const fields = [
-        "nguoigui", "nguoinhan", "diachi", "sdt", "mvd", "note",
+        "nguoigui", "nguoinhan", "diachi", "sdt", "mvd", "note", "ghichu",
         "trongluong", "thoigian", "freeship", "tongcode", "dongkiem",
-        "anh1", "anh2", "anh3", "data"
+        "anh1", "anh2", "anh3"
       ];
 
       fields.forEach(field => {
         const value = getParam(field);
         if (field.startsWith("anh") && value) {
           document.getElementById(field).src = value;
-        } else if (field !== "data") {
+        } else {
           document.getElementById(field).innerText = value;
         }
       });
@@ -110,11 +114,11 @@
         const rows = data.split("_b_");
         const tableBody = rows.map((item, index) => {
           const [ten, soluong, tien] = item.split("_a_");
-          const tienFormatted = Number(tien).toLocaleString("vi-VN") + "";
+          const tienFormatted = Number(tien).toLocaleString("vi-VN") + " Vnđ";
           return `<tr>
-            <td>${index + 1}</td>
+            <td class="stt-col">${index + 1}</td>
             <td class="ten-col">${ten}</td>
-            <td>${soluong}</td>
+            <td class="soluong-col">${soluong}</td>
             <td class="tien-col">${tienFormatted}</td>
           </tr>`;
         }).join("");
@@ -177,7 +181,7 @@
 
         <div class="white-bg">
           <img id="anh3" src="" alt="Ảnh 3">
-          <div class="ghichu-don">Ghi chú: <span id="note"></span></div>
+          <div class="ghichu-don">Ghi chú: <span id="ghichu"></span></div>
         </div>
       </td>
     </tr>
