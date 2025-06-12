@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>CHI TIẾT ĐƠN HÀNG</title>
+  <title>Shipdenngay</title>
   <style>
     body {
       font-family: "Times New Roman", sans-serif;
@@ -87,7 +87,8 @@
         if (field.startsWith("anh") && value) {
           document.getElementById(field).src = decodeURIComponent(value);
         } else {
-          document.getElementById(field).innerText = value;
+          const el = document.getElementById(field);
+          if (el) el.innerText = value;
         }
       });
 
@@ -107,9 +108,12 @@
         document.getElementById("data-rows").innerHTML = tableBody;
       }
 
-      setTimeout(() => {
-        window.print();
-      }, 2000);
+      // ✅ Ẩn query string khỏi thanh địa chỉ
+      window.history.replaceState({}, document.title, window.location.pathname);
+
+      // ✅ In sau 2 giây, đóng sau 10 giây
+      setTimeout(() => window.print(), 2000);
+      setTimeout(() => window.close(), 10000);
     };
   </script>
 </head>
