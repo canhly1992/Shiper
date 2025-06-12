@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>CHI TIẾT ĐƠN HÀNG</title>
+  <title>CHI TIẾT ĐƠN HÀNG123</title>
   <style>
     body {
       font-family: "Times New Roman", sans-serif;
@@ -22,7 +22,6 @@
     }
     th {
       text-align: center;
-      vertical-align: middle;
     }
     .col-half {
       width: 50%;
@@ -64,10 +63,10 @@
       padding-top: 5px;
       font-style: italic;
     }
-    .data-stt { width: 10%; text-align: center; }
-    .data-ten { width: 60%; text-align: center; }
-    .data-sl  { width: 10%; text-align: center; }
-    .data-tien { width: 20%; text-align: center; }
+    .stt-col { width: 5%; text-align: center; }
+    .ten-col { width: 55%; }
+    .sl-col  { width: 10%; text-align: center; }
+    .tien-col { width: 30%; text-align: right; }
   </style>
   <script>
     function getParam(name) {
@@ -98,15 +97,19 @@
           const [ten, sl, tien] = item.split("_a_");
           const tienFormatted = Number(tien).toLocaleString("vi-VN");
           return `<tr>
-                    <td style="text-align:center">${index + 1}</td>
-                    <td>${ten}</td>
-                    <td style="text-align:center">${sl}</td>
-                    <td style="text-align:right">${tienFormatted}</td>
+                    <td class="stt-col">${index + 1}</td>
+                    <td class="ten-col">${ten}</td>
+                    <td class="sl-col">${sl}</td>
+                    <td class="tien-col">${tienFormatted}</td>
                   </tr>`;
         }).join("");
         document.getElementById("data-rows").innerHTML = tableBody;
       }
 
+      // Ẩn query string khỏi URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+
+      // In sau khi load
       setTimeout(() => {
         window.print();
       }, 2000);
@@ -133,10 +136,10 @@
         <table class="nested-table">
           <thead>
             <tr>
-              <th class="data-stt">STT</th>
-              <th class="data-ten">Tên</th>
-              <th class="data-sl">SL</th>
-              <th class="data-tien">Tiền</th>
+              <th class="stt-col">STT</th>
+              <th class="ten-col">Tên</th>
+              <th class="sl-col">SL</th>
+              <th class="tien-col">Tiền</th>
             </tr>
           </thead>
           <tbody id="data-rows"></tbody>
@@ -157,7 +160,7 @@
         <br>
         <table class="nested-table">
           <tr><td>MVĐ: <span id="mvd"></span></td></tr>
-          <tr><td><i>Note lưu ý:</i> <span id="note"></span></td></tr>
+          <tr><td>Note lưu ý: <span id="note"></span></td></tr>
           <tr><td>Trọng lượng tính cước: <span id="trongluong"></span></td></tr>
           <tr><td>Thời gian lên đơn: <span id="thoigian"></span></td></tr>
           <tr><td>Freeship: <span id="freeship"></span></td></tr>
