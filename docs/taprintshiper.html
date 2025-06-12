@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>SHIP ĐẾN NGAY</title>
+  <title>CHI TIẾT ĐƠN HÀNG</title>
   <style>
     body {
       font-family: "Times New Roman", sans-serif;
@@ -22,6 +22,7 @@
     }
     th {
       text-align: center;
+      vertical-align: middle;
     }
     .col-half {
       width: 50%;
@@ -63,19 +64,11 @@
       padding-top: 5px;
       font-style: italic;
     }
-
-    /* Ẩn header/footer khi in */
-    @media print {
-      @page {
-        margin: 15mm;
-      }
-      html, body {
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-      }
-    }
+    .data-stt { width: 10%; text-align: center; }
+    .data-ten { width: 60%; text-align: center; }
+    .data-sl  { width: 10%; text-align: center; }
+    .data-tien { width: 20%; text-align: center; }
   </style>
-
   <script>
     function getParam(name) {
       const urlParams = new URLSearchParams(window.location.search);
@@ -105,28 +98,21 @@
           const [ten, sl, tien] = item.split("_a_");
           const tienFormatted = Number(tien).toLocaleString("vi-VN");
           return `<tr>
-                    <td style="width:5%; text-align:center">${index + 1}</td>
-                    <td style="width:60%">${ten}</td>
-                    <td style="width:10%; text-align:center">${sl}</td>
-                    <td style="width:25%; text-align:right">${tienFormatted}</td>
+                    <td style="text-align:center">${index + 1}</td>
+                    <td>${ten}</td>
+                    <td style="text-align:center">${sl}</td>
+                    <td style="text-align:right">${tienFormatted}</td>
                   </tr>`;
         }).join("");
         document.getElementById("data-rows").innerHTML = tableBody;
       }
 
-      // Tự động in sau 2 giây
       setTimeout(() => {
         window.print();
       }, 2000);
-
-      // Tự động đóng sau 10 giây
-      setTimeout(() => {
-        window.close();
-      }, 10000);
     };
   </script>
 </head>
-
 <body>
   <table>
     <tr>
@@ -147,10 +133,10 @@
         <table class="nested-table">
           <thead>
             <tr>
-              <th style="width:5%">STT</th>
-              <th style="width:60%">Tên</th>
-              <th style="width:10%">SL</th>
-              <th style="width:25%">Tiền</th>
+              <th class="data-stt">STT</th>
+              <th class="data-ten">Tên</th>
+              <th class="data-sl">SL</th>
+              <th class="data-tien">Tiền</th>
             </tr>
           </thead>
           <tbody id="data-rows"></tbody>
@@ -165,14 +151,13 @@
       <!-- Cột phải -->
       <td class="col-half">
         <div class="white-bg">
-          <strong>SHIP ĐẾN NGAY</strong><br>
           HOTLINE: 035.3873.488<br>
           <img id="anh2" src="" alt="Ảnh 2">
         </div>
         <br>
         <table class="nested-table">
           <tr><td>MVĐ: <span id="mvd"></span></td></tr>
-          <tr><td>Note lưu ý: <span id="note"></span></td></tr>
+          <tr><td><i>Note lưu ý:</i> <span id="note"></span></td></tr>
           <tr><td>Trọng lượng tính cước: <span id="trongluong"></span></td></tr>
           <tr><td>Thời gian lên đơn: <span id="thoigian"></span></td></tr>
           <tr><td>Freeship: <span id="freeship"></span></td></tr>
