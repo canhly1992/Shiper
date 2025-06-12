@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>CHI TIẾT ĐƠN HÀNG1</title>
+  <title>CHI TIẾT ĐƠN HÀNG</title>
   <style>
     body {
       font-family: "Times New Roman", sans-serif;
@@ -63,6 +63,10 @@
       padding-top: 5px;
       font-style: italic;
     }
+    .data-stt { width: 10%; text-align: center; }
+    .data-ten { width: 50%; }
+    .data-sl { width: 20%; text-align: center; }
+    .data-tien { width: 20%; text-align: right; }
   </style>
   <script>
     function getParam(name) {
@@ -93,10 +97,10 @@
           const [ten, sl, tien] = item.split("_a_");
           const tienFormatted = Number(tien).toLocaleString("vi-VN");
           return `<tr>
-                    <td style="text-align:center">${index + 1}</td>
-                    <td>${ten}</td>
-                    <td style="text-align:center">${sl}</td>
-                    <td style="text-align:right">${tienFormatted}</td>
+                    <td class="data-stt">${index + 1}</td>
+                    <td class="data-ten">${ten}</td>
+                    <td class="data-sl">${sl}</td>
+                    <td class="data-tien">${tienFormatted}</td>
                   </tr>`;
         }).join("");
         document.getElementById("data-rows").innerHTML = tableBody;
@@ -128,10 +132,10 @@
         <table class="nested-table">
           <thead>
             <tr>
-              <th>STT</th>
-              <th>Tên</th>
-              <th>SL</th>
-              <th>Tiền</th>
+              <th class="data-stt">STT</th>
+              <th class="data-ten">Tên</th>
+              <th class="data-sl">SL</th>
+              <th class="data-tien">Tiền</th>
             </tr>
           </thead>
           <tbody id="data-rows"></tbody>
