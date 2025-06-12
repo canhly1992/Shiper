@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>CHI TIẾT ĐƠN HÀNG</title>
+  <title>SHIP ĐẾN NGAY</title>
   <style>
     body {
       font-family: "Times New Roman", sans-serif;
@@ -68,7 +68,16 @@
     .data-ten { width: 60%; text-align: center; }
     .data-sl  { width: 10%; text-align: center; }
     .data-tien { width: 20%; text-align: center; }
+
+    @media print {
+      @page { margin: 15mm; }
+      html, body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
   </style>
+
   <script>
     function getParam(name) {
       const urlParams = new URLSearchParams(window.location.search);
@@ -107,12 +116,12 @@
         document.getElementById("data-rows").innerHTML = tableBody;
       }
 
-      setTimeout(() => {
-        window.print();
-      }, 2000);
+      setTimeout(() => window.print(), 2000);
+      setTimeout(() => window.close(), 10000);
     };
   </script>
 </head>
+
 <body>
   <table>
     <tr>
@@ -151,6 +160,7 @@
       <!-- Cột phải -->
       <td class="col-half">
         <div class="white-bg">
+          <strong>SHIP ĐẾN NGAY</strong><br>
           HOTLINE: 035.3873.488<br>
           <img id="anh2" src="" alt="Ảnh 2">
         </div>
