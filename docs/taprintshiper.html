@@ -71,7 +71,12 @@
       width: 30px;
     }
     .ten-col {
-      width: auto;
+      width: 100%; /* mở rộng ra hết phần còn lại */
+      text-align: left;
+    }
+    .tien-col {
+      width: 90px;
+      text-align: right;
     }
     .ghichu-don {
       padding-top: 5px;
@@ -105,12 +110,12 @@
         const rows = data.split("_b_");
         const tableBody = rows.map((item, index) => {
           const [ten, soluong, tien] = item.split("_a_");
-          const tienFormatted = Number(tien).toLocaleString("vi-VN");
+          const tienFormatted = Number(tien).toLocaleString("vi-VN") + " Vnđ";
           return `<tr>
             <td>${index + 1}</td>
-            <td>${ten}</td>
+            <td class="ten-col">${ten}</td>
             <td>${soluong}</td>
-            <td>${tienFormatted}</td>
+            <td class="tien-col">${tienFormatted}</td>
           </tr>`;
         }).join("");
         document.getElementById("data-rows").innerHTML = tableBody;
@@ -146,7 +151,7 @@
             <th class="stt-col">STT</th>
             <th class="ten-col">Tên</th>
             <th class="soluong-col">SL</th>
-            <th>Tiền</th>
+            <th class="tien-col">Tiền</th>
           </tr>
           <tbody id="data-rows"></tbody>
         </table>
