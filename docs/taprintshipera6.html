@@ -2,66 +2,54 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Chi tiết đơn hàng A6</title>
+  <title>Shipdenngay</title>
   <style>
-    @page {
-      size: 105mm 148mm; /* A6 portrait */
-      margin: 5mm;
-    }
-
     body {
       font-family: "Times New Roman", sans-serif;
-      font-size: 8px;
-      padding: 5px;
-      margin: 0;
+      padding: 10px;
       background-color: white;
+      font-size: 12px;
+      max-width: 105mm;
     }
-
     table {
       width: 100%;
       border-collapse: collapse;
+      background-color: white;
     }
-
     td, th {
       border: 1px dashed #000;
-      padding: 3px;
+      padding: 4px;
       vertical-align: top;
     }
-
-    .center {
+    th {
       text-align: center;
+      vertical-align: middle;
     }
-
-    .barcode, .qr, .logo {
-      display: block;
-      margin: 5px auto;
+    .img-center {
+      text-align: center;
+      margin-bottom: 5px;
     }
-
-    #barcode {
+    #anh1 {
       max-width: 100%;
       height: auto;
     }
-
-    #qr {
-      width: 90px;
-      height: 90px;
+    #anh2, #anh3 {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border: 1px solid #000;
+      display: inline-block;
+      margin: 5px;
     }
-
-    #logo {
-      width: 40px;
-      height: auto;
+    .note-text {
+      font-style: italic;
+      padding-top: 5px;
     }
-
-    .no-border td {
-      border: none;
-      padding: 2px;
-    }
-
-    .note {
-      height: 30px;
-    }
+    .data-stt { width: 10%; text-align: center; }
+    .data-ten { width: 60%; text-align: center; }
+    .data-sl  { width: 10%; text-align: center; }
+    .data-tien { width: 20%; text-align: center; }
   </style>
-
   <script>
     function getParam(name) {
       const urlParams = new URLSearchParams(window.location.search);
@@ -70,73 +58,79 @@
 
     window.onload = function () {
       const fields = [
-        "mvd", "nguoigui", "nguoinhan", "diachi", "sdt",
-        "cod", "cuoc", "dongkiem", "freeship", "ghichu",
-        "barcode", "qr", "logo", "items"
+        "nguoigui", "nguoinhan", "diachi", "sdt", "mvd", "note",
+        "trongluong", "thoigian", "freeship", "tongcode", "dongkiem",
+        "ghichu-don", "anh1", "anh2", "anh3"
       ];
 
       fields.forEach(field => {
         const value = getParam(field);
-        if (["barcode", "qr", "logo"].includes(field) && value) {
-          document.getElementById(field).src = value;
-        } else if (field !== "items") {
-          document.getElementById(field).innerText = value;
+        if (field.startsWith("anh") && value) {
+          document.getElementById(field).src = decodeURIComponent(value);
+        } else {
+          const el = document.getElementById(field);
+          if (el) el.innerText = value;
         }
       });
 
-      const items = getParam("items");
-      if (items) {
-        const itemArray = items.split("_");
-        const col1 = itemArray.filter((_, i) => i % 2 === 0).map(i => `<div>${i}</div>`).join("");
-        const col2 = itemArray.filter((_, i) => i % 2 !== 0).map(i => `<div>${i}</div>`).join("");
-        document.getElementById("items-col1").innerHTML = col1;
-        document.getElementById("items-col2").innerHTML = col2;
+      const data = getParam("data");
+      if (data) {
+        const rows = data.split("_b_");
+        const tableBody = rows.map((item, index) => {
+          const [ten, sl, tien] = item.split("_a_");
+          const tienFormatted = Number(tien).toLocaleString("vi-VN");
+          return `<tr>
+                    <td style="text-align:center">${index + 1}</td>
+                    <td>${ten}</td>
+                    <td style="text-align:center">${sl}</td>
+                    <td style="text-align:right">${tienFormatted}</td>
+                  </tr>`;
+        }).join("");
+        document.getElementById("data-rows").innerHTML = tableBody;
       }
 
+      // Ẩn URL dài sau khi load
+      window.history.replaceState({}, document.title, window.location.pathname);
+
+      // Tự in và đóng
       setTimeout(() => window.print(), 2000);
+      setTimeout(() => window.close(), 10000);
     };
   </script>
 </head>
 <body>
+  <div class="img-center">
+    <img id="anh1" src="" alt="Ảnh 1">
+  </div>
+
+  <div><strong>Người gửi:</strong> <span id="nguoigui"></span></div>
+  <div><strong>Người nhận:</strong> <span id="nguoinhan"></span></div>
+  <div><strong>SĐT:</strong> <span id="sdt"></span></div>
+  <div><strong>Địa chỉ:</strong> <span id="diachi"></span></div>
+  <div><strong>MVĐ:</strong> <span id="mvd"></span></div>
+  <div><strong><i>Note lưu ý:</i></strong> <span id="note"></span></div>
+  <div><strong>Trọng lượng tính cước:</strong> <span id="trongluong"></span></div>
+  <div><strong>Thời gian lên đơn:</strong> <span id="thoigian"></span></div>
+  <div><strong>Freeship:</strong> <span id="freeship"></span></div>
+  <div><strong>Tổng COD:</strong> <span id="tongcode"></span></div>
+  <div><strong>Đồng kiểm:</strong> <span id="dongkiem"></span></div>
+  <div class="note-text"><strong>Ghi chú:</strong> <span id="ghichu-don"></span></div>
+
+  <div class="img-center">
+    <img id="anh2" src="" alt="Ảnh 2">
+    <img id="anh3" src="" alt="Ảnh 3">
+  </div>
+
   <table>
-    <tr><td colspan="2" class="center"><img id="barcode" src="" alt="Barcode"></td></tr>
-    <tr>
-      <td>MVĐ:</td>
-      <td><span id="mvd"></span></td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <strong>Gửi:</strong><br>
-        Người Nhận: <span id="nguoinhan"></span><br>
-        Địa Chỉ: <span id="diachi"></span><br>
-        SĐT: <span id="sdt"></span>
-      </td>
-    </tr>
-    <tr>
-      <td>COD: <span id="cod"></span></td>
-      <td>Cước: <span id="cuoc"></span></td>
-    </tr>
-    <tr>
-      <td colspan="2">0/Được đồng kiểm</td>
-    </tr>
-    <tr>
-      <td>Free Ship:</td>
-      <td><span id="freeship"></span></td>
-    </tr>
-    <tr>
-      <td id="items-col1"></td>
-      <td id="items-col2"></td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <strong>Ghi chú:</strong><br>
-        <span id="ghichu"></span>
-      </td>
-    </tr>
-    <tr>
-      <td class="center"><img id="logo" src="" alt="Logo"><br>Ship Đến Ngay<br>035.3873.488</td>
-      <td class="center"><img id="qr" src="" alt="QR Code"></td>
-    </tr>
+    <thead>
+      <tr>
+        <th class="data-stt">STT</th>
+        <th class="data-ten">Tên</th>
+        <th class="data-sl">SL</th>
+        <th class="data-tien">Tiền</th>
+      </tr>
+    </thead>
+    <tbody id="data-rows"></tbody>
   </table>
 </body>
 </html>
