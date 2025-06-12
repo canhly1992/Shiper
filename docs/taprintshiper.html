@@ -13,7 +13,6 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      background-color: white;
     }
     td, th {
       border: 1px dashed #000;
@@ -21,9 +20,6 @@
       vertical-align: top;
       background-color: white;
       text-align: center;
-    }
-    .note {
-      height: 30px;
     }
     .col-half {
       width: 50%;
@@ -71,7 +67,7 @@
       width: 30px;
     }
     .ten-col {
-      width: 100%; /* mở rộng ra hết phần còn lại */
+      width: 100%;
       text-align: left;
     }
     .tien-col {
@@ -79,8 +75,9 @@
       text-align: right;
     }
     .ghichu-don {
-      padding-top: 5px;
       font-style: italic;
+      text-align: left;
+      padding-top: 5px;
     }
   </style>
   <script>
@@ -128,7 +125,6 @@
   </script>
 </head>
 <body>
-
   <table>
     <tr>
       <!-- Cột 1 -->
@@ -165,22 +161,21 @@
         </div>
         <br>
         <table class="nested-table">
-          <tr><td>MVĐ: <span id="mvd">cly-20250612112922-0037</span></td></tr>
-          <tr><td>Trọng lượng tính cước: <span id="trongluong">12345</span></td></tr>
-          <tr><td>Thời gian lên đơn: <span id="thoigian">12/06/2025 11:29</span></td></tr>
-          <tr><td>Freeship: <span id="freeship">Không</span></td></tr>
-          <tr><td>Tổng COD: <span id="tongcode">20.000</span></td></tr>
-          <tr><td>Đồng kiểm: <span id="dongkiem">m</span></td></tr>
+          <tr><td>MVĐ: <span id="mvd"></span></td></tr>
+          <tr><td>Note lưu ý: <span id="note"></span></td></tr>
+          <tr><td>Trọng lượng tính cước: <span id="trongluong"></span></td></tr>
+          <tr><td>Thời gian lên đơn: <span id="thoigian"></span></td></tr>
+          <tr><td>Freeship: <span id="freeship"></span></td></tr>
+          <tr><td>Tổng COD: <span id="tongcode"></span></td></tr>
+          <tr><td style="text-align:left;">Đồng kiểm: <span id="dongkiem"></span></td></tr>
         </table>
 
-        <br>
         <div class="white-bg">
           <img id="anh3" src="" alt="Ảnh 3">
-          <div class="ghichu-don">Ghi chú: <span id="note">123</span></div>
+          <div class="ghichu-don">Ghi chú: <span id="note"></span></div>
         </div>
       </td>
     </tr>
   </table>
-
 </body>
 </html>
