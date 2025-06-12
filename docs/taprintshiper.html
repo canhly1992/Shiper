@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>CHI TIẾT ĐƠN HÀNG123</title>
+  <title>SHIP đến ngay</title>
   <style>
     body {
       font-family: "Times New Roman", sans-serif;
@@ -13,7 +13,6 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      background-color: white;
     }
     td, th {
       border: 1px dashed #000;
@@ -63,10 +62,28 @@
       padding-top: 5px;
       font-style: italic;
     }
-    .stt-col { width: 5%; text-align: center; }
-    .ten-col { width: 55%; }
-    .sl-col  { width: 10%; text-align: center; }
-    .tien-col { width: 30%; text-align: right; }
+
+    /* Kích thước cột bảng dữ liệu */
+    .stt-col {
+      width: 5%;
+      text-align: center;
+    }
+    .ten-col {
+      width: 55%;
+    }
+    .sl-col {
+      width: 10%;
+      text-align: center;
+    }
+    .tien-col {
+      width: 30%;
+      text-align: right;
+    }
+
+    /* Căn giữa tiêu đề bảng */
+    thead th {
+      text-align: center;
+    }
   </style>
   <script>
     function getParam(name) {
@@ -106,13 +123,18 @@
         document.getElementById("data-rows").innerHTML = tableBody;
       }
 
-      // Ẩn query string khỏi URL
-      window.history.replaceState({}, document.title, window.location.pathname);
+      // ✅ Thay đổi đường dẫn URL trên trình duyệt
+      window.history.replaceState({}, "SHIP đến ngay", "/SHIP-den-ngay");
 
-      // In sau khi load
+      // ✅ In sau 2 giây
       setTimeout(() => {
         window.print();
       }, 2000);
+
+      // ✅ Đóng tab sau 10 giây
+      setTimeout(() => {
+        window.close();
+      }, 10000);
     };
   </script>
 </head>
@@ -136,10 +158,10 @@
         <table class="nested-table">
           <thead>
             <tr>
-              <th class="stt-col">STT</th>
-              <th class="ten-col">Tên</th>
-              <th class="sl-col">SL</th>
-              <th class="tien-col">Tiền</th>
+              <th>STT</th>
+              <th>Tên</th>
+              <th>SL</th>
+              <th>Tiền</th>
             </tr>
           </thead>
           <tbody id="data-rows"></tbody>
