@@ -63,10 +63,15 @@
       padding-top: 5px;
       font-style: italic;
     }
-    .data-stt { width: 10%; text-align: center; }
-    .data-ten { width: 50%; }
-    .data-sl { width: 20%; text-align: center; }
-    .data-tien { width: 20%; text-align: right; }
+
+    /* Điều chỉnh chiều rộng và canh giữa */
+    .data-stt, .data-sl, .data-tien, .data-ten {
+      text-align: center;
+    }
+    .data-stt { width: 10%; }
+    .data-ten { width: 64%; text-align: left; }
+    .data-sl  { width: 18%; }
+    .data-tien { width: 18%; text-align: right; }
   </style>
   <script>
     function getParam(name) {
