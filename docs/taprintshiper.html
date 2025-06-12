@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>CHI TIẾT ĐƠN HÀNG1</title>
+  <title>SHIP ĐẾN NGAY</title>
   <style>
     body {
       font-family: "Times New Roman", sans-serif;
@@ -13,6 +13,7 @@
     table {
       width: 100%;
       border-collapse: collapse;
+      background-color: white;
     }
     td, th {
       border: 1px dashed #000;
@@ -63,28 +64,18 @@
       font-style: italic;
     }
 
-    /* Kích thước cột bảng dữ liệu */
-    .stt-col {
-      width: 5%;
-      text-align: center;
-    }
-    .ten-col {
-      width: 55%;
-    }
-    .sl-col {
-      width: 10%;
-      text-align: center;
-    }
-    .tien-col {
-      width: 30%;
-      text-align: right;
-    }
-
-    /* Căn giữa tiêu đề bảng */
-    thead th {
-      text-align: center;
+    /* Ẩn header/footer khi in */
+    @media print {
+      @page {
+        margin: 15mm;
+      }
+      html, body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
     }
   </style>
+
   <script>
     function getParam(name) {
       const urlParams = new URLSearchParams(window.location.search);
@@ -114,30 +105,28 @@
           const [ten, sl, tien] = item.split("_a_");
           const tienFormatted = Number(tien).toLocaleString("vi-VN");
           return `<tr>
-                    <td class="stt-col">${index + 1}</td>
-                    <td class="ten-col">${ten}</td>
-                    <td class="sl-col">${sl}</td>
-                    <td class="tien-col">${tienFormatted}</td>
+                    <td style="width:5%; text-align:center">${index + 1}</td>
+                    <td style="width:60%">${ten}</td>
+                    <td style="width:10%; text-align:center">${sl}</td>
+                    <td style="width:25%; text-align:right">${tienFormatted}</td>
                   </tr>`;
         }).join("");
         document.getElementById("data-rows").innerHTML = tableBody;
       }
 
-      // ✅ Thay đổi đường dẫn URL trên trình duyệt
-      window.history.replaceState({}, "SHIP đến ngay", "/SHIP-den-ngay");
-
-      // ✅ In sau 2 giây
+      // Tự động in sau 2 giây
       setTimeout(() => {
         window.print();
       }, 2000);
 
-      // ✅ Đóng tab sau 10 giây
+      // Tự động đóng sau 10 giây
       setTimeout(() => {
         window.close();
       }, 10000);
     };
   </script>
 </head>
+
 <body>
   <table>
     <tr>
@@ -158,10 +147,10 @@
         <table class="nested-table">
           <thead>
             <tr>
-              <th>STT</th>
-              <th>Tên</th>
-              <th>SL</th>
-              <th>Tiền</th>
+              <th style="width:5%">STT</th>
+              <th style="width:60%">Tên</th>
+              <th style="width:10%">SL</th>
+              <th style="width:25%">Tiền</th>
             </tr>
           </thead>
           <tbody id="data-rows"></tbody>
@@ -176,6 +165,7 @@
       <!-- Cột phải -->
       <td class="col-half">
         <div class="white-bg">
+          <strong>SHIP ĐẾN NGAY</strong><br>
           HOTLINE: 035.3873.488<br>
           <img id="anh2" src="" alt="Ảnh 2">
         </div>
