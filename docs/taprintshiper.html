@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>SHIP ĐẾN NGAY01</title>
+  <title>Shipdenngay</title>
   <style>
     body {
       font-family: "Times New Roman", sans-serif;
@@ -68,64 +68,55 @@
     .data-ten { width: 60%; text-align: center; }
     .data-sl  { width: 10%; text-align: center; }
     .data-tien { width: 20%; text-align: center; }
-
-    @media print {
-      @page { margin: 15mm; }
-      html, body {
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-      }
-    }
   </style>
-
   <script>
     function getParam(name) {
       const urlParams = new URLSearchParams(window.location.search);
       return urlParams.get(name) || "";
     }
 
-window.onload = function () {
-  const fields = [
-    "nguoigui", "nguoinhan", "diachi", "sdt", "mvd", "note",
-    "trongluong", "thoigian", "freeship", "tongcode", "dongkiem",
-    "ghichu-don", "anh1", "anh2", "anh3"
-  ];
+    window.onload = function () {
+      const fields = [
+        "nguoigui", "nguoinhan", "diachi", "sdt", "mvd", "note",
+        "trongluong", "thoigian", "freeship", "tongcode", "dongkiem",
+        "ghichu-don", "anh1", "anh2", "anh3"
+      ];
 
-  fields.forEach(field => {
-    const value = getParam(field);
-    if (field.startsWith("anh") && value) {
-      document.getElementById(field).src = decodeURIComponent(value);
-    } else {
-      document.getElementById(field).innerText = value;
-    }
-  });
+      fields.forEach(field => {
+        const value = getParam(field);
+        if (field.startsWith("anh") && value) {
+          document.getElementById(field).src = decodeURIComponent(value);
+        } else {
+          const el = document.getElementById(field);
+          if (el) el.innerText = value;
+        }
+      });
 
-  const data = getParam("data");
-  if (data) {
-    const rows = data.split("_b_");
-    const tableBody = rows.map((item, index) => {
-      const [ten, sl, tien] = item.split("_a_");
-      const tienFormatted = Number(tien).toLocaleString("vi-VN");
-      return `<tr>
-                <td style="text-align:center">${index + 1}</td>
-                <td>${ten}</td>
-                <td style="text-align:center">${sl}</td>
-                <td style="text-align:right">${tienFormatted}</td>
-              </tr>`;
-    }).join("");
-    document.getElementById("data-rows").innerHTML = tableBody;
-  }
+      const data = getParam("data");
+      if (data) {
+        const rows = data.split("_b_");
+        const tableBody = rows.map((item, index) => {
+          const [ten, sl, tien] = item.split("_a_");
+          const tienFormatted = Number(tien).toLocaleString("vi-VN");
+          return `<tr>
+                    <td style="text-align:center">${index + 1}</td>
+                    <td>${ten}</td>
+                    <td style="text-align:center">${sl}</td>
+                    <td style="text-align:right">${tienFormatted}</td>
+                  </tr>`;
+        }).join("");
+        document.getElementById("data-rows").innerHTML = tableBody;
+      }
 
-  // ✅ Xóa query trên thanh địa chỉ
-  window.history.replaceState({}, document.title, window.location.pathname);
+      // ✅ Ẩn query string khỏi thanh địa chỉ
+      window.history.replaceState({}, document.title, window.location.pathname);
 
-  // In sau 2 giây, đóng sau 10 giây
-  setTimeout(() => window.print(), 2000);
-  setTimeout(() => window.close(), 10000);
-};
+      // ✅ In sau 2 giây, đóng sau 10 giây
+      setTimeout(() => window.print(), 2000);
+      setTimeout(() => window.close(), 10000);
+    };
   </script>
 </head>
-
 <body>
   <table>
     <tr>
@@ -164,7 +155,6 @@ window.onload = function () {
       <!-- Cột phải -->
       <td class="col-half">
         <div class="white-bg">
-          <strong>SHIP ĐẾN NGAY</strong><br>
           HOTLINE: 035.3873.488<br>
           <img id="anh2" src="" alt="Ảnh 2">
         </div>
