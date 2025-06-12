@@ -87,8 +87,7 @@
         if (field.startsWith("anh") && value) {
           document.getElementById(field).src = decodeURIComponent(value);
         } else {
-          const el = document.getElementById(field);
-          if (el) el.innerText = value;
+          document.getElementById(field).innerText = value;
         }
       });
 
@@ -108,12 +107,9 @@
         document.getElementById("data-rows").innerHTML = tableBody;
       }
 
-      // ✅ Ẩn query string khỏi thanh địa chỉ
-      window.history.replaceState({}, document.title, window.location.pathname);
-
-      // ✅ In sau 2 giây, đóng sau 10 giây
-      setTimeout(() => window.print(), 2000);
-      setTimeout(() => window.close(), 10000);
+      setTimeout(() => {
+        window.print();
+      }, 2000);
     };
   </script>
 </head>
