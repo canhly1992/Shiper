@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>CHI TIẾT ĐƠN HÀNG</title>
+  <title>CHI TIẾT ĐƠN HÀNG02</title>
   <style>
     body {
       font-family: "Times New Roman", sans-serif;
@@ -19,8 +19,6 @@
       padding: 4px;
       vertical-align: top;
       background-color: white;
-    }
-    th {
       text-align: center;
     }
     .col-half {
@@ -75,19 +73,15 @@
       text-align: left;
     }
     .tien-col {
-      width: 180px;
+      width: 200px;
       text-align: right;
+      font-size: 18px;
+      font-weight: bold;
     }
     .ghichu-don {
       font-style: italic;
       text-align: left;
       padding-top: 5px;
-    }
-    .left-align {
-      text-align: left;
-    }
-    .center-align {
-      text-align: center;
     }
   </style>
   <script>
@@ -107,7 +101,7 @@
         const element = document.getElementById(field);
         const value = getParam(field);
         if (field.startsWith("anh") && value) {
-          element.src = value;
+          element.src = decodeURIComponent(value);
         } else {
           element.innerText = value;
         }
@@ -120,9 +114,9 @@
           const [ten, soluong, tien] = item.split("_a_");
           const tienFormatted = Number(tien).toLocaleString("vi-VN");
           return `<tr>
-            <td class="stt-col center-align">${index + 1}</td>
+            <td class="stt-col">${index + 1}</td>
             <td class="ten-col">${ten}</td>
-            <td class="soluong-col center-align">${soluong}</td>
+            <td class="soluong-col">${soluong}</td>
             <td class="tien-col">${tienFormatted}</td>
           </tr>`;
         }).join("");
@@ -143,7 +137,7 @@
         <div class="img-container">
           <img id="anh1" src="" alt="Ảnh 1">
         </div>
-        <div class="left-align">Người gửi: <span id="nguoigui"></span></div><br>
+        <div style="text-align: left;">Người gửi: <span id="nguoigui"></span></div><br>
 
         <table class="nested-table">
           <tr>
@@ -151,16 +145,15 @@
             <td>SĐT: <span id="sdt"></span></td>
           </tr>
         </table>
-
         <br>
-        <div class="left-align">Địa chỉ: <span id="diachi"></span></div><br>
+        <div style="text-align: left;">Địa chỉ: <span id="diachi"></span></div><br>
 
         <table class="nested-table">
           <tr>
             <th class="stt-col">STT</th>
-            <th class="ten-col center-align">Tên</th>
+            <th class="ten-col">Tên</th>
             <th class="soluong-col">SL</th>
-            <th class="tien-col center-align">Tiền</th>
+            <th class="tien-col">Tiền</th>
           </tr>
           <tbody id="data-rows"></tbody>
         </table>
