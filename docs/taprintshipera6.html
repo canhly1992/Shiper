@@ -9,38 +9,57 @@
       padding: 10px;
       background-color: white;
       font-size: 12px;
-      max-width: 105mm;
+      max-width: 105mm; /* Khổ A6 ngang */
     }
+
     table {
       width: 100%;
       border-collapse: collapse;
       background-color: white;
     }
+
     td, th {
       border: 1px dashed #000;
       padding: 4px;
       vertical-align: top;
     }
+
     th {
       text-align: center;
       vertical-align: middle;
     }
+
     .img-center {
       text-align: center;
       margin-bottom: 5px;
     }
+
     #anh1 {
-      max-width: 50%;
+      max-width: 60mm;
       height: auto;
     }
-    #anh2, #anh3 {
-      max-width: 50%;
+
+    #anh2 {
+      max-width: 100%;
       height: auto;
+      display: block;
+      margin: 0 auto 5px;
     }
+
+    #anh3 {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border: 1px solid #000;
+      display: block;
+      margin: 5px auto 0;
+    }
+
     .note-text {
       font-style: italic;
       padding-top: 5px;
     }
+
     .data-stt { width: 10%; text-align: center; }
     .data-ten { width: 60%; text-align: center; }
     .data-sl  { width: 10%; text-align: center; }
@@ -85,16 +104,17 @@
         document.getElementById("data-rows").innerHTML = tableBody;
       }
 
-      // Ẩn URL dài sau khi load
+      // Ẩn URL dài
       window.history.replaceState({}, document.title, window.location.pathname);
 
-      // Tự in và đóng
+      // Tự động in và đóng
       setTimeout(() => window.print(), 2000);
       setTimeout(() => window.close(), 10000);
     };
   </script>
 </head>
 <body>
+
   <div class="img-center">
     <img id="anh1" src="" alt="Ảnh 1">
   </div>
@@ -113,8 +133,8 @@
   <div class="note-text"><strong>Ghi chú:</strong> <span id="ghichu-don"></span></div>
 
   <div class="img-center">
-    <img id="anh2" src="" alt="Ảnh 2">
-    <img id="anh3" src="" alt="Ảnh 3">
+    <img id="anh2" src="" alt="Mã vạch">
+    <img id="anh3" src="" alt="Ảnh sản phẩm">
   </div>
 
   <table>
@@ -128,5 +148,6 @@
     </thead>
     <tbody id="data-rows"></tbody>
   </table>
+
 </body>
 </html>
