@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Phiếu giao hàng 1</title>
+  <title>Phiếu giao hàng</title>
   <style>
     body {
       font-family: "Times New Roman", sans-serif;
@@ -66,16 +66,19 @@
       margin-top: 5px;
     }
 
-    #anh1 {
-      height: 35px;
-      object-fit: contain;
-    }
-
-    #anh3 {
+    #anh1, #anh3 {
       width: 70px;
       height: 70px;
       object-fit: contain;
       border: 1px solid #000;
+    }
+
+    #anh1 {
+      margin-right: auto;
+    }
+
+    #anh3 {
+      margin-left: auto;
     }
   </style>
   <script>
@@ -87,7 +90,7 @@
     window.onload = function () {
       const fields = [
         "nguoigui", "nguoinhan", "diachi", "sdt", "mvd", "note",
-        "trongluong", "thoigian", "freeship", "tongcode", "dongkiem",
+        "thoigian", "freeship", "tongcode", "dongkiem",
         "ghichu-don", "anh1", "anh3"
       ];
 
@@ -100,6 +103,11 @@
           if (el) el.innerText = value;
         }
       });
+
+      // Xử lý trọng lượng hiển thị sát chữ "g"
+      const tl = getParam("trongluong");
+      const elTL = document.getElementById("trongluong_full");
+      if (elTL) elTL.innerText = tl ? `${tl} g` : "";
 
       const data = getParam("data");
       if (data) {
@@ -117,7 +125,10 @@
         document.getElementById("data-rows").innerHTML = tableBody;
       }
 
+      // Ẩn URL dài
       window.history.replaceState({}, document.title, window.location.pathname);
+
+      // Tự in và đóng
       setTimeout(() => window.print(), 2000);
       setTimeout(() => window.close(), 10000);
     };
@@ -139,7 +150,7 @@
 
   <div class="row">
     <span><strong>Free ship:</strong> <span id="freeship"></span></span>
-    <span><strong>TL:</strong> <span id="trongluong"></span>g</span>
+    <span><strong>TL:</strong> <span id="trongluong_full"></span></span>
   </div>
 
   <div><strong>Đồng Kiểm:</strong> <span id="dongkiem"></span></div>
@@ -161,7 +172,7 @@
 
   <div class="image-row">
     <img id="anh1" src="" alt="Logo">
-    <img id="anh3" src="" alt="QR Code hoặc ảnh sản phẩm">
+    <img id="anh3" src="" alt="Ảnh sản phẩm">
   </div>
 
 </body>
