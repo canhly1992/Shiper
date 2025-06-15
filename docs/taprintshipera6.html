@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Phiếu giao hàng</title>
+  <title>Report</title>
   <style>
     body {
       font-family: "Times New Roman", sans-serif;
@@ -12,81 +12,94 @@
       max-width: 105mm; /* A6 ngang */
     }
 
-    .top-right {
+    .header-right {
       text-align: right;
-      font-size: 11px;
+      font-size: 12px;
     }
 
     .center {
       text-align: center;
+    }
+
+    .section {
       margin: 5px 0;
-    }
-
-    .row {
-      display: flex;
-      justify-content: space-between;
-      margin: 2px 0;
-    }
-
-    .row span {
-      display: inline-block;
-      min-width: 48%;
-    }
-
-    .note-text {
-      font-style: italic;
-      margin-top: 5px;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 5px;
     }
 
     td, th {
       border: 1px dashed #000;
       padding: 4px;
       vertical-align: top;
-    }
-
-    th {
       text-align: center;
     }
 
-    .data-stt { width: 10%; text-align: center; }
-    .data-ten { width: 60%; text-align: center; }
-    .data-sl  { width: 10%; text-align: center; }
-    .data-tien { width: 20%; text-align: center; }
-
-    .image-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 5px;
+    .note-text {
+      font-style: italic;
     }
 
-    #anh2, #anh3 {
-      border: 1px solid #000;
+    .logo-container {
+      text-align: center;
+      margin-top: 10px;
     }
 
-    #anh2 {
-      width: 70px;
-      height: 70px;
-      object-fit: contain;
-    }
-
-    #anh3 {
-      width: 70px;
-      height: 70px;
-      object-fit: contain;
-    }
-
-    #anh1 {
+    .logo-container img {
       height: 30px;
       object-fit: contain;
     }
+
+    .qr-container {
+      text-align: center;
+      margin-top: 5px;
+    }
+
+    .qr-container img {
+      height: 60px;
+      object-fit: cover;
+    }
   </style>
+</head>
+<body>
+
+  <div class="header-right">
+    Hotline: 0353.xxx.xxx
+  </div>
+
+  <div class="center section"><strong>MVĐ: yymmdd****xxx</strong></div>
+  <div class="center section">(Người Gửi)</div>
+
+  <div class="section"><strong>Ng nhận:</strong> Nguyễn Văn A &nbsp;&nbsp;&nbsp;&nbsp; <strong>SĐT:</strong> 0983.xxx.xxx</div>
+  <div class="section"><strong>Địa chỉ:</strong> </div>
+  <div class="section"><strong>Free ship:</strong> Không &nbsp;&nbsp;&nbsp;&nbsp; <strong>TL:</strong> 10000g</div>
+  <div class="section"><strong>Đồng Kiểm:</strong> Cho xem không cho thử</div>
+  <div class="note-text section"><strong>Ghi chú:</strong> </div>
+  <div class="section"><strong>Thu hộ:</strong> 1.000.000.000</div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>STT</th>
+        <th>Tên</th>
+        <th>SL</th>
+        <th>Tiền</th>
+      </tr>
+    </thead>
+    <tbody id="data-rows">
+      <!-- Data rows sẽ được JS chèn -->
+    </tbody>
+  </table>
+
+  <div class="qr-container">
+    <img src="anh-ma-qr.jpg" alt="QR Code">
+  </div>
+
+  <div class="logo-container">
+    <img src="df1b60c3ad70192e4061.jpg" alt="SHIP ĐẾN NGAY">
+  </div>
+
   <script>
     function getParam(name) {
       const urlParams = new URLSearchParams(window.location.search);
@@ -94,22 +107,6 @@
     }
 
     window.onload = function () {
-      const fields = [
-        "nguoigui", "nguoinhan", "diachi", "sdt", "mvd", "note",
-        "trongluong", "thoigian", "freeship", "tongcode", "dongkiem",
-        "ghichu-don", "anh1", "anh2", "anh3"
-      ];
-
-      fields.forEach(field => {
-        const value = getParam(field);
-        if (field.startsWith("anh") && value) {
-          document.getElementById(field).src = decodeURIComponent(value);
-        } else {
-          const el = document.getElementById(field);
-          if (el) el.innerText = value;
-        }
-      });
-
       const data = getParam("data");
       if (data) {
         const rows = data.split("_b_");
@@ -126,56 +123,11 @@
         document.getElementById("data-rows").innerHTML = tableBody;
       }
 
-      // Ẩn URL dài
-      window.history.replaceState({}, document.title, window.location.pathname);
-
       // Tự in và đóng
       setTimeout(() => window.print(), 2000);
       setTimeout(() => window.close(), 10000);
     };
   </script>
-</head>
-<body>
-
-  <div class="top-right">Hotline: 0353.xxx.xxx</div>
-
-  <div class="center"><strong>MVĐ:</strong> <span id="mvd"></span></div>
-  <div class="center"><em>(<span id="nguoigui"></span>)</em></div>
-
-  <div class="row">
-    <span><strong>Ng nhận:</strong> <span id="nguoinhan"></span></span>
-    <span><strong>SĐT:</strong> <span id="sdt"></span></span>
-  </div>
-
-  <div><strong>Địa chỉ:</strong> <span id="diachi"></span></div>
-
-  <div class="row">
-    <span><strong>Free ship:</strong> <span id="freeship"></span></span>
-    <span><strong>TL:</strong> <span id="trongluong"></span>g</span>
-  </div>
-
-  <div><strong>Đồng Kiểm:</strong> <span id="dongkiem"></span></div>
-  <div class="note-text"><strong>Ghi chú:</strong> <span id="ghichu-don"></span></div>
-
-  <div><strong>Thu hộ:</strong> <span id="tongcode"></span></div>
-
-  <table>
-    <thead>
-      <tr>
-        <th class="data-stt">STT</th>
-        <th class="data-ten">Tên</th>
-        <th class="data-sl">SL</th>
-        <th class="data-tien">Tiền</th>
-      </tr>
-    </thead>
-    <tbody id="data-rows"></tbody>
-  </table>
-
-  <div class="image-row">
-    <img id="anh3" src="" alt="Ảnh sản phẩm">
-    <img id="anh2" src="" alt="Mã QR">
-    <img id="anh1" src="" alt="Logo">
-  </div>
 
 </body>
 </html>
