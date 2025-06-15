@@ -6,26 +6,29 @@
   <style>
     body {
       font-family: 'Times New Roman', serif;
+      font-size: 12px;
       padding: 20px;
       background-color: white;
     }
     table {
       width: 100%;
       border-collapse: collapse;
+      font-size: 12px;
     }
     td, th {
-      border: 1px solid #000;
+      border: 1px solid black;
       padding: 4px;
-      vertical-align: top;
-    }
-    .center {
       text-align: center;
+    }
+    .no-border {
+      border: none;
+      text-align: left;
     }
     .bold {
       font-weight: bold;
     }
-    .no-border {
-      border: none;
+    .center {
+      text-align: center;
     }
   </style>
   <script>
@@ -36,146 +39,108 @@
 
     window.onload = function () {
       const fields = [
-        "CuaHang", "DiaChiCH", "Hotline",
-        "HoTen", "MaSo", "GioiTinh", "SinhNgay", "SDT", "DiaChi",
-        "BacSi", "Ngay",
-        "MP", "MT", "TLP", "TLT",
-        "DCP", "TRUP", "TRUCP", "TLCKMP",
-        "DCT", "TRUT", "TRUCT", "TLCKMT",
+        "ID", "Ngay", "MaSo", "HoTen", "SinhNgay", "GioiTinh", "SDT", "DiaChi", "BacSi", "ChanDoan",
+        "MP", "MT", "TLP", "DCP", "TRUP", "TRUCP", "TLCKMP",
+        "TLT", "DCT", "TRUT", "TRUCT", "TLCKMT",
         "CKCP", "CKTP", "CKTRUCP", "CKMPTLCK",
         "CKCT", "CKTT", "CKTRUCT", "CKMTTLCK",
-        "PD", "A", "A2", "GP", "GT", "KhoangCach", "KinhDeNghi", "ADD"
+        "KhoangCach", "ADDMP", "ADDMT", "GP", "GT", "A", "A2", "PD", "KinhDeNghi"
       ];
-
       fields.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.textContent = getParam(id);
       });
-
       setTimeout(() => window.print(), 1000);
     };
   </script>
 </head>
 <body>
-
   <div class="center bold">
-    << <span id="CuaHang"></span> >><br>
-    Địa chỉ: << <span id="DiaChiCH"></span> >><br>
-    Điện thoại: << <span id="Hotline"></span> >>
+    3H OPTICAL<br>
+    Địa chỉ: 314 Nguyễn Thượng Hiền, Phường 5, Quận Phú Nhuận, TP.HCM<br>
+    Điện thoại: 756000
   </div>
 
   <h2 class="center">THÔNG TIN KHÁCH HÀNG</h2>
 
   <table>
     <tr>
-      <td colspan="3">Họ và tên (Full name): << <span id="HoTen"></span> >></td>
-      <td>Mã số (ID): << <span id="MaSo"></span> >></td>
+      <td colspan="3" class="no-border">Họ và tên: <span id="HoTen"></span></td>
+      <td class="no-border">Mã số (ID): <span id="MaSo"></span></td>
     </tr>
     <tr>
-      <td>Giới (Sex): << <span id="GioiTinh"></span> >></td>
-      <td>Năm sinh (DOB): << <span id="SinhNgay"></span> >></td>
-      <td colspan="2">SĐT (Tel): << <span id="SDT"></span> >></td>
+      <td class="no-border">Giới: <span id="GioiTinh"></span></td>
+      <td class="no-border">Sinh ngày: <span id="SinhNgay"></span></td>
+      <td colspan="2" class="no-border">SĐT: <span id="SDT"></span></td>
     </tr>
+    <tr><td colspan="4" class="no-border">Địa chỉ: <span id="DiaChi"></span></td></tr>
     <tr>
-      <td colspan="4">Địa Chỉ (Address): << <span id="DiaChi"></span> >></td>
+      <td colspan="2" class="no-border">Bác sĩ: <span id="BacSi"></span></td>
+      <td colspan="2" class="no-border">Ngày kiểm tra: <span id="Ngay"></span></td>
     </tr>
-    <tr>
-      <td colspan="2">Bác sĩ / KTV (Doctor / Optician): << <span id="BacSi"></span> >></td>
-      <td colspan="2">Ngày kiểm tra: << <span id="Ngay"></span> >></td>
-    </tr>
+    <tr><td colspan="4" class="no-border">Chẩn đoán: <span id="ChanDoan"></span></td></tr>
   </table>
 
   <br>
 
   <table>
-    <tr class="center bold">
-      <td rowspan="2"> </td>
-      <td rowspan="2">THỊ LỰC<br>(VA)</td>
-      <td colspan="3">KÍNH CŨ</td>
+    <tr class="bold">
+      <td rowspan="2">KÍNH CŨ</td>
+      <td>THỊ LỰC (VA)</td>
+      <td colspan="3">Mắt Phải (OD): <span id="MP"></span></td>
+      <td colspan="3">Mắt Trái (OS): <span id="MT"></span></td>
     </tr>
-    <tr class="center bold">
-      <td>ĐỘ CẦU<br>(Sphere)</td>
-      <td>ĐỘ LOẠN<br>(Cylinder)</td>
-      <td>TRỤC<br>(Axis)</td>
-    </tr>
-    <tr>
-      <td>Mắt Phải (OD)</td>
-      <td id="MP"></td>
-      <td colspan="3"></td>
+    <tr class="bold">
+      <td></td>
+      <td>ĐỘ CẦU</td><td>ĐỘ LOẠN</td><td>TRỤC</td>
+      <td>ĐỘ CẦU</td><td>ĐỘ LOẠN</td><td>TRỤC</td>
     </tr>
     <tr>
-      <td>Mắt Trái (OS)</td>
-      <td id="MT"></td>
-      <td colspan="3"></td>
+      <td>KHÚC XẠ HIỆN TẠI</td>
+      <td><span id="TLP"></span></td>
+      <td><span id="DCP"></span></td><td><span id="TRUP"></span></td><td><span id="TRUCP"></span></td>
+      <td><span id="DCT"></span></td><td><span id="TRUT"></span></td><td><span id="TRUCT"></span></td>
     </tr>
-    <tr class="center bold">
-      <td rowspan="2">KHÚC XẠ HIỆN TẠI</td>
-      <td rowspan="2">TL KO KÍNH (UCVA)</td>
-      <td>ĐỘ CẦU</td>
-      <td>ĐỘ LOẠN</td>
-      <td>TRỤC</td>
+    <tr>
       <td>TL CHỈNH KÍNH (BCVA)</td>
+      <td><span id="TLT"></span></td>
+      <td colspan="3"><span id="TLCKMP"></span></td>
+      <td colspan="3"><span id="TLCKMT"></span></td>
     </tr>
     <tr>
-      <td>Mắt Phải (OD)</td>
-      <td id="DCP"></td>
-      <td id="TRUP"></td>
-      <td id="TRUCP"></td>
-      <td id="TLCKMP"></td>
+      <td>KHÚC XẠ ĐIỀU CHỈNH</td>
+      <td></td>
+      <td><span id="CKCP"></span></td><td><span id="CKTP"></span></td><td><span id="CKTRUCP"></span></td>
+      <td><span id="CKCT"></span></td><td><span id="CKTT"></span></td><td><span id="CKTRUCT"></span></td>
     </tr>
     <tr>
-      <td>Mắt Trái (OS)</td>
-      <td id="DCT"></td>
-      <td id="TRUT"></td>
-      <td id="TRUCT"></td>
-      <td id="TLCKMT"></td>
-    </tr>
-    <tr class="center bold">
-      <td rowspan="2">KHÚC XẠ ĐIỀU CHỈNH</td>
-      <td>ĐỘ CẦU</td>
-      <td>ĐỘ LOẠN</td>
-      <td>TRỤC</td>
-      <td>ADD</td>
-      <td>TL GẦN</td>
-      <td>TL CHỈNH KÍNH</td>
-    </tr>
-    <tr>
-      <td>Mắt Phải (OD)</td>
-      <td id="CKCP"></td>
-      <td id="CKTP"></td>
-      <td id="CKTRUCP"></td>
-      <td id="ADD"></td>
-      <td id="GP"></td>
-      <td id="CKMPTLCK"></td>
-    </tr>
-    <tr>
-      <td>Mắt Trái (OS)</td>
-      <td id="CKCT"></td>
-      <td id="CKTT"></td>
-      <td id="CKTRUCT"></td>
-      <td id="ADD"></td>
-      <td id="GT"></td>
-      <td id="CKMTTLCK"></td>
+      <td>TL CK + GẦN</td>
+      <td></td>
+      <td colspan="3">
+        ADD MP: <span id="ADDMP"></span><br>
+        GP: <span id="GP"></span><br>
+        TLCK: <span id="CKMPTLCK"></span>
+      </td>
+      <td colspan="3">
+        ADD MT: <span id="ADDMT"></span><br>
+        GT: <span id="GT"></span><br>
+        TLCK: <span id="CKMTTLCK"></span>
+      </td>
     </tr>
     <tr>
       <td>PD</td>
-      <td colspan="6" id="PD"></td>
+      <td colspan="7"><span id="PD"></span></td>
     </tr>
     <tr>
-      <td>KÍNH ĐỀ NGHỊ:</td>
-      <td colspan="6" id="KinhDeNghi"></td>
+      <td>Kính đề nghị</td>
+      <td colspan="7"><span id="KinhDeNghi"></span></td>
     </tr>
     <tr>
-      <td>A:</td>
-      <td id="A"></td>
-      <td>PD:</td>
-      <td id="PD"></td>
-      <td colspan="3">Nhìn gần tốt nhất ở khoảng cách: << <span id="KhoangCach"></span> >> Cm</td>
+      <td colspan="8">Nhìn gần tốt nhất ở khoảng cách: <span id="KhoangCach"></span> cm</td>
     </tr>
     <tr>
-      <td colspan="7" class="bold">Tái khám 6 tháng / lần</td>
+      <td colspan="8" class="bold center">Tái khám 6 tháng / lần</td>
     </tr>
   </table>
-
 </body>
 </html>
