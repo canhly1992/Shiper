@@ -9,7 +9,7 @@
       padding: 10px;
       background-color: white;
       font-size: 12px;
-      max-width: 105mm; /* A6 ngang */
+      max-width: 105mm;
     }
 
     .header-right {
@@ -28,12 +28,12 @@
     table {
       width: 100%;
       border-collapse: collapse;
+      margin-top: 5px;
     }
 
     td, th {
       border: 1px dashed #000;
       padding: 4px;
-      vertical-align: top;
       text-align: center;
     }
 
@@ -51,14 +51,24 @@
       object-fit: contain;
     }
 
+    .barcode-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 5px;
+    }
+
+    .barcode-row img {
+      height: 35px; /* khoảng 1/2 QR code (QR là 70px) */
+    }
+
     .qr-container {
       text-align: center;
       margin-top: 5px;
     }
 
     .qr-container img {
-      height: 60px;
-      object-fit: cover;
+      height: 70px;
     }
   </style>
 </head>
@@ -72,10 +82,10 @@
   <div class="center section">(Người Gửi)</div>
 
   <div class="section"><strong>Ng nhận:</strong> Nguyễn Văn A &nbsp;&nbsp;&nbsp;&nbsp; <strong>SĐT:</strong> 0983.xxx.xxx</div>
-  <div class="section"><strong>Địa chỉ:</strong> </div>
+  <div class="section"><strong>Địa chỉ:</strong> 123 Đường ABC, Quận 1, TP HCM</div>
   <div class="section"><strong>Free ship:</strong> Không &nbsp;&nbsp;&nbsp;&nbsp; <strong>TL:</strong> 10000g</div>
   <div class="section"><strong>Đồng Kiểm:</strong> Cho xem không cho thử</div>
-  <div class="note-text section"><strong>Ghi chú:</strong> </div>
+  <div class="note-text section"><strong>Ghi chú:</strong> Không có</div>
   <div class="section"><strong>Thu hộ:</strong> 1.000.000.000</div>
 
   <table>
@@ -88,16 +98,24 @@
       </tr>
     </thead>
     <tbody id="data-rows">
-      <!-- Data rows sẽ được JS chèn -->
+      <!-- Nội dung đơn hàng sẽ được chèn ở đây -->
     </tbody>
   </table>
 
-  <div class="qr-container">
-    <img src="anh-ma-qr.jpg" alt="QR Code">
-  </div>
-
+  <!-- Logo SHIP ĐẾN NGAY -->
   <div class="logo-container">
     <img src="df1b60c3ad70192e4061.jpg" alt="SHIP ĐẾN NGAY">
+  </div>
+
+  <!-- Hai mã vạch -->
+  <div class="barcode-row">
+    <img src="ma-vach-1.jpg" alt="Mã vạch 1">
+    <img src="ma-vach-2.jpg" alt="Mã vạch 2">
+  </div>
+
+  <!-- Mã QR -->
+  <div class="qr-container">
+    <img src="ma-qr.jpg" alt="Mã QR">
   </div>
 
   <script>
