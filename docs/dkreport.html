@@ -4,10 +4,15 @@
   <meta charset="UTF-8">
   <title>THÔNG TIN KHÁCH HÀNG</title>
   <style>
+    @page {
+      size: A5;
+      margin: 10mm;
+    }
     body {
       font-family: 'Times New Roman', serif;
       font-size: 12px;
-      padding: 20px;
+      padding: 10px;
+      margin-top: 0;
       background-color: white;
     }
     table {
@@ -77,12 +82,8 @@
     <tr>
       <td colspan="2" class="no-border">Bác sĩ: <span id="BacSi"></span></td>
       <td colspan="2" class="no-border">Ngày kiểm tra: <span id="Ngay"></span></td>
-    </tr>
-    <tr><td colspan="4" class="no-border">Chẩn đoán: <span id="ChanDoan"></span></td></tr>
   </table>
-
   <br>
-
   <table>
     <tr class="bold">
       <td rowspan="2">KÍNH CŨ</td>
@@ -113,7 +114,7 @@
       <td><span id="CKCP"></span></td><td><span id="CKTP"></span></td><td><span id="CKTRUCP"></span></td>
       <td><span id="CKCT"></span></td><td><span id="CKTT"></span></td><td><span id="CKTRUCT"></span></td>
     </tr>
-    <!-- TL CK + GẦN tách 3 dòng bắt đầu từ đây -->
+    <!-- TL CK + GẦN tách 3 dòng -->
     <tr>
       <td rowspan="3">TL CK + GẦN</td>
       <td rowspan="3"></td>
@@ -128,7 +129,7 @@
       <td colspan="3">TLCK: <span id="CKMPTLCK"></span></td>
       <td colspan="3">TLCK: <span id="CKMTTLCK"></span></td>
     </tr>
-    <!-- Kết thúc tách dòng TL CK + GẦN -->
+    <!-- Kết thúc -->
     <tr>
       <td>PD</td>
       <td colspan="7"><span id="PD"></span></td>
