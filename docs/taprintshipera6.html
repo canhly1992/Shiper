@@ -20,12 +20,13 @@
       font-size: 12px;
       width: 148mm;
       height: 105mm;
+      padding: 5mm;
     }
 
     .top-right {
       text-align: right;
       font-size: 11px;
-      padding: 2px;
+      margin-top: 5mm;
     }
 
     .center {
@@ -37,7 +38,6 @@
       display: flex;
       justify-content: space-between;
       margin: 2px 0;
-      padding: 0 2px;
     }
 
     .row span {
@@ -48,7 +48,6 @@
     .note-text {
       font-style: italic;
       margin-top: 2px;
-      padding: 0 2px;
     }
 
     table {
@@ -67,10 +66,25 @@
       text-align: center;
     }
 
-    .data-stt { width: 10%; text-align: center; }
-    .data-ten { width: 60%; text-align: center; }
-    .data-sl  { width: 10%; text-align: center; }
-    .data-tien { width: 20%; text-align: center; }
+    .data-stt {
+      width: 10%;
+      text-align: center;
+    }
+
+    .data-ten {
+      width: 60%;
+      text-align: left;
+    }
+
+    .data-sl {
+      width: 10%;
+      text-align: center;
+    }
+
+    .data-tien {
+      width: 20%;
+      text-align: center;
+    }
 
     .image-row {
       display: flex;
@@ -78,7 +92,6 @@
       align-items: center;
       gap: 10px;
       margin-top: 2px;
-      padding: 0;
     }
 
     #anh1, #anh3 {
@@ -123,10 +136,10 @@
           const [ten, sl, tien] = item.split("_a_");
           const tienFormatted = Number(tien).toLocaleString("vi-VN");
           return `<tr>
-                    <td>${index + 1}</td>
-                    <td>${ten}</td>
-                    <td>${sl}</td>
-                    <td style="text-align:right">${tienFormatted}</td>
+                    <td style="text-align:center">${index + 1}</td>
+                    <td style="text-align:left">${ten}</td>
+                    <td style="text-align:center">${sl}</td>
+                    <td style="text-align:center">${tienFormatted}</td>
                   </tr>`;
         }).join("");
         document.getElementById("data-rows").innerHTML = tableBody;
@@ -140,7 +153,7 @@
 </head>
 <body>
 
-  <div class="top-right">Hotline:  035.3873.488</div>
+  <div class="top-right">Hotline: 035.3873.488</div>
 
   <div class="center"><strong>MVĐ:</strong> <span id="mvd"></span></div>
   <div class="center"><em>(<span id="nguoigui"></span>)</em></div>
@@ -149,21 +162,25 @@
     <span><strong>Ng nhận:</strong> <span id="nguoinhan"></span></span>
     <span><strong>SĐT:</strong> <span id="sdt"></span></span>
   </div>
-   <div class="row">
-  <span><strong>Địa chỉ:</strong> <span id="diachi"></span></span>
-</div>
+
+  <div class="row">
+    <span><strong>Địa chỉ:</strong> <span id="diachi"></span></span>
+  </div>
+
   <div class="row">
     <span><strong>Free ship:</strong> <span id="freeship"></span></span>
     <span><strong>TL:</strong> <span id="trongluong_full"></span></span>
   </div>
- <div class="row">
-  <span><strong>Đồng Kiểm:</strong> <span id="dongkiem"></span></span>
-</div>
-  <div class="note-text"><strong>Ghi chú:</strong> <span id="ghichu-don"></span></div>
-  <div class="row">
-  <span><strong>Tổng COD: <span id="tongcode"></span> Vnđ</strong></span>
-</div>
 
+  <div class="row">
+    <span><strong>Đồng Kiểm:</strong> <span id="dongkiem"></span></span>
+  </div>
+
+  <div class="note-text"><strong>Ghi chú:</strong> <span id="ghichu-don"></span></div>
+
+  <div class="row">
+    <span><strong>Tổng COD: <span id="tongcode"></span> Vnđ</strong></span>
+  </div>
 
   <table>
     <thead>
