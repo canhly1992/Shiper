@@ -5,7 +5,7 @@
   <title>Phiếu giao hàng A6-2</title>
   <style>
     @page {
-      margin: 0; /* Bỏ lề khi in */
+      margin: 0;
     }
 
     * {
@@ -18,8 +18,8 @@
       font-family: "Times New Roman", sans-serif;
       background-color: white;
       font-size: 12px;
-      width: 148mm;   /* A6 chiều ngang = 148mm */
-      height: 105mm;  /* A6 chiều dọc = 105mm */
+      width: 148mm;
+      height: 105mm;
     }
 
     .top-right {
@@ -74,10 +74,11 @@
 
     .image-row {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
+      gap: 10px;
       margin-top: 2px;
-      padding: 0 2px;
+      padding: 0;
     }
 
     #anh1, #anh3 {
@@ -85,14 +86,6 @@
       height: 70px;
       object-fit: contain;
       border: 1px solid #000;
-    }
-
-    #anh1 {
-      margin-right: auto;
-    }
-
-    #anh3 {
-      margin-left: auto;
     }
   </style>
 
@@ -121,7 +114,7 @@
 
       const tl = getParam("trongluong");
       const elTL = document.getElementById("trongluong_full");
-      if (elTL) elTL.innerText = tl ? `${tl} Gram` : "";
+      if (elTL) elTL.innerText = tl ? `${tl}Gram` : "";
 
       const data = getParam("data");
       if (data) {
