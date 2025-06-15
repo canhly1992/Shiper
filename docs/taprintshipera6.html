@@ -2,20 +2,46 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>.</title>
+  <title>Phiếu giao hàng</title>
   <style>
     body {
       font-family: "Times New Roman", sans-serif;
       padding: 10px;
       background-color: white;
       font-size: 12px;
-      max-width: 105mm; /* Khổ A6 ngang */
+      max-width: 105mm; /* A6 ngang */
+    }
+
+    .top-right {
+      text-align: right;
+      font-size: 11px;
+    }
+
+    .center {
+      text-align: center;
+      margin: 5px 0;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      margin: 2px 0;
+    }
+
+    .row span {
+      display: inline-block;
+      min-width: 48%;
+    }
+
+    .note-text {
+      font-style: italic;
+      margin-top: 5px;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      background-color: white;
+      margin-top: 5px;
     }
 
     td, th {
@@ -26,46 +52,40 @@
 
     th {
       text-align: center;
-      vertical-align: middle;
-    }
-
-    .img-center {
-      text-align: center;
-      margin-bottom: 5px;
-    }
-
-    #anh1 {
-      max-width: 60mm;
-      height: auto;
-    }
-
-    #anh2 {
-      width: 120px;
-      height: 30px;
-      object-fit: cover;
-      border: 1px solid #000;
-      display: block;
-      margin: 5px auto 0;
-    }
-
-    #anh3 {
-      width: 60px;
-      height: 60px;
-      object-fit: cover;
-      border: 1px solid #000;
-      display: block;
-      margin: 5px auto 0;
-    }
-
-    .note-text {
-      font-style: italic;
-      padding-top: 5px;
     }
 
     .data-stt { width: 10%; text-align: center; }
     .data-ten { width: 60%; text-align: center; }
     .data-sl  { width: 10%; text-align: center; }
     .data-tien { width: 20%; text-align: center; }
+
+    .image-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 5px;
+    }
+
+    #anh2, #anh3 {
+      border: 1px solid #000;
+    }
+
+    #anh2 {
+      width: 70px;
+      height: 70px;
+      object-fit: contain;
+    }
+
+    #anh3 {
+      width: 70px;
+      height: 70px;
+      object-fit: contain;
+    }
+
+    #anh1 {
+      height: 30px;
+      object-fit: contain;
+    }
   </style>
   <script>
     function getParam(name) {
@@ -97,9 +117,9 @@
           const [ten, sl, tien] = item.split("_a_");
           const tienFormatted = Number(tien).toLocaleString("vi-VN");
           return `<tr>
-                    <td style="text-align:center">${index + 1}</td>
+                    <td>${index + 1}</td>
                     <td>${ten}</td>
-                    <td style="text-align:center">${sl}</td>
+                    <td>${sl}</td>
                     <td style="text-align:right">${tienFormatted}</td>
                   </tr>`;
         }).join("");
@@ -109,7 +129,7 @@
       // Ẩn URL dài
       window.history.replaceState({}, document.title, window.location.pathname);
 
-      // Tự động in và đóng
+      // Tự in và đóng
       setTimeout(() => window.print(), 2000);
       setTimeout(() => window.close(), 10000);
     };
@@ -117,27 +137,27 @@
 </head>
 <body>
 
-  <div class="img-center">
-    <img id="anh1" src="" alt="Ảnh 1">
+  <div class="top-right">Hotline: 0353.xxx.xxx</div>
+
+  <div class="center"><strong>MVĐ:</strong> <span id="mvd"></span></div>
+  <div class="center"><em>(<span id="nguoigui"></span>)</em></div>
+
+  <div class="row">
+    <span><strong>Ng nhận:</strong> <span id="nguoinhan"></span></span>
+    <span><strong>SĐT:</strong> <span id="sdt"></span></span>
   </div>
 
-  <div><strong>Người gửi:</strong> <span id="nguoigui"></span></div>
-  <div><strong>Người nhận:</strong> <span id="nguoinhan"></span></div>
-  <div><strong>SĐT:</strong> <span id="sdt"></span></div>
   <div><strong>Địa chỉ:</strong> <span id="diachi"></span></div>
-  <div><strong>MVĐ:</strong> <span id="mvd"></span></div>
-  <div><strong><i>Note lưu ý:</i></strong> <span id="note"></span></div>
-  <div><strong>Trọng lượng tính cước:</strong> <span id="trongluong"></span></div>
-  <div><strong>Thời gian lên đơn:</strong> <span id="thoigian"></span></div>
-  <div><strong>Freeship:</strong> <span id="freeship"></span></div>
-  <div><strong>Tổng COD:</strong> <span id="tongcode"></span></div>
-  <div><strong>Đồng kiểm:</strong> <span id="dongkiem"></span></div>
+
+  <div class="row">
+    <span><strong>Free ship:</strong> <span id="freeship"></span></span>
+    <span><strong>TL:</strong> <span id="trongluong"></span>g</span>
+  </div>
+
+  <div><strong>Đồng Kiểm:</strong> <span id="dongkiem"></span></div>
   <div class="note-text"><strong>Ghi chú:</strong> <span id="ghichu-don"></span></div>
 
-  <div class="img-center">
-    <img id="anh2" src="" alt="Mã vạch">
-    <img id="anh3" src="" alt="Ảnh sản phẩm">
-  </div>
+  <div><strong>Thu hộ:</strong> <span id="tongcode"></span></div>
 
   <table>
     <thead>
@@ -150,6 +170,12 @@
     </thead>
     <tbody id="data-rows"></tbody>
   </table>
+
+  <div class="image-row">
+    <img id="anh3" src="" alt="Ảnh sản phẩm">
+    <img id="anh2" src="" alt="Mã QR">
+    <img id="anh1" src="" alt="Logo">
+  </div>
 
 </body>
 </html>
