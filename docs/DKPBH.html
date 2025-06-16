@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>PHIẾU BÁN HÀNG1</title>
+  <title>PHIẾU BÁN HÀNG</title>
   <style>
     @page {
       size: A5 portrait;
@@ -141,21 +141,19 @@
     <p>VIETQR</p>
   </div>
 
-  <script>
-    function formatVNTime() {
-      const nowVN = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Ho_Chi_Minh" }));
-      const day = String(nowVN.getDate()).padStart(2, '0');
-      const month = String(nowVN.getMonth() + 1).padStart(2, '0');
-      const year = nowVN.getFullYear();
-      const hour = String(nowVN.getHours()).padStart(2, '0');
-      const minute = String(nowVN.getMinutes()).padStart(2, '0');
-      const second = String(nowVN.getSeconds()).padStart(2, '0');
+ <script>
+  function formatVNTimeShort() {
+    const nowVN = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Ho_Chi_Minh" }));
+    const day = String(nowVN.getDate()).padStart(2, '0');
+    const month = String(nowVN.getMonth() + 1).padStart(2, '0');
+    const year = nowVN.getFullYear();
 
-      return `TP. Hồ Chí Minh, ngày ${day} tháng ${month} năm ${year} lúc ${hour} giờ ${minute} phút ${second} giây`;
-    }
+    return `TP. Hồ Chí Minh, ngày ${day} tháng ${month} năm ${year}`;
+  }
 
-    document.getElementById("thoigian").innerText = formatVNTime();
-  </script>
+  document.getElementById("thoigian").innerText = formatVNTimeShort();
+</script>
+
 
 </body>
 </html>
