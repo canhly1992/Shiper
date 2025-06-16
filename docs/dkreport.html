@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>THÔNG TIN ĐƠN KÍNH1</title>
+  <title>THÔNG TIN KHÁCH HÀNG</title>
   <style>
     @page {
       size: A5;
@@ -11,273 +11,154 @@
     body {
       font-family: 'Times New Roman', serif;
       font-size: 12px;
-      padding: 10px;
-      margin-top: 0;
-      background-color: white;
+      margin: 20px;
+      width: 148mm;
     }
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 12px;
+      margin-top: 10px;
     }
     td, th {
-      border: 1px solid black;
+      border: 1px solid #000;
       padding: 4px;
-      text-align: center;
-    }
-    .no-border {
-      border: none;
-      text-align: left;
-    }
-    .bold {
-      font-weight: bold;
-    }
-    .center {
-      text-align: center;
-    }
-  </style>
-  <script>
-    function getParam(name) {
-      const url = new URL(window.location.href);
-      return decodeURIComponent(url.searchParams.get(name) || "");
-    }
-
-    window.onload = function () {
-      const fields = [
-        "ID", "Ngay", "MaSo", "HoTen", "SinhNgay", "GioiTinh", "SDT", "DiaChi", "BacSi", "ChanDoan",
-        "MP", "MT", "TLP", "DCP", "TRUP", "TRUCP", "TLCKMP",
-        "TLT", "DCT", "TRUT", "TRUCT", "TLCKMT",
-        "CKCP", "CKTP", "CKTRUCP", "CKMPTLCK",
-        "CKCT", "CKTT", "CKTRUCT", "CKMTTLCK",
-        "KhoangCach", "ADDMP", "ADDMT", "GP", "GT", "A", "A2", "PD", "KinhDeNghi"
-      ];
-      fields.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = getParam(id);
-      });
-      setTimeout(() => window.print(), 1000);
-    };
-  </script>
-</head>
-<body>
-  <div class="center bold">
-    3H OPTICAL<br>
-    Địa chỉ: 314 Nguyễn Thượng Hiền, Phường 5, Quận Phú Nhuận, TP.HCM<br>
-    Điện thoại: 0909295209 - 0908539209
-  </div>
-
-  <h2 class="center">THÔNG TIN KHÁCH HÀNG</h2>
-
-  <table>
-    <tr>
-      <td colspan="3" class="no-border">Họ và tên: <span id="HoTen"></span></td>
-      <td class="no-border">Mã số (ID): <span id="MaSo"></span></td>
-    </tr>
-    <tr>
-      <td class="no-border">Giới tính: <span id="GioiTinh"></span></td>
-      <td class="no-border">Ngày sinh: <span id="SinhNgay"></span></td>
-      <td colspan="2" class="no-border">SĐT: <span id="SDT"></span></td>
-    </tr>
-    <tr><td colspan="4" class="no-border">Địa chỉ: <span id="DiaChi"></span></td></tr>
-    <tr>
-      <td colspan="2" class="no-border">Bác sĩ: <span id="BacSi"></span></td>
-      <td colspan="2" class="no-border">Ngày kiểm tra: <span id="Ngay"></span></td>
-    </tr>
-  </table>
-
-  <br>
-
-  <table>
-    <tr class="bold">
-      <td rowspan="2">THỊ LỰC KÍNH CŨ (VA)</td>
-      <td colspan="3">Mắt Phải (OD)</td>
-      <td colspan="3">Mắt Trái (OS)</td>
-    </tr>
-    <tr class="bold">
-      <td colspan="3"><span id="MP"></span></td>
-      <td colspan="3"><span id="MT"></span></td>
-    </tr>
-    <tr>
-      <td>THỊ LỰC KHÔNG KÍNH</td>
-      <td colspan="3">DNT 2M</td>
-      <td colspan="3">DNT 2M</td>
-    </tr>
-    <tr class="bold">
-      <td>KHÚC XẠ HIỆN TẠI</td>
-      <td>ĐỘ CẦU</td><td>ĐỘ LOẠN</td><td>TRỤC</td>
-      <td>ĐỘ CẦU</td><td>ĐỘ LOẠN</td><td>TRỤC</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td><span id="DCP"></span></td><td><span id="TRUP"></span></td><td><span id="TRUCP"></span></td>
-      <td><span id="DCT"></span></td><td><span id="TRUT"></span></td><td><span id="TRUCT"></span></td>
-    </tr>
-    <tr>
-      <td>TL CHỈNH KÍNH (BCVA)</td>
-      <td colspan="3"><span id="TLCKMP"></span></td>
-      <td colspan="3"><span id="TLCKMT"></span></td>
-    </tr>
-    <tr>
-      <td>KHÚC XẠ ĐIỀU CHỈNH</td>
-      <td><span id="CKCP"></span></td><td><span id="CKTP"></span></td><td><span id="CKTRUCP"></span></td>
-      <td><span id="CKCT"></span></td><td><span id="CKTT"></span></td><td><span id="CKTRUCT"></span></td>
-    </tr>
-    <tr>
-      <td rowspan="3">TL CK + GẦN</td>
-      <td colspan="3">ADD MP: <span id="ADDMP"></span></td>
-      <td colspan="3">ADD MT: <span id="ADDMT"></span></td>
-    </tr>
-    <tr>
-      <td colspan="3">GP: <span id="GP"></span></td>
-      <td colspan="3">GT: <span id="GT"></span></td>
-    </tr>
-    <tr>
-      <td colspan="3">TLCK: <span id="CKMPTLCK"></span></td>
-      <td colspan="3">TLCK: <span id="CKMTTLCK"></span></td>
-    </tr>
-    <tr>
-      <td>Mono PD</td>
-      <td colspan="3">A: <span id="A"></span></td>
-      <td colspan="3">A2: <span id="A2"></span></td>
-    </tr>
-    <tr>
-      <td>PD</td>
-      <td colspan="7"><span id="PD"></span></td>
-    </tr>
-    <tr>
-      <td>Kính đề nghị</td>
-      <td colspan="7"><span id="KinhDeNghi"></span></td>
-    </tr>
-    <tr>
-      <td colspan="8">Nhìn gần tốt nhất ở khoảng cách: <span id="KhoangCach"></span> cm</td>
-    </tr>
-    <tr>
-      <td colspan="8" class="bold center">Tái khám 6 tháng / lần</td>
-    </tr>
-  </table>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-  <meta charset="UTF-8">
-  <title>THÔNG TIN KHÁCH HÀNG</title>
-  <style>
-    body {
-      font-family: "Times New Roman", serif;
-      font-size: 12px;
-      margin: 10mm;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    th, td {
-      border: 1px solid black;
-      padding: 5px;
       text-align: center;
       vertical-align: middle;
     }
-
     .header {
       text-align: center;
-      margin-bottom: 10px;
+      line-height: 1.5;
     }
-
-    .info {
-      margin: 10px 0;
-      line-height: 1.6;
+    .info-section {
+      margin-top: 10px;
     }
-
-    .info-line {
+    .line {
       display: flex;
       justify-content: space-between;
+      margin-top: 3px;
     }
-
-    .info-line > div {
+    .line > div {
       width: 32%;
     }
-
-    .info-double {
+    .line-double {
       display: flex;
       justify-content: space-between;
-      margin-top: 4px;
+      margin-top: 3px;
     }
-
-    .info-double > div {
+    .line-double > div {
       width: 49%;
     }
   </style>
 </head>
 <body>
 
-<div class="header">
-  <strong>3H OPTICAL</strong><br>
-  Địa chỉ: 314 Nguyễn Thượng Hiền, Phường 5, Quận Phú Nhuận, TP.HCM<br>
-  Điện thoại: 0909592909 - 09095832909<br><br>
-  <strong>THÔNG TIN KHÁCH HÀNG</strong>
-</div>
-
-<div class="info">
-  <div><strong>Họ và tên:</strong> <span id="HoTen"></span></div>
-
-  <div class="info-line">
-    <div><strong>Giới tính:</strong> <span id="GioiTinh"></span></div>
-    <div><strong>Ngày sinh:</strong> <span id="SinhNgay"></span></div>
-    <div><strong>SDT:</strong> <span id="SDT"></span></div>
+  <div class="header">
+    <strong>3H OPTICAL</strong><br>
+    Địa chỉ: 314 Nguyễn Thượng Hiền, Phường 5, Quận Phú Nhuận, TP.HCM<br>
+    Điện thoại: 0909592909 - 09095832909<br><br>
+    <strong>THÔNG TIN KHÁCH HÀNG</strong>
   </div>
 
-  <div style="margin-top: 4px;">
-    <strong>Địa chỉ:</strong> <span id="DiaChi"></span>
+  <div class="info-section">
+    <div><strong>Họ và tên:</strong> TRẦN THỊ PHƯỢNG</div>
+
+    <div class="line">
+      <div><strong>Giới tính:</strong> Nữ</div>
+      <div><strong>Ngày sinh:</strong> 1983</div>
+      <div><strong>SDT:</strong> 867.762.831</div>
+    </div>
+
+    <div style="margin-top: 3px;"><strong>Địa chỉ:</strong> 273 Nguyễn Văn Đậu, Phường 11, Bình Thạnh, Hồ Chí Minh, Vietnam</div>
+
+    <div class="line-double">
+      <div><strong>Bác sĩ:</strong> Lê Quang Châu</div>
+      <div><strong>Ngày kiểm tra:</strong> 06/13/2025 20:18:19</div>
+    </div>
   </div>
 
-  <div class="info-double">
-    <div><strong>Bác sĩ:</strong> <span id="BacSi"></span></div>
-    <div><strong>Ngày kiểm tra:</strong> <span id="Ngay"></span></div>
-  </div>
-</div>
-
-<table>
-  <tr><th rowspan="2"> </th><th colspan="3">Mắt Phải (OD)</th><th colspan="3">Mắt Trái (OS)</th></tr>
-  <tr><th>ĐỘ CầU</th><th>ĐỘ LOẠN</th><th>TRỤC</th><th>ĐỘ CầU</th><th>ĐỘ LOẠN</th><th>TRỤC</th></tr>
-  <tr><th>THỊ LỰC KÍNH CŨ (VA)</th><td colspan="3" id="CKMP"></td><td colspan="3" id="CKMT"></td></tr>
-  <tr><th>THỊ LỰC KHÔNG KÍNH</th><td colspan="3" id="MP"></td><td colspan="3" id="MT"></td></tr>
-  <tr><th>KHÚC XẠ HIỆN TẠI</th><td id="TLP"></td><td id="DCP"></td><td id="TRUCP"></td><td id="TLT"></td><td id="DCT"></td><td id="TRUCT"></td></tr>
-  <tr><th>TL CHỈNH KÍNH (BCVA)</th><td colspan="3" id="TLCKMP"></td><td colspan="3" id="TLCKMT"></td></tr>
-  <tr><th>KHÚC XẠ ĐIỀU CHỈNH</th><td id="CKCP"></td><td id="CKTP"></td><td id="CKTRUCP"></td><td id="CKCT"></td><td id="CKTT"></td><td id="CKTRUCT"></td></tr>
-  <tr><th>TLCK</th><td colspan="3" id="CKMPTLCK"></td><td colspan="3" id="CKMTTLCK"></td></tr>
-  <tr><th>Thị lực nhìn gần</th><td colspan="3" id="GP"></td><td colspan="3" id="GT"></td></tr>
-  <tr><th>ADD</th><td colspan="3" id="ADDMP"></td><td colspan="3" id="ADDMT"></td></tr>
-  <tr><th>Mono PD</th><td colspan="3" id="A"></td><td colspan="3" id="A2"></td></tr>
-  <tr><th>PD</th><td colspan="6" id="PD"></td></tr>
-  <tr><th>Kính đề nghị</th><td colspan="6" id="KinhDeNghi"></td></tr>
-  <tr><th colspan="7" id="KhoangCach"></th></tr>
-  <tr><th colspan="7"><strong>Tái khám 6 tháng / lần</strong></th></tr>
-</table>
-
-<script>
-function getParam(key) {
-  const urlParams = new URLSearchParams(window.location.search);
-  return decodeURIComponent(urlParams.get(key) || '').replace(/\+/g, ' ');
-}
-
-const keys = [
-  "HoTen", "GioiTinh", "SinhNgay", "SDT", "DiaChi", "BacSi", "Ngay",
-  "MP", "MT", "TLP", "DCP", "TRUP", "TRUCP", "TLCKMP",
-  "TLT", "DCT", "TRUT", "TRUCT", "TLCKMT",
-  "CKCP", "CKTP", "CKTRUCP", "CKMPTLCK",
-  "CKCT", "CKTT", "CKTRUCT", "CKMTTLCK",
-  "KhoangCach", "ADDMP", "ADDMT", "GP", "GT", "A", "A2", "PD", "KinhDeNghi",
-  "CKMP", "CKMT"
-];
-
-keys.forEach(id => {
-  const el = document.getElementById(id);
-  if (el) el.textContent = getParam(id);
-});
-</script>
+  <table>
+    <tr>
+      <th rowspan="2"> </th>
+      <th colspan="2">THỊ LỰC KÍNH CŨ<br>(VA)</th>
+    </tr>
+    <tr>
+      <td>Mắt Phải (OD)</td>
+      <td>Mắt Trái (OS)</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>6/10</td>
+      <td>9/10</td>
+    </tr>
+    <tr>
+      <th>THỊ LỰC KHÔNG KÍNH</th>
+      <td>DNT 2M</td>
+      <td>DNT 2M</td>
+    </tr>
+    <tr>
+      <th rowspan="2">KHÚC XẠ HIỆN TẠI</th>
+      <td>-7.00</td>
+      <td>
+        <div>-7.50</div>
+        <div>-0.50 trục 170</div>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>TL CHỈNH KÍNH (BCVA)</th>
+      <td>10/10</td>
+      <td>10/10</td>
+    </tr>
+    <tr>
+      <th rowspan="2">KHÚC XẠ ĐIỀU CHỈNH</th>
+      <td>-7.00</td>
+      <td>
+        <div>-7.50</div>
+        <div>-0.50 trục 170</div>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>TLCK</th>
+      <td>10/10</td>
+      <td>10/10</td>
+    </tr>
+    <tr>
+      <th>Thị lực nhìn gần</th>
+      <td>J1</td>
+      <td>J1</td>
+    </tr>
+    <tr>
+      <th>ADD</th>
+      <td>1.25</td>
+      <td>1.25</td>
+    </tr>
+    <tr>
+      <th>Mono PD</th>
+      <td>A</td>
+      <td>A1</td>
+    </tr>
+    <tr>
+      <th>PD</th>
+      <td colspan="2">58 / 55</td>
+    </tr>
+    <tr>
+      <th>Kính đề nghị</th>
+      <td colspan="2">ĐA TRÒNG</td>
+    </tr>
+    <tr>
+      <th colspan="3">Nhìn gần tốt nhất ở khoảng cách: 35 cm</th>
+    </tr>
+    <tr>
+      <th colspan="3"><strong>Tái khám 6 tháng / lần</strong></th>
+    </tr>
+  </table>
 
 </body>
 </html>
