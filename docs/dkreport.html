@@ -42,6 +42,9 @@
       font-weight: bold;
       text-align: center;
     }
+    th, td:first-child {
+      font-weight: bold;
+    }
   </style>
   <script>
     function getParam(name) {
@@ -73,8 +76,8 @@
 
 <div class="header">
   <strong>3H OPTICAL</strong><br>
-  Địa chỉ: 314 Nguyễn Thượng Hiền, Phường 5, Quận Phú Nhuận, TP.HCM<br>
-  Điện thoại: 0909592909 - 09095832909<br><br>
+  <strong>Địa chỉ:</strong> 314 Nguyễn Thượng Hiền, Phường 5, Quận Phú Nhuận, TP.HCM<br>
+  <strong>Điện thoại:</strong> 0909592909 - 09095832909<br><br>
   <strong>THÔNG TIN KHÁCH HÀNG</strong>
 </div>
 
@@ -99,23 +102,23 @@
 
 <table>
   <tr>
-    <th rowspan="2">THỊ LỰC KÍNH CŨ (VA)</th>
-    <th colspan="3">Mắt Phải (OD)</th>
-    <th colspan="3">Mắt Trái (OS)</th>
+    <th rowspan="2"><strong>THỊ LỰC KÍNH CŨ (VA)</strong></th>
+    <th colspan="3"><strong>Mắt Phải (OD)</strong></th>
+    <th colspan="3"><strong>Mắt Trái (OS)</strong></th>
   </tr>
   <tr>
     <td colspan="3" id="MP"></td>
     <td colspan="3" id="MT"></td>
   </tr>
   <tr>
-    <td>THỊ LỰC KHÔNG KÍNH</td>
+    <td><strong>THỊ LỰC KHÔNG KÍNH</strong></td>
     <td colspan="3" id="TLP"></td>
     <td colspan="3" id="TLT"></td>
   </tr>
   <tr>
-    <th>KHÚC XẠ HIỆN TẠI</th>
-    <th>ĐỘ CẦU</th><th>ĐỘ LOẠN</th><th>TRỤC</th>
-    <th>ĐỘ CẦU</th><th>ĐỘ LOẠN</th><th>TRỤC</th>
+    <th><strong>KHÚC XẠ HIỆN TẠI</strong></th>
+    <th><strong>ĐỘ CẦU</strong></th><th><strong>ĐỘ LOẠN</strong></th><th><strong>TRỤC</strong></th>
+    <th><strong>ĐỘ CẦU</strong></th><th><strong>ĐỘ LOẠN</strong></th><th><strong>TRỤC</strong></th>
   </tr>
   <tr>
     <td></td>
@@ -123,48 +126,48 @@
     <td id="DCT"></td><td id="TRUT"></td><td id="TRUCT"></td>
   </tr>
   <tr>
-    <td>TL CHỈNH KÍNH (BCVA)</td>
+    <td><strong>TL CHỈNH KÍNH (BCVA)</strong></td>
     <td colspan="3" id="TLCKMP"></td>
     <td colspan="3" id="TLCKMT"></td>
   </tr>
   <tr>
-    <td>KHÚC XẠ ĐIỀU CHỈNH</td>
+    <td><strong>KHÚC XẠ ĐIỀU CHỈNH</strong></td>
     <td id="CKCP"></td><td id="CKTP"></td><td id="CKTRUCP"></td>
     <td id="CKCT"></td><td id="CKTT"></td><td id="CKTRUCT"></td>
   </tr>
   <tr>
-    <td>TLCK</td>
-    <td colspan="3">MP: <span id="CKMPTLCK"></span></td>
-    <td colspan="3">MT: <span id="CKMTTLCK"></span></td>
+    <td><strong>TLCK</strong></td>
+    <td colspan="3"> <span id="CKMPTLCK"></span></td>
+    <td colspan="3"> <span id="CKMTTLCK"></span></td>
   </tr>
   <tr>
-    <td>ADD</td>
-    <td colspan="3">MP: <span id="ADDMP"></span></td>
-    <td colspan="3">MT: <span id="ADDMT"></span></td>
+    <td><strong>ADD</strong></td>
+    <td colspan="3"> <span id="ADDMP"></span></td>
+    <td colspan="3"> <span id="ADDMT"></span></td>
   </tr>
   <tr>
-    <td>Thị lực nhìn gần</td>
-    <td colspan="3">GP: <span id="GP"></span></td>
-    <td colspan="3">GT: <span id="GT"></span></td>
+    <td><strong>Thị lực nhìn gần</strong></td>
+    <td colspan="3"> <span id="GP"></span></td>
+    <td colspan="3"> <span id="GT"></span></td>
   </tr>
   <tr>
-    <td>Mono PD</td>
-    <td colspan="3">A: <span id="A"></span></td>
-    <td colspan="3">A2: <span id="A2"></span></td>
+    <td><strong>Mono PD</strong></td>
+    <td colspan="3"> <span id="A"></span></td>
+    <td colspan="3"> <span id="A2"></span></td>
   </tr>
   <tr>
-    <td>PD</td>
+    <td><strong>PD</strong></td>
     <td colspan="6" id="PD"></td>
   </tr>
   <tr>
-    <td>Kính đề nghị</td>
+    <td><strong>Kính đề nghị</strong></td>
     <td colspan="6" id="KinhDeNghi"></td>
   </tr>
   <tr>
-    <td colspan="7">Nhìn gần tốt nhất ở khoảng cách: <span id="KhoangCach"></span> cm</td>
+    <td colspan="7"><strong>Nhìn gần tốt nhất ở khoảng cách:</strong> <span id="KhoangCach"></span> <strong>cm</strong></td>
   </tr>
   <tr>
-    <td colspan="7" class="bold-center">Tái khám 6 tháng / lần</td>
+    <td colspan="7" class="bold-center">Tái khám <strong>6 tháng / lần</strong></td>
   </tr>
 </table>
 
