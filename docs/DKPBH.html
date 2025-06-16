@@ -2,12 +2,18 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>PHIẾU BÁN HÀNG</title>
+  <title>PHIẾU BÁN HÀNG1</title>
   <style>
+    @page {
+      size: A5 portrait;
+      margin: 10mm;
+    }
+
     body {
       font-family: "Times New Roman", serif;
-      font-size: 14px;
-      margin: 20px;
+      font-size: 12px;
+      margin: 0;
+      padding: 10mm;
       color: #000;
     }
 
@@ -15,14 +21,23 @@
       text-align: center;
     }
 
-    .info, .sign {
-      margin-top: 20px;
+    .info {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .info p {
+      width: 48%;
+      margin: 2px 0;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 10px;
+      font-size: 11px;
     }
 
     table, th, td {
@@ -30,7 +45,7 @@
     }
 
     th, td {
-      padding: 6px;
+      padding: 4px;
       text-align: center;
     }
 
@@ -41,12 +56,13 @@
     .sign {
       display: flex;
       justify-content: space-between;
-      margin-top: 40px;
+      margin-top: 20px;
+      font-size: 11px;
     }
 
     .qr {
       text-align: center;
-      margin-top: 20px;
+      margin-top: 10px;
     }
 
     .bold {
@@ -58,18 +74,19 @@
 
   <div class="header">
     <div><strong>3H OPTICAL</strong></div>
-    <div>Địa chỉ: 314 NGUYỄN THƯỢNG HIỀN, P.5, Q. PHÚ NHUẬN, TP.HCM</div>
+    <div>314 Nguyễn Thượng Hiền, P.5, Q. Phú Nhuận, TP.HCM</div>
     <div>Điện thoại: 756000</div>
-    <h2>PHIẾU BÁN HÀNG</h2>
+    <h3>PHIẾU BÁN HÀNG</h3>
   </div>
 
   <div class="info">
-    <p><strong>Họ và tên (Full name):</strong> NGÂN LÊ TÂN VIỆT NGA</p>
-    <p><strong>Địa chỉ:</strong> D.3 Tháng 2, Phường 12, Quận 10, TP.HCM</p>
-    <p><strong>Mã số (ID):</strong> 256049-CHAU-20250609175341-0006</p>
-    <p><strong>Giới tính:</strong> Nữ - <strong>Năm sinh:</strong> (DOB)</p>
+    <p><strong>Họ tên:</strong> NGÂN LÊ TÂN VIỆT NGA</p>
+    <p><strong>Địa chỉ:</strong> D.3 Tháng 2, P.12, Q.10, TP.HCM</p>
+    <p><strong>Mã số:</strong> 256049-CHAU-20250609175341-0006</p>
+    <p><strong>Giới tính:</strong> Nữ</p>
+    <p><strong>Năm sinh:</strong> (DOB)</p>
     <p><strong>Bác sĩ / KTV:</strong> VÕ QUANG HUY</p>
-    <p><strong>SĐT (Tel):</strong></p>
+    <p><strong>SĐT:</strong></p>
   </div>
 
   <table>
@@ -116,14 +133,11 @@
 
   <div class="sign">
     <div>Người nộp tiền<br>(Ký, ghi rõ họ tên)</div>
-    <div>
-      Hà NộiTP. Hồ Chí Minh, <span id="thoigian"></span><br>
-      Người thu tiền<br>(Ký, ghi rõ họ tên)
-    </div>
+    <div><span id="thoigian"></span><br>Người thu tiền<br>(Ký, ghi rõ họ tên)</div>
   </div>
 
   <div class="qr">
-    <img src="https://img.vietqr.io/image/970422-123456789-compact.png" width="120" alt="QR code">
+    <img src="https://img.vietqr.io/image/970422-123456789-compact.png" width="100" alt="QR code">
     <p>VIETQR</p>
   </div>
 
@@ -137,7 +151,7 @@
       const minute = String(nowVN.getMinutes()).padStart(2, '0');
       const second = String(nowVN.getSeconds()).padStart(2, '0');
 
-      return `ngày ${day} tháng ${month} năm ${year} lúc ${hour} giờ ${minute} phút ${second} giây`;
+      return `TP. Hồ Chí Minh, ngày ${day} tháng ${month} năm ${year} lúc ${hour} giờ ${minute} phút ${second} giây`;
     }
 
     document.getElementById("thoigian").innerText = formatVNTime();
