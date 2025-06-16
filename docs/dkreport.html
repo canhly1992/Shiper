@@ -50,30 +50,34 @@
     }
   </style>
   <script>
-    function getParam(name) {
-      const url = new URL(window.location.href);
-      return decodeURIComponent(url.searchParams.get(name) || "");
-    }
+  function getParam(name) {
+    const url = new URL(window.location.href);
+    return decodeURIComponent(url.searchParams.get(name) || "");
+  }
 
-    window.onload = function () {
-      const fields = [
-        "Ngay", "MaSo", "HoTen", "SinhNgay", "GioiTinh", "SDT", "DiaChi", "BacSi", "ChanDoan",
-        "MP", "MT", "TLP", "TLT",
-        "DCP", "TRUP", "TRUCP", "DCT", "TRUT", "TRUCT",
-        "TLCKMP", "TLCKMT",
-        "CKCP", "CKTP", "CKTRUCP", "CKMPTLCK",
-        "CKCT", "CKTT", "CKTRUCT", "CKMTTLCK",
-        "KhoangCach", "ADDMP", "ADDMT",
-        "GP", "GT", "A", "A2", "PD", "KinhDeNghi"
-      ];
-      fields.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = getParam(id);
-      });
+  window.onload = function () {
+    const fields = [
+      "Ngay", "MaSo", "HoTen", "SinhNgay", "GioiTinh", "SDT", "DiaChi", "BacSi", "ChanDoan",
+      "MP", "MT", "TLP", "TLT",
+      "DCP", "TRUP", "TRUCP", "DCT", "TRUT", "TRUCT",
+      "TLCKMP", "TLCKMT",
+      "CKCP", "CKTP", "CKTRUCP", "CKMPTLCK",
+      "CKCT", "CKTT", "CKTRUCT", "CKMTTLCK",
+      "KhoangCach", "ADDMP", "ADDMT",
+      "GP", "GT", "A", "A2", "PD", "KinhDeNghi"
+    ];
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = getParam(id);
+    });
 
-      setTimeout(() => window.print(), 1000);
-    };
-  </script>
+    setTimeout(() => {
+      window.print();
+      setTimeout(() => window.close(), 10000); // Đóng sau 10 giây kể từ lúc in
+    }, 1000);
+  };
+</script>
+
 </head>
 <body>
 
@@ -128,7 +132,7 @@
     <td id="DCT"></td><td id="TRUT"></td><td id="TRUCT"></td>
   </tr>
   <tr>
-    <td><strong>TLCK HIỆN TẠI)</strong></td>
+    <td><strong>TLCK HIỆN TẠI</strong></td>
     <td colspan="3" id="TLCKMP"></td>
     <td colspan="3" id="TLCKMT"></td>
   </tr>
