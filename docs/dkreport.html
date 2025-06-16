@@ -49,6 +49,165 @@
         "TLT", "DCT", "TRUT", "TRUCT", "TLCKMT",
         "CKCP", "CKTP", "CKTRUCP", "CKMPTLCK",
         "CKCT", "CKTT", "CKTRUCT", "CKMTTLCK",
+        "KhoangCach", "ADDMP", "ADDMT", "GP", "GT", "A", "A1", "PD", "KinhDeNghi"
+      ];
+      fields.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = getParam(id);
+      });
+      setTimeout(() => window.print(), 1000);
+    };
+  </script>
+</head>
+<body>
+  <div class="center bold">
+    3H OPTICAL<br>
+    Địa chỉ: 314 Nguyễn Thượng Hiền, Phường 5, Quận Phú Nhuận, TP.HCM<br>
+    Điện thoại: 0909295209-0908539209
+  </div>
+
+  <h2 class="center">THÔNG TIN KHÁCH HÀNG</h2>
+
+  <table>
+    <tr>
+      <td colspan="3" class="no-border">Họ và tên: <span id="HoTen"></span></td>
+      <td class="no-border">Mã số (ID): <span id="MaSo"></span></td>
+    </tr>
+    <tr>
+      <td class="no-border">Giới tính: <span id="GioiTinh"></span></td>
+      <td class="no-border">Ngày sinh: <span id="SinhNgay"></span></td>
+      <td colspan="2" class="no-border">SĐT: <span id="SDT"></span></td>
+    </tr>
+    <tr><td colspan="4" class="no-border">Địa chỉ: <span id="DiaChi"></span></td></tr>
+    <tr>
+      <td colspan="2" class="no-border">Bác sĩ: <span id="BacSi"></span></td>
+      <td colspan="2" class="no-border">Ngày kiểm tra: <span id="Ngay"></span></td>
+    </tr>
+  </table>
+
+  <br>
+
+  <table>
+    <tr class="bold">
+      <td rowspan="2">THỊ LỰC KÍNH CŨ (VA)</td>
+      <td colspan="3">Mắt Phải (OD)</td>
+      <td colspan="3">Mắt Trái (OS)</td>
+    </tr>
+    <tr class="bold">
+      <td colspan="3"><span id="MP"></span></td>
+      <td colspan="3"><span id="MT"></span></td>
+    </tr>
+    <tr>
+      <td>THỊ LỰC KHÔNG KÍNH</td>
+      <td colspan="3">DNT 2M</td>
+      <td colspan="3">DNT 2M</td>
+    </tr>
+    <tr class="bold">
+      <td>KHÚC XẠ HIỆN TẠI</td>
+      <td>ĐỘ CẦU</td><td>ĐỘ LOẠN</td><td>TRỤC</td>
+      <td>ĐỘ CẦU</td><td>ĐỘ LOẠN</td><td>TRỤC</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><span id="DCP"></span></td><td><span id="TRUP"></span></td><td><span id="TRUCP"></span></td>
+      <td><span id="DCT"></span></td><td><span id="TRUT"></span></td><td><span id="TRUCT"></span></td>
+    </tr>
+    <tr>
+      <td>TL CHỈNH KÍNH (BCVA)</td>
+      <td colspan="3"><span id="TLCKMP"></span></td>
+      <td colspan="3"><span id="TLCKMT"></span></td>
+    </tr>
+    <tr>
+      <td>KHÚC XẠ ĐIỀU CHỈNH</td>
+      <td><span id="CKCP"></span></td><td><span id="CKTP"></span></td><td><span id="CKTRUCP"></span></td>
+      <td><span id="CKCT"></span></td><td><span id="CKTT"></span></td><td><span id="CKTRUCT"></span></td>
+    </tr>
+    <tr>
+      <td rowspan="3">TL CK + GẦN</td>
+      <td colspan="3">ADD MP: <span id="ADDMP"></span></td>
+      <td colspan="3">ADD MT: <span id="ADDMT"></span></td>
+    </tr>
+    <tr>
+      <td colspan="3">GP: <span id="GP"></span></td>
+      <td colspan="3">GT: <span id="GT"></span></td>
+    </tr>
+    <tr>
+      <td colspan="3">TLCK: <span id="CKMPTLCK"></span></td>
+      <td colspan="3">TLCK: <span id="CKMTTLCK"></span></td>
+    </tr>
+    <tr>
+      <td>Mono PD</td>
+      <td colspan="3">A: <span id="A"></span></td>
+      <td colspan="3">A1: <span id="A1"></span></td>
+    </tr>
+    <tr>
+      <td>PD</td>
+      <td colspan="7"><span id="PD"></span></td>
+    </tr>
+    <tr>
+      <td>Kính đề nghị</td>
+      <td colspan="7"><span id="KinhDeNghi"></span></td>
+    </tr>
+    <tr>
+      <td colspan="8">Nhìn gần tốt nhất ở khoảng cách: <span id="KhoangCach"></span> cm</td>
+    </tr>
+    <tr>
+      <td colspan="8" class="bold center">Tái khám 6 tháng / lần</td>
+    </tr>
+  </table>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>THÔNG TIN ĐƠN KÍNH</title>
+  <style>
+    @page {
+      size: A5;
+      margin: 10mm;
+    }
+    body {
+      font-family: 'Times New Roman', serif;
+      font-size: 12px;
+      padding: 10px;
+      margin-top: 0;
+      background-color: white;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    td, th {
+      border: 1px solid black;
+      padding: 4px;
+      text-align: center;
+    }
+    .no-border {
+      border: none;
+      text-align: left;
+    }
+    .bold {
+      font-weight: bold;
+    }
+    .center {
+      text-align: center;
+    }
+  </style>
+  <script>
+    function getParam(name) {
+      const url = new URL(window.location.href);
+      return decodeURIComponent(url.searchParams.get(name) || "");
+    }
+
+    window.onload = function () {
+      const fields = [
+        "ID", "Ngay", "MaSo", "HoTen", "SinhNgay", "GioiTinh", "SDT", "DiaChi", "BacSi", "ChanDoan",
+        "MP", "MT", "TLP", "DCP", "TRUP", "TRUCP", "TLCKMP",
+        "TLT", "DCT", "TRUT", "TRUCT", "TLCKMT",
+        "CKCP", "CKTP", "CKTRUCP", "CKMPTLCK",
+        "CKCT", "CKTT", "CKTRUCT", "CKMTTLCK",
         "KhoangCach", "ADDMP", "ADDMT", "GP", "GT", "A", "A2", "PD", "KinhDeNghi"
       ];
       fields.forEach(id => {
