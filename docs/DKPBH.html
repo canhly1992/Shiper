@@ -2,158 +2,96 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>PHIẾU BÁN HÀNG</title>
+  <title>Phiếu Bán Hàng</title>
   <style>
-    @page {
-      size: A5 portrait;
-      margin: 10mm;
-    }
-
-    body {
-      font-family: "Times New Roman", serif;
-      font-size: 12px;
-      margin: 0;
-      padding: 10mm;
-      color: #000;
-    }
-
-    .header, .footer {
-      text-align: center;
-    }
-
-    .info {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      margin-top: 10px;
-    }
-
-    .info p {
-      width: 48%;
-      margin: 2px 0;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-      font-size: 11px;
-    }
-
-    table, th, td {
-      border: 1px solid #000;
-    }
-
-    th, td {
-      padding: 4px;
-      text-align: center;
-    }
-
-    .left {
-      text-align: left;
-    }
-
-    .sign {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-      font-size: 11px;
-    }
-
-    .qr {
-      text-align: center;
-      margin-top: 10px;
-    }
-
-    .bold {
-      font-weight: bold;
-    }
+    @page { size: A5 portrait; margin: 10mm; }
+    body { font-family: "Times New Roman", serif; font-size:12px; margin:0; padding:10mm; color:#000; }
+    .header, .footer { text-align:center; }
+    h3 { margin:4px 0; }
+    table { width:100%; border-collapse:collapse; margin-top:6px; font-size:11px; }
+    table, th, td { border:1px solid #000; }
+    th, td { padding:4px; text-align:center; }
+    .left { text-align:left; }
+    .sign { display:flex; justify-content:space-between; margin-top:16px; font-size:11px; }
+    .totals { margin-top:6px; }
+    .totals p { margin:2px 0; }
+    .btn-print { position:fixed; top:5px; right:5px; padding:4px 8px; font-size:12px; }
   </style>
 </head>
 <body>
 
+  <button class="btn-print" onclick="window.print()">🖨 In</button>
+
   <div class="header">
     <div><strong>3H OPTICAL</strong></div>
     <div>314 Nguyễn Thượng Hiền, P.5, Q. Phú Nhuận, TP.HCM</div>
-    <div>Điện thoại: 756000</div>
+    <div>ĐT: 756000</div>
     <h3>PHIẾU BÁN HÀNG</h3>
-  </div>
-
-  <div class="info">
-    <p><strong>Họ tên:</strong> NGÂN LÊ TÂN VIỆT NGA</p>
-    <p><strong>Địa chỉ:</strong> D.3 Tháng 2, P.12, Q.10, TP.HCM</p>
-    <p><strong>Mã số:</strong> 256049-CHAU-20250609175341-0006</p>
-    <p><strong>Giới tính:</strong> Nữ</p>
-    <p><strong>Năm sinh:</strong> (DOB)</p>
-    <p><strong>Bác sĩ / KTV:</strong> VÕ QUANG HUY</p>
-    <p><strong>SĐT:</strong></p>
   </div>
 
   <table>
     <thead>
       <tr>
-        <th>TÊN DỊCH VỤ</th>
-        <th>SỐ LƯỢNG</th>
-        <th>ĐƠN GIÁ</th>
-        <th>CHIẾT KHẤU</th>
-        <th>TỔNG TIỀN</th>
+        <th class="left">Tên dịch vụ</th>
+        <th>SL</th>
+        <th>Đơn giá</th>
+        <th>Chiết khấu</th>
+        <th>Tổng tiền</th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <td class="left">Nottica N4 Blue Control 1.67 ASP SHMC (Loạn &lt; -2.00)</td>
-        <td>1</td>
-        <td>1.180.000 đ</td>
-        <td>0 đ</td>
-        <td>1.180.000 đ</td>
-      </tr>
-      <tr>
-        <td class="left">HG10209 C4</td>
-        <td>1</td>
-        <td>550.000 đ</td>
-        <td>0 đ</td>
-        <td>550.000 đ</td>
-      </tr>
-    </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="4" class="left bold">TỔNG TIỀN</td>
-        <td>1.730.000 đ</td>
-      </tr>
-      <tr>
-        <td colspan="4" class="left bold">TẠM ỨNG</td>
-        <td>1.730.000 đ</td>
-      </tr>
-      <tr>
-        <td colspan="4" class="left bold">CẦN THANH TOÁN</td>
-        <td>0 đ</td>
-      </tr>
-    </tfoot>
+    <tbody id="service-rows"></tbody>
   </table>
 
+  <div class="totals">
+    <p><strong>Tổng tiền:</strong> <span id="total-display"></span></p>
+    <p><strong>Tạm ứng:</strong> <span id="tt1-display"></span></p>
+    <p><strong>Cần thanh toán:</strong> <span id="canthanhtoan-display"></span></p>
+  </div>
+
   <div class="sign">
-    <div>Người nộp tiền<br>(Ký, ghi rõ họ tên)</div>
-    <div><span id="thoigian"></span><br>Người thu tiền<br>(Ký, ghi rõ họ tên)</div>
+    <div>Người nộp tiền<br>(Ký và ghi rõ họ tên)</div>
+    <div><span id="thoigian"></span><br>Người thu tiền<br>(Ký và ghi rõ họ tên)</div>
   </div>
 
-  <div class="qr">
-    <img src="https://img.vietqr.io/image/970422-123456789-compact.png" width="100" alt="QR code">
-    <p>VIETQR</p>
-  </div>
+  <script>
+    function getParam(name){
+      return decodeURIComponent(new URLSearchParams(location.search).get(name) || '');
+    }
 
- <script>
-  function formatVNTimeShort() {
-    const nowVN = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Ho_Chi_Minh" }));
-    const day = String(nowVN.getDate()).padStart(2, '0');
-    const month = String(nowVN.getMonth() + 1).padStart(2, '0');
-    const year = nowVN.getFullYear();
+    function numberFormat(str) {
+      if(!str) return '';
+      return Intl.NumberFormat('vi-VN', { style:'decimal' }).format(parseFloat(str)) + ' đ';
+    }
 
-    return `TP. Hồ Chí Minh, ngày ${day} tháng ${month} năm ${year}`;
-  }
+    function formatDateShort() {
+      const d = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Ho_Chi_Minh" }));
+      return `TP. Hồ Chí Minh, ngày ${String(d.getDate()).padStart(2,'0')} tháng ${String(d.getMonth()+1).padStart(2,'0')} năm ${d.getFullYear()}`;
+    }
 
-  document.getElementById("thoigian").innerText = formatVNTimeShort();
-</script>
+    window.onload = function(){
+      document.getElementById("thoigian").innerText = formatDateShort();
 
+      const dataRaw = getParam("data");
+      const rows = dataRaw.split("_b_").map(x=>x.split("_a_"));
+      const tbody = document.getElementById("service-rows");
+
+      rows.forEach(r => {
+        const tr = document.createElement("tr");
+        const [ten, sl, dongia, chietkhau, thanhtien] = r;
+        tr.innerHTML = `
+          <td class="left">${ten}</td>
+          <td>${sl}</td>
+          <td>${numberFormat(dongia)}</td>
+          <td>${numberFormat(chietkhau)}</td>
+          <td>${numberFormat(thanhtien)}</td>`;
+        tbody.appendChild(tr);
+      });
+
+      document.getElementById("total-display").innerText = numberFormat(getParam("tong"));
+      document.getElementById("tt1-display").innerText = numberFormat(getParam("tt1"));
+      document.getElementById("canthanhtoan-display").innerText = numberFormat(getParam("canthanhtoan"));
+    };
+  </script>
 
 </body>
 </html>
