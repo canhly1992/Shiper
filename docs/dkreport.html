@@ -42,8 +42,11 @@
       font-weight: bold;
       text-align: center;
     }
-    th, td:first-child {
+    th {
       font-weight: bold;
+    }
+    td:first-child {
+      font-weight: normal; /* Bỏ in đậm tự động */
     }
   </style>
   <script>
@@ -107,8 +110,8 @@
     <th colspan="3"><strong>Mắt Trái (OS)</strong></th>
   </tr>
   <tr>
-    <td colspan="3" id="MP"></td>
-    <td colspan="3" id="MT"></td>
+    <td colspan="3"><span id="MP"></span></td>
+    <td colspan="3"><span id="MT"></span></td>
   </tr>
   <tr>
     <td><strong>THỊ LỰC KHÔNG KÍNH</strong></td>
@@ -116,14 +119,14 @@
     <td colspan="3" id="TLT"></td>
   </tr>
   <tr>
-  <th rowspan="2"><strong>KHÚC XẠ HIỆN TẠI</strong></th>
-  <th><strong>ĐỘ CẦU</strong></th><th><strong>ĐỘ LOẠN</strong></th><th><strong>TRỤC</strong></th>
-  <th><strong>ĐỘ CẦU</strong></th><th><strong>ĐỘ LOẠN</strong></th><th><strong>TRỤC</strong></th>
-</tr>
-<tr>
-  <td id="DCP"></td><td id="TRUP"></td><td id="TRUCP"></td>
-  <td id="DCT"></td><td id="TRUT"></td><td id="TRUCT"></td>
-</tr>
+    <th rowspan="2"><strong>KHÚC XẠ HIỆN TẠI</strong></th>
+    <th><strong>ĐỘ CẦU</strong></th><th><strong>ĐỘ LOẠN</strong></th><th><strong>TRỤC</strong></th>
+    <th><strong>ĐỘ CẦU</strong></th><th><strong>ĐỘ LOẠN</strong></th><th><strong>TRỤC</strong></th>
+  </tr>
+  <tr>
+    <td id="DCP"></td><td id="TRUP"></td><td id="TRUCP"></td>
+    <td id="DCT"></td><td id="TRUT"></td><td id="TRUCT"></td>
+  </tr>
   <tr>
     <td><strong>TL CHỈNH KÍNH (BCVA)</strong></td>
     <td colspan="3" id="TLCKMP"></td>
@@ -136,21 +139,23 @@
   </tr>
   <tr>
     <td><strong>TLCK</strong></td>
-    <td colspan="3"> <span id="CKMPTLCK"></span></td>
-    <td colspan="3"> <span id="CKMTTLCK"></span></td>
+    <td colspan="3"><span id="CKMPTLCK"></span></td>
+    <td colspan="3"><span id="CKMTTLCK"></span></td>
   </tr>
   <tr>
     <td><strong>ADD</strong></td>
-    <td colspan="3"> <span id="ADDMP"></span></td>
-    <td colspan="3"> <span id="ADDMT"></span></td>
+    <td colspan="3"><span id="ADDMP"></span></td>
+    <td colspan="3"><span id="ADDMT"></span></td>
   </tr>
   <tr>
     <td><strong>THỊ LỰC NHÌN GẦN</strong></td>
-    <td colspan="3"> <span id="GP"></span></td>
-    <td colspan="3"> <span id="GT"></span></td>
-  </tr>MONO PD</strong></td>
-    <td colspan="3"> <span id="A"></span></td>
-    <td colspan="3"> <span id="A2"></span></td>
+    <td colspan="3"><span id="GP"></span></td>
+    <td colspan="3"><span id="GT"></span></td>
+  </tr>
+  <tr>
+    <td><strong>MONO PD</strong></td>
+    <td colspan="3"><span id="A"></span></td>
+    <td colspan="3"><span id="A2"></span></td>
   </tr>
   <tr>
     <td><strong>PD</strong></td>
