@@ -51,16 +51,20 @@
 
     window.onload = function () {
       const fields = [
-        "HoTen", "GioiTinh", "SinhNgay", "SDT", "DiaChi", "BacSi", "Ngay",
-        "MP", "MT", "DCP", "TRUP", "TRUCP", "DCT", "TRUT", "TRUCT",
-        "TLCKMP", "TLCKMT", "CKCP", "CKTP", "CKTRUCP",
-        "CKCT", "CKTT", "CKTRUCT", "CKMPTLCK", "CKMTTLCK",
-        "ADDMP", "ADDMT", "GP", "GT", "A", "A2", "PD", "KinhDeNghi", "KhoangCach"
+        "Ngay", "MaSo", "HoTen", "SinhNgay", "GioiTinh", "SDT", "DiaChi", "BacSi", "ChanDoan",
+        "MP", "MT", "TLP", "TLT",
+        "DCP", "TRUP", "TRUCP", "DCT", "TRUT", "TRUCT",
+        "TLCKMP", "TLCKMT",
+        "CKCP", "CKTP", "CKTRUCP", "CKMPTLCK",
+        "CKCT", "CKTT", "CKTRUCT", "CKMTTLCK",
+        "KhoangCach", "ADDMP", "ADDMT",
+        "GP", "GT", "A", "A2", "PD", "KinhDeNghi"
       ];
       fields.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.textContent = getParam(id);
       });
+
       setTimeout(() => window.print(), 1000);
     };
   </script>
@@ -89,6 +93,8 @@
     <div><strong>Bác sĩ:</strong> <span id="BacSi"></span></div>
     <div><strong>Ngày kiểm tra:</strong> <span id="Ngay"></span></div>
   </div>
+
+  <div style="margin-top: 3px;"><strong>Chẩn đoán:</strong> <span id="ChanDoan"></span></div>
 </div>
 
 <table>
@@ -102,11 +108,10 @@
     <td colspan="3" id="MT"></td>
   </tr>
   <tr>
-  <td>THỊ LỰC KHÔNG KÍNH</td>
-  <td colspan="3" id="TLP"></td>
-  <td colspan="3" id="TLT"></td>
+    <td>THỊ LỰC KHÔNG KÍNH</td>
+    <td colspan="3" id="TLP"></td>
+    <td colspan="3" id="TLT"></td>
   </tr>
-
   <tr>
     <th>KHÚC XẠ HIỆN TẠI</th>
     <th>ĐỘ CẦU</th><th>ĐỘ LOẠN</th><th>TRỤC</th>
