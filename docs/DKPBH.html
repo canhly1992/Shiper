@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>PHIẾu BÁN HÀNG</title>
+  <title>PHIẾU BÁN HÀNG</title>
   <style>
     @page {
       size: A5 portrait;
@@ -76,17 +76,17 @@
     <div><strong>3H OPTICAL</strong></div>
     <div>314 Nguyễn Thượng Hiền, P.5, Q. Phú Nhuận, TP.HCM</div>
     <div>Điện thoại: 756000</div>
-    <h3>PHIẾu BÁN HÀNG</h3>
+    <h3>PHIẾU BÁN HÀNG</h3>
   </div>
 
   <div class="info">
-    <p><strong>Họ tên:</strong> <span id="hoten"></span></p>
-    <p><strong>Địa chỉ:</strong> <span id="diachi"></span></p>
-    <p><strong>Mã số:</strong> <span id="maso"></span></p>
-    <p><strong>Giới tính:</strong> <span id="gioitinh"></span></p>
-    <p><strong>Năm sinh:</strong> <span id="namsinh"></span></p>
-    <p><strong>Bác sĩ / KTV:</strong> <span id="bs"></span></p>
-    <p><strong>SĐT:</strong> <span id="sdt"></span></p>
+    <p><strong>Họ tên:</strong> NGÂN LÊ TÂN VIỆT NGA</p>
+    <p><strong>Địa chỉ:</strong> D.3 Tháng 2, P.12, Q.10, TP.HCM</p>
+    <p><strong>Mã số:</strong> 256049-CHAU-20250609175341-0006</p>
+    <p><strong>Giới tính:</strong> Nữ</p>
+    <p><strong>Năm sinh:</strong> (DOB)</p>
+    <p><strong>Bác sĩ / KTV:</strong> VÕ QUANG HUY</p>
+    <p><strong>SĐT:</strong></p>
   </div>
 
   <table>
@@ -95,24 +95,38 @@
         <th>TÊN DỊCH VỤ</th>
         <th>SỐ LƯỢNG</th>
         <th>ĐƠN GIÁ</th>
-        <th>CHIẺT KHẪu</th>
+        <th>CHIẾT KHẤU</th>
         <th>TỔNG TIỀN</th>
       </tr>
     </thead>
-    <tbody id="dichvu-body">
+    <tbody>
+      <tr>
+        <td class="left">Nottica N4 Blue Control 1.67 ASP SHMC (Loạn &lt; -2.00)</td>
+        <td>1</td>
+        <td>1.180.000 đ</td>
+        <td>0 đ</td>
+        <td>1.180.000 đ</td>
+      </tr>
+      <tr>
+        <td class="left">HG10209 C4</td>
+        <td>1</td>
+        <td>550.000 đ</td>
+        <td>0 đ</td>
+        <td>550.000 đ</td>
+      </tr>
     </tbody>
     <tfoot>
       <tr>
         <td colspan="4" class="left bold">TỔNG TIỀN</td>
-        <td><span id="tong"></span> đ</td>
+        <td>1.730.000 đ</td>
       </tr>
       <tr>
         <td colspan="4" class="left bold">TẠM ỨNG</td>
-        <td><span id="tt1"></span> đ</td>
+        <td>1.730.000 đ</td>
       </tr>
       <tr>
         <td colspan="4" class="left bold">CẦN THANH TOÁN</td>
-        <td><span id="canthanhtoan"></span> đ</td>
+        <td>0 đ</td>
       </tr>
     </tfoot>
   </table>
@@ -128,40 +142,19 @@
   </div>
 
   <script>
-    function getParam(param) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(param) || "";
-    }
-
-    function formatVNTimeShort() {
+    function formatVNTime() {
       const nowVN = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Ho_Chi_Minh" }));
       const day = String(nowVN.getDate()).padStart(2, '0');
       const month = String(nowVN.getMonth() + 1).padStart(2, '0');
       const year = nowVN.getFullYear();
-      return `TP. HỒ CHÍ MINH, ngày ${day} tháng ${month} năm ${year}`;
+      const hour = String(nowVN.getHours()).padStart(2, '0');
+      const minute = String(nowVN.getMinutes()).padStart(2, '0');
+      const second = String(nowVN.getSeconds()).padStart(2, '0');
+
+      return `TP. Hồ Chí Minh, ngày ${day} tháng ${month} năm ${year} lúc ${hour} giờ ${minute} phút ${second} giây`;
     }
 
-    document.getElementById("hoten").innerText = getParam("hoten");
-    document.getElementById("diachi").innerText = getParam("diachi");
-    document.getElementById("maso").innerText = getParam("maso");
-    document.getElementById("gioitinh").innerText = getParam("gioitinh");
-    document.getElementById("namsinh").innerText = getParam("namsinh");
-    document.getElementById("bs").innerText = getParam("bs");
-    document.getElementById("sdt").innerText = getParam("sdt");
-    document.getElementById("tong").innerText = getParam("tong");
-    document.getElementById("tt1").innerText = getParam("tt1");
-    document.getElementById("canthanhtoan").innerText = getParam("canthanhtoan");
-    document.getElementById("thoigian").innerText = formatVNTimeShort();
-
-    const data = getParam("data");
-    if (data) {
-      const rows = data.split("_b_");
-      const tableBody = rows.map((item) => {
-        const [ten, sl, gia, ck, tt] = item.split("_a_");
-        return `<tr><td class='left'>${ten}</td><td>${sl}</td><td>${Number(gia).toLocaleString()} đ</td><td>${Number(ck).toLocaleString()} đ</td><td>${Number(tt).toLocaleString()} đ</td></tr>`;
-      }).join("");
-      document.getElementById("dichvu-body").innerHTML = tableBody;
-    }
+    document.getElementById("thoigian").innerText = formatVNTime();
   </script>
 
 </body>
