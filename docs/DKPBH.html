@@ -119,8 +119,12 @@
         <td id="tongtien"></td>
       </tr>
       <tr>
-        <td colspan="4" class="left bold">TẠM ỨNG</td>
-        <td id="tamung"></td>
+        <td colspan="4" class="left bold">TẠM ỨNG LẦN 1</td>
+        <td id="tamung1"></td>
+      </tr>
+      <tr>
+        <td colspan="4" class="left bold">TẠM ỨNG LẦN 2</td>
+        <td id="tamung2"></td>
       </tr>
       <tr>
         <td colspan="4" id="canthanhtoan-label" class="left bold">CẦN THANH TOÁN</td>
@@ -153,7 +157,7 @@
       const hour = String(nowVN.getHours()).padStart(2, '0');
       const minute = String(nowVN.getMinutes()).padStart(2, '0');
       const second = String(nowVN.getSeconds()).padStart(2, '0');
-      return `TP. Hồ Chí Minh, ngày ${day} tháng ${month} năm ${year} lúc ${hour} giờ ${minute} phút ${second} giây`;
+      return `Ngày ${day} tháng ${month} năm ${year}<br>lúc ${hour} giờ ${minute} phút ${second} giây`;
     }
 
     function injectData() {
@@ -197,11 +201,14 @@
         document.getElementById("table-body").innerHTML = html;
       }
 
-      const tamung = parseFloat(getParam("tamung").replace(/[^\d]/g, "")) || 0;
-      const canthanhtoan = tongTienToanBo - tamung;
+      const tamung1 = parseFloat(getParam("tamung1").replace(/[^\d]/g, "")) || 0;
+      const tamung2 = parseFloat(getParam("tamung2").replace(/[^\d]/g, "")) || 0;
+      const tongTamUng = tamung1 + tamung2;
+      const canthanhtoan = tongTienToanBo - tongTamUng;
 
       document.getElementById("tongtien").innerText = tongTienToanBo.toLocaleString("vi-VN") + " đ";
-      document.getElementById("tamung").innerText = tamung.toLocaleString("vi-VN") + " đ";
+      document.getElementById("tamung1").innerText = tamung1.toLocaleString("vi-VN") + " đ";
+      document.getElementById("tamung2").innerText = tamung2.toLocaleString("vi-VN") + " đ";
 
       const canThanhToanEl = document.getElementById("canthanhtoan");
       const labelEl = document.getElementById("canthanhtoan-label");
@@ -217,12 +224,11 @@
       }
     }
 
-    // Gọi các hàm và thêm in/đóng tự động
-    document.getElementById("thoigian").innerText = formatVNTime();
+    document.getElementById("thoigian").innerHTML = formatVNTime();
     injectData();
 
-    setTimeout(() => window.print(), 2000);  // Tự in sau 2 giây
-    setTimeout(() => window.close(), 5000);  // Tự đóng sau 5 giây
+    setTimeout(() => window.print(), 2000);
+    setTimeout(() => window.close(), 5000);
   </script>
 
 </body>
