@@ -80,13 +80,13 @@
   </div>
 
   <div class="info">
-    <p><strong>Họ tên:</strong> NGÂN LÊ TÂN VIỆT NGA</p>
-    <p><strong>Địa chỉ:</strong> D.3 Tháng 2, P.12, Q.10, TP.HCM</p>
-    <p><strong>Mã số:</strong> 256049-CHAU-20250609175341-0006</p>
-    <p><strong>Giới tính:</strong> Nữ</p>
-    <p><strong>Năm sinh:</strong> (DOB)</p>
-    <p><strong>Bác sĩ / KTV:</strong> VÕ QUANG HUY</p>
-    <p><strong>SĐT:</strong></p>
+    <p><strong>Họ tên:</strong> <span id="hoten"></span></p>
+    <p><strong>Địa chỉ:</strong> <span id="diachi"></span></p>
+    <p><strong>Mã số:</strong> <span id="maso"></span></p>
+    <p><strong>Giới tính:</strong> <span id="gioitinh"></span></p>
+    <p><strong>Năm sinh:</strong> <span id="namsinh"></span></p>
+    <p><strong>Bác sĩ / KTV:</strong> <span id="bacsi"></span></p>
+    <p><strong>SĐT:</strong> <span id="sdt"></span></p>
   </div>
 
   <table>
@@ -99,34 +99,19 @@
         <th>TỔNG TIỀN</th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <td class="left">Nottica N4 Blue Control 1.67 ASP SHMC (Loạn &lt; -2.00)</td>
-        <td>1</td>
-        <td>1.180.000 đ</td>
-        <td>0 đ</td>
-        <td>1.180.000 đ</td>
-      </tr>
-      <tr>
-        <td class="left">HG10209 C4</td>
-        <td>1</td>
-        <td>550.000 đ</td>
-        <td>0 đ</td>
-        <td>550.000 đ</td>
-      </tr>
-    </tbody>
+    <tbody id="table-body"></tbody>
     <tfoot>
       <tr>
         <td colspan="4" class="left bold">TỔNG TIỀN</td>
-        <td>1.730.000 đ</td>
+        <td id="tongtien"></td>
       </tr>
       <tr>
         <td colspan="4" class="left bold">TẠM ỨNG</td>
-        <td>1.730.000 đ</td>
+        <td id="tamung"></td>
       </tr>
       <tr>
         <td colspan="4" class="left bold">CẦN THANH TOÁN</td>
-        <td>0 đ</td>
+        <td id="canthanhtoan"></td>
       </tr>
     </tfoot>
   </table>
@@ -142,6 +127,11 @@
   </div>
 
   <script>
+    function getParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return decodeURIComponent(urlParams.get(name) || "");
+    }
+
     function formatVNTime() {
       const nowVN = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Ho_Chi_Minh" }));
       const day = String(nowVN.getDate()).padStart(2, '0');
@@ -150,11 +140,43 @@
       const hour = String(nowVN.getHours()).padStart(2, '0');
       const minute = String(nowVN.getMinutes()).padStart(2, '0');
       const second = String(nowVN.getSeconds()).padStart(2, '0');
-
       return `TP. Hồ Chí Minh, ngày ${day} tháng ${month} năm ${year} lúc ${hour} giờ ${minute} phút ${second} giây`;
     }
 
+    function injectData() {
+      const fields = ["hoten", "diachi", "maso", "gioitinh", "namsinh", "bacsi", "sdt"];
+      fields.forEach(field => {
+        const el = document.getElementById(field);
+        if (el) el.innerText = getParam(field);
+      });
+
+      const data = getParam("data");
+      if (data) {
+        const rows = data.split("_b_");
+        const html = rows.map(item => {
+          const [ten, sl, dongia, chietkhau, tongtien] = item.split("_a_");
+          return `<tr>
+            <td class="left">${ten}</td>
+            <td>${sl}</td>
+            <td>${Number(dongia).toLocaleString("vi-VN")} đ</td>
+            <td>${Number(chietkhau).toLocaleString("vi-VN")} đ</td>
+            <td>${Number(tongtien).toLocaleString("vi-VN")} đ</td>
+          </tr>`;
+        }).join("");
+        document.getElementById("table-body").innerHTML = html;
+      }
+
+      const tong = getParam("tongtien");
+      const tamung = getParam("tamung");
+      const canthanhtoan = getParam("canthanhtoan");
+
+      document.getElementById("tongtien").innerText = Number(tong).toLocaleString("vi-VN") + " đ";
+      document.getElementById("tamung").innerText = Number(tamung).toLocaleString("vi-VN") + " đ";
+      document.getElementById("canthanhtoan").innerText = Number(canthanhtoan).toLocaleString("vi-VN") + " đ";
+    }
+
     document.getElementById("thoigian").innerText = formatVNTime();
+    injectData();
   </script>
 
 </body>
