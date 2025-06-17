@@ -2,105 +2,48 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>PHIẾU BÁN HÀNG1</title>
+  <title>HÓA ĐƠN THANH TOÁN</title>
   <style>
-    @page {
-      size: A5 portrait;
-      margin: 10mm;
-    }
-
     body {
       font-family: "Times New Roman", serif;
       font-size: 12px;
-      margin: 0;
-      padding: 10mm;
-      color: #000;
+      width: 148mm;
+      margin: 10px auto;
     }
-
-    .header, .footer {
-      text-align: center;
-    }
-
-    .info {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      margin-top: 10px;
-    }
-
-    .info p {
-      width: 48%;
-      margin: 2px 0;
-    }
-
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 10px;
-      font-size: 11px;
-      table-layout: auto;
     }
-
-    table, th, td {
-      border: 1px solid #000;
-    }
-
     th, td {
+      border: 1px solid #000;
       padding: 4px;
       text-align: center;
-      word-break: break-word;
     }
-
-    td.ck {
-      width: auto;
-      white-space: nowrap;
+    .no-border td {
+      border: none;
     }
-
-    .left {
-      text-align: left;
-    }
-
-    .sign {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-      font-size: 11px;
-    }
-
-    .qr {
-      text-align: center;
-      margin-top: 10px;
-    }
-
-    .bold {
-      font-weight: bold;
-    }
-
-    .highlight-warning {
-      font-weight: bold;
+    .highlight {
       background-color: yellow;
-      color: red;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
 
-  <div class="header">
-    <div><strong>3H OPTICAL</strong></div>
-    <div>314 Nguyễn Thượng Hiền, P.5, Q. Phú Nhuận, TP.HCM</div>
-    <div>Điện thoại: 756000</div>
-    <h3>PHIẾU BÁN HÀNG</h3>
+  <div style="text-align: center;">
+    <strong>3H OPTICAL</strong><br>
+    314 Nguyễn Thượng Hiền, P.5, Q. Phú Nhuận, TP.HCM<br>
+    Điện thoại: 756000
+    <h2>PHIẾU BÁN HÀNG</h2>
   </div>
 
-  <div class="info">
-    <p><strong>Họ tên:</strong> <span id="hoten"></span></p>
-    <p><strong>Địa chỉ:</strong> <span id="diachi"></span></p>
-    <p><strong>Mã số:</strong> <span id="maso"></span></p>
-    <p><strong>Giới tính:</strong> <span id="gioitinh"></span></p>
-    <p><strong>Năm sinh:</strong> <span id="namsinh"></span></p>
-    <p><strong>Bác sĩ / KTV:</strong> <span id="bacsi"></span></p>
-    <p><strong>SĐT:</strong> <span id="sdt"></span></p>
-  </div>
+  <table class="no-border">
+    <tr><td style="text-align:left;" colspan="2"><strong>Họ tên:</strong> {{hoten}}</td></tr>
+    <tr><td style="text-align:left;"><strong>Mã số:</strong> {{maso}}</td><td><strong>Giới tính:</strong> {{gioitinh}}</td></tr>
+    <tr><td style="text-align:left;"><strong>Sinh năm:</strong> {{namsinh}}</td><td><strong>SĐT:</strong> {{sdt}}</td></tr>
+    <tr><td colspan="2"><strong>Bác sĩ / KTV:</strong> {{bacsi}}</td></tr>
+  </table>
 
   <table>
     <thead>
@@ -108,122 +51,87 @@
         <th>TÊN DỊCH VỤ</th>
         <th>SL</th>
         <th>ĐƠN GIÁ</th>
-        <th class="ck">CK</th>
+        <th>CK</th>
         <th>TỔNG TIỀN</th>
       </tr>
     </thead>
-    <tbody id="table-body"></tbody>
-    <tfoot>
-      <tr>
-        <td colspan="4" class="left bold">TỔNG TIỀN</td>
-        <td id="tongtien"></td>
-      </tr>
-      <tr>
-        <td colspan="4" class="left bold">TẠM ỨNG</td>
-        <td id="tamung"></td>
-      </tr>
-      <tr>
-        <td colspan="4" id="canthanhtoan-label" class="left bold">CẦN THANH TOÁN</td>
-        <td id="canthanhtoan"></td>
-      </tr>
-    </tfoot>
+    <tbody id="dichvu-table">
+      <!-- JS sẽ chèn dòng dịch vụ ở đây -->
+    </tbody>
+    <tr>
+      <td colspan="4" style="text-align:right;"><strong>TỔNG TIỀN</strong></td>
+      <td>{{tongtien}} đ</td>
+    </tr>
+    <tr>
+      <td colspan="4" style="text-align:right;"><strong>TẠM ỨNG</strong></td>
+      <td>{{tamung}} đ</td>
+    </tr>
+    <tr>
+      <td colspan="4" style="text-align:right;"><strong id="status-label"></strong></td>
+      <td class="highlight" id="sotien-conlai"></td>
+    </tr>
   </table>
 
-  <div class="sign">
-    <div>Người nộp tiền<br>(Ký, ghi rõ họ tên)</div>
-    <div><span id="thoigian"></span><br>Người thu tiền<br>(Ký, ghi rõ họ tên)</div>
+  <div style="text-align: center; margin-top: 30px;">
+    <div id="ngay-gio-1" style="font-weight: bold;"></div>
+    <div id="ngay-gio-2" style="font-weight: bold;"></div>
   </div>
 
-  <div class="qr">
-    <img src="https://img.vietqr.io/image/970422-123456789-compact.png" width="100" alt="QR code">
-    <p>VIETQR</p>
-  </div>
+  <table style="width:100%; margin-top: 20px; text-align:center;">
+    <tr>
+      <td>Người nộp tiền<br><i>(Ký, ghi rõ họ tên)</i></td>
+      <td>Người thu tiền<br><i>(Ký, ghi rõ họ tên)</i></td>
+    </tr>
+  </table>
 
   <script>
-    function getParam(name) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return decodeURIComponent(urlParams.get(name) || "");
+    // Lấy dữ liệu từ URL
+    const params = new URLSearchParams(window.location.search);
+    const tongtien = parseInt(params.get("tongtien")) || 0;
+    const tamung = parseInt(params.get("tamung")) || 0;
+    const conlai = tongtien - tamung;
+
+    const sotienElement = document.getElementById("sotien-conlai");
+    const labelElement = document.getElementById("status-label");
+
+    if (conlai >= 0) {
+      labelElement.innerText = "TỔNG TIỀN CHƯA THANH TOÁN";
+      sotienElement.innerText = conlai.toLocaleString('vi-VN') + " đ";
+    } else {
+      labelElement.innerText = "KHÁCH THANH TOÁN DƯ";
+      sotienElement.innerText = Math.abs(conlai).toLocaleString('vi-VN') + " đ";
     }
 
-    function formatVNTime() {
-      const nowVN = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Ho_Chi_Minh" }));
-      const day = String(nowVN.getDate()).padStart(2, '0');
-      const month = String(nowVN.getMonth() + 1).padStart(2, '0');
-      const year = nowVN.getFullYear();
-      const hour = String(nowVN.getHours()).padStart(2, '0');
-      const minute = String(nowVN.getMinutes()).padStart(2, '0');
-      const second = String(nowVN.getSeconds()).padStart(2, '0');
-      return `TP. Hồ Chí Minh, ngày ${day} tháng ${month} năm ${year} lúc ${hour} giờ ${minute} phút ${second} giây`;
-    }
+    // Ngày giờ
+    const now = new Date();
+    const day = now.getDate();
+    const month = now.getMonth() + 1;
+    const year = now.getFullYear();
+    const hour = now.getHours().toString().padStart(2, '0');
+    const minute = now.getMinutes().toString().padStart(2, '0');
+    const second = now.getSeconds().toString().padStart(2, '0');
 
-    function injectData() {
-      const fields = ["hoten", "diachi", "maso", "gioitinh", "namsinh", "bacsi", "sdt"];
-      fields.forEach(field => {
-        const el = document.getElementById(field);
-        if (el) el.innerText = getParam(field);
+    document.getElementById("ngay-gio-1").textContent = `Ngày ${day} tháng ${month} năm ${year}`;
+    document.getElementById("ngay-gio-2").textContent = `lúc ${hour} giờ ${minute} phút ${second} giây`;
+
+    // Danh sách dịch vụ
+    const dvList = params.get("dichvu");
+    if (dvList) {
+      const table = document.getElementById("dichvu-table");
+      const rows = decodeURIComponent(dvList).split("||");
+      rows.forEach(row => {
+        const cols = row.split("__");
+        if (cols.length === 5) {
+          const tr = document.createElement("tr");
+          cols.forEach(c => {
+            const td = document.createElement("td");
+            td.textContent = c;
+            tr.appendChild(td);
+          });
+          table.appendChild(tr);
+        }
       });
-
-      const data = getParam("data");
-      let tongTienToanBo = 0;
-
-      if (data) {
-        const rows = data.split("_b_");
-        const html = rows.map(item => {
-          const [ten, sl, dongia, chietkhau, tongtien] = item.split("_a_");
-
-          const donGiaNum = parseFloat(dongia.replace(/[^\d]/g, "")) || 0;
-          const donGiaText = donGiaNum.toLocaleString("vi-VN") + " đ";
-
-          const tongTienNum = parseFloat(tongtien.replace(/[^\d]/g, "")) || 0;
-          const tongTienText = tongTienNum.toLocaleString("vi-VN") + " đ";
-          tongTienToanBo += tongTienNum;
-
-          const chietKhauNum = parseFloat(chietkhau.replace(/[^\d]/g, "")) || 0;
-          let chietKhauText = chietkhau;
-          if (chietKhauNum >= 1 && chietKhauNum <= 100) {
-            chietKhauText = chietKhauNum + " %";
-          } else if (chietKhauNum > 100) {
-            chietKhauText = chietKhauNum.toLocaleString("vi-VN") + " đ";
-          }
-
-          return `<tr>
-            <td class="left">${ten}</td>
-            <td>${sl}</td>
-            <td>${donGiaText}</td>
-            <td class="ck">${chietKhauText}</td>
-            <td>${tongTienText}</td>
-          </tr>`;
-        }).join("");
-        document.getElementById("table-body").innerHTML = html;
-      }
-
-      const tamung = parseFloat(getParam("tamung").replace(/[^\d]/g, "")) || 0;
-      const canthanhtoan = tongTienToanBo - tamung;
-
-      document.getElementById("tongtien").innerText = tongTienToanBo.toLocaleString("vi-VN") + " đ";
-      document.getElementById("tamung").innerText = tamung.toLocaleString("vi-VN") + " đ";
-
-      const canThanhToanEl = document.getElementById("canthanhtoan");
-      const labelEl = document.getElementById("canthanhtoan-label");
-
-      if (canthanhtoan >= 0) {
-        labelEl.innerText = "TỔNG TIỀN CHƯA THANH TOÁN";
-        labelEl.classList.remove("highlight-warning");
-        canThanhToanEl.innerText = canthanhtoan.toLocaleString("vi-VN") + " đ";
-      } else {
-        labelEl.innerText = "KHÁCH THANH TOÁN DƯ";
-        labelEl.classList.add("highlight-warning");
-        canThanhToanEl.innerText = Math.abs(canthanhtoan).toLocaleString("vi-VN") + " đ";
-      }
     }
-
-    // Gọi các hàm và thêm in/đóng tự động
-    document.getElementById("thoigian").innerText = formatVNTime();
-    injectData();
-
-    setTimeout(() => window.print(), 2000);  // Tự in sau 2 giây
-    setTimeout(() => window.close(), 5000);  // Tự đóng sau 5 giây
   </script>
-
 </body>
 </html>
