@@ -2,18 +2,18 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>PHIẾU BÁN HÀNG</title>
+  <title>CHI TIẾT BÁN HÀNG</title>
   <style>
     @page {
       size: A5 portrait;
-      margin: 10mm;
+      margin: 8mm;
     }
 
     body {
       font-family: "Times New Roman", serif;
       font-size: 12px;
       margin: 0;
-      padding: 10mm;
+      padding: 0;
       color: #000;
     }
 
@@ -25,7 +25,7 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      margin-top: 10px;
+      margin: 10px 0;
     }
 
     .info p {
@@ -38,7 +38,7 @@
       border-collapse: collapse;
       margin-top: 10px;
       font-size: 11px;
-      table-layout: auto;
+      table-layout: fixed;
     }
 
     table, th, td {
@@ -48,11 +48,22 @@
     th, td {
       padding: 4px;
       text-align: center;
-      word-break: break-word;
+      word-wrap: break-word;
     }
 
-    td.ck {
-      width: auto;
+    th:nth-child(1), td:nth-child(1) {
+      width: 44%;
+      text-align: left;
+    }
+
+    th:nth-child(2), td:nth-child(2),
+    th:nth-child(3), td:nth-child(3),
+    th:nth-child(4), td:nth-child(4),
+    th:nth-child(5), td:nth-child(5) {
+      width: 14%;
+    }
+
+    .ck {
       white-space: nowrap;
     }
 
@@ -60,11 +71,16 @@
       text-align: left;
     }
 
-    .sign {
+    .sign-time {
       display: flex;
       justify-content: space-between;
-      margin-top: 20px;
+      text-align: center;
+      margin-top: 30px;
       font-size: 11px;
+    }
+
+    .sign-time div {
+      width: 48%;
     }
 
     .qr {
@@ -133,9 +149,13 @@
     </tfoot>
   </table>
 
-  <div class="sign">
-    <div>Người nộp tiền<br>(Ký, ghi rõ họ tên)</div>
-    <div><span id="thoigian"></span><br>Người thu tiền<br>(Ký, ghi rõ họ tên)</div>
+  <div class="sign-time">
+    <div>
+      <br>Khách hàng<br>(Ký, ghi rõ họ tên)
+    </div>
+    <div>
+      <span id="thoigian"></span><br>Người thu tiền<br>(Ký, ghi rõ họ tên)
+    </div>
   </div>
 
   <div class="qr">
