@@ -8,7 +8,6 @@
       size: A5 portrait;
       margin: 10mm;
     }
-
     body {
       font-family: "Times New Roman", serif;
       font-size: 12px;
@@ -16,55 +15,45 @@
       padding: 10mm;
       color: #000;
     }
-
     .header, .footer {
       text-align: center;
     }
-
     .info {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       margin-top: 10px;
     }
-
     .info p {
       width: 48%;
       margin: 2px 0;
     }
-
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 10px;
       font-size: 11px;
     }
-
     table, th, td {
       border: 1px solid #000;
     }
-
     th, td {
       padding: 4px;
       text-align: center;
     }
-
     .left {
       text-align: left;
     }
-
     .sign {
       display: flex;
       justify-content: space-between;
       margin-top: 20px;
       font-size: 11px;
     }
-
     .qr {
       text-align: center;
       margin-top: 10px;
     }
-
     .bold {
       font-weight: bold;
     }
@@ -151,42 +140,32 @@
       });
 
       const data = getParam("data");
-      let tongTienToanBo = 0;
-
       if (data) {
         const rows = data.split("_b_");
         const html = rows.map(item => {
-          const [ten, sl, dongia, chietkhau] = item.split("_a_");
-          const soLuongNum = parseFloat(sl) || 0;
-          const donGiaNum = parseFloat(dongia) || 0;
-          const chietKhauNum = parseFloat(chietkhau) || 0;
-          const tongTienDong = (soLuongNum * donGiaNum) - chietKhauNum;
-          tongTienToanBo += tongTienDong;
-
-          return `
-            <tr>
-              <td class="left">${ten}</td>
-              <td>${soLuongNum}</td>
-              <td>${donGiaNum.toLocaleString("vi-VN")} đ</td>
-              <td>${chietKhauNum.toLocaleString("vi-VN")} đ</td>
-              <td>${tongTienDong.toLocaleString("vi-VN")} đ</td>
-            </tr>`;
+          const [ten, sl, dongia, chietkhau, tongtien] = item.split("_a_");
+          return `<tr>
+            <td class="left">${ten}</td>
+            <td>${sl}</td>
+            <td>${parseFloat(dongia).toLocaleString("vi-VN")} đ</td>
+            <td>${parseFloat(chietkhau).toLocaleString("vi-VN")} đ</td>
+            <td>${parseFloat(tongtien).toLocaleString("vi-VN")} đ</td>
+          </tr>`;
         }).join("");
-
         document.getElementById("table-body").innerHTML = html;
-        document.getElementById("tongtien").innerText = tongTienToanBo.toLocaleString("vi-VN") + " đ";
-
-        const tamung = parseFloat(getParam("tamung")) || 0;
-        const canthanhtoan = tongTienToanBo - tamung;
-
-        document.getElementById("tamung").innerText = tamung.toLocaleString("vi-VN") + " đ";
-        document.getElementById("canthanhtoan").innerText = canthanhtoan.toLocaleString("vi-VN") + " đ";
       }
 
-      document.getElementById("thoigian").innerText = formatVNTime();
+      const tongtienParam = parseFloat(getParam("tongtien")) || 0;
+      const tamung = parseFloat(getParam("tamung")) || 0;
+      const canthanhtoan = parseFloat(getParam("canthanhtoan")) || (tongtienParam - tamung);
+
+      document.getElementById("tongtien").innerText = tongtienParam.toLocaleString("vi-VN") + " đ";
+      document.getElementById("tamung").innerText = tamung.toLocaleString("vi-VN") + " đ";
+      document.getElementById("canthanhtoan").innerText = canthanhtoan.toLocaleString("vi-VN") + " đ";
     }
 
-    window.onload = injectData;
+    document.getElementById("thoigian").innerText = formatVNTime();
+    injectData();
   </script>
 
 </body>
