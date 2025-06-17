@@ -51,13 +51,13 @@
       word-break: break-word;
     }
 
-    td.left {
-      text-align: left;
-    }
-
-    th.ck, td.ck {
+    td.ck {
       width: auto;
       white-space: nowrap;
+    }
+
+    .left {
+      text-align: left;
     }
 
     .sign {
@@ -74,6 +74,12 @@
 
     .bold {
       font-weight: bold;
+    }
+
+    .highlight-warning {
+      font-weight: bold;
+      background-color: yellow;
+      color: red;
     }
   </style>
 </head>
@@ -109,15 +115,15 @@
     <tbody id="table-body"></tbody>
     <tfoot>
       <tr>
-        <td colspan="4" class="left bold">TỔNG TIỀN CẦN THANH TOÁN:</td>
+        <td colspan="4" class="left bold">TỔNG TIỀN</td>
         <td id="tongtien"></td>
       </tr>
       <tr>
-        <td colspan="4" class="left bold">SỐ TIỀN THANH TOÁN HIỆN TẠI:</td>
+        <td colspan="4" class="left bold">TẠM ỨNG</td>
         <td id="tamung"></td>
       </tr>
       <tr>
-        <td colspan="4" class="left bold">TỔNG TIỀN CHƯA THANH TOÁN:</td>
+        <td colspan="4" id="canthanhtoan-label" class="left bold">CẦN THANH TOÁN</td>
         <td id="canthanhtoan"></td>
       </tr>
     </tfoot>
@@ -196,17 +202,27 @@
 
       document.getElementById("tongtien").innerText = tongTienToanBo.toLocaleString("vi-VN") + " đ";
       document.getElementById("tamung").innerText = tamung.toLocaleString("vi-VN") + " đ";
-      document.getElementById("canthanhtoan").innerText = canthanhtoan.toLocaleString("vi-VN") + " đ";
+
+      const canThanhToanEl = document.getElementById("canthanhtoan");
+      const labelEl = document.getElementById("canthanhtoan-label");
+
+      if (canthanhtoan >= 0) {
+        labelEl.innerText = "TỔNG TIỀN CHƯA THANH TOÁN";
+        labelEl.classList.remove("highlight-warning");
+        canThanhToanEl.innerText = canthanhtoan.toLocaleString("vi-VN") + " đ";
+      } else {
+        labelEl.innerText = "KHÁCH THANH TOÁN DƯ";
+        labelEl.classList.add("highlight-warning");
+        canThanhToanEl.innerText = Math.abs(canthanhtoan).toLocaleString("vi-VN") + " đ";
+      }
     }
 
+    // Gọi các hàm và thêm in/đóng tự động
     document.getElementById("thoigian").innerText = formatVNTime();
     injectData();
 
-    // Tự động in sau 2s và đóng sau 5s kể từ khi in
-    setTimeout(() => {
-      window.print();
-      setTimeout(() => window.close(), 5000);
-    }, 2000);
+    setTimeout(() => window.print(), 2000);  // Tự in sau 2 giây
+    setTimeout(() => window.close(), 5000);  // Tự đóng sau 5 giây
   </script>
 
 </body>
