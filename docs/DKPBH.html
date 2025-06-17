@@ -2,6 +2,199 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
+  <title>PHIẾU BÁN HÀNG</title>
+  <style>
+    @page {
+      size: A5 portrait;
+      margin: 10mm;
+    }
+
+    body {
+      font-family: "Times New Roman", serif;
+      font-size: 12px;
+      margin: 0;
+      padding: 10mm;
+      color: #000;
+    }
+
+    .header, .footer {
+      text-align: center;
+    }
+
+    .info {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .info p {
+      width: 48%;
+      margin: 2px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 11px;
+    }
+
+    table, th, td {
+      border: 1px solid #000;
+    }
+
+    th, td {
+      padding: 4px;
+      text-align: center;
+    }
+
+    .left {
+      text-align: left;
+    }
+
+    .sign {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      font-size: 11px;
+    }
+
+    .qr {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .bold {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div><strong>3H OPTICAL</strong></div>
+    <div>314 Nguyễn Thượng Hiền, P.5, Q. Phú Nhuận, TP.HCM</div>
+    <div>Điện thoại: 756000</div>
+    <h3>PHIẾU BÁN HÀNG</h3>
+  </div>
+
+  <div class="info">
+    <p><strong>Họ tên:</strong> <span id="hoten"></span></p>
+    <p><strong>Địa chỉ:</strong> <span id="diachi"></span></p>
+    <p><strong>Mã số:</strong> <span id="maso"></span></p>
+    <p><strong>Giới tính:</strong> <span id="gioitinh"></span></p>
+    <p><strong>Năm sinh:</strong> <span id="namsinh"></span></p>
+    <p><strong>Bác sĩ / KTV:</strong> <span id="bacsi"></span></p>
+    <p><strong>SĐT:</strong> <span id="sdt"></span></p>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>TÊN DỊCH VỤ</th>
+        <th>SỐ LƯỢNG</th>
+        <th>ĐƠN GIÁ</th>
+        <th>CHIẾT KHẤU</th>
+        <th>TỔNG TIỀN</th>
+      </tr>
+    </thead>
+    <tbody id="table-body"></tbody>
+    <tfoot>
+      <tr>
+        <td colspan="4" class="left bold">TỔNG TIỀN</td>
+        <td id="tongtien"></td>
+      </tr>
+      <tr>
+        <td colspan="4" class="left bold">TẠM ỨNG</td>
+        <td id="tamung"></td>
+      </tr>
+      <tr>
+        <td colspan="4" class="left bold">CẦN THANH TOÁN</td>
+        <td id="canthanhtoan"></td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <div class="sign">
+    <div>Người nộp tiền<br>(Ký, ghi rõ họ tên)</div>
+    <div><span id="thoigian"></span><br>Người thu tiền<br>(Ký, ghi rõ họ tên)</div>
+  </div>
+
+  <div class="qr">
+    <img src="https://img.vietqr.io/image/970422-123456789-compact.png" width="100" alt="QR code">
+    <p>VIETQR</p>
+  </div>
+
+  <script>
+    function getParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return decodeURIComponent(urlParams.get(name) || "");
+    }
+
+    function formatVNTime() {
+      const nowVN = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Ho_Chi_Minh" }));
+      const day = String(nowVN.getDate()).padStart(2, '0');
+      const month = String(nowVN.getMonth() + 1).padStart(2, '0');
+      const year = nowVN.getFullYear();
+      const hour = String(nowVN.getHours()).padStart(2, '0');
+      const minute = String(nowVN.getMinutes()).padStart(2, '0');
+      const second = String(nowVN.getSeconds()).padStart(2, '0');
+      return `TP. Hồ Chí Minh, ngày ${day} tháng ${month} năm ${year} lúc ${hour} giờ ${minute} phút ${second} giây`;
+    }
+
+    function injectData() {
+      const fields = ["hoten", "diachi", "maso", "gioitinh", "namsinh", "bacsi", "sdt"];
+      fields.forEach(field => {
+        const el = document.getElementById(field);
+        if (el) el.innerText = getParam(field);
+      });
+
+      const data = getParam("data");
+      let tongTienToanBo = 0;
+
+      if (data) {
+        const rows = data.split("_b_");
+        const html = rows.map(item => {
+          const [ten, sl, dongia, chietkhau] = item.split("_a_");
+          const soLuongNum = parseFloat(sl) || 0;
+          const donGiaNum = parseFloat(dongia) || 0;
+          const chietKhauNum = parseFloat(chietkhau) || 0;
+          const tongTienDong = (soLuongNum * donGiaNum) - chietKhauNum;
+          tongTienToanBo += tongTienDong;
+
+          return `
+            <tr>
+              <td class="left">${ten}</td>
+              <td>${soLuongNum}</td>
+              <td>${donGiaNum.toLocaleString("vi-VN")} đ</td>
+              <td>${chietKhauNum.toLocaleString("vi-VN")} đ</td>
+              <td>${tongTienDong.toLocaleString("vi-VN")} đ</td>
+            </tr>`;
+        }).join("");
+
+        document.getElementById("table-body").innerHTML = html;
+        document.getElementById("tongtien").innerText = tongTienToanBo.toLocaleString("vi-VN") + " đ";
+
+        const tamung = parseFloat(getParam("tamung")) || 0;
+        const canthanhtoan = tongTienToanBo - tamung;
+
+        document.getElementById("tamung").innerText = tamung.toLocaleString("vi-VN") + " đ";
+        document.getElementById("canthanhtoan").innerText = canthanhtoan.toLocaleString("vi-VN") + " đ";
+      }
+
+      document.getElementById("thoigian").innerText = formatVNTime();
+    }
+
+    window.onload = injectData;
+  </script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
   <title>PHIẾU BÁN HÀNG2</title>
   <style>
     @page {
