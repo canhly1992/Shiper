@@ -1,117 +1,182 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>PHIẾU BÁN HÀNG</title>
   <style>
-    body {
-      font-family: 'Times New Roman', serif;
-      font-size: 14px;
-      margin: 20px;
+    @page {
+      size: A5 portrait;
+      margin: 10mm;
     }
+
+    body {
+      font-family: "Times New Roman", serif;
+      font-size: 12px;
+      margin: 0;
+      padding: 10mm;
+      color: #000;
+    }
+
+    .header, .footer {
+      text-align: center;
+    }
+
+    .info {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .info p {
+      width: 48%;
+      margin: 2px 0;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 20px;
+      margin-top: 10px;
+      font-size: 11px;
     }
+
+    table, th, td {
+      border: 1px solid #000;
+    }
+
     th, td {
-      border: 1px solid black;
-      padding: 6px;
-      text-align: left;
-    }
-    .center {
+      padding: 4px;
       text-align: center;
     }
-    .no-border {
-      border: none;
+
+    .left {
+      text-align: left;
+    }
+
+    .sign {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      font-size: 11px;
+    }
+
+    .qr {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .bold {
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
 
-  <h2 class="center">3H OPTICAL</h2>
-  <div class="center">314 Nguyễn Thượng Hiền, P.5, Q. Phú Nhuận, TP.HCM</div>
-  <div class="center">Điện thoại: 756000</div>
+  <div class="header">
+    <div><strong>3H OPTICAL</strong></div>
+    <div>314 Nguyễn Thượng Hiền, P.5, Q. Phú Nhuận, TP.HCM</div>
+    <div>Điện thoại: 756000</div>
+    <h3>PHIẾU BÁN HÀNG</h3>
+  </div>
 
-  <h3 class="center">PHIẾU BÁN HÀNG</h3>
+  <div class="info">
+    <p><strong>Họ tên:</strong> <span id="hoten"></span></p>
+    <p><strong>Địa chỉ:</strong> <span id="diachi"></span></p>
+    <p><strong>Mã số:</strong> <span id="maso"></span></p>
+    <p><strong>Giới tính:</strong> <span id="gioitinh"></span></p>
+    <p><strong>Năm sinh:</strong> <span id="namsinh"></span></p>
+    <p><strong>Bác sĩ / KTV:</strong> <span id="bacsi"></span></p>
+    <p><strong>SĐT:</strong> <span id="sdt"></span></p>
+  </div>
 
-  <div><b>Họ tên:</b> <span id="hoten"></span></div>
-  <div><b>Mã số:</b> <span id="maso"></span></div>
-  <div><b>Năm sinh:</b> <span id="namsinh"></span></div>
-  <div><b>SĐT:</b> <span id="sdt"></span></div>
-  <div><b>Địa chỉ:</b> <span id="diachi"></span></div>
-  <div><b>Giới tính:</b> <span id="gioitinh"></span></div>
-  <div><b>Bác sĩ / KTV:</b> <span id="bacsi"></span></div>
-
-  <table id="table">
+  <table>
     <thead>
       <tr>
         <th>TÊN DỊCH VỤ</th>
         <th>SỐ LƯỢNG</th>
         <th>ĐƠN GIÁ</th>
         <th>CHIẾT KHẤU</th>
-        <th>TRẠNG THÁI</th>
         <th>TỔNG TIỀN</th>
       </tr>
     </thead>
-    <tbody>
-    </tbody>
+    <tbody id="table-body"></tbody>
+    <tfoot>
+      <tr>
+        <td colspan="4" class="left bold">TỔNG TIỀN</td>
+        <td id="tongtien"></td>
+      </tr>
+      <tr>
+        <td colspan="4" class="left bold">TẠM ỨNG</td>
+        <td id="tamung"></td>
+      </tr>
+      <tr>
+        <td colspan="4" class="left bold">CẦN THANH TOÁN</td>
+        <td id="canthanhtoan"></td>
+      </tr>
+    </tfoot>
   </table>
 
-  <table style="margin-top: 20px;">
-    <tr>
-      <td class="no-border"><b>TỔNG TIỀN</b></td>
-      <td class="no-border"><span id="tongtien"></span> đ</td>
-    </tr>
-    <tr>
-      <td class="no-border"><b>TẠM ỨNG</b></td>
-      <td class="no-border"><span id="tamung"></span> đ</td>
-    </tr>
-    <tr>
-      <td class="no-border"><b>CẦN THANH TOÁN</b></td>
-      <td class="no-border"><span id="canthanhtoan"></span> đ</td>
-    </tr>
-  </table>
+  <div class="sign">
+    <div>Người nộp tiền<br>(Ký, ghi rõ họ tên)</div>
+    <div><span id="thoigian"></span><br>Người thu tiền<br>(Ký, ghi rõ họ tên)</div>
+  </div>
 
-  <p style="margin-top: 40px;">Người nộp tiền <br>(Ký, ghi rõ họ tên)</p>
+  <div class="qr">
+    <img src="https://img.vietqr.io/image/970422-123456789-compact.png" width="100" alt="QR code">
+    <p>VIETQR</p>
+  </div>
 
   <script>
-    const params = new URLSearchParams(window.location.search);
+    function getParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return decodeURIComponent(urlParams.get(name) || "");
+    }
 
-    // Gán thông tin cá nhân
-    document.getElementById("hoten").textContent = params.get("hoten") || "";
-    document.getElementById("maso").textContent = params.get("maso") || "";
-    document.getElementById("namsinh").textContent = params.get("namsinh") || "";
-    document.getElementById("sdt").textContent = params.get("sdt") || "";
-    document.getElementById("diachi").textContent = params.get("diachi") || "";
-    document.getElementById("gioitinh").textContent = params.get("gioitinh") || "";
-    document.getElementById("bacsi").textContent = params.get("bacsi") || "";
+    function formatVNTime() {
+      const nowVN = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Ho_Chi_Minh" }));
+      const day = String(nowVN.getDate()).padStart(2, '0');
+      const month = String(nowVN.getMonth() + 1).padStart(2, '0');
+      const year = nowVN.getFullYear();
+      const hour = String(nowVN.getHours()).padStart(2, '0');
+      const minute = String(nowVN.getMinutes()).padStart(2, '0');
+      const second = String(nowVN.getSeconds()).padStart(2, '0');
+      return `TP. Hồ Chí Minh, ngày ${day} tháng ${month} năm ${year} lúc ${hour} giờ ${minute} phút ${second} giây`;
+    }
 
-    // Gán thông tin thanh toán
-    document.getElementById("tongtien").textContent = params.get("tongtien") || "0";
-    document.getElementById("tamung").textContent = params.get("tamung") || "0";
-    document.getElementById("canthanhtoan").textContent = params.get("canthanhtoan") || "0";
+    function injectData() {
+      const fields = ["hoten", "diachi", "maso", "gioitinh", "namsinh", "bacsi", "sdt"];
+      fields.forEach(field => {
+        const el = document.getElementById(field);
+        if (el) el.innerText = getParam(field);
+      });
 
-    // Dữ liệu sản phẩm
-    const data = decodeURIComponent(params.get("data") || "");
-    const rows = data.split("_b_");
-
-    const tbody = document.querySelector("#table tbody");
-    rows.forEach(row => {
-      const cells = row.split("_a_");
-      if (cells.length >= 7) {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${cells[0]}</td>
-          <td>${cells[1]}</td>
-          <td>${cells[2]} đ</td>
-          <td>${cells[4]} đ</td>
-          <td>${cells[5]}</td>
-          <td>${cells[6]} đ</td>
-        `;
-        tbody.appendChild(tr);
+      const data = getParam("data");
+      if (data) {
+        const rows = data.split("_b_");
+        const html = rows.map(item => {
+          const [ten, sl, dongia, chietkhau, tongtien] = item.split("_a_");
+          return `<tr>
+            <td class="left">${ten}</td>
+            <td>${sl}</td>
+            <td>${Number(dongia).toLocaleString("vi-VN")} đ</td>
+            <td>${Number(chietkhau).toLocaleString("vi-VN")} đ</td>
+            <td>${Number(tongtien).toLocaleString("vi-VN")} đ</td>
+          </tr>`;
+        }).join("");
+        document.getElementById("table-body").innerHTML = html;
       }
-    });
+
+      const tong = getParam("tongtien");
+      const tamung = getParam("tamung");
+      const canthanhtoan = getParam("canthanhtoan");
+
+      document.getElementById("tongtien").innerText = Number(tong).toLocaleString("vi-VN") + " đ";
+      document.getElementById("tamung").innerText = Number(tamung).toLocaleString("vi-VN") + " đ";
+      document.getElementById("canthanhtoan").innerText = Number(canthanhtoan).toLocaleString("vi-VN") + " đ";
+    }
+
+    document.getElementById("thoigian").innerText = formatVNTime();
+    injectData();
   </script>
 
 </body>
