@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>CHI TIẾT BÁN HÀNG</title>
+  <title>CHI TIẾT BÁN HÀNG1</title>
   <style>
     @page {
       size: A5 portrait;
@@ -23,13 +23,22 @@
 
     .info {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
+      flex-direction: column;
       margin: 10px 0;
     }
 
-    .info p {
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      margin: 2px 0;
+    }
+
+    .info-row p {
       width: 48%;
+      margin: 0;
+    }
+
+    .info-full {
       margin: 2px 0;
     }
 
@@ -81,28 +90,24 @@
       color: red;
     }
 
-    /* Ký tên */
-    .sign-wrapper {
-      display: flex;
-      justify-content: center;
-      margin-top: 30px;
+    .sign-block {
+      width: 100%;
+      max-width: 500px;
+      margin: 30px auto 0 auto;
       font-size: 12px;
     }
 
     .sign-row {
       display: flex;
       justify-content: space-between;
-      width: 100%;
-      max-width: 500px;
-      margin: 10px auto;
       text-align: center;
     }
 
-    .sign-col {
+    .sign-row .col {
       width: 48%;
     }
 
-    .sign-time {
+    .sign-row.time {
       text-align: right;
       font-style: italic;
     }
@@ -118,13 +123,21 @@
   </div>
 
   <div class="info">
-    <p><strong>Họ tên:</strong> <span id="hoten"></span></p>
-    <p><strong>Năm sinh:</strong> <span id="namsinh"></span></p>
-    <p><strong>Giới tính:</strong> <span id="gioitinh"></span></p>
-    <p><strong>SĐT:</strong> <span id="sdt"></span></p>
-    <p style="width: 100%;"><strong>Địa chỉ:</strong> <span id="diachi"></span></p>
-    <p><strong>Mã số:</strong> <span id="maso"></span></p>
-    <p><strong>Bác sĩ / KTV:</strong> <span id="bacsi"></span></p>
+    <div class="info-row">
+      <p><strong>Họ tên:</strong> <span id="hoten"></span></p>
+      <p><strong>Năm sinh:</strong> <span id="namsinh"></span></p>
+    </div>
+    <div class="info-row">
+      <p><strong>Giới tính:</strong> <span id="gioitinh"></span></p>
+      <p><strong>SĐT:</strong> <span id="sdt"></span></p>
+    </div>
+    <div class="info-full">
+      <p><strong>Địa chỉ:</strong> <span id="diachi"></span></p>
+    </div>
+    <div class="info-row">
+      <p><strong>Mã số:</strong> <span id="maso"></span></p>
+      <p><strong>Bác sĩ / KTV:</strong> <span id="bacsi"></span></p>
+    </div>
   </div>
 
   <table>
@@ -158,20 +171,18 @@
     </tfoot>
   </table>
 
-  <!-- PHẦN KÝ TÊN KHÔNG KHUNG, CĂN ĐỀU ĐẸP -->
-  <div class="sign-wrapper">
-    <div class="sign-row">
-      <div class="sign-col"></div>
-      <div class="sign-col sign-time" id="thoigian"></div>
+  <!-- KÝ TÊN -->
+  <div class="sign-block">
+    <div class="sign-row time">
+      <div class="col"></div>
+      <div class="col" id="thoigian"></div>
     </div>
-    <div class="sign-row">
-      <div class="sign-col">
-        <strong>Khách hàng</strong><br>
-        (Ký và ghi rõ họ tên)
+    <div class="sign-row" style="margin-top: 30px;">
+      <div class="col">
+        <strong>Khách hàng</strong><br>(Ký và ghi rõ họ tên)
       </div>
-      <div class="sign-col">
-        <strong>Người thu tiền</strong><br>
-        (Ký và ghi rõ họ tên)
+      <div class="col">
+        <strong>Người thu tiền</strong><br>(Ký và ghi rõ họ tên)
       </div>
     </div>
   </div>
@@ -189,7 +200,8 @@
       const year = nowVN.getFullYear();
       const hour = String(nowVN.getHours()).padStart(2, '0');
       const minute = String(nowVN.getMinutes()).padStart(2, '0');
-      return `TP. Hồ Chí Minh, ngày ${day} tháng ${month} năm ${year} lúc ${hour} giờ ${minute} phút`;
+      const second = String(nowVN.getSeconds()).padStart(2, '0');
+      return `Tp. Hồ Chí Minh, Ngày ${day} tháng ${month} năm ${year}<br>Lúc ${hour} giờ ${minute} phút ${second} giây`;
     }
 
     function injectData() {
