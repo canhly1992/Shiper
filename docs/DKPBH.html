@@ -102,12 +102,16 @@
       justify-content: space-between;
       text-align: center;
     }
-   .sign-row {
+  .sign-row .col {
+  width: 48%;
+  text-align: center;        /* căn giữa chiều ngang */
+  vertical-align: top;       /* nội dung nằm ở phía trên */
   display: flex;
-  justify-content: space-between;
-  text-align: center;
-  align-items: flex-start; /* THÊM DÒNG NÀY */
+  flex-direction: column;
+  align-items: center;       /* vẫn giữ nội dung ở giữa chiều ngang */
+  justify-content: flex-start; /* đẩy nội dung lên đầu */
 }
+
     .sign-row.time {
       text-align: right;
       font-style: italic;
