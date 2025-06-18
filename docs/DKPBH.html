@@ -17,28 +17,23 @@
       color: #000;
     }
 
-    .header, .footer {
+    .header {
       text-align: center;
     }
 
     .info {
       display: flex;
-      flex-direction: column;
-      gap: 4px;
+      flex-wrap: wrap;
+      justify-content: space-between;
       margin: 10px 0;
     }
 
-    .info-row {
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .info-row p {
+    .info p {
       width: 48%;
       margin: 2px 0;
     }
 
-    .full-row p {
+    .info p.full {
       width: 100%;
     }
 
@@ -103,6 +98,15 @@
       vertical-align: top;
       padding: 5px;
     }
+
+    .sign-wrapper {
+      display: flex;
+      justify-content: center;
+    }
+
+    .sign-inner {
+      width: 80%;
+    }
   </style>
 </head>
 <body>
@@ -115,21 +119,13 @@
   </div>
 
   <div class="info">
-    <div class="info-row">
-      <p><strong>Họ tên:</strong> <span id="hoten"></span></p>
-      <p><strong>Năm sinh:</strong> <span id="namsinh"></span></p>
-    </div>
-    <div class="info-row">
-      <p><strong>Giới tính:</strong> <span id="gioitinh"></span></p>
-      <p><strong>SĐT:</strong> <span id="sdt"></span></p>
-    </div>
-    <div class="info-row full-row">
-      <p><strong>Địa chỉ:</strong> <span id="diachi"></span></p>
-    </div>
-    <div class="info-row">
-      <p><strong>Mã số:</strong> <span id="maso"></span></p>
-      <p><strong>Bác sĩ / KTV:</strong> <span id="bacsi"></span></p>
-    </div>
+    <p><strong>Họ tên:</strong> <span id="hoten"></span></p>
+    <p><strong>Năm sinh:</strong> <span id="namsinh"></span></p>
+    <p><strong>Giới tính:</strong> <span id="gioitinh"></span></p>
+    <p><strong>SĐT:</strong> <span id="sdt"></span></p>
+    <p class="full"><strong>Địa chỉ:</strong> <span id="diachi"></span></p>
+    <p><strong>Mã số:</strong> <span id="maso"></span></p>
+    <p><strong>Bác sĩ / KTV:</strong> <span id="bacsi"></span></p>
   </div>
 
   <table>
@@ -163,22 +159,24 @@
     </tfoot>
   </table>
 
-  <table class="sign-table">
-    <tr>
-      <td></td>
-      <td><span id="thoigian"></span></td>
-    </tr>
-    <tr>
-      <td>
-        <div>Khách hàng</div>
-        <div>(Ký và ghi rõ họ tên)</div>
-      </td>
-      <td>
-        <div>Người thu tiền</div>
-        <div>(Ký và ghi rõ họ tên)</div>
-      </td>
-    </tr>
-  </table>
+  <div class="sign-wrapper">
+    <table class="sign-table sign-inner">
+      <tr>
+        <td></td>
+        <td><span id="thoigian"></span></td>
+      </tr>
+      <tr>
+        <td>
+          <div>Khách hàng</div>
+          <div>(Ký và ghi rõ họ tên)</div>
+        </td>
+        <td>
+          <div>Người thu tiền</div>
+          <div>(Ký và ghi rõ họ tên)</div>
+        </td>
+      </tr>
+    </table>
+  </div>
 
   <script>
     function getParam(name) {
@@ -191,7 +189,10 @@
       const day = String(nowVN.getDate()).padStart(2, '0');
       const month = String(nowVN.getMonth() + 1).padStart(2, '0');
       const year = nowVN.getFullYear();
-      return `TP. Hồ Chí Minh, ngày ${day} tháng ${month} năm ${year}`;
+      const hour = String(nowVN.getHours()).padStart(2, '0');
+      const minute = String(nowVN.getMinutes()).padStart(2, '0');
+      const second = String(nowVN.getSeconds()).padStart(2, '0');
+      return `TP. Hồ Chí Minh, Ngày ${day} tháng ${month} năm ${year}<br>lúc ${hour} giờ ${minute} phút ${second} giây`;
     }
 
     function injectData() {
