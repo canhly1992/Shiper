@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>PHIẾU BÁN HÀNG</title>
+  <title>CHI TIẾT BÁN HÀNG</title>
   <style>
     @page {
       size: A5 portrait;
@@ -17,26 +17,24 @@
       color: #000;
     }
 
-    .header, .footer {
+    .header {
       text-align: center;
     }
 
     .info {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
       margin: 10px 0;
     }
 
-    .info-row {
-      display: flex;
-      justify-content: space-between;
+    .info p {
+      width: 48%;
       margin: 2px 0;
     }
 
-    .info-row p {
-      width: 48%;
-      margin: 0;
-    }
-
     .info-full {
+      width: 100%;
       margin: 2px 0;
     }
 
@@ -78,17 +76,8 @@
       text-align: left;
     }
 
-    .sign-table {
-      width: 100%;
-      margin-top: 30px;
-      font-size: 11px;
-      border-collapse: collapse;
-    }
-
-    .sign-table td {
-      width: 50%;
-      text-align: center;
-      vertical-align: top;
+    .bold {
+      font-weight: bold;
     }
 
     .highlight-warning {
@@ -97,13 +86,25 @@
       color: red;
     }
 
-    .qr {
-      text-align: center;
-      margin-top: 10px;
+    .sign-table {
+      width: 100%;
+      margin-top: 30px;
+      font-size: 11px;
     }
 
-    .bold {
-      font-weight: bold;
+    .sign-table td {
+      width: 50%;
+      vertical-align: top;
+      padding: 10px;
+    }
+
+    .sign-table td span {
+      display: inline-block;
+      width: 100%;
+    }
+
+    .text-center {
+      text-align: center;
     }
   </style>
 </head>
@@ -117,21 +118,13 @@
   </div>
 
   <div class="info">
-    <div class="info-row">
-      <p><strong>Họ tên:</strong> <span id="hoten"></span></p>
-      <p><strong>Năm sinh:</strong> <span id="namsinh"></span></p>
-    </div>
-    <div class="info-row">
-      <p><strong>Giới tính:</strong> <span id="gioitinh"></span></p>
-      <p><strong>SĐT:</strong> <span id="sdt"></span></p>
-    </div>
-    <div class="info-full">
-      <p><strong>Địa chỉ:</strong> <span id="diachi"></span></p>
-    </div>
-    <div class="info-row">
-      <p><strong>Mã số:</strong> <span id="maso"></span></p>
-      <p><strong>Bác sĩ / KTV:</strong> <span id="bacsi"></span></p>
-    </div>
+    <p><strong>Họ tên:</strong> <span id="hoten"></span></p>
+    <p><strong>Năm sinh:</strong> <span id="namsinh"></span></p>
+    <p><strong>Giới tính:</strong> <span id="gioitinh"></span></p>
+    <p><strong>SĐT:</strong> <span id="sdt"></span></p>
+    <p class="info-full"><strong>Địa chỉ:</strong> <span id="diachi"></span></p>
+    <p><strong>Mã số:</strong> <span id="maso"></span></p>
+    <p><strong>Bác sĩ / KTV:</strong> <span id="bacsi"></span></p>
   </div>
 
   <table>
@@ -167,22 +160,20 @@
 
   <table class="sign-table">
     <tr>
-      <td>
-        Khách hàng<br><br><br><br>
-        (Ký, ghi rõ họ tên)
+      <td></td>
+      <td class="text-center"><span id="thoigian"></span></td>
+    </tr>
+    <tr>
+      <td class="text-center">
+        Khách hàng<br>
+        (Ký và ghi rõ họ tên)
       </td>
-      <td>
-        <span id="thoigian"></span><br>
-        Người thu tiền<br><br><br><br>
-        (Ký, ghi rõ họ tên)
+      <td class="text-center">
+        Người thu tiền<br>
+        (Ký và ghi rõ họ tên)
       </td>
     </tr>
   </table>
-
-  <div class="qr">
-    <img src="https://img.vietqr.io/image/970422-123456789-compact.png" width="100" alt="QR code">
-    <p>VIETQR</p>
-  </div>
 
   <script>
     function getParam(name) {
