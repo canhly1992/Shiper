@@ -17,25 +17,29 @@
       color: #000;
     }
 
-    .header {
+    .header, .footer {
       text-align: center;
     }
 
     .info {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
+      flex-direction: column;
+      gap: 4px;
       margin: 10px 0;
     }
 
-    .info p {
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .info-row p {
       width: 48%;
       margin: 2px 0;
     }
 
-    .info-full {
+    .full-row p {
       width: 100%;
-      margin: 2px 0;
     }
 
     table {
@@ -90,21 +94,14 @@
       width: 100%;
       margin-top: 30px;
       font-size: 11px;
+      border-collapse: collapse;
     }
 
     .sign-table td {
-      width: 50%;
-      vertical-align: top;
-      padding: 10px;
-    }
-
-    .sign-table td span {
-      display: inline-block;
-      width: 100%;
-    }
-
-    .text-center {
+      border: none;
       text-align: center;
+      vertical-align: top;
+      padding: 5px;
     }
   </style>
 </head>
@@ -118,13 +115,21 @@
   </div>
 
   <div class="info">
-    <p><strong>Họ tên:</strong> <span id="hoten"></span></p>
-    <p><strong>Năm sinh:</strong> <span id="namsinh"></span></p>
-    <p><strong>Giới tính:</strong> <span id="gioitinh"></span></p>
-    <p><strong>SĐT:</strong> <span id="sdt"></span></p>
-    <p class="info-full"><strong>Địa chỉ:</strong> <span id="diachi"></span></p>
-    <p><strong>Mã số:</strong> <span id="maso"></span></p>
-    <p><strong>Bác sĩ / KTV:</strong> <span id="bacsi"></span></p>
+    <div class="info-row">
+      <p><strong>Họ tên:</strong> <span id="hoten"></span></p>
+      <p><strong>Năm sinh:</strong> <span id="namsinh"></span></p>
+    </div>
+    <div class="info-row">
+      <p><strong>Giới tính:</strong> <span id="gioitinh"></span></p>
+      <p><strong>SĐT:</strong> <span id="sdt"></span></p>
+    </div>
+    <div class="info-row full-row">
+      <p><strong>Địa chỉ:</strong> <span id="diachi"></span></p>
+    </div>
+    <div class="info-row">
+      <p><strong>Mã số:</strong> <span id="maso"></span></p>
+      <p><strong>Bác sĩ / KTV:</strong> <span id="bacsi"></span></p>
+    </div>
   </div>
 
   <table>
@@ -161,16 +166,16 @@
   <table class="sign-table">
     <tr>
       <td></td>
-      <td class="text-center"><span id="thoigian"></span></td>
+      <td><span id="thoigian"></span></td>
     </tr>
     <tr>
-      <td class="text-center">
-        Khách hàng<br>
-        (Ký và ghi rõ họ tên)
+      <td>
+        <div>Khách hàng</div>
+        <div>(Ký và ghi rõ họ tên)</div>
       </td>
-      <td class="text-center">
-        Người thu tiền<br>
-        (Ký và ghi rõ họ tên)
+      <td>
+        <div>Người thu tiền</div>
+        <div>(Ký và ghi rõ họ tên)</div>
       </td>
     </tr>
   </table>
@@ -186,10 +191,7 @@
       const day = String(nowVN.getDate()).padStart(2, '0');
       const month = String(nowVN.getMonth() + 1).padStart(2, '0');
       const year = nowVN.getFullYear();
-      const hour = String(nowVN.getHours()).padStart(2, '0');
-      const minute = String(nowVN.getMinutes()).padStart(2, '0');
-      const second = String(nowVN.getSeconds()).padStart(2, '0');
-      return `Tp. Hồ Chí Minh, ngày ${day} tháng ${month} năm ${year}<br>lúc ${hour} giờ ${minute} phút ${second} giây`;
+      return `TP. Hồ Chí Minh, ngày ${day} tháng ${month} năm ${year}`;
     }
 
     function injectData() {
