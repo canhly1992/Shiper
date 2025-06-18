@@ -22,14 +22,21 @@
     }
 
     .info {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
       margin: 10px 0;
     }
 
-    .info p {
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      margin: 2px 0;
+    }
+
+    .info-row p {
       width: 48%;
+      margin: 0;
+    }
+
+    .info-full {
       margin: 2px 0;
     }
 
@@ -71,16 +78,23 @@
       text-align: left;
     }
 
-    .sign-time {
-      display: flex;
-      justify-content: space-between;
-      text-align: center;
+    .sign-table {
+      width: 100%;
       margin-top: 30px;
       font-size: 11px;
+      border-collapse: collapse;
     }
 
-    .sign-time div {
-      width: 48%;
+    .sign-table td {
+      width: 50%;
+      text-align: center;
+      vertical-align: top;
+    }
+
+    .highlight-warning {
+      font-weight: bold;
+      background-color: yellow;
+      color: red;
     }
 
     .qr {
@@ -91,12 +105,6 @@
     .bold {
       font-weight: bold;
     }
-
-    .highlight-warning {
-      font-weight: bold;
-      background-color: yellow;
-      color: red;
-    }
   </style>
 </head>
 <body>
@@ -104,18 +112,26 @@
   <div class="header">
     <div><strong>3H OPTICAL</strong></div>
     <div>314 Nguyễn Thượng Hiền, P.5, Q. Phú Nhuận, TP.HCM</div>
-    <div>Điện thoại: 0909592909 - 09095832909</div>
+    <div>Điện thoại: 756000</div>
     <h3>PHIẾU BÁN HÀNG</h3>
   </div>
 
   <div class="info">
-    <p><strong>Họ tên:</strong> <span id="hoten"></span></p>
-    <p><strong>Địa chỉ:</strong> <span id="diachi"></span></p>
-    <p><strong>Mã số:</strong> <span id="maso"></span></p>
-    <p><strong>Giới tính:</strong> <span id="gioitinh"></span></p>
-    <p><strong>SĐT:</strong> <span id="sdt"></span></p>
-    <p><strong>Năm sinh:</strong> <span id="namsinh"></span></p>
-    <p><strong>Bác sĩ / KTV:</strong> <span id="bacsi"></span></p>
+    <div class="info-row">
+      <p><strong>Họ tên:</strong> <span id="hoten"></span></p>
+      <p><strong>Năm sinh:</strong> <span id="namsinh"></span></p>
+    </div>
+    <div class="info-row">
+      <p><strong>Giới tính:</strong> <span id="gioitinh"></span></p>
+      <p><strong>SĐT:</strong> <span id="sdt"></span></p>
+    </div>
+    <div class="info-full">
+      <p><strong>Địa chỉ:</strong> <span id="diachi"></span></p>
+    </div>
+    <div class="info-row">
+      <p><strong>Mã số:</strong> <span id="maso"></span></p>
+      <p><strong>Bác sĩ / KTV:</strong> <span id="bacsi"></span></p>
+    </div>
   </div>
 
   <table>
@@ -149,14 +165,19 @@
     </tfoot>
   </table>
 
-  <div class="sign-time">
-    <div>
-      <span>Khách hàng</span><br>(Ký, ghi rõ họ tên)
-    </div>
-    <div>
-      <span id="thoigian"></span><br>Người thu tiền<br>(Ký, ghi rõ họ tên)
-    </div>
-  </div>
+  <table class="sign-table">
+    <tr>
+      <td>
+        Khách hàng<br><br><br><br>
+        (Ký, ghi rõ họ tên)
+      </td>
+      <td>
+        <span id="thoigian"></span><br>
+        Người thu tiền<br><br><br><br>
+        (Ký, ghi rõ họ tên)
+      </td>
+    </tr>
+  </table>
 
   <div class="qr">
     <img src="https://img.vietqr.io/image/970422-123456789-compact.png" width="100" alt="QR code">
@@ -247,7 +268,7 @@
     document.getElementById("thoigian").innerHTML = formatVNTime();
     injectData();
 
-    setTimeout(() => window.print(), 1000);
+    setTimeout(() => window.print(), 2000);
     setTimeout(() => window.close(), 5000);
   </script>
 
