@@ -22,25 +22,14 @@
     }
 
     .info {
-      margin: 10px 0;
       display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .row {
-      display: flex;
-      justify-content: space-between;
       flex-wrap: wrap;
+      justify-content: space-between;
+      margin: 10px 0;
     }
 
-    .row p {
+    .info p {
       width: 48%;
-      margin: 2px 0;
-    }
-
-    .row-full {
-      width: 100%;
       margin: 2px 0;
     }
 
@@ -92,31 +81,29 @@
       color: red;
     }
 
+    /* Ký tên */
     .sign-wrapper {
-      width: 100%;
       display: flex;
       justify-content: center;
-      margin-top: 40px;
-    }
-
-    .sign-table {
-      width: 80%;
-      border-collapse: collapse;
+      margin-top: 30px;
       font-size: 12px;
     }
 
-    .sign-table td {
-      padding: 6px;
-      border: none;
+    .sign-row {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 500px;
+      margin: 10px auto;
       text-align: center;
     }
 
-    .center {
-      text-align: center;
+    .sign-col {
+      width: 48%;
     }
 
-    .time {
-      padding-bottom: 10px;
+    .sign-time {
+      text-align: right;
       font-style: italic;
     }
   </style>
@@ -131,19 +118,13 @@
   </div>
 
   <div class="info">
-    <div class="row">
-      <p><strong>Họ tên:</strong> <span id="hoten"></span></p>
-      <p><strong>Năm sinh:</strong> <span id="namsinh"></span></p>
-    </div>
-    <div class="row">
-      <p><strong>Giới tính:</strong> <span id="gioitinh"></span></p>
-      <p><strong>SĐT:</strong> <span id="sdt"></span></p>
-    </div>
-    <p class="row-full"><strong>Địa chỉ:</strong> <span id="diachi"></span></p>
-    <div class="row">
-      <p><strong>Mã số:</strong> <span id="maso"></span></p>
-      <p><strong>Bác sĩ / KTV:</strong> <span id="bacsi"></span></p>
-    </div>
+    <p><strong>Họ tên:</strong> <span id="hoten"></span></p>
+    <p><strong>Năm sinh:</strong> <span id="namsinh"></span></p>
+    <p><strong>Giới tính:</strong> <span id="gioitinh"></span></p>
+    <p><strong>SĐT:</strong> <span id="sdt"></span></p>
+    <p style="width: 100%;"><strong>Địa chỉ:</strong> <span id="diachi"></span></p>
+    <p><strong>Mã số:</strong> <span id="maso"></span></p>
+    <p><strong>Bác sĩ / KTV:</strong> <span id="bacsi"></span></p>
   </div>
 
   <table>
@@ -177,22 +158,22 @@
     </tfoot>
   </table>
 
+  <!-- PHẦN KÝ TÊN KHÔNG KHUNG, CĂN ĐỀU ĐẸP -->
   <div class="sign-wrapper">
-    <table class="sign-table">
-      <tr>
-        <td colspan="2" class="center time"><span id="thoigian"></span></td>
-      </tr>
-      <tr>
-        <td class="center">
-          <div><strong>Khách hàng</strong></div>
-          <div>(Ký và ghi rõ họ tên)</div>
-        </td>
-        <td class="center">
-          <div><strong>Người thu tiền</strong></div>
-          <div>(Ký và ghi rõ họ tên)</div>
-        </td>
-      </tr>
-    </table>
+    <div class="sign-row">
+      <div class="sign-col"></div>
+      <div class="sign-col sign-time" id="thoigian"></div>
+    </div>
+    <div class="sign-row">
+      <div class="sign-col">
+        <strong>Khách hàng</strong><br>
+        (Ký và ghi rõ họ tên)
+      </div>
+      <div class="sign-col">
+        <strong>Người thu tiền</strong><br>
+        (Ký và ghi rõ họ tên)
+      </div>
+    </div>
   </div>
 
   <script>
@@ -208,8 +189,7 @@
       const year = nowVN.getFullYear();
       const hour = String(nowVN.getHours()).padStart(2, '0');
       const minute = String(nowVN.getMinutes()).padStart(2, '0');
-      const second = String(nowVN.getSeconds()).padStart(2, '0');
-      return `Tp. Hồ Chí Minh, ngày ${day} tháng ${month} năm ${year}<br>lúc ${hour} giờ ${minute} phút ${second} giây`;
+      return `TP. Hồ Chí Minh, ngày ${day} tháng ${month} năm ${year} lúc ${hour} giờ ${minute} phút`;
     }
 
     function injectData() {
@@ -278,7 +258,6 @@
 
     document.getElementById("thoigian").innerHTML = formatVNTime();
     injectData();
-
     setTimeout(() => window.print(), 2000);
     setTimeout(() => window.close(), 5000);
   </script>
