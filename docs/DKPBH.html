@@ -23,6 +23,12 @@
       margin-bottom: 6px;
     }
 
+    .header h3 {
+      font-size: 20px;
+      font-weight: bold;
+      margin: 6px 0;
+    }
+
     .info {
       margin: 4px 0;
     }
@@ -199,12 +205,6 @@
     </div>
   </div>
 
-  <!-- ✅ MÃ QR THANH TOÁN - hiển thị cuối trang -->
-  <div style="text-align: center; margin-top: 20px;">
-    <strong>QUÉT MÃ QR ĐỂ THANH TOÁN</strong><br>
-    <img id="qrImage" src="" alt="QR Thanh toán" style="margin-top: 8px; width: 160px; height: auto;" />
-  </div>
-
   <script>
     function getParam(name) {
       const urlParams = new URLSearchParams(window.location.search);
@@ -288,10 +288,6 @@
 
     document.getElementById("thoigian").innerHTML = formatVNTime();
     injectData();
-
-    // ✅ Gán mã QR nếu có
-    document.getElementById("qrImage").src = getParam("qr");
-
     setTimeout(() => window.print(), 500);
     setTimeout(() => window.close(), 5000);
   </script>
