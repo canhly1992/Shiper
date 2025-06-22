@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>PHIẾu BÁN HÀNG</title>
+  <title>PHIẾU BÁN HÀNG</title>
   <style>
     @page {
       size: A5 portrait;
@@ -21,6 +21,11 @@
     .header {
       text-align: center;
       margin-bottom: 6px;
+    }
+
+    .header h3 {
+      font-size: 20px;
+      margin: 6px 0;
     }
 
     .info {
@@ -53,23 +58,22 @@
     th, td {
       padding: 2px;
       text-align: center;
+      vertical-align: middle;
       word-wrap: break-word;
     }
 
     th:nth-child(1), td:nth-child(1) {
-      width: 44%;
-      text-align: left;
+      width: 45%;
     }
 
-    th:nth-child(2), td:nth-child(2),
+    th:nth-child(2), td:nth-child(2) {
+      width: 9.3%;
+    }
+
     th:nth-child(3), td:nth-child(3),
     th:nth-child(4), td:nth-child(4),
     th:nth-child(5), td:nth-child(5) {
-      width: 14%;
-    }
-
-    .left {
-      text-align: left;
+      width: 15.2%;
     }
 
     .bold {
@@ -124,7 +128,7 @@
     <div><strong>3H OPTICAL</strong></div>
     <div>314 Nguyễn Thượng Hiền, P.5, Q. Phú Nhuận, TP.HCM</div>
     <div>Điện thoại: 0909592909 - 09095832909</div>
-    <h3>PHIẾu BÁN HÀNG</h3>
+    <h3>PHIẾU BÁN HÀNG</h3>
   </div>
 
   <div class="info">
@@ -148,29 +152,29 @@
   <table>
     <thead>
       <tr>
-        <th>TÊN DỬaCH VỤ</th>
+        <th>TÊN DỊCH VỤ</th>
         <th>SL</th>
         <th>ĐƠN GIÁ</th>
         <th>CK</th>
-        <th>TỔNG TIỀN</th>
+        <th>THÀNH TIỀN</th>
       </tr>
     </thead>
     <tbody id="table-body"></tbody>
     <tfoot>
       <tr>
-        <td colspan="4" class="left bold">TỔNG TIỀN</td>
+        <td colspan="4" class="bold">TỔNG TIỀN CẦN THANH TOÁN</td>
         <td id="tongtien"></td>
       </tr>
       <tr>
-        <td colspan="4" class="left bold">TẠM ỨNG LẦN 1</td>
+        <td colspan="4" class="bold">TẠM ỨNG LẦN 1</td>
         <td id="tamung1"></td>
       </tr>
       <tr>
-        <td colspan="4" class="left bold">TẠM ỨNG LẦN 2</td>
+        <td colspan="4" class="bold">TẠM ỨNG LẦN 2</td>
         <td id="tamung2"></td>
       </tr>
       <tr>
-        <td colspan="4" id="canthanhtoan-label" class="left bold">CẦN THANH TOÁN</td>
+        <td colspan="4" id="canthanhtoan-label" class="bold">CẦN THANH TOÁN</td>
         <td id="canthanhtoan"></td>
       </tr>
     </tfoot>
@@ -179,9 +183,7 @@
   <div class="sign-block">
     <div class="sign-row time">
       <div class="col"></div>
-      <div class="col">
-        <div id="thoigian"></div>
-      </div>
+      <div class="col"><div id="thoigian"></div></div>
     </div>
     <div class="sign-row">
       <div class="col">
@@ -200,7 +202,8 @@
   </div>
 
   <div style="text-align: center; margin-top: 20px;">
-    <strong>QUÉT MÃ QR ĐỂ THANH TOÁN</strong><br>
+    <strong>QUÉT MÃ QR</strong><br>
+    <strong>ĐỂ THANH TOÁN</strong><br>
     <img id="qrImage" src="" alt="QR Thanh toán" style="margin-top: 8px; width: 160px; height: auto;" />
   </div>
 
@@ -252,7 +255,7 @@
           }
 
           return `<tr>
-            <td class="left">${ten}</td>
+            <td>${ten}</td>
             <td>${sl}</td>
             <td>${donGiaText}</td>
             <td>${chietKhauText}</td>
@@ -295,13 +298,11 @@
 
       const hoten = getParam("hoten");
       const qrUrl = `https://img.vietqr.io/image/VIB-007933227-compact.jpg?amount=${qrAmount}&addInfo=CK ${encodeURIComponent(hoten)}&accountName=NGUYEN CANH LY`;
-
       document.getElementById("qrImage").src = qrUrl;
     }
 
     document.getElementById("thoigian").innerHTML = formatVNTime();
     injectData();
-
     setTimeout(() => window.print(), 500);
     setTimeout(() => window.close(), 5000);
   </script>
