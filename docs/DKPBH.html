@@ -57,31 +57,27 @@
 
     th, td {
       padding: 2px;
+      text-align: center;
       word-wrap: break-word;
-      vertical-align: middle;
     }
 
-    /* Cột TÊN DỊCH VỤ */
     th:nth-child(1) {
-      width: 45%;
+      width: 44%;
       text-align: center;
     }
+
     td:nth-child(1) {
       text-align: left;
     }
 
-    /* Cột SL thu hẹp còn 2/3 */
     th:nth-child(2), td:nth-child(2) {
       width: 9.3%;
-      text-align: center;
     }
 
-    /* Các cột còn lại */
     th:nth-child(3), td:nth-child(3),
     th:nth-child(4), td:nth-child(4),
     th:nth-child(5), td:nth-child(5) {
-      width: 15.2%;
-      text-align: center;
+      width: 15.9%;
     }
 
     .left {
@@ -269,7 +265,7 @@
           }
 
           return `<tr>
-            <td>${ten}</td>
+            <td class="left">${ten}</td>
             <td>${sl}</td>
             <td>${donGiaText}</td>
             <td>${chietKhauText}</td>
