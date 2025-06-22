@@ -57,23 +57,35 @@
 
     th, td {
       padding: 2px;
-      text-align: center;
-      vertical-align: middle;
       word-wrap: break-word;
+      vertical-align: middle;
     }
 
-    th:nth-child(1), td:nth-child(1) {
+    /* Cột TÊN DỊCH VỤ */
+    th:nth-child(1) {
       width: 45%;
+      text-align: center;
+    }
+    td:nth-child(1) {
+      text-align: left;
     }
 
+    /* Cột SL thu hẹp còn 2/3 */
     th:nth-child(2), td:nth-child(2) {
       width: 9.3%;
+      text-align: center;
     }
 
+    /* Các cột còn lại */
     th:nth-child(3), td:nth-child(3),
     th:nth-child(4), td:nth-child(4),
     th:nth-child(5), td:nth-child(5) {
       width: 15.2%;
+      text-align: center;
+    }
+
+    .left {
+      text-align: left;
     }
 
     .bold {
@@ -162,19 +174,19 @@
     <tbody id="table-body"></tbody>
     <tfoot>
       <tr>
-        <td colspan="4" class="bold">TỔNG TIỀN CẦN THANH TOÁN</td>
+        <td colspan="4" class="left bold">TỔNG TIỀN CẦN THANH TOÁN</td>
         <td id="tongtien"></td>
       </tr>
       <tr>
-        <td colspan="4" class="bold">TẠM ỨNG LẦN 1</td>
+        <td colspan="4" class="left bold">TẠM ỨNG LẦN 1</td>
         <td id="tamung1"></td>
       </tr>
       <tr>
-        <td colspan="4" class="bold">TẠM ỨNG LẦN 2</td>
+        <td colspan="4" class="left bold">TẠM ỨNG LẦN 2</td>
         <td id="tamung2"></td>
       </tr>
       <tr>
-        <td colspan="4" id="canthanhtoan-label" class="bold">CẦN THANH TOÁN</td>
+        <td colspan="4" id="canthanhtoan-label" class="left bold">CẦN THANH TOÁN</td>
         <td id="canthanhtoan"></td>
       </tr>
     </tfoot>
@@ -183,7 +195,9 @@
   <div class="sign-block">
     <div class="sign-row time">
       <div class="col"></div>
-      <div class="col"><div id="thoigian"></div></div>
+      <div class="col">
+        <div id="thoigian"></div>
+      </div>
     </div>
     <div class="sign-row">
       <div class="col">
