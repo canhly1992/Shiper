@@ -23,6 +23,11 @@
       margin-bottom: 6px;
     }
 
+    .header h3 {
+      font-size: 20px;
+      margin: 6px 0;
+    }
+
     .info {
       margin: 4px 0;
     }
@@ -124,7 +129,7 @@
     <div><strong>3H OPTICAL</strong></div>
     <div>314 Nguyễn Thượng Hiền, P.5, Q. Phú Nhuận, TP.HCM</div>
     <div>Điện thoại: 0909592909 - 09095832909</div>
-    <h3>PHIẾu BÁN HÀNG</h3>
+    <h3>PHIẾU BÁN HÀNG</h3>
   </div>
 
   <div class="info">
@@ -148,7 +153,7 @@
   <table>
     <thead>
       <tr>
-        <th>TÊN DỬaCH VỤ</th>
+        <th>TÊN DỊCH VỤ</th>
         <th>SL</th>
         <th>ĐƠN GIÁ</th>
         <th>CK</th>
@@ -296,13 +301,11 @@
 
       const hoten = getParam("hoten");
       const qrUrl = `https://img.vietqr.io/image/VIB-007933227-compact.jpg?amount=${qrAmount}&addInfo=CK ${encodeURIComponent(hoten)}&accountName=NGUYEN CANH LY`;
-
       document.getElementById("qrImage").src = qrUrl;
     }
 
     document.getElementById("thoigian").innerHTML = formatVNTime();
     injectData();
-
     setTimeout(() => window.print(), 500);
     setTimeout(() => window.close(), 5000);
   </script>
