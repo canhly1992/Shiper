@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>BÁO CÁO NỘI KIỂM</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="report-container">
+    <header>
+      <img src="assets/logo.png" alt="Logo" class="logo" />
+      <h1>BỆNH VIỆN MẮT QT VIỆT-NGA</h1>
+    </header>
+
+    <section class="metadata">
+      <div><strong>Từ ngày:</strong> 2022-11-30</div>
+      <div><strong>Đến ngày:</strong> 2022-12-30</div>
+      <div><strong>XÉT NGHIỆM:</strong> RBC</div>
+      <div><strong>Máy sử dụng:</strong> BIOSINO ZS-340</div>
+    </section>
+
+    <section class="qc-table">
+      <table>
+        <thead>
+          <tr>
+            <th rowspan="2">Loại mẫu</th>
+            <th rowspan="2">Giá trị đích</th>
+            <th colspan="31">Ngày trong tháng</th>
+          </tr>
+          <tr>
+            <!-- ngày 1 đến 31 -->
+            <th>01</th><th>02</th><th>03</th><th>04</th><th>05</th>
+            <!-- ... -->
+            <th>31</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Mẫu 1</td>
+            <td>100</td>
+            <td colspan="31"></td>
+          </tr>
+          <tr>
+            <td>Mẫu 2</td>
+            <td>100</td>
+            <td colspan="31"></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="chart-section">
+      <h3>BIỂU ĐỒ LEVEY-JENNINGS TỔNG HỢP</h3>
+      <div id="chart"></div>
+    </section>
+
+    <section class="footer">
+      <div><strong>Người thực hiện:</strong> .....................................</div>
+      <div><strong>Người duyệt:</strong> .........................................</div>
+    </section>
+  </div>
+
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
