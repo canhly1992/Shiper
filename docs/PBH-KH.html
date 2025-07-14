@@ -160,14 +160,13 @@
       return `${day}/${month}/${year}`;
     }
 
-function formatVNTimeFull() {
-  const nowVN = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Ho_Chi_Minh" }));
-  const day = String(nowVN.getDate()).padStart(2, '0');
-  const month = String(nowVN.getMonth() + 1).padStart(2, '0');
-  const year = nowVN.getFullYear();
-  return `Tp. Hồ Chí Minh, Ngày ${day} tháng ${month} năm ${year}`;
-}
-
+    function formatVNTimeFull() {
+      const nowVN = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Ho_Chi_Minh" }));
+      const day = String(nowVN.getDate()).padStart(2, '0');
+      const month = String(nowVN.getMonth() + 1).padStart(2, '0');
+      const year = nowVN.getFullYear();
+      return `Tp. Hồ Chí Minh, Ngày ${day} tháng ${month} năm ${year}`;
+    }
 
     function injectData() {
       const fields = ["hoten", "diachi", "sdt", "bacsi", "ghichu", "trangthai"];
@@ -194,10 +193,8 @@ function formatVNTimeFull() {
           const tongtienText = tongtienNum.toLocaleString("vi-VN") + " đ";
           tongTienToanBo += tongtienNum;
 
-          let chietkhauText = chietkhau;
           const chietkhauNum = parseFloat(chietkhau.replace(/[^\d]/g, "")) || 0;
-          if (chietkhauNum <= 100) chietkhauText = chietkhauNum + " %";
-          else chietkhauText = chietkhauNum.toLocaleString("vi-VN") + " đ";
+          const chietkhauText = chietkhauNum + " %";
 
           return `<tr>
             <td class="left">${ten}</td>
