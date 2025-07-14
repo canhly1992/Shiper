@@ -4,11 +4,7 @@
   <meta charset="UTF-8">
   <title>PHIẾU BÁN HÀNG</title>
   <style>
-    @page {
-      size: A5 portrait;
-      margin: 8mm;
-    }
-
+    @page { size: A5 portrait; margin: 8mm; }
     body {
       font-family: "Times New Roman", serif;
       font-size: 12px;
@@ -17,32 +13,21 @@
       color: #000;
       line-height: 1.2;
     }
-
     .header {
       text-align: center;
       margin-bottom: 6px;
     }
-
     .header h3 {
       font-size: 20px;
       margin: 6px 0;
     }
-
-    .info, .summary {
-      margin: 4px 0;
-    }
-
+    .info, .summary { margin: 4px 0; }
     .info-row {
       display: flex;
       justify-content: space-between;
       margin: 2px 0;
     }
-
-    .info-row p {
-      width: 48%;
-      margin: 0;
-    }
-
+    .info-row p { width: 48%; margin: 0; }
     table {
       width: 100%;
       border-collapse: collapse;
@@ -50,77 +35,44 @@
       font-size: 11px;
       table-layout: fixed;
     }
-
-    table, th, td {
-      border: 1px solid #000;
-    }
-
+    table, th, td { border: 1px solid #000; }
     th, td {
       padding: 2px;
       text-align: center;
       word-wrap: break-word;
     }
-
-    th:nth-child(1) {
-      width: 28%;
-    }
-
-    th:nth-child(2),
-    th:nth-child(3),
-    th:nth-child(4),
-    th:nth-child(5),
-    th:nth-child(6) {
-      width: 14.4%;
-    }
-
-    td:nth-child(1) {
-      text-align: left;
-    }
-
-    td:nth-child(6) {
-      text-align: left;
-    }
-
-    .left {
-      text-align: left;
-    }
-
-    .bold {
-      font-weight: bold;
-    }
-
+    th:nth-child(1) { width: 28%; }
+    th:nth-child(n+2) { width: 14.4%; }
+    td:nth-child(1), td:nth-child(6) { text-align: left; }
+    .left { text-align: left; }
+    .bold { font-weight: bold; }
     .highlight-warning {
       font-weight: bold;
       background-color: yellow;
       color: red;
     }
-
     .sign-block {
       width: 100%;
       max-width: 500px;
       margin: 10px auto 0 auto;
       font-size: 12px;
     }
-
     .sign-row {
       display: flex;
       justify-content: space-between;
       text-align: center;
       margin-top: 10px;
     }
-
     .sign-row .col {
       width: 48%;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-
     .sign-label {
       line-height: 1.1;
       margin-top: 0;
     }
-
     .sign-row.time {
       text-align: right;
       font-style: italic;
@@ -131,9 +83,6 @@
 <body>
 
   <div class="header">
-    <div><strong>3H OPTICAL</strong></div>
-    <div>314 Nguyễn Thượng Hiền, P.5, Q. Phú Nhuận, TP.HCM</div>
-    <div>Điện thoại: 0909295209-0908539209</div>
     <h3>PHIẾU BÁN HÀNG</h3>
   </div>
 
@@ -195,12 +144,6 @@
         <div class="sign-label"><strong>Người thu tiền</strong><br>(Ký và ghi rõ họ tên)</div>
       </div>
     </div>
-  </div>
-
-  <div style="text-align: center; margin-top: 20px;">
-    <strong>QUÉT MÃ QR</strong><br>
-    <strong>ĐỂ THANH TOÁN</strong><br>
-    <img id="qrImage" src="" alt="QR Thanh toán" style="margin-top: 8px; width: 160px;" />
   </div>
 
   <script>
@@ -288,11 +231,6 @@
         labelEl.classList.add("highlight-warning");
         canTTEl.innerText = Math.abs(canthanhtoan).toLocaleString("vi-VN") + " đ";
       }
-
-      const hoten = getParam("hoten");
-      const qrAmount = canthanhtoan > 0 ? canthanhtoan : 0;
-      const qrUrl = `https://img.vietqr.io/image/Vietcombank-0501000023350-compact.jpg?amount=${qrAmount}&addInfo=CK ${encodeURIComponent(hoten)}&accountName=VO QUANG HUY`;
-      document.getElementById("qrImage").src = qrUrl;
     }
 
     injectData();
