@@ -160,16 +160,14 @@
       return `${day}/${month}/${year}`;
     }
 
-    function formatVNTimeFull() {
-      const nowVN = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Ho_Chi_Minh" }));
-      const day = String(nowVN.getDate()).padStart(2, '0');
-      const month = String(nowVN.getMonth() + 1).padStart(2, '0');
-      const year = nowVN.getFullYear();
-      const hour = String(nowVN.getHours()).padStart(2, '0');
-      const minute = String(nowVN.getMinutes()).padStart(2, '0');
-      const second = String(nowVN.getSeconds()).padStart(2, '0');
-      return `Tp. Hồ Chí Minh, Ngày ${day} tháng ${month} năm ${year}<br>Lúc ${hour} giờ ${minute} phút ${second} giây`;
-    }
+function formatVNTimeFull() {
+  const nowVN = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Ho_Chi_Minh" }));
+  const day = String(nowVN.getDate()).padStart(2, '0');
+  const month = String(nowVN.getMonth() + 1).padStart(2, '0');
+  const year = nowVN.getFullYear();
+  return `Tp. Hồ Chí Minh, Ngày ${day} tháng ${month} năm ${year}`;
+}
+
 
     function injectData() {
       const fields = ["hoten", "diachi", "sdt", "bacsi", "ghichu", "trangthai"];
