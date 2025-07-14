@@ -78,12 +78,28 @@
       font-style: italic;
       font-size: 11px;
     }
+    .action-buttons {
+      text-align: center;
+      margin: 12px 0;
+    }
+    .action-buttons button {
+      margin: 4px;
+      padding: 6px 12px;
+      font-size: 12px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
 
   <div class="header">
-    <h3>PHIẾU BÁN HÀNG</h3>
+    <h3>PHIẾu BÁN HÀNG</h3>
+  </div>
+
+  <div class="action-buttons">
+    <button onclick="window.print()">Ảnh/In PDF</button>
+    <button onclick="sendZalo()">Gửi Zalo</button>
+    <button onclick="sendEmail()">Gửi Email</button>
   </div>
 
   <div class="info">
@@ -109,7 +125,7 @@
         <th>TÊN SẢN PHẨM</th>
         <th>SL</th>
         <th>GIÁ BÁN</th>
-        <th>CHIẾT KHẤU</th>
+        <th>CHIẾT KHẪu</th>
         <th>THÀNH TIỀN</th>
         <th>GHI CHÚ</th>
       </tr>
@@ -193,15 +209,8 @@
           const tongtienText = tongtienNum.toLocaleString("vi-VN") + " đ";
           tongTienToanBo += tongtienNum;
 
-          let chietkhauText = chietkhau.trim();
-          if (chietkhauText.includes("%")) {
-            chietkhauText = chietkhauText.replace(/[^\d.,]/g, "");
-            const chietkhauNum = parseFloat(chietkhauText.replace(",", ".")) || 0;
-            chietkhauText = chietkhauNum + " %";
-          } else {
-            const chietkhauNum = parseFloat(chietkhau.replace(/[^\d]/g, "")) || 0;
-            chietkhauText = chietkhauNum.toLocaleString("vi-VN") + " %";
-          }
+          let chietkhauText = parseFloat(chietkhau.replace(/[^\d]/g, "")) || 0;
+          chietkhauText = chietkhauText + " %";
 
           return `<tr>
             <td class="left">${ten}</td>
@@ -235,9 +244,21 @@
       }
     }
 
+    function sendZalo() {
+      const sdt = getParam("sdt").replace(/[^\d]/g, "");
+      alert("Gửi qua Zalo số: " + sdt + " (thủ công)");
+    }
+
+    function sendEmail() {
+      const email = prompt("Nhập địa chỉ email người nhận:");
+      if (email) {
+        const subject = encodeURIComponent("PHIẾu Bán Hàng");
+        const body = encodeURIComponent("Chào bạn, \\nVui lòng xem phiếu bán hàng đính kèm.");
+        window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+      }
+    }
+
     injectData();
-    setTimeout(() => window.print(), 500);
-    setTimeout(() => window.close(), 5000);
   </script>
 
 </body>
