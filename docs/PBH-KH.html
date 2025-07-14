@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>PHIẾU BÁN HÀNG1</title>
+  <title>PHIẾU BÁN HÀNG</title>
   <style>
     @page { size: A5 portrait; margin: 8mm; }
     body {
@@ -160,7 +160,7 @@
       return `${day}/${month}/${year}`;
     }
 
-    function formatVNTimeOnlyDate() {
+    function formatVNTimeFull() {
       const nowVN = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Ho_Chi_Minh" }));
       const day = String(nowVN.getDate()).padStart(2, '0');
       const month = String(nowVN.getMonth() + 1).padStart(2, '0');
@@ -176,7 +176,7 @@
       });
 
       document.getElementById("thoigian-ngay").innerText = formatVNDate();
-      document.getElementById("thoigian").innerHTML = formatVNTimeOnlyDate();
+      document.getElementById("thoigian").innerHTML = formatVNTimeFull();
 
       let tongTienToanBo = 0;
       const data = getParam("data");
@@ -193,7 +193,15 @@
           const tongtienText = tongtienNum.toLocaleString("vi-VN") + " đ";
           tongTienToanBo += tongtienNum;
 
-          const chietkhauText = chietkhau + " %";
+          let chietkhauText = chietkhau.trim();
+          if (chietkhauText.includes("%")) {
+            chietkhauText = chietkhauText.replace(/[^\d.,]/g, "");
+            const chietkhauNum = parseFloat(chietkhauText.replace(",", ".")) || 0;
+            chietkhauText = chietkhauNum + " %";
+          } else {
+            const chietkhauNum = parseFloat(chietkhau.replace(/[^\d]/g, "")) || 0;
+            chietkhauText = chietkhauNum.toLocaleString("vi-VN") + " đ";
+          }
 
           return `<tr>
             <td class="left">${ten}</td>
