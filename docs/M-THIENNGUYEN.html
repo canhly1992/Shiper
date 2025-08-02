@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>PHIẾU BÁN HÀNG</title>
+  <style>
+    @page { size: A5 portrait; margin: 8mm; }
+    body {
+      font-family: "Times New Roman", serif;
+      font-size: 12px;
+      margin: 0;
+      padding: 0;
+      color: #000;
+      line-height: 1.2;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 6px;
+    }
+    .header h3 {
+      font-size: 20px;
+      margin: 6px 0;
+    }
+    .info-row {
+      margin: 4px 0;
+    }
+    .info-row p {
+      margin: 2px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 12px;
+    }
+    table, th, td {
+      border: 1px solid #000;
+    }
+    th, td {
+      padding: 4px;
+      text-align: left;
+    }
+    tfoot td {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h3>PHIẾU BÁN HÀNG</h3>
+  </div>
+
+  <div class="info-row">
+    <p><strong>NGÀY BÁN:</strong> <span id="thoigian-ngay"></span></p>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>MÃ HÓA ĐƠN</th>
+        <th>SẢN PHẨM</th>
+        <th>ĐƠN GIÁ</th>
+        <th>SỐ LƯỢNG</th>
+        <th>THÀNH TIỀN</th>
+      </tr>
+    </thead>
+    <tbody id="table-body"></tbody>
+    <tfoot>
+      <tr>
+        <td colspan="4">TỔNG BILL</td>
+        <td id="tongtien"></td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <script>
+    function getParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return decodeURIComponent(urlParams.get(name) || "");
+    }
+
+    function formatVNDate() {
+      const nowVN = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Ho_Chi_Minh" }));
+      const d = String(nowVN.getDate()).padStart(2, '0');
+      const m = String(nowVN.getMonth() + 1).padStart(2, '0');
+      const y = nowVN.getFullYear();
+      return `${d}/${m}/${y}`;
+    }
+
+    function injectData() {
+      document.getElementById("thoigian-ngay").innerText = formatVNDate();
+
+      let tongTienToanBo = 0;
+      const mahoadon = getParam("mahoadon");
+      const data = getParam("data");
+
+      if (data) {
+        const rows = data.split("_b_");
+        const html = rows.map(item => {
+          const [ten, sl, dongia, , tongtien] = item.split("_a_");
+          const dongiaNum = parseFloat(dongia.replace(/[^\d]/g, "")) || 0;
+          const dongiaText = dongiaNum.toLocaleString("vi-VN") + " đ";
+
+          const tongtienNum = parseFloat(tongtien.replace(/[^\d]/g, "")) || 0;
+          const tongtienText = tongtienNum.toLocaleString("vi-VN") + " đ";
+          tongTienToanBo += tongtienNum;
+
+          return `<tr>
+            <td>${mahoadon}</td>
+            <td>${ten}</td>
+            <td>${dongiaText}</td>
+            <td>${sl}</td>
+            <td>${tongtienText}</td>
+          </tr>`;
+        }).join("");
+        document.getElementById("table-body").innerHTML = html;
+      }
+
+      document.getElementById("tongtien").innerText = tongTienToanBo.toLocaleString("vi-VN") + " đ";
+    }
+
+    injectData();
+    setTimeout(() => window.print(), 500);
+    setTimeout(() => window.close(), 5000);
+  </script>
+</body>
+</html>
