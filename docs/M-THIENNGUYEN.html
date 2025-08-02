@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>PHIẾU BÁN HÀNG</title>
+  <title>PHIẾU BÁN HÀNG1</title>
   <style>
     @page { size: A7 portrait; margin: 6mm; }
     body {
@@ -52,6 +52,7 @@
 
   <div class="info-row">
     <p><strong>NGÀY BÁN:</strong> <span id="thoigian-ngay"></span></p>
+    <p><strong>KHÁCH HÀNG:</strong> <span id="ten-khachhang"></span></p>
   </div>
 
   <table>
@@ -79,7 +80,8 @@
       return decodeURIComponent(urlParams.get(name) || "");
     }
 
-    function formatVNDate() {
+    function formatVNDate(inputDate) {
+      if (inputDate) return inputDate.split("-").reverse().join("/");
       const nowVN = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Ho_Chi_Minh" }));
       const d = String(nowVN.getDate()).padStart(2, '0');
       const m = String(nowVN.getMonth() + 1).padStart(2, '0');
@@ -88,20 +90,30 @@
     }
 
     function injectData() {
-      document.getElementById("thoigian-ngay").innerText = formatVNDate();
+      const khachhang = getParam("khachhang");
+      const ngayban = getParam("ngayban");
+      const data = getParam("data");
+
+      document.getElementById("thoigian-ngay").innerText = formatVNDate(ngayban);
+      document.getElementById("ten-khachhang").innerText = khachhang;
 
       let tongTienToanBo = 0;
-      const data = getParam("data");
 
       if (data) {
         const rows = data.split("_b_");
         const html = rows.map((item, index) => {
-          const [ten, sl, dongia, , tongtien] = item.split("_a_");
+          const parts = item.split("_a_");
+
+          if (parts.length < 4) return "";
+
+          const [ten, dongia, sl, tongtien] = parts;
+
           const dongiaNum = parseFloat(dongia.replace(/[^\d]/g, "")) || 0;
           const dongiaText = dongiaNum.toLocaleString("vi-VN") + " đ";
 
           const tongtienNum = parseFloat(tongtien.replace(/[^\d]/g, "")) || 0;
           const tongtienText = tongtienNum.toLocaleString("vi-VN") + " đ";
+
           tongTienToanBo += tongtienNum;
 
           return `<tr>
@@ -112,6 +124,7 @@
             <td>${tongtienText}</td>
           </tr>`;
         }).join("");
+
         document.getElementById("table-body").innerHTML = html;
       }
 
