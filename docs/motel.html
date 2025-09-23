@@ -89,44 +89,22 @@
     <thead>
       <tr>
         <th>Item</th>
-        <th>First</th>
-        <th>End</th>
-        <th>Quantity</th>
-        <th>Unit Price</th>
         <th>Amount</th>
-        <th>Remark</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td class="left">The Rent</td>
-        <td>1</td><td></td><td>1</td>
-        <td class="right">19,000,000</td>
-        <td class="right">19,000,000</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td class="left">Electricity</td>
-        <td>68355</td><td>68937</td><td>582</td>
-        <td></td>
-        <td class="right">2,652,000</td>
-        <td>Meter 2: 17569 - 17488 = 81</td>
-      </tr>
-      <tr>
-        <td class="left">Other</td>
-        <td colspan="4"></td>
-        <td class="right">500,000</td>
-        <td></td>
-      </tr>
-      <tr class="total">
-        <td colspan="5" class="right">TOTAL</td>
-        <td class="right">22,152,000</td>
-        <td></td>
-      </tr>
+      <tr><td class="left">The Rent</td><td class="right" id="giaPhong"></td></tr>
+      <tr><td class="left">Electricity</td><td class="right" id="dien"></td></tr>
+      <tr><td class="left">Water</td><td class="right" id="nuoc"></td></tr>
+      <tr><td class="left">Internet</td><td class="right" id="internet"></td></tr>
+      <tr><td class="left">Garbage</td><td class="right" id="rac"></td></tr>
+      <tr><td class="left">Parking</td><td class="right" id="xe"></td></tr>
+      <tr><td class="left">Other</td><td class="right" id="khac"></td></tr>
+      <tr class="total"><td class="right">TOTAL</td><td class="right" id="tong"></td></tr>
     </tbody>
   </table>
 
-  <p><b>The total amount payable:</b> <span style="color:red;">22,152,000 VNĐ</span></p>
+  <p><b>The total amount payable:</b> <span style="color:red;" id="tongThanhToan"></span> VNĐ</p>
 
   <table>
     <tr>
@@ -161,7 +139,13 @@
       return "https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=" + encodeURIComponent(text);
     }
 
-    // Dữ liệu mẫu
+    // ===== DỮ LIỆU MẪU (lấy từ AppSheet CONCATENATE) =====
+    // Giá phòng_a_Điện_a_Nước_a_Internet_a_Rác_a_Xe_a_Khác_a_Tổng
+    const chuoiDichVu = "19000000_a_2652000_a_500000_a_300000_a_100000_a_200000_a_0_a_22152000";
+
+    const arr = chuoiDichVu.split("_a_");
+
+    // Thông tin khách
     const hoTen = "EMMA MARGARET POOK";
     const sdt = "0856.162.134";
     const diaChi = "122 No, Tu Hoa, Quang An, Tay Ho.";
@@ -170,7 +154,7 @@
     const nganHang = "Techcombank";
     const noiDung = "122.TUHOA.503 TT BILL TH 9";
 
-    // Gán dữ liệu
+    // Gán dữ liệu khách
     document.getElementById("hoten").innerText = hoTen;
     document.getElementById("sdt").innerText = sdt;
     document.getElementById("diachi").innerText = diaChi;
@@ -178,6 +162,17 @@
     document.getElementById("soTk").innerText = soTk;
     document.getElementById("nganHang").innerText = nganHang;
     document.getElementById("noiDung").innerText = noiDung;
+
+    // Gán chi tiết dịch vụ
+    document.getElementById("giaPhong").innerText = arr[0];
+    document.getElementById("dien").innerText = arr[1];
+    document.getElementById("nuoc").innerText = arr[2];
+    document.getElementById("internet").innerText = arr[3];
+    document.getElementById("rac").innerText = arr[4];
+    document.getElementById("xe").innerText = arr[5];
+    document.getElementById("khac").innerText = arr[6];
+    document.getElementById("tong").innerText = arr[7];
+    document.getElementById("tongThanhToan").innerText = arr[7];
 
     // Ngày hiện tại
     const today = new Date();
@@ -187,5 +182,8 @@
       today.getFullYear();
 
     // Sinh QR code
-    const qrData = `BANK:${nganHang}\nACC:${soTk}\nND:${noiDung}`;
-    document.getElementById("qrcod
+    const qrData = `BANK:${nganHang}\nACC:${soTk}\nND:${noiDung}\nAMOUNT:${arr[7]}`;
+    document.getElementById("qrcode").src = makeQR(qrData);
+  </script>
+</body>
+</html>
