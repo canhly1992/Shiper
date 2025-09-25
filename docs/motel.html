@@ -113,7 +113,7 @@
         QUAN TRỌNG: Sử dụng đúng nội dung tin nhắn nếu sai coi như chưa thu tiền.</span>
       </td>
       <td style="width:30%; text-align:center;">
-        <img src="https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=ACC:628630686888%0AND:122.TUHOA.503%20TT%20BILL%20TH%209%0ATOTAL:24804000%20VND" width="150" height="150"><br>
+        <img id="qrcode" width="150" height="150"><br>
       </td>
     </tr>
   </table>
@@ -126,6 +126,14 @@
       <b>Vu Cao Long</b><br>(Collector)
     </div>
   </div>
+
+  <script>
+    // Nội dung QR code
+    const qrContent = `ACC:628630686888\nND:122.TUHOA.503 TT BILL TH 9\nTOTAL:24804000 VND`;
+    document.getElementById("qrcode").src =
+      "https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=" +
+      encodeURIComponent(qrContent);
+  </script>
 
 </body>
 </html>
