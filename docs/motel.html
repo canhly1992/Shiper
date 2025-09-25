@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>PHIẾU THU TIỀN 1</title>
+  <title>PHIẾU THU TIỀN</title>
   <style>
     @page { size: A4 portrait; margin: 12mm; }
     body {
@@ -12,170 +12,120 @@
       padding: 0;
       color: #000;
     }
-    .header {
-      width: 100%;
-      margin-bottom: 5px;
-      font-size: 13px;
-      line-height: 1.4;
-    }
-    .header p { margin: 0; }
-    .title {
-      text-align: center;
-      font-weight: bold;
-      font-size: 20px;
-      margin: 10px 0;
-      text-transform: uppercase;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
-    th, td {
-      border: 1px solid #000;
-      padding: 6px;
-      text-align: center;
-    }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { border: 1px solid #000; padding: 6px; text-align: center; }
     td.left { text-align: left; }
     td.right { text-align: right; }
-    .total {
-      font-weight: bold;
-      background: #f5f5f5;
-    }
-    .highlight {
-      background: yellow;
-      color: red;
-      font-weight: bold;
-    }
-    .sign-block {
-      margin-top: 30px;
-      font-size: 13px;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-    }
-    .sign-col {
-      width: 45%;
-      text-align: center;
-    }
-    .note {
-      font-size: 12px;
-      margin-top: 10px;
-      color: red;
-      font-style: italic;
-    }
+    .title { text-align: center; font-weight: bold; font-size: 18px; margin: 10px 0; }
+    .highlight { background: yellow; color: red; font-weight: bold; padding: 2px 6px; }
+    .note { font-size: 12px; margin-top: 8px; color: red; }
+    .sign-block { margin-top: 25px; display: flex; justify-content: space-between; font-size: 13px; }
+    .sign-col { text-align: center; width: 45%; }
   </style>
 </head>
 <body>
 
-  <div class="header">
-    <p>122 Nơ, Từ Hoa, Quảng An, Tây Hồ 1.</p>
-    <p>Contact: +84328.972.855 (Mr Long Management)</p>
-    <p>Date: <span id="ngay"></span></p>
-  </div>
-
-  <div class="title">RECEIPTS ROOM <span id="maso"></span></div>
-
-  <table>
-    <tr>
-      <td class="left"><b>Full Name:</b> <span id="hoten"></span></td>
-      <td class="left"><b>Phone:</b> <span id="sdt"></span></td>
-    </tr>
-    <tr>
-      <td colspan="2" class="left"><b>Address:</b> <span id="diachi"></span></td>
+  <table style="border:none; margin-bottom:8px;">
+    <tr style="border:none;">
+      <td style="border:none; text-align:left;">
+        122 No, Tu Hoa, Quang An, Tay Ho.<br>
+        Contact: +84328.972.855 (MR Long Management)<br>
+        (Plz Text: WhatsApp or Zalo)
+      </td>
+      <td style="border:none; text-align:right; vertical-align:top;">
+        Date: 01/9/2025
+      </td>
     </tr>
   </table>
 
-  <table style="margin-top:12px;">
-    <thead>
-      <tr>
-        <th>Item code</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody id="dichvu">
-      <!-- các dịch vụ sẽ render ở đây -->
-    </tbody>
-    <tfoot>
-      <tr class="total">
-        <td class="right">TOTAL</td>
-        <td class="right"><span id="tongtien"></span> VNĐ</td>
-      </tr>
-    </tfoot>
-  </table>
-
-  <p><b>The total amount payable:</b> <span style="color:red;" id="tongtien2"></span> VNĐ</p>
+  <div class="title">RECEIPTS ROOM 503</div>
 
   <table>
     <tr>
-      <td class="left" colspan="3">
+      <td class="left"><b>Full Name:</b> EMMA MARGARET POOK</td>
+      <td class="left"><b>Phone:</b> 0866.162.134</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="left"><b>Address:</b> 122 No, Tu Hoa, Quang An, Tay Ho.</td>
+    </tr>
+  </table>
+
+  <table style="margin-top:10px;">
+    <tr>
+      <th>Item</th>
+      <th>Old</th>
+      <th>New</th>
+      <th>Qty</th>
+      <th>Unit Price</th>
+      <th>Total</th>
+      <th>Remark</th>
+    </tr>
+    <tr>
+      <td>Tiền thuê</td><td></td><td></td><td></td>
+      <td>19,000,000</td><td>19,000,000</td><td></td>
+    </tr>
+    <tr>
+      <td>Điện</td><td>65355</td><td>65937</td><td>582</td>
+      <td></td><td>2,652,000</td><td></td>
+    </tr>
+    <tr>
+      <td>Nước</td><td></td><td></td><td></td>
+      <td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td>Xe</td><td></td><td></td><td></td>
+      <td></td><td>2,652,000</td><td></td>
+    </tr>
+    <tr>
+      <td>Rác</td><td></td><td></td><td></td>
+      <td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td>Chi phí khác</td><td></td><td></td><td></td>
+      <td></td><td>500,000</td><td>Meter 2: 17569 - 17488 = 81</td>
+    </tr>
+    <tr>
+      <td colspan="5" class="right"><b>Tổng cộng</b></td>
+      <td>24,804,000</td><td></td>
+    </tr>
+    <tr>
+      <td colspan="5" class="right">Giảm giá</td>
+      <td></td><td></td>
+    </tr>
+    <tr>
+      <td colspan="5" class="right"><b>Còn lại</b></td>
+      <td><b>24,804,000</b></td><td></td>
+    </tr>
+  </table>
+
+  <p><b>The total amount payable:</b> <span style="color:red;">24,804,000 VND</span></p>
+
+  <table>
+    <tr>
+      <td class="left" style="width:70%;">
         <b>Transfer Information:</b><br>
-        NAME ACCOUNT: <span id="tenTk"></span><br>
-        NUMBER ACCOUNT: <span id="soTk"></span><br>
-        Bank Name: <span id="nganHang"></span><br>
+        NAME ACCOUNT: VU VAN TOAN<br>
+        NUMBER ACCOUNT: 628.630.686.888<br>
+        Bank Name: VIETNAM TECHNOLOGICAL AND COMMERCIAL JOINT STOCK BANK (Techcombank)<br><br>
         <b>Transfer Content:</b><br>
-        <span id="noiDung" class="highlight"></span>
+        <span class="highlight">122.TUHOA.503 TT BILL TH 9</span><br><br>
+        <span class="note">IMPORTANT: Using the correct content of the message if it is wrong, it will be considered as not collecting money yet - 
+        QUAN TRỌNG: Sử dụng đúng nội dung tin nhắn nếu sai coi như chưa thu tiền.</span>
       </td>
-      <td style="width:180px; text-align:center;">
-        <img id="qrcode" style="width:150px; height:150px;">
+      <td style="width:30%; text-align:center;">
+        <img src="https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=ACC:628630686888%0AND:122.TUHOA.503%20TT%20BILL%20TH%209%0ATOTAL:24804000%20VND" width="150" height="150"><br>
       </td>
     </tr>
   </table>
-
-  <p class="note">IMPORTANT: Using the correct content of the message if it is wrong, it will be considered as not collecting money yet - QUAN TRỌNG: Sử dụng đúng nội dung tin nhắn nếu sai coi như chưa thu tiền.</p>
 
   <div class="sign-block">
     <div class="sign-col">
-      <b>Khách hàng</b><br>(Ký và ghi rõ họ tên)
+      <b>Customer</b><br>(Sign & Full name)
     </div>
     <div class="sign-col">
-      <b>Người thu tiền</b><br>(Ký và ghi rõ họ tên)
+      <b>Vu Cao Long</b><br>(Collector)
     </div>
   </div>
 
-  <script>
-    // Hàm lấy tham số từ URL
-    function getParam(name) {
-      return new URLSearchParams(window.location.search).get(name) || "";
-    }
-
-    // Ngày hiện tại
-    const today = new Date();
-    document.getElementById("ngay").innerText =
-      String(today.getDate()).padStart(2,'0') + "/" +
-      String(today.getMonth()+1).padStart(2,'0') + "/" +
-      today.getFullYear();
-
-    // Gán dữ liệu từ URL
-    document.getElementById("hoten").innerText = getParam("hoten");
-    document.getElementById("diachi").innerText = getParam("diachi");
-    document.getElementById("maso").innerText = getParam("maso");
-    document.getElementById("sdt").innerText = getParam("sdt");
-    document.getElementById("tongtien").innerText = getParam("tongtien");
-    document.getElementById("tongtien2").innerText = getParam("tongtien");
-
-    document.getElementById("tenTk").innerText = getParam("tentaikhoan");
-    document.getElementById("soTk").innerText = getParam("sotaikhoan");
-    document.getElementById("nganHang").innerText = getParam("nganhang");
-
-    // Nội dung chuyển khoản: dùng số phòng làm mã
-    document.getElementById("noiDung").innerText = getParam("maso") + " TT BILL";
-
-    // Danh sách dịch vụ (data)
-    const data = getParam("data").split("_b_");
-    let tbody = document.getElementById("dichvu");
-    data.forEach(item => {
-      if(item.trim() !== ""){
-        let tr = document.createElement("tr");
-        tr.innerHTML = `<td>${item}</td><td></td>`;
-        tbody.appendChild(tr);
-      }
-    });
-
-    // Sinh QR code
-    const qrData = `BANK:${getParam("nganHang")}\nACC:${getParam("sotaikhoan")}\nND:${getParam("maso")} TT BILL\nTOTAL:${getParam("tongtien")} VND`;
-    document.getElementById("qrcode").src =
-      "https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=" + encodeURIComponent(qrData);
-  </script>
 </body>
 </html>
