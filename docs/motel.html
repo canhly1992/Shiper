@@ -4,63 +4,22 @@
   <meta charset="UTF-8">
   <title>Receipt Room</title>
   <style>
-    body {
-      font-family: "Times New Roman", serif;
-      font-size: 12px;
-      margin: 20px;
-      color: #000;
-    }
-    .header {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-    }
+    body { font-family: "Times New Roman", serif; font-size: 12px; margin: 20px; color: #000; }
+    .header { display: flex; justify-content: space-between; margin-bottom: 10px; }
     .header-left { width: 60%; }
     .header-right { text-align: right; }
-    .title {
-      text-align: center;
-      font-size: 16px;
-      font-weight: bold;
-      margin: 10px 0;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 8px;
-    }
-    table, th, td {
-      border: 1px solid #000;
-    }
-    th, td {
-      padding: 4px;
-      text-align: center;
-    }
+    .title { text-align: center; font-size: 16px; font-weight: bold; margin: 10px 0; }
+    table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+    table, th, td { border: 1px solid #000; }
+    th, td { padding: 4px; text-align: center; }
     td.left { text-align: left; }
-    .total {
-      font-weight: bold;
-      background: #eee;
-    }
-    .qr-section {
-      display: flex;
-      margin-top: 12px;
-    }
+    .total { font-weight: bold; background: #eee; }
+    .qr-section { display: flex; margin-top: 12px; }
     .qr-section .info { flex: 1; font-size: 12px; }
-    .qr-section .qr { width: 180px; text-align: center; }
-    .highlight-yellow {
-      background: yellow;
-      font-weight: bold;
-    }
-    .highlight-red {
-      color: red;
-      font-weight: bold;
-    }
-    .sign {
-      margin-top: 20px;
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      text-align: center;
-    }
+    .qr-section .qr { width: 200px; text-align: center; }
+    .highlight-yellow { background: yellow; font-weight: bold; }
+    .highlight-red { color: red; font-weight: bold; }
+    .sign { margin-top: 20px; display: flex; justify-content: space-between; font-size: 12px; text-align: center; }
   </style>
 </head>
 <body>
@@ -73,31 +32,31 @@
       <p>(Plz Text: WhatsApp or Zalo)</p>
     </div>
     <div class="header-right">
-      <p><b>Date:</b> 01/9/2025</p>
+      <p><b>Date:</b> <span id="ngay"></span></p>
     </div>
   </div>
 
-  <div class="title">RECEIPT ROOM 503</div>
+  <div class="title">RECEIPT ROOM <span id="maso"></span></div>
 
   <!-- Customer Info -->
   <table>
     <tr>
       <td class="left"><b>Full Name</b></td>
-      <td colspan="5">EMMA MARGARET POOK</td>
+      <td colspan="5" id="hoten"></td>
     </tr>
     <tr>
       <td class="left"><b>Address</b></td>
-      <td colspan="3">122 No, Tu Hoa, Quang An, Tay Ho.</td>
+      <td colspan="3" id="diachi"></td>
       <td><b>Phone</b></td>
-      <td>0866.162.134</td>
+      <td id="sdt"></td>
     </tr>
   </table>
 
   <!-- Bill Table -->
-  <table>
+  <table id="table-bill">
     <thead>
       <tr>
-        <th>Tiền thuê</th>
+        <th>Dịch vụ</th>
         <th>Số cũ</th>
         <th>Số mới</th>
         <th>Số tiêu thụ</th>
@@ -107,37 +66,20 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>19,000,000</td><td></td><td></td><td></td><td></td><td>19,000,000</td><td></td>
-      </tr>
-      <tr>
-        <td>Điện</td><td>65355</td><td>65937</td><td>582</td><td></td><td>2,652,000</td><td></td>
-      </tr>
-      <tr>
-        <td>Nước</td><td></td><td></td><td></td><td></td><td></td><td></td>
-      </tr>
-      <tr>
-        <td>Xe</td><td></td><td></td><td></td><td></td><td>2,652,000</td><td></td>
-      </tr>
-      <tr>
-        <td>Rác</td><td></td><td></td><td></td><td></td><td></td><td></td>
-      </tr>
-      <tr>
-        <td>Chi phí khác</td><td></td><td></td><td></td><td></td><td>500,000</td><td>Meter 2: 17569 - 17488 = 81</td>
-      </tr>
+      <!-- Hàng dữ liệu sẽ thêm từ param -->
     </tbody>
     <tfoot>
       <tr>
         <td colspan="5" class="left total">Tổng cộng</td>
-        <td class="total">24,804,000</td><td></td>
+        <td class="total" id="tongtien"></td><td></td>
       </tr>
       <tr>
         <td colspan="5" class="left">Giảm giá</td>
-        <td>-</td><td></td>
+        <td id="giamgia">-</td><td></td>
       </tr>
       <tr>
         <td colspan="5" class="left">Còn lại</td>
-        <td>24,804,000</td><td></td>
+        <td id="conlai"></td><td></td>
       </tr>
     </tfoot>
   </table>
@@ -145,19 +87,19 @@
   <!-- QR + Banking -->
   <div class="qr-section">
     <div class="info">
-      <p><b>The total amount payable:</b> 24,804,000 VND</p>
+      <p><b>The total amount payable:</b> <span id="tongtien_text"></span> VND</p>
       <p><b>Transfer Information:</b></p>
-      <p>NAME ACCOUNT: VU VAN TOAN</p>
-      <p>NUMBER ACCOUNT: 628.630.686.888</p>
-      <p>Bank Name: VIETNAM TECHNOLOGICAL AND COMMERCIAL JOINT STOCK BANK (Techcombank)</p>
-      <p><b>Transfer Content:</b> <span class="highlight-yellow">122.TUHOA.503 TT BILL TH 9</span></p>
+      <p>NAME ACCOUNT: <span id="tentaikhoan"></span></p>
+      <p>NUMBER ACCOUNT: <span id="sotaikhoan"></span></p>
+      <p>BANK NAME: <span id="nganhang"></span></p>
+      <p><b>Transfer Content:</b> <span class="highlight-yellow" id="noidungck"></span></p>
       <p class="highlight-red">
         IMPORTANT: Using the correct content of the message, if it is wrong, it will be considered as not collecting money yet.<br>
         QUAN TRỌNG: Sử dụng đúng nội dung tin nhắn nếu sai coi như chưa thu tiền.
       </p>
     </div>
     <div class="qr">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=techcombank%20-628630686888-24804000" alt="QR Payment">
+      <img id="qrpay" src="" alt="QR Payment">
     </div>
   </div>
 
@@ -170,6 +112,42 @@
       <b>Vu Cao Long</b><br>(Người thu tiền)
     </div>
   </div>
+
+  <script>
+    function getParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return decodeURIComponent(urlParams.get(name) || "");
+    }
+
+    // Set ngày
+    const now = new Date();
+    document.getElementById("ngay").innerText =
+      `${String(now.getDate()).padStart(2,"0")}/${String(now.getMonth()+1).padStart(2,"0")}/${now.getFullYear()}`;
+
+    // Inject data từ param
+    const fields = ["hoten","diachi","sdt","maso","tentaikhoan","sotaikhoan","nganhang","tongtien","conlai"];
+    fields.forEach(f=>{
+      const el=document.getElementById(f);
+      if(el) el.innerText=getParam(f);
+    });
+    document.getElementById("tongtien_text").innerText=getParam("tongtien");
+    document.getElementById("noidungck").innerText = `${getParam("diachi")}.${getParam("maso")} TT BILL ${now.getMonth()+1}`;
+
+    // QR Code động
+    const qrUrl = "https://canhly1992.github.io/Shiper/motel.html"
+      + "?hoten=" + encodeURIComponent(getParam("hoten"))
+      + "&diachi=" + encodeURIComponent(getParam("diachi"))
+      + "&maso=" + encodeURIComponent(getParam("maso"))
+      + "&sotaikhoan=" + encodeURIComponent(getParam("sotaikhoan"))
+      + "&tentaikhoan=" + encodeURIComponent(getParam("tentaikhoan"))
+      + "&nganhang=" + encodeURIComponent(getParam("nganhang"))
+      + "&sdt=" + encodeURIComponent(getParam("sdt"))
+      + "&tongtien=" + encodeURIComponent(getParam("tongtien"))
+      + "&data=" + encodeURIComponent(getParam("data"));
+
+    document.getElementById("qrpay").src =
+      "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + encodeURIComponent(qrUrl);
+  </script>
 
 </body>
 </html>
