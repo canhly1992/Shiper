@@ -2,49 +2,23 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Biên lai thanh toán phòng</title>
+  <title>Biên lai thanh toán phòng1</title>
   <style>
     body { font-family: Arial, sans-serif; margin: 20px; }
-    .invoice-box {
-      max-width: 900px;
-      margin: auto;
-      border: 1px solid #000;
-      padding: 20px;
-      font-size: 14px;
-      line-height: 22px;
-    }
+    .invoice-box { max-width: 900px; margin: auto; border: 1px solid #000; padding: 20px; font-size: 14px; line-height: 22px; }
     .header { text-align: center; margin-bottom: 20px; }
     .header h2 { margin: 0; }
-    .info-table, .service-table, .utility-table {
-      width: 100%; border-collapse: collapse; margin-bottom: 15px;
-    }
+    .info-table, .service-table, .utility-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
     .info-table td { padding: 3px 6px; }
-    .service-table th, .service-table td, .utility-table th, .utility-table td {
-      border: 1px solid #000; padding: 6px; text-align: center;
-    }
+    .service-table th, .service-table td, .utility-table th, .utility-table td { border: 1px solid #000; padding: 6px; text-align: center; }
     .service-table th, .utility-table th { background: #f0f0f0; }
-    .total-box {
-      border-top: 2px solid #000;
-      font-weight: bold;
-      text-align: right;
-      padding: 8px;
-    }
-    .transfer-box {
-      margin-top: 15px; font-size: 13px; line-height: 20px;
-    }
+    .total-box { border-top: 2px solid #000; font-weight: bold; text-align: right; padding: 8px; }
+    .transfer-box { margin-top: 15px; font-size: 13px; line-height: 20px; }
     .transfer-box p { margin: 4px 0; }
     .highlight { background: yellow; font-weight: bold; padding: 2px 4px; }
-    .qr-box {
-      text-align: center; margin-top: 10px;
-    }
-    .footer {
-      margin-top: 20px; text-align: right; font-style: italic;
-    }
-    .section-title {
-      margin-top: 10px;
-      font-weight: bold;
-      text-decoration: underline;
-    }
+    .qr-box { text-align: center; margin-top: 10px; }
+    .footer { margin-top: 20px; text-align: right; font-style: italic; }
+    .section-title { margin-top: 10px; font-weight: bold; text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -76,7 +50,7 @@
       </tr>
     </table>
 
-    <!-- Bảng dịch vụ -->
+    <!-- Bảng dịch vụ khác -->
     <div class="section-title">Các dịch vụ khác</div>
     <table class="service-table">
       <thead>
@@ -188,54 +162,58 @@
     document.getElementById("ngay").textContent = today.toLocaleDateString("vi-VN");
 
     // QR Code
-    const qrData = window.location.href; // lấy toàn bộ link kèm tham số
+    const qrData = window.location.href; 
     document.getElementById("qrCode").src =
       "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + encodeURIComponent(qrData);
 
-    // Dữ liệu dịch vụ chính (khác điện nước)
+    // Dịch vụ khác
     const servicesData = JSON.parse(urlParams.get("services") || "[]");
     const servicesTbody = document.getElementById("services");
     servicesData.forEach(s => {
+      const quantity = s.quantity || 1;
+      const total = s.total || (quantity * (s.price || 0));
       const tr = document.createElement("tr");
       tr.innerHTML = `
         <td>${s.name}</td>
-        <td>${s.quantity || ""}</td>
-        <td>${s.price || ""}</td>
-        <td>${s.total || ""}</td>
+        <td>${quantity}</td>
+        <td>${s.price || 0}</td>
+        <td>${total}</td>
         <td>${s.note || ""}</td>
       `;
       servicesTbody.appendChild(tr);
     });
 
-    // Dữ liệu điện
+    // Bảng điện
     const dienData = JSON.parse(urlParams.get("dien") || "[]");
     const dienTbody = document.getElementById("dien");
     dienData.forEach(d => {
       const tr = document.createElement("tr");
+      const quantity = d.quantity || ((d.new || 0) - (d.old || 0));
       tr.innerHTML = `
         <td>${d.name}</td>
-        <td>${d.old || ""}</td>
-        <td>${d.new || ""}</td>
-        <td>${d.quantity || ""}</td>
-        <td>${d.price || ""}</td>
-        <td>${d.total || ""}</td>
+        <td>${d.old || 0}</td>
+        <td>${d.new || 0}</td>
+        <td>${quantity}</td>
+        <td>${d.price || 0}</td>
+        <td>${d.total || (quantity * (d.price || 0))}</td>
         <td>${d.note || ""}</td>
       `;
       dienTbody.appendChild(tr);
     });
 
-    // Dữ liệu nước
+    // Bảng nước
     const nuocData = JSON.parse(urlParams.get("nuoc") || "[]");
     const nuocTbody = document.getElementById("nuoc");
     nuocData.forEach(n => {
       const tr = document.createElement("tr");
+      const quantity = n.quantity || ((n.new || 0) - (n.old || 0));
       tr.innerHTML = `
         <td>${n.name}</td>
-        <td>${n.old || ""}</td>
-        <td>${n.new || ""}</td>
-        <td>${n.quantity || ""}</td>
-        <td>${n.price || ""}</td>
-        <td>${n.total || ""}</td>
+        <td>${n.old || 0}</td>
+        <td>${n.new || 0}</td>
+        <td>${quantity}</td>
+        <td>${n.price || 0}</td>
+        <td>${n.total || (quantity * (n.price || 0))}</td>
         <td>${n.note || ""}</td>
       `;
       nuocTbody.appendChild(tr);
