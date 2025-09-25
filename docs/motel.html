@@ -54,20 +54,20 @@
     <!-- Thông tin khách -->
     <table class="info-table">
       <tr>
-        <td><b>Mã phòng:</b> 503</td>
-        <td><b>Thời gian:</b> 01/09/2025</td>
+        <td><b>Mã phòng:</b> <span id="maso"></span></td>
+        <td><b>Thời gian:</b> <span id="thoigian"></span></td>
       </tr>
       <tr>
-        <td><b>Họ tên:</b> EMMA MARGARET POOK</td>
-        <td><b>Số điện thoại:</b> 0866.162.134</td>
+        <td><b>Họ tên:</b> <span id="hoten"></span></td>
+        <td><b>Số điện thoại:</b> <span id="sdt"></span></td>
       </tr>
       <tr>
-        <td><b>Tên TK:</b> VU VAN TOAN</td>
-        <td><b>Số TK:</b> 628.630.686.888</td>
+        <td><b>Tên TK:</b> <span id="tentaikhoan"></span></td>
+        <td><b>Số TK:</b> <span id="sotaikhoan"></span></td>
       </tr>
       <tr>
-        <td><b>Ngân hàng:</b> Techcombank</td>
-        <td><b>Kỳ thanh toán:</b> Tháng 9/2025</td>
+        <td><b>Ngân hàng:</b> <span id="nganhang"></span></td>
+        <td><b>Kỳ thanh toán:</b> <span id="kythanhtoan"></span></td>
       </tr>
     </table>
 
@@ -84,68 +84,73 @@
           <th>Ghi chú</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>Tiền phòng</td>
-          <td>-</td><td>-</td><td>1</td>
-          <td>19,000,000</td><td>19,000,000</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>Điện</td>
-          <td>65355</td><td>65937</td><td>582</td>
-          <td>4,550</td><td>2,652,000</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>Nước</td>
-          <td>-</td><td>-</td><td>-</td>
-          <td>2,652,000</td><td>2,652,000</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>Internet</td>
-          <td>-</td><td>-</td><td>-</td>
-          <td>500,000</td><td>500,000</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>Rác</td>
-          <td>-</td><td>-</td><td>-</td>
-          <td>100,000</td><td>100,000</td>
-          <td></td>
-        </tr>
-      </tbody>
+      <tbody id="services"></tbody>
     </table>
 
     <!-- Tổng cộng -->
     <div class="total-box">
-      Tổng cộng: 24,804,000 VND<br>
-      Giảm giá: 0 VND<br>
-      Còn lại: 24,804,000 VND
+      Tổng cộng: <span id="tongtien"></span> VND<br>
+      Giảm giá: <span id="giagiam"></span> VND<br>
+      Còn lại: <span id="conlai"></span> VND
     </div>
 
     <!-- Thông tin chuyển khoản -->
     <div class="transfer-box">
       <p><b>Thông tin chuyển khoản:</b></p>
-      <p>Chủ tài khoản: VU VAN TOAN</p>
-      <p>Số tài khoản: <b>628.630.686.888</b></p>
-      <p>Ngân hàng: TECHCOMBANK</p>
-      <p>Nội dung CK: <span class="highlight">122.TUHOA.503 TT BILL TH 9</span></p>
+      <p>Chủ tài khoản: <span id="tentaikhoan2"></span></p>
+      <p>Số tài khoản: <b id="sotaikhoan2"></b></p>
+      <p>Ngân hàng: <span id="nganhang2"></span></p>
+      <p>Nội dung CK: <span class="highlight" id="noidungck"></span></p>
       <p style="color:red"><b>Lưu ý:</b> Vui lòng nhập đúng nội dung CK. Sai nội dung = chưa thanh toán.</p>
     </div>
 
     <!-- QR thanh toán -->
     <div class="qr-box">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://canhly1992.github.io/Shiper/motel.html?hoten=EMMA%20MARGARET%20POOK&diachi=122%20No%20Tu%20Hoa&maso=503&sotaikhoan=628630686888&tentaikhoan=VU%20VAN%20TOAN&nganhang=TECHCOMBANK&sdt=0866162134&tongtien=24804000&data=CODE123" alt="QR Code">
+      <img id="qrCode" src="" alt="QR Code">
     </div>
 
     <!-- Footer -->
     <div class="footer">
-      Ngày 01 tháng 09 năm 2025<br>
+      Ngày <span id="ngay"></span><br>
       Người lập phiếu<br><br>
       <b>Vũ Cao Long</b>
     </div>
   </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+
+    // Gán dữ liệu
+    document.getElementById("maso").textContent = urlParams.get("maso") || "";
+    document.getElementById("hoten").textContent = urlParams.get("hoten") || "";
+    document.getElementById("sdt").textContent = urlParams.get("sdt") || "";
+    document.getElementById("tentaikhoan").textContent = urlParams.get("tentaikhoan") || "";
+    document.getElementById("sotaikhoan").textContent = urlParams.get("sotaikhoan") || "";
+    document.getElementById("nganhang").textContent = urlParams.get("nganhang") || "";
+    document.getElementById("kythanhtoan").textContent = urlParams.get("kythanhtoan") || "";
+    document.getElementById("tongtien").textContent = urlParams.get("tongtien") || "0";
+    document.getElementById("giagiam").textContent = urlParams.get("giagiam") || "0";
+    document.getElementById("conlai").textContent = urlParams.get("conlai") || urlParams.get("tongtien") || "0";
+
+    // Lặp lại cho phần chuyển khoản
+    document.getElementById("tentaikhoan2").textContent = urlParams.get("tentaikhoan") || "";
+    document.getElementById("sotaikhoan2").textContent = urlParams.get("sotaikhoan") || "";
+    document.getElementById("nganhang2").textContent = urlParams.get("nganhang") || "";
+
+    // Nội dung CK mặc định: maso + kỳ thanh toán
+    const maso = urlParams.get("maso") || "";
+    const kythanhtoan = urlParams.get("kythanhtoan") || "";
+    document.getElementById("noidungck").textContent = `${maso} TT BILL ${kythanhtoan}`;
+
+    // Ngày lập phiếu
+    const today = new Date();
+    document.getElementById("thoigian").textContent = today.toLocaleDateString("vi-VN");
+    document.getElementById("ngay").textContent = today.toLocaleDateString("vi-VN");
+
+    // QR Code
+    const qrData = window.location.href; // lấy toàn bộ link kèm tham số
+    document.getElementById("qrCode").src =
+      "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + encodeURIComponent(qrData);
+  </script>
 </body>
 </html>
