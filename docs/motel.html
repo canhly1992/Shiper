@@ -2,138 +2,174 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>PHIẾU THU TIỀN1</title>
+  <title>Receipt Room</title>
   <style>
-    @page { size: A4 portrait; margin: 12mm; }
     body {
       font-family: "Times New Roman", serif;
-      font-size: 13px;
-      margin: 0;
-      padding: 0;
+      font-size: 12px;
+      margin: 20px;
       color: #000;
     }
-    table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    th, td { border: 1px solid #000; padding: 6px; text-align: center; }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .header-left { width: 60%; }
+    .header-right { text-align: right; }
+    .title {
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+    table, th, td {
+      border: 1px solid #000;
+    }
+    th, td {
+      padding: 4px;
+      text-align: center;
+    }
     td.left { text-align: left; }
-    td.right { text-align: right; }
-    .title { text-align: center; font-weight: bold; font-size: 18px; margin: 10px 0; }
-    .highlight { background: yellow; color: red; font-weight: bold; padding: 2px 6px; }
-    .note { font-size: 12px; margin-top: 8px; color: red; }
-    .sign-block { margin-top: 25px; display: flex; justify-content: space-between; font-size: 13px; }
-    .sign-col { text-align: center; width: 45%; }
+    .total {
+      font-weight: bold;
+      background: #eee;
+    }
+    .qr-section {
+      display: flex;
+      margin-top: 12px;
+    }
+    .qr-section .info { flex: 1; font-size: 12px; }
+    .qr-section .qr { width: 180px; text-align: center; }
+    .highlight-yellow {
+      background: yellow;
+      font-weight: bold;
+    }
+    .highlight-red {
+      color: red;
+      font-weight: bold;
+    }
+    .sign {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
 
-  <table style="border:none; margin-bottom:8px;">
-    <tr style="border:none;">
-      <td style="border:none; text-align:left;">
-        122 No, Tu Hoa, Quang An, Tay Ho.<br>
-        Contact: +84328.972.855 (MR Long Management)<br>
-        (Plz Text: WhatsApp or Zalo)
-      </td>
-      <td style="border:none; text-align:right; vertical-align:top;">
-        Date: 01/9/2025
-      </td>
-    </tr>
-  </table>
-
-  <div class="title">RECEIPTS ROOM 503</div>
-
-  <table>
-    <tr>
-      <td class="left"><b>Full Name:</b> EMMA MARGARET POOK</td>
-      <td class="left"><b>Phone:</b> 0866.162.134</td>
-    </tr>
-    <tr>
-      <td colspan="2" class="left"><b>Address:</b> 122 No, Tu Hoa, Quang An, Tay Ho.</td>
-    </tr>
-  </table>
-
-  <table style="margin-top:10px;">
-    <tr>
-      <th>Item</th>
-      <th>Old</th>
-      <th>New</th>
-      <th>Qty</th>
-      <th>Unit Price</th>
-      <th>Total</th>
-      <th>Remark</th>
-    </tr>
-    <tr>
-      <td>Tiền thuê</td><td></td><td></td><td></td>
-      <td>19,000,000</td><td>19,000,000</td><td></td>
-    </tr>
-    <tr>
-      <td>Điện</td><td>65355</td><td>65937</td><td>582</td>
-      <td></td><td>2,652,000</td><td></td>
-    </tr>
-    <tr>
-      <td>Nước</td><td></td><td></td><td></td>
-      <td></td><td></td><td></td>
-    </tr>
-    <tr>
-      <td>Xe</td><td></td><td></td><td></td>
-      <td></td><td>2,652,000</td><td></td>
-    </tr>
-    <tr>
-      <td>Rác</td><td></td><td></td><td></td>
-      <td></td><td></td><td></td>
-    </tr>
-    <tr>
-      <td>Chi phí khác</td><td></td><td></td><td></td>
-      <td></td><td>500,000</td><td>Meter 2: 17569 - 17488 = 81</td>
-    </tr>
-    <tr>
-      <td colspan="5" class="right"><b>Tổng cộng</b></td>
-      <td>24,804,000</td><td></td>
-    </tr>
-    <tr>
-      <td colspan="5" class="right">Giảm giá</td>
-      <td></td><td></td>
-    </tr>
-    <tr>
-      <td colspan="5" class="right"><b>Còn lại</b></td>
-      <td><b>24,804,000</b></td><td></td>
-    </tr>
-  </table>
-
-  <p><b>The total amount payable:</b> <span style="color:red;">24,804,000 VND</span></p>
-
-  <table>
-    <tr>
-      <td class="left" style="width:70%;">
-        <b>Transfer Information:</b><br>
-        NAME ACCOUNT: VU VAN TOAN<br>
-        NUMBER ACCOUNT: 628.630.686.888<br>
-        Bank Name: VIETNAM TECHNOLOGICAL AND COMMERCIAL JOINT STOCK BANK (Techcombank)<br><br>
-        <b>Transfer Content:</b><br>
-        <span class="highlight">122.TUHOA.503 TT BILL TH 9</span><br><br>
-        <span class="note">IMPORTANT: Using the correct content of the message if it is wrong, it will be considered as not collecting money yet - 
-        QUAN TRỌNG: Sử dụng đúng nội dung tin nhắn nếu sai coi như chưa thu tiền.</span>
-      </td>
-      <td style="width:30%; text-align:center;">
-        <img id="qrcode" width="150" height="150"><br>
-      </td>
-    </tr>
-  </table>
-
-  <div class="sign-block">
-    <div class="sign-col">
-      <b>Customer</b><br>(Sign & Full name)
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <p><b>122 No, Tu Hoa, Quang An, Tay Ho.</b></p>
+      <p>Contact: +84328.972.855 (Mr Long Management)</p>
+      <p>(Plz Text: WhatsApp or Zalo)</p>
     </div>
-    <div class="sign-col">
-      <b>Vu Cao Long</b><br>(Collector)
+    <div class="header-right">
+      <p><b>Date:</b> 01/9/2025</p>
     </div>
   </div>
 
-  <script>
-    // Nội dung QR code
-    const qrContent = `ACC:628630686888\nND:122.TUHOA.503 TT BILL TH 9\nTOTAL:24804000 VND`;
-    document.getElementById("qrcode").src =
-      "https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=" +
-      encodeURIComponent(qrContent);
-  </script>
+  <div class="title">RECEIPT ROOM 503</div>
+
+  <!-- Customer Info -->
+  <table>
+    <tr>
+      <td class="left"><b>Full Name</b></td>
+      <td colspan="5">EMMA MARGARET POOK</td>
+    </tr>
+    <tr>
+      <td class="left"><b>Address</b></td>
+      <td colspan="3">122 No, Tu Hoa, Quang An, Tay Ho.</td>
+      <td><b>Phone</b></td>
+      <td>0866.162.134</td>
+    </tr>
+  </table>
+
+  <!-- Bill Table -->
+  <table>
+    <thead>
+      <tr>
+        <th>Tiền thuê</th>
+        <th>Số cũ</th>
+        <th>Số mới</th>
+        <th>Số tiêu thụ</th>
+        <th>Đơn giá</th>
+        <th>Tổng</th>
+        <th>Remark</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>19,000,000</td><td></td><td></td><td></td><td></td><td>19,000,000</td><td></td>
+      </tr>
+      <tr>
+        <td>Điện</td><td>65355</td><td>65937</td><td>582</td><td></td><td>2,652,000</td><td></td>
+      </tr>
+      <tr>
+        <td>Nước</td><td></td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <td>Xe</td><td></td><td></td><td></td><td></td><td>2,652,000</td><td></td>
+      </tr>
+      <tr>
+        <td>Rác</td><td></td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <td>Chi phí khác</td><td></td><td></td><td></td><td></td><td>500,000</td><td>Meter 2: 17569 - 17488 = 81</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="5" class="left total">Tổng cộng</td>
+        <td class="total">24,804,000</td><td></td>
+      </tr>
+      <tr>
+        <td colspan="5" class="left">Giảm giá</td>
+        <td>-</td><td></td>
+      </tr>
+      <tr>
+        <td colspan="5" class="left">Còn lại</td>
+        <td>24,804,000</td><td></td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <!-- QR + Banking -->
+  <div class="qr-section">
+    <div class="info">
+      <p><b>The total amount payable:</b> 24,804,000 VND</p>
+      <p><b>Transfer Information:</b></p>
+      <p>NAME ACCOUNT: VU VAN TOAN</p>
+      <p>NUMBER ACCOUNT: 628.630.686.888</p>
+      <p>Bank Name: VIETNAM TECHNOLOGICAL AND COMMERCIAL JOINT STOCK BANK (Techcombank)</p>
+      <p><b>Transfer Content:</b> <span class="highlight-yellow">122.TUHOA.503 TT BILL TH 9</span></p>
+      <p class="highlight-red">
+        IMPORTANT: Using the correct content of the message, if it is wrong, it will be considered as not collecting money yet.<br>
+        QUAN TRỌNG: Sử dụng đúng nội dung tin nhắn nếu sai coi như chưa thu tiền.
+      </p>
+    </div>
+    <div class="qr">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=techcombank%20-628630686888-24804000" alt="QR Payment">
+    </div>
+  </div>
+
+  <!-- Sign -->
+  <div class="sign">
+    <div>
+      <b>Khách hàng</b><br>(Ký và ghi rõ họ tên)
+    </div>
+    <div>
+      <b>Vu Cao Long</b><br>(Người thu tiền)
+    </div>
+  </div>
 
 </body>
 </html>
