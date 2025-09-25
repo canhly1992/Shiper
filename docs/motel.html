@@ -2,152 +2,150 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Receipt Room</title>
+  <title>Biên lai thanh toán phòng</title>
   <style>
-    body { font-family: "Times New Roman", serif; font-size: 12px; margin: 20px; color: #000; }
-    .header { display: flex; justify-content: space-between; margin-bottom: 10px; }
-    .header-left { width: 60%; }
-    .header-right { text-align: right; }
-    .title { text-align: center; font-size: 16px; font-weight: bold; margin: 10px 0; }
-    table { width: 100%; border-collapse: collapse; margin-top: 8px; }
-    table, th, td { border: 1px solid #000; }
-    th, td { padding: 4px; text-align: center; }
-    td.left { text-align: left; }
-    .total { font-weight: bold; background: #eee; }
-    .qr-section { display: flex; margin-top: 12px; }
-    .qr-section .info { flex: 1; font-size: 12px; }
-    .qr-section .qr { width: 200px; text-align: center; }
-    .highlight-yellow { background: yellow; font-weight: bold; }
-    .highlight-red { color: red; font-weight: bold; }
-    .sign { margin-top: 20px; display: flex; justify-content: space-between; font-size: 12px; text-align: center; }
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .invoice-box {
+      max-width: 900px;
+      margin: auto;
+      border: 1px solid #000;
+      padding: 20px;
+      font-size: 14px;
+      line-height: 22px;
+    }
+    .header { text-align: center; margin-bottom: 20px; }
+    .header h2 { margin: 0; }
+    .info-table, .service-table {
+      width: 100%; border-collapse: collapse; margin-bottom: 15px;
+    }
+    .info-table td { padding: 3px 6px; }
+    .service-table th, .service-table td {
+      border: 1px solid #000; padding: 6px; text-align: center;
+    }
+    .service-table th { background: #f0f0f0; }
+    .total-box {
+      border-top: 2px solid #000;
+      font-weight: bold;
+      text-align: right;
+      padding: 8px;
+    }
+    .transfer-box {
+      margin-top: 15px; font-size: 13px; line-height: 20px;
+    }
+    .transfer-box p { margin: 4px 0; }
+    .highlight { background: yellow; font-weight: bold; padding: 2px 4px; }
+    .qr-box {
+      text-align: center; margin-top: 10px;
+    }
+    .footer {
+      margin-top: 20px; text-align: right; font-style: italic;
+    }
   </style>
 </head>
 <body>
-
-  <!-- Header -->
-  <div class="header">
-    <div class="header-left">
-      <p><b>122 No, Tu Hoa, Quang An, Tay Ho.</b></p>
-      <p>Contact: +84328.972.855 (Mr Long Management)</p>
-      <p>(Plz Text: WhatsApp or Zalo)</p>
+  <div class="invoice-box">
+    <!-- Header -->
+    <div class="header">
+      <h2>PHIẾU THU TIỀN PHÒNG</h2>
+      <p>Địa chỉ: 122 Nơ Trang Long, Bình Thạnh, TP.HCM<br>
+      Liên hệ: 0866.162.134 (Zalo/WhatsApp)</p>
     </div>
-    <div class="header-right">
-      <p><b>Date:</b> <span id="ngay"></span></p>
+
+    <!-- Thông tin khách -->
+    <table class="info-table">
+      <tr>
+        <td><b>Mã phòng:</b> 503</td>
+        <td><b>Thời gian:</b> 01/09/2025</td>
+      </tr>
+      <tr>
+        <td><b>Họ tên:</b> EMMA MARGARET POOK</td>
+        <td><b>Số điện thoại:</b> 0866.162.134</td>
+      </tr>
+      <tr>
+        <td><b>Tên TK:</b> VU VAN TOAN</td>
+        <td><b>Số TK:</b> 628.630.686.888</td>
+      </tr>
+      <tr>
+        <td><b>Ngân hàng:</b> Techcombank</td>
+        <td><b>Kỳ thanh toán:</b> Tháng 9/2025</td>
+      </tr>
+    </table>
+
+    <!-- Bảng dịch vụ -->
+    <table class="service-table">
+      <thead>
+        <tr>
+          <th>Dịch vụ</th>
+          <th>Chỉ số cũ</th>
+          <th>Chỉ số mới</th>
+          <th>Số lượng</th>
+          <th>Đơn giá</th>
+          <th>Thành tiền</th>
+          <th>Ghi chú</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Tiền phòng</td>
+          <td>-</td><td>-</td><td>1</td>
+          <td>19,000,000</td><td>19,000,000</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Điện</td>
+          <td>65355</td><td>65937</td><td>582</td>
+          <td>4,550</td><td>2,652,000</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Nước</td>
+          <td>-</td><td>-</td><td>-</td>
+          <td>2,652,000</td><td>2,652,000</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Internet</td>
+          <td>-</td><td>-</td><td>-</td>
+          <td>500,000</td><td>500,000</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Rác</td>
+          <td>-</td><td>-</td><td>-</td>
+          <td>100,000</td><td>100,000</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Tổng cộng -->
+    <div class="total-box">
+      Tổng cộng: 24,804,000 VND<br>
+      Giảm giá: 0 VND<br>
+      Còn lại: 24,804,000 VND
+    </div>
+
+    <!-- Thông tin chuyển khoản -->
+    <div class="transfer-box">
+      <p><b>Thông tin chuyển khoản:</b></p>
+      <p>Chủ tài khoản: VU VAN TOAN</p>
+      <p>Số tài khoản: <b>628.630.686.888</b></p>
+      <p>Ngân hàng: TECHCOMBANK</p>
+      <p>Nội dung CK: <span class="highlight">122.TUHOA.503 TT BILL TH 9</span></p>
+      <p style="color:red"><b>Lưu ý:</b> Vui lòng nhập đúng nội dung CK. Sai nội dung = chưa thanh toán.</p>
+    </div>
+
+    <!-- QR thanh toán -->
+    <div class="qr-box">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://canhly1992.github.io/Shiper/motel.html?hoten=EMMA%20MARGARET%20POOK&diachi=122%20No%20Tu%20Hoa&maso=503&sotaikhoan=628630686888&tentaikhoan=VU%20VAN%20TOAN&nganhang=TECHCOMBANK&sdt=0866162134&tongtien=24804000&data=CODE123" alt="QR Code">
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      Ngày 01 tháng 09 năm 2025<br>
+      Người lập phiếu<br><br>
+      <b>Vũ Cao Long</b>
     </div>
   </div>
-
-  <div class="title">RECEIPT ROOM <span id="maso"></span></div>
-
-  <!-- Customer Info -->
-  <table>
-    <tr>
-      <td class="left"><b>Full Name</b></td>
-      <td colspan="5" id="hoten"></td>
-    </tr>
-    <tr>
-      <td class="left"><b>Address</b></td>
-      <td colspan="3" id="diachi"></td>
-      <td><b>Phone</b></td>
-      <td id="sdt"></td>
-    </tr>
-  </table>
-
-  <!-- Bill Table -->
-  <table id="table-bill">
-    <thead>
-      <tr>
-        <th>Dịch vụ</th>
-        <th>Số cũ</th>
-        <th>Số mới</th>
-        <th>Số tiêu thụ</th>
-        <th>Đơn giá</th>
-        <th>Tổng</th>
-        <th>Remark</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Hàng dữ liệu sẽ thêm từ param -->
-    </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="5" class="left total">Tổng cộng</td>
-        <td class="total" id="tongtien"></td><td></td>
-      </tr>
-      <tr>
-        <td colspan="5" class="left">Giảm giá</td>
-        <td id="giamgia">-</td><td></td>
-      </tr>
-      <tr>
-        <td colspan="5" class="left">Còn lại</td>
-        <td id="conlai"></td><td></td>
-      </tr>
-    </tfoot>
-  </table>
-
-  <!-- QR + Banking -->
-  <div class="qr-section">
-    <div class="info">
-      <p><b>The total amount payable:</b> <span id="tongtien_text"></span> VND</p>
-      <p><b>Transfer Information:</b></p>
-      <p>NAME ACCOUNT: <span id="tentaikhoan"></span></p>
-      <p>NUMBER ACCOUNT: <span id="sotaikhoan"></span></p>
-      <p>BANK NAME: <span id="nganhang"></span></p>
-      <p><b>Transfer Content:</b> <span class="highlight-yellow" id="noidungck"></span></p>
-      <p class="highlight-red">
-        IMPORTANT: Using the correct content of the message, if it is wrong, it will be considered as not collecting money yet.<br>
-        QUAN TRỌNG: Sử dụng đúng nội dung tin nhắn nếu sai coi như chưa thu tiền.
-      </p>
-    </div>
-    <div class="qr">
-      <img id="qrpay" src="" alt="QR Payment">
-    </div>
-  </div>
-
-  <!-- Sign -->
-  <div class="sign">
-    <div>
-      <b>Khách hàng</b><br>(Ký và ghi rõ họ tên)
-    </div>
-    <div>
-      <b>Vu Cao Long</b><br>(Người thu tiền)
-    </div>
-  </div>
-
-  <script>
-    function getParam(name) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return decodeURIComponent(urlParams.get(name) || "");
-    }
-
-    // Set ngày
-    const now = new Date();
-    document.getElementById("ngay").innerText =
-      `${String(now.getDate()).padStart(2,"0")}/${String(now.getMonth()+1).padStart(2,"0")}/${now.getFullYear()}`;
-
-    // Inject data từ param
-    const fields = ["hoten","diachi","sdt","maso","tentaikhoan","sotaikhoan","nganhang","tongtien","conlai"];
-    fields.forEach(f=>{
-      const el=document.getElementById(f);
-      if(el) el.innerText=getParam(f);
-    });
-    document.getElementById("tongtien_text").innerText=getParam("tongtien");
-    document.getElementById("noidungck").innerText = `${getParam("diachi")}.${getParam("maso")} TT BILL ${now.getMonth()+1}`;
-
-    // QR Code động
-    const qrUrl = "https://canhly1992.github.io/Shiper/motel.html"
-      + "?hoten=" + encodeURIComponent(getParam("hoten"))
-      + "&diachi=" + encodeURIComponent(getParam("diachi"))
-      + "&maso=" + encodeURIComponent(getParam("maso"))
-      + "&sotaikhoan=" + encodeURIComponent(getParam("sotaikhoan"))
-      + "&tentaikhoan=" + encodeURIComponent(getParam("tentaikhoan"))
-      + "&nganhang=" + encodeURIComponent(getParam("nganhang"))
-      + "&sdt=" + encodeURIComponent(getParam("sdt"))
-      + "&tongtien=" + encodeURIComponent(getParam("tongtien"))
-      + "&data=" + encodeURIComponent(getParam("data"));
-
-    document.getElementById("qrpay").src =
-      "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + encodeURIComponent(qrUrl);
-  </script>
-
 </body>
 </html>
