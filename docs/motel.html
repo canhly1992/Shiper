@@ -16,6 +16,12 @@
     h2 { text-align: center; margin: 5px 0; }
     .sub-header { text-align: center; margin: 0; font-size: 13px; }
     p { margin: 3px 0; }
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 20px;
+      margin-top: 10px;
+    }
     table {
       width: 100%;
       border-collapse: collapse;
@@ -28,6 +34,10 @@
     th, td {
       padding: 6px;
       text-align: center;
+    }
+    h3 {
+      text-align: center;
+      margin-top: 20px;
     }
     .summary {
       margin-top: 10px;
@@ -52,15 +62,17 @@
 <body>
   <div class="invoice-box">
     <h2>PHIẾU THU TIỀN PHÒNG</h2>
-    <p class="sub-header">Địa chỉ: 122 Nơ Trang Long, Bình Thạnh, TP.HCM</p>
-    <p class="sub-header">Liên hệ: 0866.182.134 (Zalo/WhatsApp)</p>
-    <p>Mã phiếu: <span id="maphieu"></span> &nbsp;|&nbsp; Ngày lập: <span id="ngaylap"></span></p>
-    <p><strong>Kỳ thanh toán:</strong> <span id="kythanhtoan"></span></p>
+    <p class="sub-header">Địa chỉ: <span id="diachi"></span></p>
+    <p class="sub-header">Liên hệ: <span id="sdtchothue"></span> (Zalo/WhatsApp)</p>
 
-    <p><strong>Mã phòng:</strong> <span id="maso"></span></p>
-    <p><strong>Họ tên:</strong> <span id="hoten"></span></p>
-    <p><strong>CCCD/Passport:</strong> <span id="cccd"></span></p>
-    <p><strong>Số điện thoại:</strong> <span id="sdt"></span></p>
+    <div class="info-grid">
+      <p><strong>Mã phiếu:</strong> <span id="maphieu"></span></p>
+      <p><strong>Ngày lập:</strong> <span id="ngaylap"></span></p>
+      <p><strong>Mã phòng:</strong> <span id="maso"></span></p>
+      <p><strong>Họ tên:</strong> <span id="hoten"></span></p>
+      <p><strong>CCCD/Passport:</strong> <span id="cccd"></span></p>
+      <p><strong>Số điện thoại khách thuê:</strong> <span id="sdt"></span></p>
+    </div>
 
     <!-- Dịch vụ khác -->
     <h3>Các dịch vụ khác</h3>
@@ -141,24 +153,23 @@
     function getParam(param) {
       return new URLSearchParams(window.location.search).get(param) || "";
     }
-
     function formatNumber(num) {
       return Number(num).toLocaleString("vi-VN");
     }
 
+    // Header
+    document.getElementById("diachi").innerText = getParam("diachi");
+    document.getElementById("sdtchothue").innerText = getParam("sdtchothue");
+
     // Ngày lập
-    const ngaylap = getParam("ngaylap") || "";
+    const ngaylap = getParam("ngaylap");
     document.getElementById("ngaylap").innerText = ngaylap;
     document.getElementById("ngaylap2").innerText = ngaylap;
 
     // Thông tin cơ bản
-    ["maso","hoten","cccd","sdt","giagiam","kythanhtoan"].forEach(id=>{
+    ["maphieu","maso","hoten","cccd","sdt","giagiam"].forEach(id=>{
       if(document.getElementById(id)) document.getElementById(id).innerText = getParam(id);
     });
-
-    // Mã phiếu = Mã phòng - Họ tên
-    const map = `${getParam("maso")} - ${getParam("hoten")}`;
-    document.getElementById("maphieu").innerText = map;
 
     // Dịch vụ khác
     const tieninternet = Number(getParam("tieninternet"));
@@ -213,8 +224,8 @@
     const noidung = `TT phong ${getParam("maso")} - ${getParam("hoten")}`;
     document.getElementById("noidungck").innerText = noidung;
 
-    // QR code (cố định tài khoản)
-    const qrUrl = `https://img.vietqr.io/image/vib-007933227-compact2.png?amount=${conlai}&addInfo=${encodeURIComponent(noidung)}&accountName=${encodeURIComponent("Nguyen Canh Ly")}`;
+    // QR code
+    const qrUrl = `https://img.vietqr.io/image/vietinbank-007933227-compact2.png?amount=${conlai}&addInfo=${encodeURIComponent(noidung)}&accountName=${encodeURIComponent("Nguyen Canh Ly")}`;
     document.getElementById("vietqr").src = qrUrl;
   </script>
 </body>
