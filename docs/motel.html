@@ -55,6 +55,7 @@
     <p class="sub-header">Địa chỉ: 122 Nơ Trang Long, Bình Thạnh, TP.HCM</p>
     <p class="sub-header">Liên hệ: 0866.182.134 (Zalo/WhatsApp)</p>
     <p>Mã phiếu: <span id="maphieu"></span> &nbsp;|&nbsp; Ngày lập: <span id="ngaylap"></span></p>
+    <p><strong>Kỳ thanh toán:</strong> <span id="kythanhtoan"></span></p>
 
     <p><strong>Mã phòng:</strong> <span id="maso"></span></p>
     <p><strong>Họ tên:</strong> <span id="hoten"></span></p>
@@ -138,22 +139,26 @@
 
   <script>
     function getParam(param) {
-      return new URLSearchParams(window.location.search).get(param) || "0";
+      return new URLSearchParams(window.location.search).get(param) || "";
     }
 
     function formatNumber(num) {
       return Number(num).toLocaleString("vi-VN");
     }
 
-    // Ngày lập lấy từ param
+    // Ngày lập
     const ngaylap = getParam("ngaylap") || "";
     document.getElementById("ngaylap").innerText = ngaylap;
     document.getElementById("ngaylap2").innerText = ngaylap;
 
     // Thông tin cơ bản
-    ["maphieu","maso","hoten","cccd","sdt","giagiam"].forEach(id=>{
+    ["maso","hoten","cccd","sdt","giagiam","kythanhtoan"].forEach(id=>{
       if(document.getElementById(id)) document.getElementById(id).innerText = getParam(id);
     });
+
+    // Mã phiếu = Mã phòng - Họ tên
+    const map = `${getParam("maso")} - ${getParam("hoten")}`;
+    document.getElementById("maphieu").innerText = map;
 
     // Dịch vụ khác
     const tieninternet = Number(getParam("tieninternet"));
@@ -208,8 +213,8 @@
     const noidung = `TT phong ${getParam("maso")} - ${getParam("hoten")}`;
     document.getElementById("noidungck").innerText = noidung;
 
-    // QR code (fix cố định tài khoản)
-    const qrUrl = `https://img.vietqr.io/image/vietinbank-007933227-compact2.png?amount=${conlai}&addInfo=${encodeURIComponent(noidung)}&accountName=${encodeURIComponent("Nguyen Canh Ly")}`;
+    // QR code (cố định tài khoản)
+    const qrUrl = `https://img.vietqr.io/image/vib-007933227-compact2.png?amount=${conlai}&addInfo=${encodeURIComponent(noidung)}&accountName=${encodeURIComponent("Nguyen Canh Ly")}`;
     document.getElementById("vietqr").src = qrUrl;
   </script>
 </body>
