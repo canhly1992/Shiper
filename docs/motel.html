@@ -38,14 +38,13 @@
     h3 {
       text-align: center;
       margin-top: 20px;
+      text-transform: uppercase;
+      font-size: 18px;
+      font-weight: bold;
     }
     .summary {
       margin-top: 10px;
       text-align: right;
-    }
-    .qr-box {
-      text-align: center;
-      margin-top: 15px;
     }
     .footer {
       margin-top: 30px;
@@ -87,17 +86,17 @@
       <p><strong>Số điện thoại khách thuê:</strong> <span id="sdt"></span></p>
     </div>
 
-    <!-- Dịch vụ khác -->
+    <!-- Các dịch vụ khác -->
     <h3>Các dịch vụ khác</h3>
-    <table>
+    <table id="dichvukhac">
       <tr>
         <th>Dịch vụ</th><th>Số lượng</th><th>Đơn giá</th><th>Thành tiền</th>
       </tr>
-      <tr><td>Tổng tiền phòng</td><td>1</td><td id="tongtienphong_unit">0</td><td id="tongtienphong_total">0</td></tr>
-      <tr><td>Internet</td><td>1</td><td id="tieninternet">0</td><td id="thanhtieninternet">0</td></tr>
-      <tr><td>Phí rác</td><td>1</td><td id="rac">0</td><td id="thanhtienrac">0</td></tr>
-      <tr><td>Gửi xe</td><td id="soluongxe">0</td><td id="phixe">0</td><td id="tongphixe">0</td></tr>
-      <tr><td>Chi phí khác</td><td>1</td><td id="chiphipkhac">0</td><td id="thanhtienkhac">0</td></tr>
+      <tr><td>Tổng tiền phòng</td><td>1</td><td id="tongtienphong_unit">0</td><td class="thanhtien" id="tongtienphong_total">0</td></tr>
+      <tr><td>Internet</td><td>1</td><td id="tieninternet">0</td><td class="thanhtien" id="thanhtieninternet">0</td></tr>
+      <tr><td>Phí rác</td><td>1</td><td id="rac">0</td><td class="thanhtien" id="thanhtienrac">0</td></tr>
+      <tr><td>Gửi xe</td><td id="soluongxe">0</td><td id="phixe">0</td><td class="thanhtien" id="tongphixe">0</td></tr>
+      <tr><td>Chi phí khác</td><td>1</td><td id="chiphipkhac">0</td><td class="thanhtien" id="thanhtienkhac">0</td></tr>
     </table>
 
     <!-- Điện + Nước gộp chung -->
@@ -137,8 +136,8 @@
       <tr>
         <td class="label">Chủ tài khoản</td>
         <td id="tentaikhoan"></td>
-        <td rowspan="4" style="text-align:center; width:200px;">
-          <img id="vietqr" src="" alt="QR Thanh toán" width="260" height="260">
+        <td rowspan="4" style="text-align:center; width:220px;">
+          <img id="vietqr" src="" alt="QR Thanh toán" width="280" height="280">
         </td>
       </tr>
       <tr>
@@ -229,9 +228,19 @@
     document.getElementById("sotaikhoan").innerText=sotaikhoan;
     document.getElementById("nganhang").innerText=nganhang;
     const map=getParam("maphieu"), room=getParam("maso"), kyth=getParam("kythanhtoan");
-    const noidung=`${map}.${room} TT BILL TH ${kyth}`;
+    let noidung=`${map}.${room} TT BILL TH ${kyth}`;
+    noidung=noidung.replace(/\./g," "); // thay dấu . thành khoảng trắng
     document.getElementById("noidungck").innerText=noidung;
     document.getElementById("vietqr").src=`https://img.vietqr.io/image/${nganhang.toLowerCase()}-${sotaikhoan}-compact2.png?amount=${conlai}&addInfo=${encodeURIComponent(noidung)}&accountName=${encodeURIComponent(tentaikhoan)}`;
+
+    // Ẩn dòng dịch vụ khác nếu thành tiền = 0
+    document.querySelectorAll("#dichvukhac tr").forEach((row, idx)=>{
+      if(idx===0) return;
+      const cell=row.querySelector(".thanhtien");
+      if(cell && (parseInt(cell.textContent.replace(/\D/g,''))||0)===0){
+        row.style.display="none";
+      }
+    });
   </script>
 </body>
 </html>
