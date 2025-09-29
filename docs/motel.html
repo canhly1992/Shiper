@@ -40,7 +40,6 @@
       font-size: 13px;
     }
     .footer .sign { text-align: center; width: 200px; }
-    /* Bảng thông tin CK */
     .ck-table {
       width:100%; border-collapse:collapse; margin-top:12px;
     }
@@ -166,9 +165,9 @@
     });
 
     // Tiền phòng
-    const tongtienphong = Number(getParam("tongtienphong")) || 0;
-    document.getElementById("tongtienphong_unit").innerText = formatNumber(tongtienphong);
-    document.getElementById("tongtienphong_total").innerText = formatNumber(tongtienphong);
+    const tienphong = Number(getParam("tienphong")) || 0;
+    document.getElementById("tongtienphong_unit").innerText = formatNumber(tienphong);
+    document.getElementById("tongtienphong_total").innerText = formatNumber(tienphong);
 
     // Internet
     const tieninternet = Number(getParam("tieninternet")) || 0;
@@ -215,7 +214,7 @@
     document.getElementById("tongtiennuoc").innerText = formatNumber(sonuocluong * gianuoc);
 
     // Tổng cộng
-    const tongtien = tongtienphong + tieninternet + rac + (soluongxe * phixe) + chiphipkhac + (sodienluong * giadien) + (sonuocluong * gianuoc);
+    const tongtien = tienphong + tieninternet + rac + (soluongxe * phixe) + chiphipkhac + (sodienluong * giadien) + (sonuocluong * gianuoc);
     document.getElementById("tongtien").innerText = formatNumber(tongtien);
 
     // Giảm giá & còn lại
