@@ -222,12 +222,13 @@
     document.getElementById("conlai").innerText = formatNumber(conlai);
 
     // Nội dung CK
-    const noidung = `MP${getParam("maphieu")} - Kỳ ${getParam("kythanhtoan")} - Phòng ${getParam("maso")} - ${getParam("hoten")}`;
-    document.getElementById("noidungck").innerText = noidung;
+  const noidung = `${getParam("maphieu")}.${getParam("maso")} TT BILL TH ${getParam("kythanhtoan")}`;
+  document.getElementById("noidungck").innerText = noidung;
+  
+  // QR code
+  const qrUrl = `https://img.vietqr.io/image/vietinbank-007933227-compact2.png?amount=${conlai}&addInfo=${encodeURIComponent(noidung)}&accountName=${encodeURIComponent("Nguyen Canh Ly")}`;
+  document.getElementById("vietqr").src = qrUrl;
 
-    // QR code
-    const qrUrl = `https://img.vietqr.io/image/vietinbank-007933227-compact2.png?amount=${conlai}&addInfo=${encodeURIComponent(noidung)}&accountName=${encodeURIComponent("Nguyen Canh Ly")}`;
-    document.getElementById("vietqr").src = qrUrl;
   </script>
 </body>
 </html>
