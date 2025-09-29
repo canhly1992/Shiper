@@ -70,7 +70,6 @@
       <p><strong>Ngày lập:</strong> <span id="ngaylap"></span></p>
       <p><strong>Mã phòng:</strong> <span id="maso"></span></p>
       <p><strong>Họ tên:</strong> <span id="hoten"></span></p>
-      <p><strong>Kỳ thanh toán:</strong> <span id="kythanhtoan"></span></p>
       <p><strong>CCCD/Passport:</strong> <span id="cccd"></span></p>
       <p><strong>Số điện thoại khách thuê:</strong> <span id="sdt"></span></p>
     </div>
@@ -131,10 +130,9 @@
     <p>Chủ tài khoản: <span id="tentaikhoan"></span></p>
     <p>Số tài khoản: <span id="sotaikhoan"></span></p>
     <p>Ngân hàng: <span id="nganhang"></span></p>
-    <p>Số điện thoại: <span id="sdt"></span></p>
+    <p>Số điện thoại: <span id="sdtnh"></span></p>
     <p>Nội dung CK: <span id="noidungck"></span></p>
     <p style="color:red">Lưu ý: Vui lòng nhập đúng nội dung CK. Sai nội dung = chưa thanh toán.</p>
-
 
     <div class="qr-box">
       <img id="vietqr" src="" alt="QR Thanh toán" width="200" height="200">
@@ -169,7 +167,7 @@
     document.getElementById("ngaylap2").innerText = ngaylap;
 
     // Thông tin cơ bản
-    ["maphieu","maso","hoten","cccd","sdt","giagiam","kythanhtoan"].forEach(id=>{
+    ["maphieu","maso","hoten","cccd","sdt","giagiam"].forEach(id=>{
       if(document.getElementById(id)) document.getElementById(id).innerText = getParam(id);
     });
 
@@ -222,14 +220,24 @@
     const conlai = tongtien - giagiam;
     document.getElementById("conlai").innerText = formatNumber(conlai);
 
-    // Nội dung CK
-  const noidung = `${getParam("maphieu")}.${getParam("maso")} TT BILL TH ${getParam("kythanhtoan")}`;
-  document.getElementById("noidungck").innerText = noidung;
-  
-  // QR code
-  const qrUrl = `https://img.vietqr.io/image/vietinbank-007933227-compact2.png?amount=${conlai}&addInfo=${encodeURIComponent(noidung)}&accountName=${encodeURIComponent("Nguyen Canh Ly")}`;
-  document.getElementById("vietqr").src = qrUrl;
+    // Thông tin CK
+    const tentaikhoan = getParam("tentaikhoan");
+    const sotaikhoan = getParam("sotaikhoan");
+    const nganhang = getParam("nganhang");
+    const sdtnh = getParam("sdt");
 
+    document.getElementById("tentaikhoan").innerText = tentaikhoan;
+    document.getElementById("sotaikhoan").innerText = sotaikhoan;
+    document.getElementById("nganhang").innerText = nganhang;
+    document.getElementById("sdtnh").innerText = sdtnh;
+
+    // Nội dung CK
+    const noidung = `TT phong ${getParam("maso")} - ${getParam("hoten")}`;
+    document.getElementById("noidungck").innerText = noidung;
+
+    // QR code
+    const qrUrl = `https://img.vietqr.io/image/${nganhang.toLowerCase()}-${sotaikhoan}-compact2.png?amount=${conlai}&addInfo=${encodeURIComponent(noidung)}&accountName=${encodeURIComponent(tentaikhoan)}`;
+    document.getElementById("vietqr").src = qrUrl;
   </script>
 </body>
 </html>
