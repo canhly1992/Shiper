@@ -14,6 +14,7 @@
       line-height: 20px;
     }
     h2 { text-align: center; margin: 5px 0; }
+    .sub-header { text-align: center; margin: 0; font-size: 13px; }
     p { margin: 3px 0; }
     table {
       width: 100%;
@@ -51,16 +52,14 @@
 <body>
   <div class="invoice-box">
     <h2>PHIẾU THU TIỀN PHÒNG</h2>
-    <p>Địa chỉ: 122 Nơ Trang Long, Bình Thạnh, TP.HCM</p>
-    <p>Liên hệ: 0866.182.134 (Zalo/WhatsApp)</p>
+    <p class="sub-header">Địa chỉ: 122 Nơ Trang Long, Bình Thạnh, TP.HCM</p>
+    <p class="sub-header">Liên hệ: 0866.182.134 (Zalo/WhatsApp)</p>
     <p>Mã phiếu: <span id="maphieu"></span> &nbsp;|&nbsp; Ngày lập: <span id="ngaylap"></span></p>
 
     <p><strong>Mã phòng:</strong> <span id="maso"></span></p>
     <p><strong>Họ tên:</strong> <span id="hoten"></span></p>
-    <p><strong>Tên TK:</strong> <span id="tentaikhoan"></span></p>
-    <p><strong>Ngân hàng:</strong> <span id="nganhang"></span></p>
+    <p><strong>CCCD/Passport:</strong> <span id="cccd"></span></p>
     <p><strong>Số điện thoại:</strong> <span id="sdt"></span></p>
-    <p><strong>Số TK:</strong> <span id="sotaikhoan"></span></p>
 
     <!-- Dịch vụ khác -->
     <h3>Các dịch vụ khác</h3>
@@ -115,9 +114,10 @@
 
     <!-- Thông tin CK -->
     <p><strong>Thông tin chuyển khoản:</strong></p>
-    <p>Chủ tài khoản: <span id="tentaikhoan"></span></p>
-    <p>Số tài khoản: <span id="sotaikhoan"></span></p>
-    <p>Ngân hàng: <span id="nganhang"></span></p>
+    <p>Chủ tài khoản: Nguyen Cảnh Lý</p>
+    <p>Số tài khoản: 007933227</p>
+    <p>Ngân hàng: VIB</p>
+    <p>Số điện thoại: 0362521992</p>
     <p>Nội dung CK: <span id="noidungck"></span></p>
     <p style="color:red">Lưu ý: Vui lòng nhập đúng nội dung CK. Sai nội dung = chưa thanh toán.</p>
 
@@ -145,14 +145,13 @@
       return Number(num).toLocaleString("vi-VN");
     }
 
-    // Ngày hiện tại
-    const today = new Date();
-    const dateStr = today.getDate()+"/"+(today.getMonth()+1)+"/"+today.getFullYear();
-    document.getElementById("ngaylap").innerText = dateStr;
-    document.getElementById("ngaylap2").innerText = dateStr;
+    // Ngày lập lấy từ param
+    const ngaylap = getParam("ngaylap") || "";
+    document.getElementById("ngaylap").innerText = ngaylap;
+    document.getElementById("ngaylap2").innerText = ngaylap;
 
-    // Dữ liệu cơ bản
-    ["maphieu","maso","hoten","tentaikhoan","nganhang","sdt","sotaikhoan","giagiam"].forEach(id=>{
+    // Thông tin cơ bản
+    ["maphieu","maso","hoten","cccd","sdt","giagiam"].forEach(id=>{
       if(document.getElementById(id)) document.getElementById(id).innerText = getParam(id);
     });
 
@@ -209,14 +208,9 @@
     const noidung = `TT phong ${getParam("maso")} - ${getParam("hoten")}`;
     document.getElementById("noidungck").innerText = noidung;
 
-    // QR code
-    const bank = getParam("nganhang");
-    const account = getParam("sotaikhoan");
-    const name = getParam("tentaikhoan");
-    if (bank && account) {
-      const qrUrl = `https://img.vietqr.io/image/${bank}-${account}-compact2.png?amount=${conlai}&addInfo=${encodeURIComponent(noidung)}&accountName=${encodeURIComponent(name)}`;
-      document.getElementById("vietqr").src = qrUrl;
-    }
+    // QR code (fix cố định tài khoản)
+    const qrUrl = `https://img.vietqr.io/image/vietinbank-007933227-compact2.png?amount=${conlai}&addInfo=${encodeURIComponent(noidung)}&accountName=${encodeURIComponent("Nguyen Canh Ly")}`;
+    document.getElementById("vietqr").src = qrUrl;
   </script>
 </body>
 </html>
