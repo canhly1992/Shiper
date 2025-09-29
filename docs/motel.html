@@ -127,10 +127,10 @@
 
     <!-- Thông tin CK -->
     <p><strong>Thông tin chuyển khoản:</strong></p>
-    <p>Chủ tài khoản: <span id="tentaikhoan"></span></p>
-    <p>Số tài khoản: <span id="sotaikhoan"></span></p>
-    <p>Ngân hàng: <span id="nganhang"></span></p>
-    <p>Số điện thoại: <span id="sdtnh"></span></p>
+    <p>Chủ tài khoản: Nguyen Cảnh Lý</p>
+    <p>Số tài khoản: 007933227</p>
+    <p>Ngân hàng: VIB</p>
+    <p>Số điện thoại: 0362521992</p>
     <p>Nội dung CK: <span id="noidungck"></span></p>
     <p style="color:red">Lưu ý: Vui lòng nhập đúng nội dung CK. Sai nội dung = chưa thanh toán.</p>
 
@@ -220,23 +220,12 @@
     const conlai = tongtien - giagiam;
     document.getElementById("conlai").innerText = formatNumber(conlai);
 
-    // Thông tin CK
-    const tentaikhoan = getParam("tentaikhoan");
-    const sotaikhoan = getParam("sotaikhoan");
-    const nganhang = getParam("nganhang");
-    const sdtnh = getParam("sdt");
-
-    document.getElementById("tentaikhoan").innerText = tentaikhoan;
-    document.getElementById("sotaikhoan").innerText = sotaikhoan;
-    document.getElementById("nganhang").innerText = nganhang;
-    document.getElementById("sdtnh").innerText = sdtnh;
-
     // Nội dung CK
     const noidung = `TT phong ${getParam("maso")} - ${getParam("hoten")}`;
     document.getElementById("noidungck").innerText = noidung;
 
     // QR code
-    const qrUrl = `https://img.vietqr.io/image/${nganhang.toLowerCase()}-${sotaikhoan}-compact2.png?amount=${conlai}&addInfo=${encodeURIComponent(noidung)}&accountName=${encodeURIComponent(tentaikhoan)}`;
+    const qrUrl = `https://img.vietqr.io/image/vietinbank-007933227-compact2.png?amount=${conlai}&addInfo=${encodeURIComponent(noidung)}&accountName=${encodeURIComponent("Nguyen Canh Ly")}`;
     document.getElementById("vietqr").src = qrUrl;
   </script>
 </body>
