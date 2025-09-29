@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Phiếu thu tiền phòng</title>
+  <title>Biên lai thanh toán phòng</title>
   <style>
     body { font-family: Arial, sans-serif; margin: 20px; }
     .invoice-box {
@@ -11,179 +11,160 @@
       border: 1px solid #000;
       padding: 20px;
       font-size: 14px;
-      line-height: 20px;
+      line-height: 22px;
     }
-    h2 { text-align: center; margin: 5px 0; }
-    p { margin: 3px 0; }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-      font-size: 14px;
-    }
-    table, th, td {
+    h2 { text-align: center; margin-bottom: 10px; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+    table th, table td {
       border: 1px solid #000;
-    }
-    th, td {
       padding: 6px;
       text-align: center;
     }
-    .summary {
-      margin-top: 10px;
+    table th { background: #f2f2f2; }
+    .right { text-align: right; }
+    .total {
+      font-weight: bold;
+      font-size: 16px;
       text-align: right;
     }
-    .qr-box {
-      text-align: center;
-      margin-top: 15px;
-    }
-    .footer {
-      margin-top: 30px;
-      display: flex;
-      justify-content: space-between;
-      font-size: 13px;
-    }
-    .footer .sign {
-      text-align: center;
-      width: 200px;
-    }
+    .qr { text-align: center; margin-top: 20px; }
   </style>
 </head>
 <body>
   <div class="invoice-box">
-    <h2>PHIẾU THU TIỀN PHÒNG</h2>
-    <p>Địa chỉ: 122 Nơ Trang Long, Bình Thạnh, TP.HCM</p>
-    <p>Liên hệ: 0866.182.134 (Zalo/WhatsApp)</p>
-    <p>Mã phiếu: <span id="maphieu"></span> &nbsp;|&nbsp; Ngày lập: <span id="ngaylap"></span></p>
+    <h2>BIÊN LAI THANH TOÁN PHÒNG</h2>
 
-    <p><strong>Mã phòng:</strong> <span id="maso"></span></p>
-    <p><strong>Họ tên:</strong> <span id="hoten"></span></p>
-    <p><strong>Tên TK:</strong> <span id="tentaikhoan"></span></p>
-    <p><strong>Ngân hàng:</strong> <span id="nganhang"></span></p>
-    <p><strong>Số điện thoại:</strong> <span id="sdt"></span></p>
-    <p><strong>Số TK:</strong> <span id="sotaikhoan"></span></p>
+    <p><b>Họ tên khách:</b> <span id="hoten"></span></p>
+    <p><b>Mã phòng:</b> <span id="maphong"></span></p>
+    <p><b>Số tài khoản:</b> <span id="sotaikhoan"></span></p>
 
-    <!-- Dịch vụ khác -->
-    <h3>Các dịch vụ khác</h3>
-    <table>
-      <tr>
-        <th>Dịch vụ</th><th>Số lượng</th><th>Đơn giá</th><th>Thành tiền</th><th>Ghi chú</th>
-      </tr>
-      <tr><td>Internet</td><td>1</td><td id="tieninternet"></td><td id="tieninternet"></td><td></td></tr>
-      <tr><td>Phí rác</td><td>1</td><td id="rac"></td><td id="rac"></td><td></td></tr>
-      <tr><td>Gửi xe</td><td id="soluongxe"></td><td id="phixe"></td><td id="tongphixe"></td><td></td></tr>
-      <tr><td>Chi phí khác</td><td>1</td><td id="chiphipkhac"></td><td id="chiphipkhac"></td><td></td></tr>
+    <h3>Chi tiết dịch vụ</h3>
+    <table id="services">
+      <thead>
+        <tr>
+          <th>Dịch vụ</th>
+          <th>Số lượng</th>
+          <th>Đơn giá</th>
+          <th>Thành tiền</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
     </table>
 
-    <!-- Tiền điện -->
-    <h3>Tiền điện</h3>
-    <table>
-      <tr>
-        <th>Dịch vụ</th><th>Chỉ số cũ</th><th>Chỉ số mới</th><th>Số lượng (kWh)</th><th>Đơn giá</th><th>Thành tiền</th><th>Ghi chú</th>
-      </tr>
-      <tr>
-        <td>Điện</td>
-        <td id="sodiencu"></td>
-        <td id="sodienmoi"></td>
-        <td id="sodienluong"></td>
-        <td id="giadien"></td>
-        <td id="tongtiendien"></td>
-        <td></td>
-      </tr>
+    <h3>Điện</h3>
+    <table id="dien">
+      <thead>
+        <tr>
+          <th>Chỉ số cũ</th>
+          <th>Chỉ số mới</th>
+          <th>Số tiêu thụ</th>
+          <th>Đơn giá</th>
+          <th>Thành tiền</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
     </table>
 
-    <!-- Tiền nước -->
-    <h3>Tiền nước</h3>
-    <table>
-      <tr>
-        <th>Dịch vụ</th><th>Chỉ số cũ</th><th>Chỉ số mới</th><th>Số lượng (m³)</th><th>Đơn giá</th><th>Thành tiền</th><th>Ghi chú</th>
-      </tr>
-      <tr>
-        <td>Nước</td>
-        <td id="sonuoccu"></td>
-        <td id="sonuocmoi"></td>
-        <td id="sonuocluong"></td>
-        <td id="gianuoc"></td>
-        <td id="tongtiennuoc"></td>
-        <td></td>
-      </tr>
+    <h3>Nước</h3>
+    <table id="nuoc">
+      <thead>
+        <tr>
+          <th>Chỉ số cũ</th>
+          <th>Chỉ số mới</th>
+          <th>Số tiêu thụ</th>
+          <th>Đơn giá</th>
+          <th>Thành tiền</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
     </table>
 
-    <!-- Tổng hợp -->
-    <div class="summary">
-      <p><strong>Tổng cộng:</strong> <span id="tongtien"></span> VND</p>
-      <p><strong>Giảm giá:</strong> <span id="giagiam"></span> VND</p>
-      <p><strong>Còn lại:</strong> <span id="conlai"></span> VND</p>
-    </div>
+    <p class="total">TỔNG CỘNG: <span id="tongcong"></span> VNĐ</p>
 
-    <!-- Thông tin CK -->
-    <p><strong>Thông tin chuyển khoản:</strong></p>
-    <p>Chủ tài khoản: <span id="tentaikhoan"></span></p>
-    <p>Số tài khoản: <span id="sotaikhoan"></span></p>
-    <p>Ngân hàng: <span id="nganhang"></span></p>
-    <p>Nội dung CK: <span id="noidungck"></span></p>
-    <p style="color:red">Lưu ý: Vui lòng nhập đúng nội dung CK. Sai nội dung = chưa thanh toán.</p>
-
-    <div class="qr-box">
-      <img id="vietqr" src="" alt="QR Thanh toán" width="200" height="200">
-    </div>
-
-    <div class="footer">
-      <div></div>
-      <div class="sign">
-        <p>Ngày <span id="ngaylap2"></span></p>
-        <p><em>Người lập phiếu</em></p>
-        <br><br>
-        <p><strong>Vũ Cao Long</strong></p>
-      </div>
+    <div class="qr">
+      <h3>QR Thanh toán</h3>
+      <img id="qrcode" alt="QR Code">
     </div>
   </div>
 
   <script>
-    function getParam(param) {
-      return new URLSearchParams(window.location.search).get(param) || "";
+    function getParams() {
+      const params = new URLSearchParams(window.location.search);
+      return {
+        hoten: params.get("hoten") || "Nguyễn Văn A",
+        maphong: params.get("maphong") || "101",
+        sotaikhoan: params.get("sotaikhoan") || "123456789",
+        services: JSON.parse(params.get("services") || '[["Tiền phòng",1,2000000]]'),
+        dien: JSON.parse(params.get("dien") || '[[100,150,5,3500]]'),
+        nuoc: JSON.parse(params.get("nuoc") || '[[20,30,10,7000]]'),
+        qrdata: params.get("qrdata") || "00020101021138560010A0000007270123000697041500015204381253037045802VN5907Nguyen Te6009Ho Chi Minh63041D0C"
+      };
     }
 
-    // Lấy ngày hiện tại
-    const today = new Date();
-    const dateStr = today.getDate()+"/"+(today.getMonth()+1)+"/"+today.getFullYear();
-
-    // Gán dữ liệu
-    const fields = ["maphieu","maso","hoten","tentaikhoan","nganhang","sdt","sotaikhoan",
-      "tieninternet","rac","soluongxe","phixe","tongphixe","chiphipkhac",
-      "sodiencu","sodienmoi","giadien","tongtiendien","sonuoccu","sonuocmoi","gianuoc","tongtiennuoc",
-      "tongtien","giagiam","conlai"];
-    fields.forEach(id => {
-      if(document.getElementById(id)){
-        document.getElementById(id).innerText = getParam(id);
-      }
-    });
-
-    // Tính số lượng điện, nước
-    const diencu = Number(getParam("sodiencu"));
-    const dienmoi = Number(getParam("sodienmoi"));
-    document.getElementById("sodienluong").innerText = (dienmoi - diencu);
-
-    const nuoccu = Number(getParam("sonuoccu"));
-    const nuocmoi = Number(getParam("sonuocmoi"));
-    document.getElementById("sonuocluong").innerText = (nuocmoi - nuoccu);
-
-    // Ngày lập
-    document.getElementById("ngaylap").innerText = dateStr;
-    document.getElementById("ngaylap2").innerText = dateStr;
-
-    // Nội dung CK
-    const noidung = `TT phong ${getParam("maso")} - ${getParam("hoten")}`;
-    document.getElementById("noidungck").innerText = noidung;
-
-    // QR code
-    const bank = getParam("nganhang");
-    const account = getParam("sotaikhoan");
-    const name = getParam("tentaikhoan");
-    const amount = getParam("conlai");
-    if (bank && account) {
-      const qrUrl = `https://img.vietqr.io/image/${bank}-${account}-compact2.png?amount=${amount}&addInfo=${encodeURIComponent(noidung)}&accountName=${encodeURIComponent(name)}`;
-      document.getElementById("vietqr").src = qrUrl;
+    function formatCurrency(num) {
+      return num.toLocaleString("vi-VN");
     }
+
+    function render() {
+      const p = getParams();
+      document.getElementById("hoten").textContent = p.hoten;
+      document.getElementById("maphong").textContent = p.maphong;
+      document.getElementById("sotaikhoan").textContent = p.sotaikhoan;
+
+      let tong = 0;
+
+      // Services
+      const sbody = document.querySelector("#services tbody");
+      p.services.forEach(s => {
+        const [name, qty, price] = s;
+        const total = qty * price;
+        tong += total;
+        sbody.innerHTML += `<tr>
+          <td>${name}</td>
+          <td>${qty}</td>
+          <td class="right">${formatCurrency(price)}</td>
+          <td class="right">${formatCurrency(total)}</td>
+        </tr>`;
+      });
+
+      // Điện
+      const dbody = document.querySelector("#dien tbody");
+      p.dien.forEach(d => {
+        const [oldIndex, newIndex, used, price] = d;
+        const total = used * price;
+        tong += total;
+        dbody.innerHTML += `<tr>
+          <td>${oldIndex}</td>
+          <td>${newIndex}</td>
+          <td>${used}</td>
+          <td class="right">${formatCurrency(price)}</td>
+          <td class="right">${formatCurrency(total)}</td>
+        </tr>`;
+      });
+
+      // Nước
+      const nbody = document.querySelector("#nuoc tbody");
+      p.nuoc.forEach(n => {
+        const [oldIndex, newIndex, used, price] = n;
+        const total = used * price;
+        tong += total;
+        nbody.innerHTML += `<tr>
+          <td>${oldIndex}</td>
+          <td>${newIndex}</td>
+          <td>${used}</td>
+          <td class="right">${formatCurrency(price)}</td>
+          <td class="right">${formatCurrency(total)}</td>
+        </tr>`;
+      });
+
+      document.getElementById("tongcong").textContent = formatCurrency(tong);
+
+      // QR code
+      document.getElementById("qrcode").src =
+        "https://img.vietqr.io/image/970415-000000000001-compact2.png?amount=" + tong + "&addInfo=Thanh+toan+Phong+" + encodeURIComponent(p.maphong);
+    }
+
+    render();
   </script>
 </body>
 </html>
