@@ -28,46 +28,28 @@
       margin-top: 10px;
       font-size: 14px;
     }
-    table, th, td {
-      border: 1px solid #000;
-    }
-    th, td {
-      padding: 6px;
-      text-align: center;
-    }
-    h3 {
-      text-align: center;
-      margin-top: 20px;
-    }
-    .summary {
-      margin-top: 10px;
-      text-align: right;
-    }
-    .qr-box {
-      text-align: center;
-      margin-top: 15px;
-    }
+    table, th, td { border: 1px solid #000; }
+    th, td { padding: 6px; text-align: center; }
+    h3 { text-align: center; margin-top: 20px; }
+    .summary { margin-top: 10px; text-align: right; }
+    .qr-box { text-align: center; margin-top: 15px; }
     .footer {
       margin-top: 30px;
       display: flex;
       justify-content: space-between;
       font-size: 13px;
     }
-    .footer .sign {
-      text-align: center;
-      width: 200px;
-    }
-    /* Thông tin CK bảng đẹp */
+    .footer .sign { text-align: center; width: 200px; }
+    /* Bảng thông tin CK */
     .ck-table {
-      width:100%;
-      border-collapse:collapse;
-      margin-top:12px;
+      width:100%; border-collapse:collapse; margin-top:12px;
     }
     .ck-table td {
-      border:1px solid #000;
-      padding:8px;
+      border:1px solid #000; padding:8px;
     }
-    .ck-table td.label { width:28%; font-weight:600; background:#f7f7f7; text-align:left; }
+    .ck-table td.label {
+      width:28%; font-weight:600; background:#f7f7f7; text-align:left;
+    }
     .ck-note { color:red; font-size:13px; margin-top:6px; }
   </style>
 </head>
@@ -87,27 +69,20 @@
       <p><strong>Số điện thoại khách thuê:</strong> <span id="sdt"></span></p>
     </div>
 
-    <!-- Dịch vụ khác (có thêm Tổng tiền phòng ở đầu) -->
+    <!-- Dịch vụ khác -->
     <h3>Các dịch vụ khác</h3>
     <table>
       <tr>
         <th>Dịch vụ</th><th>Số lượng</th><th>Đơn giá</th><th>Thành tiền</th>
       </tr>
-      <!-- Dòng mới: Tổng tiền phòng -->
-      <tr>
-        <td class="left">Tổng tiền phòng</td>
-        <td>1</td>
-        <td id="tongtienphong_unit">0</td>
-        <td id="tongtienphong_total">0</td>
-      </tr>
-
+      <tr><td class="left">Tổng tiền phòng</td><td>1</td><td id="tongtienphong_unit">0</td><td id="tongtienphong_total">0</td></tr>
       <tr><td>Internet</td><td>1</td><td id="tieninternet">0</td><td id="thanhtieninternet">0</td></tr>
       <tr><td>Phí rác</td><td>1</td><td id="rac">0</td><td id="thanhtienrac">0</td></tr>
       <tr><td>Gửi xe</td><td id="soluongxe">0</td><td id="phixe">0</td><td id="tongphixe">0</td></tr>
       <tr><td>Chi phí khác</td><td>1</td><td id="chiphipkhac">0</td><td id="thanhtienkhac">0</td></tr>
     </table>
 
-    <!-- Tiền điện -->
+    <!-- Điện -->
     <h3>Tiền điện</h3>
     <table>
       <tr>
@@ -123,7 +98,7 @@
       </tr>
     </table>
 
-    <!-- Tiền nước -->
+    <!-- Nước -->
     <h3>Tiền nước</h3>
     <table>
       <tr>
@@ -146,25 +121,13 @@
       <p><strong>Còn lại:</strong> <span id="conlai"></span> VND</p>
     </div>
 
-    <!-- Thông tin CK (bảng đẹp, đã bỏ SĐT) -->
+    <!-- CK -->
     <h3 style="margin-top:18px;">Thông tin chuyển khoản</h3>
     <table class="ck-table">
-      <tr>
-        <td class="label">Chủ tài khoản</td>
-        <td id="tentaikhoan">NGUYEN CANH LY</td>
-      </tr>
-      <tr>
-        <td class="label">Số tài khoản</td>
-        <td id="sotaikhoan">007933227</td>
-      </tr>
-      <tr>
-        <td class="label">Ngân hàng</td>
-        <td id="nganhang">VIB</td>
-      </tr>
-      <tr>
-        <td class="label">Nội dung CK</td>
-        <td id="noidungck">TT BILL 122.TUHOA.503 Kỳ 9</td>
-      </tr>
+      <tr><td class="label">Chủ tài khoản</td><td id="tentaikhoan">NGUYEN CANH LY</td></tr>
+      <tr><td class="label">Số tài khoản</td><td id="sotaikhoan">007933227</td></tr>
+      <tr><td class="label">Ngân hàng</td><td id="nganhang">VIB</td></tr>
+      <tr><td class="label">Nội dung CK</td><td id="noidungck"></td></tr>
     </table>
     <p class="ck-note"><em>Lưu ý: Vui lòng nhập đúng <strong>Nội dung CK</strong>. Sai nội dung = chưa thanh toán.</em></p>
 
@@ -192,40 +155,39 @@
       return n.toLocaleString('vi-VN');
     }
 
-    // Header (Địa chỉ nhà, SĐT người cho thuê)
+    // Header
     document.getElementById("diachi").innerText = getParam("diachi");
     document.getElementById("sdtchothue").innerText = getParam("sdtchothue");
-
-    // Ngày lập
     const ngaylap = getParam("ngaylap");
     document.getElementById("ngaylap").innerText = ngaylap;
     document.getElementById("ngaylap2").innerText = ngaylap;
-
-    // Thông tin cơ bản
     ["maphieu","maso","hoten","cccd","sdt","kythanhtoan"].forEach(id=>{
       if(document.getElementById(id)) document.getElementById(id).innerText = getParam(id);
     });
 
-    // Lấy tiền phòng (mới) và điền vào đầu bảng
+    // Tiền phòng
     const tongtienphong = Number(getParam("tongtienphong")) || 0;
     document.getElementById("tongtienphong_unit").innerText = formatNumber(tongtienphong);
     document.getElementById("tongtienphong_total").innerText = formatNumber(tongtienphong);
 
-    // Dịch vụ khác
+    // Internet
     const tieninternet = Number(getParam("tieninternet")) || 0;
     document.getElementById("tieninternet").innerText = formatNumber(tieninternet);
     document.getElementById("thanhtieninternet").innerText = formatNumber(tieninternet);
 
+    // Rác
     const rac = Number(getParam("rac")) || 0;
     document.getElementById("rac").innerText = formatNumber(rac);
     document.getElementById("thanhtienrac").innerText = formatNumber(rac);
 
+    // Xe
     const soluongxe = Number(getParam("soluongxe")) || 0;
     const phixe = Number(getParam("phixe")) || 0;
     document.getElementById("soluongxe").innerText = soluongxe;
     document.getElementById("phixe").innerText = formatNumber(phixe);
     document.getElementById("tongphixe").innerText = formatNumber(soluongxe * phixe);
 
+    // Chi phí khác
     const chiphipkhac = Number(getParam("chiphipkhac")) || 0;
     document.getElementById("chiphipkhac").innerText = formatNumber(chiphipkhac);
     document.getElementById("thanhtienkhac").innerText = formatNumber(chiphipkhac);
@@ -252,35 +214,30 @@
     document.getElementById("gianuoc").innerText = formatNumber(gianuoc);
     document.getElementById("tongtiennuoc").innerText = formatNumber(sonuocluong * gianuoc);
 
-    // Tổng cộng (bao gồm tiền phòng)
+    // Tổng cộng
     const tongtien = tongtienphong + tieninternet + rac + (soluongxe * phixe) + chiphipkhac + (sodienluong * giadien) + (sonuocluong * gianuoc);
     document.getElementById("tongtien").innerText = formatNumber(tongtien);
 
-    // Giảm giá & còn lại (format số có dấu)
+    // Giảm giá & còn lại
     const giagiam = Number(getParam("giagiam")) || 0;
     const conlai = tongtien - giagiam;
     document.getElementById("giagiam").innerText = formatNumber(giagiam);
     document.getElementById("conlai").innerText = formatNumber(conlai);
 
-    // Thông tin CK (dynamic; đã bỏ SĐT theo yêu cầu)
-    const tentaikhoan = getParam("tentaikhoan") || "";
-    const sotaikhoan = getParam("sotaikhoan") || "";
-    const nganhang = getParam("nganhang") || "";
-
+    // CK
+    const tentaikhoan = getParam("tentaikhoan") || "NGUYEN CANH LY";
+    const sotaikhoan = getParam("sotaikhoan") || "007933227";
+    const nganhang = getParam("nganhang") || "VIB";
     document.getElementById("tentaikhoan").innerText = tentaikhoan;
     document.getElementById("sotaikhoan").innerText = sotaikhoan;
     document.getElementById("nganhang").innerText = nganhang;
 
-    // Nội dung CK theo format: <Mã phiếu>.<Mã phòng> TT BILL TH <Kỳ thanh toán>
-    const map = getParam("maphieu") || "";
-    const room = getParam("maso") || "";
-    const kyth = getParam("kythanhtoan") || "";
-    const noidung = `${map}.${room} TT BILL TH ${kyth}`.trim();
+    // Nội dung CK
+    const noidung = `${getParam("maphieu")}.${getParam("maso")} TT BILL TH ${getParam("kythanhtoan")}`;
     document.getElementById("noidungck").innerText = noidung;
 
-    // QR code (dùng ngân hàng, số tài khoản, tên tài khoản)
-    const bankForQr = nganhang.toLowerCase();
-    const qrUrl = `https://img.vietqr.io/image/${bankForQr}-${sotaikhoan}-compact2.png?amount=${conlai}&addInfo=${encodeURIComponent(noidung)}&accountName=${encodeURIComponent(tentaikhoan)}`;
+    // QR code
+    const qrUrl = `https://img.vietqr.io/image/${nganhang.toLowerCase()}-${sotaikhoan}-compact2.png?amount=${conlai}&addInfo=${encodeURIComponent(noidung)}&accountName=${encodeURIComponent(tentaikhoan)}`;
     document.getElementById("vietqr").src = qrUrl;
   </script>
 </body>
