@@ -164,7 +164,7 @@
   </div>
 
   <div class="service-number">
-    <b>Service Request Number / Mã số đơn hàng:</b> <span id="madh">________</span>
+    <b>Service Request Number / Mã số đơn hàng:</b> <span id="madh"></span>
   </div>
 
   <h1>CUSTOMER SERVICE REPORT / BÁO CÁO DỊCH VỤ KHÁCH HÀNG</h1>
@@ -185,15 +185,18 @@
       <td>
         <b>Mã hàng / Product Code:</b><br><div class="dotted"><span id="mahang"></span></div>
         <b>Số máy / Serial No.:</b><br><div class="dotted"><span id="somay"></span></div>
+        <b>Số hiệu / Model No.:</b><br><div class="dotted"><span id="sohieu"></span></div>
       </td>
       <td>
         <b>Ngày bắt đầu / Start Date:</b><br><div class="dotted"><span id="batdau"></span></div>
         <b>Ngày kết thúc / End Date:</b><br><div class="dotted"><span id="ketthuc"></span></div>
+        <b>Hãng sản xuất / Manufacturer:</b><br><div class="dotted"><span id="hangsx"></span></div>
       </td>
     </tr>
     <tr>
       <td>
         <b>Tổng quát / Overview:</b><br><div class="dotted"><span id="tongquat"></span></div>
+        <b>Mô tả hàng hoá / Product Description:</b><br><div class="dotted"><span id="mota"></span></div>
       </td>
       <td>
         <b>Thời gian di chuyển & Khoảng cách / Travel Time & Distance:</b><br><div class="dotted"><span id="khoangcach"></span></div>
@@ -235,7 +238,8 @@
   const fields = [
     "madh","tencty","diachicty","lienhe","dienthoai",
     "mahang","somay","loaidv","batdau","ketthuc",
-    "tongquat","khoangcach","tinhtrang","dichvu","ghichu","kySu"
+    "tongquat","mota","sohieu","hangsx",
+    "khoangcach","tinhtrang","dichvu","ghichu","kySu"
   ];
   fields.forEach(id => setValue(id));
 
@@ -243,8 +247,11 @@
   for (let i = 1; i <= 9; i++) {
     const url = params.get("anh" + i);
     if (url) {
+      const fullUrl = decodeURIComponent(url).startsWith("http")
+        ? decodeURIComponent(url)
+        : `https://www.appsheet.com/template/gettablefileurl?appName=Qu%E1%BA%A3nl%C3%BDd%E1%BB%8Bchv%E1%BB%A5-300959436&tableName=Th%C3%B4ng%20tin%20chung&fileName=${decodeURIComponent(url)}`;
       const img = document.createElement("img");
-      img.src = decodeURIComponent(url);
+      img.src = fullUrl;
       img.alt = "Image " + i;
       imgContainer.appendChild(img);
     }
