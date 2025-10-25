@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Customer Service Report 1</title>
+<title>Customer Service Report / Báo cáo Dịch vụ Khách hàng</title>
 <style>
   @page { size: A4 portrait; margin: 15mm; }
   body {
@@ -31,7 +31,7 @@
   }
 
   .logo {
-    width: 85px;
+    width: 95px;
     height: auto;
     position: absolute;
     left: 0;
@@ -71,10 +71,10 @@
   }
 
   .service-number span {
-    border: 1px solid #000;
-    padding: 4px 10px;
+    border: none;
+    border-bottom: 1px dotted #000;
     display: inline-block;
-    min-width: 120px;
+    min-width: 130px;
   }
 
   h1 {
@@ -141,13 +141,17 @@
     padding: 3px;
     border-radius: 3px;
   }
+
+  @media print {
+    button { display: none; }
+  }
 </style>
 </head>
 <body>
 <div class="page">
 
   <div class="header">
-    <img src="https://kaspersky.nts.com.vn:8081/image/2018/3/3/100000_18(2).jpg" class="logo" alt="NTS Logo">
+    <img src="https://kaspersky.nts.com.vn:8081/image/2018/3/3/100000_18(2).jpg" class="logo" alt="Kaspersky Logo">
     <div class="company-info">
       <div class="line1">CÔNG TY CỔ PHẦN KHOA HỌC CÔNG NGHỆ MỚI</div>
       <div class="line2">NEW TECHNOLOGIES SCIENTIFIC CORPORATION</div>
@@ -160,10 +164,10 @@
   </div>
 
   <div class="service-number">
-    Service Request Number: <span id="madh">________</span>
+    <b>Service Request Number / Mã số đơn hàng:</b> <span id="madh">________</span>
   </div>
 
-  <h1>CUSTOMER SERVICE REPORT</h1>
+  <h1>CUSTOMER SERVICE REPORT / BÁO CÁO DỊCH VỤ KHÁCH HÀNG</h1>
 
   <table class="form">
     <tr>
@@ -179,7 +183,7 @@
     </tr>
     <tr>
       <td>
-        <b>Mã hàng / Product No.:</b><br><div class="dotted"><span id="mahang"></span></div>
+        <b>Mã hàng / Product Code:</b><br><div class="dotted"><span id="mahang"></span></div>
         <b>Số máy / Serial No.:</b><br><div class="dotted"><span id="somay"></span></div>
       </td>
       <td>
@@ -189,10 +193,10 @@
     </tr>
     <tr>
       <td>
-        <b>Mô tả hàng hoá / Product Description:</b><br><div class="dotted"><span id="mota"></span></div>
+        <b>Tổng quát / Overview:</b><br><div class="dotted"><span id="tongquat"></span></div>
       </td>
       <td>
-        <b>Thời gian di chuyển & Khoảng cách / Travel time & Distance:</b><br><div class="dotted"><span id="khoangcach"></span></div>
+        <b>Thời gian di chuyển & Khoảng cách / Travel Time & Distance:</b><br><div class="dotted"><span id="khoangcach"></span></div>
       </td>
     </tr>
   </table>
@@ -206,14 +210,14 @@
   <b>Ghi chú / Remark:</b>
   <div class="bigbox" id="ghichu"></div>
 
-  <b>Tên kỹ sư / Engineer:</b> <span id="kySu"></span>
+  <b>Tên kỹ sư / Engineer Name:</b> <span id="kySu"></span>
 
   <div id="images"></div>
 
   <div class="sign-row">
-    <div class="sign"><div class="sign-line">Customer Service Engineer Name</div></div>
-    <div class="sign"><div class="sign-line">Customer Signature</div></div>
-    <div class="sign"><div class="sign-line">Date</div></div>
+    <div class="sign"><div class="sign-line">Customer Service Engineer / Kỹ sư Dịch vụ</div></div>
+    <div class="sign"><div class="sign-line">Customer Signature / Khách hàng ký</div></div>
+    <div class="sign"><div class="sign-line">Date / Ngày</div></div>
   </div>
 </div>
 
@@ -231,9 +235,8 @@
   const fields = [
     "madh","tencty","diachicty","lienhe","dienthoai",
     "mahang","somay","loaidv","batdau","ketthuc",
-    "mota","khoangcach","tinhtrang","dichvu","ghichu","kySu"
+    "tongquat","khoangcach","tinhtrang","dichvu","ghichu","kySu"
   ];
-
   fields.forEach(id => setValue(id));
 
   const imgContainer = document.getElementById("images");
