@@ -16,7 +16,6 @@
     padding: 0;
   }
 
-  /* Nút chức năng */
   .toolbar {
     position: fixed;
     top: 10px;
@@ -50,7 +49,6 @@
     background: white;
   }
 
-  /* Watermark mờ giữa trang */
   .page::before {
     content: "";
     position: absolute;
@@ -164,7 +162,6 @@
     padding-top: 4px;
   }
 
-  /* PAGE 2 - HÌNH ẢNH */
   h2 {
     text-align: center;
     font-size: 18px;
@@ -212,7 +209,6 @@
   <button onclick="guiGmail()">📧 Gửi Gmail</button>
 </div>
 
-<!-- PAGE 1 -->
 <div class="page" id="report">
   <div class="header">
     <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSZOlj6J-4xEgwSYxcMdhX2u9Uc3xZerGGd6tbiK7yoQzi-WTTZ" class="logo" alt="Logo">
@@ -286,7 +282,6 @@
   </div>
 </div>
 
-<!-- PAGE 2 - HÌNH ẢNH -->
 <div class="page">
   <h2>HÌNH ẢNH / IMAGES</h2>
   <div class="images" id="images-page"></div>
@@ -295,7 +290,6 @@
 
 <script>
   const params = new URLSearchParams(window.location.search);
-
   function setValue(id) {
     const el = document.getElementById(id);
     if (el) el.textContent = params.get(id) ? decodeURIComponent(params.get(id)) : "";
@@ -309,7 +303,6 @@
   ];
   fields.forEach(setValue);
 
-  // HIỂN THỊ HÌNH ẢNH
   const imgContainer = document.getElementById("images-page");
   for (let i = 1; i <= 9; i++) {
     const file = params.get("anh" + i);
@@ -327,20 +320,67 @@
     }
   }
 
-  // TỰ LẤY EMAIL TỪ LINK
   const email = params.get("email") ? decodeURIComponent(params.get("email")) : "";
 
-  // GỬI EMAIL
+  // ✅ PHIÊN BẢN MỚI CỦA HÀM GỬI EMAIL
   function guiGmail() {
+    const lienhe = document.getElementById("lienhe").textContent || "";
+    const tencty = document.getElementById("tencty").textContent || "";
+    const madh = document.getElementById("madh").textContent || "";
+    const loaidv = document.getElementById("loaidv").textContent || "";
+    const hangsx = document.getElementById("hangsx").textContent || "";
+    const somay = document.getElementById("somay").textContent || "";
+    const diachicty = document.getElementById("diachicty").textContent || "";
+    const dienthoai = document.getElementById("dienthoai").textContent || "";
+    const mota = document.getElementById("mota").textContent || "";
+    const ketthuc = document.getElementById("ketthuc").textContent || "";
+    const kySu = document.getElementById("kySu").textContent || "";
+
     const to = email || "";
-    const subject = encodeURIComponent("Báo cáo dịch vụ khách hàng - " + (document.getElementById("madh").textContent || ""));
+    const subject = encodeURIComponent("Báo cáo dịch vụ khách hàng - " + madh);
+
     const body = encodeURIComponent(
-      "Kính gửi " + (document.getElementById("lienhe").textContent || "") + ",\n\n" +
-      "Đính kèm là báo cáo dịch vụ khách hàng.\n\n" +
-      "Thông tin công ty: " + (document.getElementById("tencty").textContent || "") + "\n" +
-      "Mã biên bản: " + (document.getElementById("madh").textContent || "") + "\n\n" +
-      "Trân trọng,\nNew Technologies Scientific Corporation"
+`Kính gửi ${lienhe},
+
+Công ty Cổ phần Khoa học Công nghệ Mới (NTSC) xin gửi đến Quý Công ty *${tencty}* báo cáo chi tiết về dịch vụ kỹ thuật đã thực hiện.
+
+─────── ✦ ───────
+📋 **THÔNG TIN CHUNG**
+🆔 Mã biên bản: ${madh}
+🧰 Loại dịch vụ: ${loaidv}
+🏭 Hãng sản xuất: ${hangsx}
+🔢 Số máy: ${somay}
+📍 Địa chỉ: ${diachicty}
+👤 Liên hệ: ${lienhe} - ☎️ ${dienthoai}
+
+─────── ✦ ───────
+🔧 **NỘI DUNG DỊCH VỤ**
+${mota ? "🛠️ " + mota : "🛠️ Công việc kiểm tra, bảo trì, xử lý kỹ thuật được thực hiện theo yêu cầu khách hàng."}
+
+─────── ✦ ───────
+📅 **THỜI GIAN & KỸ SƯ PHỤ TRÁCH**
+⏰ Hoàn thành: ${ketthuc || "Đang cập nhật"}
+👨‍🔧 Kỹ sư phụ trách: ${kySu}
+
+─────── ✦ ───────
+💬 **GHI CHÚ**
+Báo cáo này ghi nhận tiến độ, kết quả và chất lượng công việc do đội ngũ kỹ sư **NTSC** thực hiện.  
+Nếu Quý Công ty cần hỗ trợ, vui lòng phản hồi trực tiếp qua email này để được hỗ trợ nhanh chóng.
+
+─────── ✦ ───────
+🙏 **LỜI CẢM ƠN**
+Xin trân trọng cảm ơn Quý Công ty đã tin tưởng và hợp tác cùng:
+
+🏢 CÔNG TY CỔ PHẦN KHOA HỌC CÔNG NGHỆ MỚI (NTSC)  
+📍 130 Nguyễn Công Trứ, P. Nguyễn Thái Bình, Q.1, TP.HCM  
+☎️ Hotline: 097 222 0906 | 📧 admin@ntslab.net  
+🌐 https://newntslab.net/
+
+Trân trọng kính chào,  
+👨‍🔧 ${kySu}  
+Phòng Dịch vụ Kỹ thuật - NTSC`
     );
+
     window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
   }
 </script>
