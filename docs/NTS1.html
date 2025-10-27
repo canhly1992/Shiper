@@ -312,42 +312,35 @@
     font-family: "Times New Roman", Times, serif;
     font-size: 12px;
     color: #000;
+    background-color: #f8f9fb;
     -webkit-print-color-adjust: exact;
     margin: 0;
     padding: 0;
   }
 
   .page {
+    background: #fff;
     width: 210mm;
     min-height: 297mm;
     padding: 15mm 18mm;
     box-sizing: border-box;
-    position: relative;
+    margin: 10px auto;
+    box-shadow: 0 0 6px rgba(0,0,0,0.2);
     page-break-after: always;
   }
 
-  /* ===== WATERMARK ===== */
-  .watermark {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0.08;
-    z-index: 0;
-    width: 60%;
-  }
-
-  /* ===== HEADER ===== */
   .header {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 8px;
     position: relative;
+    border-bottom: 3px solid #0078d4;
+    padding-bottom: 5px;
   }
 
   .logo {
-    width: 90px;
+    width: 95px;
     height: auto;
     position: absolute;
     left: 0;
@@ -363,7 +356,7 @@
   .company-info .line2 {
     font-weight: bold;
     font-size: 13px;
-    color: #003366;
+    color: #004a8f;
   }
 
   .company-info .line3 {
@@ -379,7 +372,7 @@
     display: inline-block;
     width: 48%;
     text-align: center;
-    color: #003366;
+    color: #0078d4;
   }
 
   .service-number {
@@ -389,7 +382,6 @@
   }
 
   .service-number span {
-    border: none;
     border-bottom: 1px dotted #000;
     display: inline-block;
     min-width: 130px;
@@ -399,23 +391,19 @@
     text-align: center;
     font-size: 18px;
     margin: 10px 0 12px 0;
-    color: #003366;
-    border-bottom: 2px solid #003366;
-    padding-bottom: 4px;
+    color: #0078d4;
     letter-spacing: 0.5px;
   }
 
   table.form {
     width: 100%;
     border-collapse: collapse;
-    border: 1.2px solid #003366;
+    border: 1px solid #000;
     margin-bottom: 8px;
-    position: relative;
-    z-index: 1;
   }
 
   table.form td {
-    border: 1px solid #003366;
+    border: 1px solid #000;
     padding: 5px 6px;
     vertical-align: top;
   }
@@ -428,10 +416,11 @@
   }
 
   .bigbox {
-    border: 1px solid #003366;
+    border: 1px solid #000;
     min-height: 80px;
     padding: 5px;
     white-space: pre-wrap;
+    background-color: #f9fcff;
   }
 
   .sign-row {
@@ -447,48 +436,47 @@
   }
 
   .sign-line {
-    border-top: 1px solid #003366;
+    border-top: 1px solid #000;
     margin-top: 25px;
     padding-top: 4px;
   }
 
-  /* ===== PAGE 2 ===== */
+  /* PAGE 2 - HÌNH ẢNH */
   h2 {
     text-align: center;
     font-size: 18px;
     margin-top: 5px;
-    margin-bottom: 10px;
-    color: #003366;
-    border-bottom: 2px solid #003366;
-    padding-bottom: 4px;
+    margin-bottom: 15px;
+    color: #0078d4;
   }
 
   .images {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
+    gap: 12px;
     justify-items: center;
-    align-items: start;
-    margin-top: 15px;
-    z-index: 1;
-    position: relative;
-  }
-
-  .images img {
-    width: 95%;
-    max-width: 230px;
-    height: auto;
-    border-radius: 8px;
-    border: 1px solid #003366;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    margin-top: 20px;
   }
 
   .images div {
     text-align: center;
     font-size: 13px;
     font-weight: 500;
-    margin-top: 4px;
-    color: #003366;
+  }
+
+  .images img {
+    width: 90%;
+    max-width: 220px;
+    height: auto;
+    border-radius: 8px;
+    border: 2px solid #0078d4;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .images img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
   }
 
   footer {
@@ -498,36 +486,37 @@
     color: #777;
   }
 
-  /* ===== BUTTON ===== */
-  #printBtn {
-    position: fixed;
-    top: 15px;
-    right: 25px;
-    background-color: #003366;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    font-size: 13px;
-    cursor: pointer;
-    z-index: 9999;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  /* Nút gửi mail */
+  .actions {
+    text-align: center;
+    margin-top: 25px;
   }
-  #printBtn:hover { background-color: #0050aa; }
+
+  button {
+    background-color: #0078d4;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 13px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.25s;
+  }
+
+  button:hover {
+    background-color: #005fa3;
+  }
 
   @media print {
-    #printBtn { display: none; }
+    button, .actions { display: none; }
+    body { background: #fff; }
   }
 </style>
 </head>
 <body>
 
-<button id="printBtn" onclick="window.print()">🖨️ In báo cáo / Xuất PDF</button>
-
 <!-- PAGE 1 -->
 <div class="page">
-  <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSZOlj6J-4xEgwSYxcMdhX2u9Uc3xZerGGd6tbiK7yoQzi-WTTZ" class="watermark" alt="Watermark">
-
   <div class="header">
     <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSZOlj6J-4xEgwSYxcMdhX2u9Uc3xZerGGd6tbiK7yoQzi-WTTZ" class="logo" alt="Logo">
     <div class="company-info">
@@ -600,12 +589,15 @@
   </div>
 </div>
 
-<!-- PAGE 2 -->
+<!-- PAGE 2 - HÌNH ẢNH -->
 <div class="page">
-  <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSZOlj6J-4xEgwSYxcMdhX2u9Uc3xZerGGd6tbiK7yoQzi-WTTZ" class="watermark" alt="Watermark">
-  <h2>HÌNH ẢNH / IMAGES</h2>
+  <h2>HÌNH ẢNH THỰC TẾ / REAL IMAGES</h2>
   <div class="images" id="images-page"></div>
-  <footer>© 2025 NEW TECHNOLOGIES SCIENTIFIC CORPORATION</footer>
+
+  <div class="actions">
+    <button onclick="sendEmail()">📧 Gửi báo cáo qua Email</button>
+  </div>
+  <footer>© 2025 NEW TECHNOLOGIES SCIENTIFIC CORPORATION - All rights reserved.</footer>
 </div>
 
 <script>
@@ -627,6 +619,7 @@
   ];
   fields.forEach(id => setValue(id));
 
+  // PAGE 2 - HÌNH ẢNH
   const imgContainer = document.getElementById("images-page");
   for (let i = 1; i <= 9; i++) {
     const file = params.get("anh" + i);
@@ -642,9 +635,19 @@
       img.alt = "Image " + i;
       wrapper.appendChild(img);
       const label = document.createElement("div");
-      label.textContent = "Image " + i;
+      label.textContent = "Hình " + i;
       wrapper.appendChild(label);
       imgContainer.appendChild(wrapper);
+    }
+  }
+
+  // Nút gửi mail
+  function sendEmail() {
+    const email = prompt("Nhập địa chỉ Email người nhận:");
+    if (email) {
+      const subject = "Customer Service Report - " + (params.get("madh") || "");
+      const body = "Kính gửi Quý khách,\n\nĐính kèm báo cáo dịch vụ khách hàng.\n\nTrân trọng,\nNew Technologies Scientific Corporation.";
+      window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     }
   }
 </script>
