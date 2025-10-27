@@ -327,28 +327,61 @@
     }
   }
 
-  // TỰ LẤY EMAIL TỪ LINK
-  const email = params.get("email") ? decodeURIComponent(params.get("email")) : "";
-
-  // GỬI EMAIL
-  function guiGmail() {
-    const to = email || "";
-    const subject = encodeURIComponent("Báo cáo dịch vụ khách hàng - " + (document.getElementById("madh").textContent || ""));
-    const body = encodeURIComponent(
-      "Kính gửi " + (document.getElementById("lienhe").textContent || "") + ",\n\n" +
-      "Đính kèm là báo cáo dịch vụ khách hàng.\n\n" +
-      "Thông tin công ty: " + (document.getElementById("tencty").textContent || "") + "\n" +
-      "Mã biên bản: " + (document.getElementById("madh").textContent || "") + "\n\n" +
-      "Trân trọng,\nNew Technologies Scientific Corporation"
-    );
-    window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
-  }
-
   // === ĐỔI TIÊU ĐỀ TRANG ===
   const tencty = params.get("tencty") ? decodeURIComponent(params.get("tencty")) : "";
   const madh = params.get("madh") ? decodeURIComponent(params.get("madh")) : "";
   if (tencty || madh) {
     document.title = `${tencty}${tencty && madh ? " - " : ""}${madh}`;
+  }
+
+  // 🌟 GỬI EMAIL CHUYÊN NGHIỆP
+  const email = params.get("email") ? decodeURIComponent(params.get("email")) : "";
+
+  function guiGmail() {
+    const to = email || "";
+    const subject = encodeURIComponent(`${tencty} - Báo cáo dịch vụ khách hàng (${madh})`);
+    const lienhe = document.getElementById("lienhe").textContent || "";
+    const dienthoai = document.getElementById("dienthoai").textContent || "";
+    const diachicty = document.getElementById("diachicty").textContent || "";
+    const mota = document.getElementById("mota").textContent || "";
+    const ketthuc = document.getElementById("ketthuc").textContent || "";
+    const kySu = document.getElementById("kySu").textContent || "Kỹ sư phụ trách";
+
+    const body = encodeURIComponent(
+`Kính gửi ${lienhe},
+
+Chúng tôi xin gửi đến Quý Công ty **${tencty}** báo cáo chi tiết về dịch vụ kỹ thuật đã được thực hiện.
+
+─────────────────────────────
+📋 **Thông tin chung**
+• Mã báo cáo: ${madh}
+• Địa chỉ: ${diachicty}
+• Người liên hệ: ${lienhe}
+• Số điện thoại: ${dienthoai}
+
+─────────────────────────────
+🔧 **Nội dung công việc**
+${mota ? "• " + mota : "• Đã hoàn thành đầy đủ theo yêu cầu kỹ thuật."}
+
+─────────────────────────────
+📅 **Thời gian hoàn tất**: ${ketthuc || "Đã cập nhật đầy đủ"}
+👨‍🔧 **Người thực hiện**: ${kySu}
+
+─────────────────────────────
+🧾 **Ghi chú**
+Báo cáo này được lập nhằm xác nhận tiến độ và chất lượng dịch vụ mà đội ngũ kỹ thuật của chúng tôi đã thực hiện theo yêu cầu của Quý Khách hàng.
+
+Mọi ý kiến phản hồi hoặc hỗ trợ thêm, Quý Khách vui lòng liên hệ lại theo thông tin bên dưới để được hỗ trợ nhanh chóng.
+
+Trân trọng cảm ơn sự hợp tác của Quý Công ty!
+
+─────────────────────────────
+**CÔNG TY CỔ PHẦN KHOA HỌC CÔNG NGHỆ MỚI (NTSC)**
+Email: admin@ntslab.net | Hotline: 0909 999 999
+Địa chỉ: Tầng 6, 130 Nguyễn Công Trứ, Quận 1, TP. HCM
+─────────────────────────────`
+    );
+    window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
   }
 </script>
 </body>
