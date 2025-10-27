@@ -4,6 +4,10 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Customer Service Report</title>
+
+<!-- html2pdf.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
 <style>
   @page { size: A4 portrait; margin: 15mm; }
   body {
@@ -15,12 +19,52 @@
     padding: 0;
   }
 
+  /* Nút chức năng */
+  .toolbar {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 999;
+  }
+  .toolbar button {
+    background: #0057a3;
+    color: white;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+    transition: background 0.3s;
+  }
+  .toolbar button:hover { background: #0070d1; }
+  @media print { .toolbar { display: none; } }
+
   .page {
     width: 210mm;
     min-height: 297mm;
     padding: 15mm 18mm;
     box-sizing: border-box;
+    position: relative;
     page-break-after: always;
+    background: white;
+  }
+
+  /* Watermark */
+  .page::before {
+    content: "";
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    width: 350px;
+    height: 350px;
+    background: url('https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSZOlj6J-4xEgwSYxcMdhX2u9Uc3xZerGGd6tbiK7yoQzi-WTTZ') center/contain no-repeat;
+    opacity: 0.07;
+    transform: translate(-50%, -50%);
+    z-index: 0;
   }
 
   .header {
@@ -29,6 +73,8 @@
     justify-content: center;
     margin-bottom: 8px;
     position: relative;
+    border-bottom: 3px solid #0057a3;
+    padding-bottom: 8px;
   }
 
   .logo {
@@ -48,21 +94,7 @@
   .company-info .line2 {
     font-weight: bold;
     font-size: 13px;
-  }
-
-  .company-info .line3 {
-    margin-top: 3px;
-  }
-
-  .company-info .line4 {
-    margin-top: 2px;
-    font-size: 11.5px;
-  }
-
-  .company-info .line4 span {
-    display: inline-block;
-    width: 48%;
-    text-align: center;
+    color: #004a91;
   }
 
   .service-number {
@@ -70,7 +102,6 @@
     margin-top: 8px;
     font-size: 12px;
   }
-
   .service-number span {
     border: none;
     border-bottom: 1px dotted #000;
@@ -82,7 +113,7 @@
     text-align: center;
     font-size: 18px;
     margin: 10px 0 12px 0;
-    letter-spacing: 0.5px;
+    color: #004a91;
   }
 
   table.form {
@@ -90,6 +121,8 @@
     border-collapse: collapse;
     border: 1px solid #000;
     margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
   }
 
   table.form td {
@@ -110,12 +143,16 @@
     min-height: 80px;
     padding: 5px;
     white-space: pre-wrap;
+    position: relative;
+    z-index: 1;
   }
 
   .sign-row {
     display: flex;
     justify-content: space-between;
     margin-top: 18px;
+    position: relative;
+    z-index: 1;
   }
 
   .sign {
@@ -123,7 +160,6 @@
     text-align: center;
     font-size: 12px;
   }
-
   .sign-line {
     border-top: 1px solid #000;
     margin-top: 25px;
@@ -136,22 +172,22 @@
     font-size: 18px;
     margin-top: 5px;
     margin-bottom: 15px;
+    color: #004a91;
   }
 
   .images {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 12px;
     justify-items: center;
     margin-top: 20px;
   }
 
   .images img {
-    width: 90%;
+    width: 100%;
     max-width: 220px;
-    height: auto;
     border-radius: 8px;
-    border: 1px solid #ccc;
+    border: 2px solid #004a91;
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   }
 
@@ -167,16 +203,18 @@
     font-size: 11px;
     color: #777;
   }
-
-  @media print {
-    button { display: none; }
-  }
 </style>
 </head>
 <body>
 
+<div class="toolbar">
+  <button onclick="window.print()">🖨️ In Báo Cáo</button>
+  <button onclick="xuatPDF()">📄 Xuất PDF</button>
+  <button onclick="guiGmail()">📧 Gửi Gmail</button>
+</div>
+
 <!-- PAGE 1 -->
-<div class="page">
+<div class="page" id="report">
   <div class="header">
     <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSZOlj6J-4xEgwSYxcMdhX2u9Uc3xZerGGd6tbiK7yoQzi-WTTZ" class="logo" alt="Logo">
     <div class="company-info">
@@ -253,7 +291,7 @@
 <div class="page">
   <h2>HÌNH ẢNH / IMAGES</h2>
   <div class="images" id="images-page"></div>
-  <footer> </footer>
+  <footer></footer>
 </div>
 
 <script>
@@ -261,10 +299,7 @@
 
   function setValue(id) {
     const el = document.getElementById(id);
-    if (el) {
-      const val = params.get(id);
-      el.textContent = val ? decodeURIComponent(val) : "";
-    }
+    if (el) el.textContent = params.get(id) ? decodeURIComponent(params.get(id)) : "";
   }
 
   const fields = [
@@ -273,18 +308,14 @@
     "tongquat","mota","sohieu","hangsx",
     "khoangcach","tinhtrang","dichvu","ghichu","kySu"
   ];
-  fields.forEach(id => setValue(id));
+  fields.forEach(setValue);
 
-  // PAGE 2 - HÌNH ẢNH
+  // HIỂN THỊ HÌNH ẢNH
   const imgContainer = document.getElementById("images-page");
   for (let i = 1; i <= 9; i++) {
     const file = params.get("anh" + i);
     if (file) {
-      const fullUrl =
-        "https://www.appsheet.com/template/gettablefileurl?" +
-        "appName=Qu%E1%BA%A3nl%C3%BDd%E1%BB%8Bchv%E1%BB%A5-300959436" +
-        "&tableName=Th%C3%B4ng%20tin%20chung" +
-        "&fileName=" + decodeURIComponent(file);
+      const fullUrl = `https://www.appsheet.com/template/gettablefileurl?appName=Qu%E1%BA%A3nl%C3%BDd%E1%BB%8Bchv%E1%BB%A5-300959436&tableName=Th%C3%B4ng%20tin%20chung&fileName=${decodeURIComponent(file)}`;
       const wrapper = document.createElement("div");
       const img = document.createElement("img");
       img.src = fullUrl;
@@ -296,359 +327,25 @@
       imgContainer.appendChild(wrapper);
     }
   }
-</script>
-</body>
-</html>
 
-<!doctype html>
-<html lang="vi">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Customer Service Report</title>
-<style>
-  @page { size: A4 portrait; margin: 15mm; }
-  body {
-    font-family: "Times New Roman", Times, serif;
-    font-size: 12px;
-    color: #000;
-    background-color: #f8f9fb;
-    -webkit-print-color-adjust: exact;
-    margin: 0;
-    padding: 0;
+  // XUẤT PDF
+  function xuatPDF() {
+    const report = document.getElementById("report");
+    const opt = {
+      margin: 0.5,
+      filename: 'Customer_Service_Report.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+    };
+    html2pdf().set(opt).from(document.body).save();
   }
 
-  .page {
-    background: #fff;
-    width: 210mm;
-    min-height: 297mm;
-    padding: 15mm 18mm;
-    box-sizing: border-box;
-    margin: 10px auto;
-    box-shadow: 0 0 6px rgba(0,0,0,0.2);
-    page-break-after: always;
-  }
-
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 8px;
-    position: relative;
-    border-bottom: 3px solid #0078d4;
-    padding-bottom: 5px;
-  }
-
-  .logo {
-    width: 95px;
-    height: auto;
-    position: absolute;
-    left: 0;
-  }
-
-  .company-info {
-    text-align: center;
-    font-size: 12px;
-    line-height: 1.4;
-  }
-
-  .company-info .line1,
-  .company-info .line2 {
-    font-weight: bold;
-    font-size: 13px;
-    color: #004a8f;
-  }
-
-  .company-info .line3 {
-    margin-top: 3px;
-  }
-
-  .company-info .line4 {
-    margin-top: 2px;
-    font-size: 11.5px;
-  }
-
-  .company-info .line4 span {
-    display: inline-block;
-    width: 48%;
-    text-align: center;
-    color: #0078d4;
-  }
-
-  .service-number {
-    text-align: right;
-    margin-top: 8px;
-    font-size: 12px;
-  }
-
-  .service-number span {
-    border-bottom: 1px dotted #000;
-    display: inline-block;
-    min-width: 130px;
-  }
-
-  h1 {
-    text-align: center;
-    font-size: 18px;
-    margin: 10px 0 12px 0;
-    color: #0078d4;
-    letter-spacing: 0.5px;
-  }
-
-  table.form {
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid #000;
-    margin-bottom: 8px;
-  }
-
-  table.form td {
-    border: 1px solid #000;
-    padding: 5px 6px;
-    vertical-align: top;
-  }
-
-  .dotted {
-    border-bottom: 1px dotted #000;
-    display: inline-block;
-    width: 100%;
-    min-height: 14px;
-  }
-
-  .bigbox {
-    border: 1px solid #000;
-    min-height: 80px;
-    padding: 5px;
-    white-space: pre-wrap;
-    background-color: #f9fcff;
-  }
-
-  .sign-row {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 18px;
-  }
-
-  .sign {
-    width: 32%;
-    text-align: center;
-    font-size: 12px;
-  }
-
-  .sign-line {
-    border-top: 1px solid #000;
-    margin-top: 25px;
-    padding-top: 4px;
-  }
-
-  /* PAGE 2 - HÌNH ẢNH */
-  h2 {
-    text-align: center;
-    font-size: 18px;
-    margin-top: 5px;
-    margin-bottom: 15px;
-    color: #0078d4;
-  }
-
-  .images {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    justify-items: center;
-    margin-top: 20px;
-  }
-
-  .images div {
-    text-align: center;
-    font-size: 13px;
-    font-weight: 500;
-  }
-
-  .images img {
-    width: 90%;
-    max-width: 220px;
-    height: auto;
-    border-radius: 8px;
-    border: 2px solid #0078d4;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .images img:hover {
-    transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-  }
-
-  footer {
-    margin-top: 40px;
-    text-align: center;
-    font-size: 11px;
-    color: #777;
-  }
-
-  /* Nút gửi mail */
-  .actions {
-    text-align: center;
-    margin-top: 25px;
-  }
-
-  button {
-    background-color: #0078d4;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 13px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.25s;
-  }
-
-  button:hover {
-    background-color: #005fa3;
-  }
-
-  @media print {
-    button, .actions { display: none; }
-    body { background: #fff; }
-  }
-</style>
-</head>
-<body>
-
-<!-- PAGE 1 -->
-<div class="page">
-  <div class="header">
-    <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSZOlj6J-4xEgwSYxcMdhX2u9Uc3xZerGGd6tbiK7yoQzi-WTTZ" class="logo" alt="Logo">
-    <div class="company-info">
-      <div class="line1">CÔNG TY CỔ PHẦN KHOA HỌC CÔNG NGHỆ MỚI</div>
-      <div class="line2">NEW TECHNOLOGIES SCIENTIFIC CORPORATION</div>
-      <div class="line3">Tầng 6, 130 Nguyễn Công Trứ, P. Nguyễn Thái Bình, Q.1, TP.HCM</div>
-      <div class="line4">
-        <span>https://newntslab.net/</span>
-        <span>admin@ntslab.net</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="service-number">
-    <b>Service Request Number / Mã số biên bản:</b> <span id="madh"></span>
-  </div>
-
-  <h1>CUSTOMER SERVICE REPORT / BÁO CÁO DỊCH VỤ KHÁCH HÀNG</h1>
-
-  <table class="form">
-    <tr>
-      <td style="width:45%;">
-        <b>Tên công ty / Company:</b><br><div class="dotted"><span id="tencty"></span></div>
-        <b>Địa chỉ / Address:</b><br><div class="dotted"><span id="diachicty"></span></div>
-      </td>
-      <td style="width:55%;">
-        <b>Người liên hệ / Contact Name:</b><br><div class="dotted"><span id="lienhe"></span></div>
-        <b>Điện thoại / Telephone:</b> <span class="dotted" style="width:45%;"><span id="dienthoai"></span></span><br>
-        <b>Loại dịch vụ / Service Type:</b><br><div class="dotted"><span id="loaidv"></span></div>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <b>Mã hàng / Product Code:</b><br><div class="dotted"><span id="mahang"></span></div>
-        <b>Số máy / Serial No.:</b><br><div class="dotted"><span id="somay"></span></div>
-        <b>Số hiệu / Model No.:</b><br><div class="dotted"><span id="sohieu"></span></div>
-      </td>
-      <td>
-        <b>Ngày bắt đầu / Start Date:</b><br><div class="dotted"><span id="batdau"></span></div>
-        <b>Ngày kết thúc / End Date:</b><br><div class="dotted"><span id="ketthuc"></span></div>
-        <b>Hãng sản xuất / Manufacturer:</b><br><div class="dotted"><span id="hangsx"></span></div>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <b>Tổng quát / Overview:</b><br><div class="dotted"><span id="tongquat"></span></div>
-        <b>Mô tả hàng hoá / Product Description:</b><br><div class="dotted"><span id="mota"></span></div>
-      </td>
-      <td>
-        <b>Thời gian di chuyển & Khoảng cách / Travel Time & Distance:</b><br><div class="dotted"><span id="khoangcach"></span></div>
-      </td>
-    </tr>
-  </table>
-
-  <b>Mô tả tình trạng / Problem Description:</b>
-  <div class="bigbox" id="tinhtrang"></div>
-
-  <b>Dịch vụ đã hoàn thành & Giải thích chi tiết / Services Done & Details:</b>
-  <div class="bigbox" id="dichvu"></div>
-
-  <b>Ghi chú / Remark:</b>
-  <div class="bigbox" id="ghichu"></div>
-
-  <b>Tên kỹ sư / Engineer Name:</b> <span id="kySu"></span>
-
-  <div class="sign-row">
-    <div class="sign"><div class="sign-line">Customer Service Engineer / Kỹ sư Dịch vụ</div></div>
-    <div class="sign"><div class="sign-line">Customer Signature / Khách hàng ký</div></div>
-    <div class="sign"><div class="sign-line">Date / Ngày</div></div>
-  </div>
-</div>
-
-<!-- PAGE 2 - HÌNH ẢNH -->
-<div class="page">
-  <h2>HÌNH ẢNH THỰC TẾ / REAL IMAGES</h2>
-  <div class="images" id="images-page"></div>
-
-  <div class="actions">
-    <button onclick="sendEmail()">📧 Gửi báo cáo qua Email</button>
-  </div>
-  <footer>© 2025 NEW TECHNOLOGIES SCIENTIFIC CORPORATION - All rights reserved.</footer>
-</div>
-
-<script>
-  const params = new URLSearchParams(window.location.search);
-
-  function setValue(id) {
-    const el = document.getElementById(id);
-    if (el) {
-      const val = params.get(id);
-      el.textContent = val ? decodeURIComponent(val) : "";
-    }
-  }
-
-  const fields = [
-    "madh","tencty","diachicty","lienhe","dienthoai",
-    "mahang","somay","loaidv","batdau","ketthuc",
-    "tongquat","mota","sohieu","hangsx",
-    "khoangcach","tinhtrang","dichvu","ghichu","kySu"
-  ];
-  fields.forEach(id => setValue(id));
-
-  // PAGE 2 - HÌNH ẢNH
-  const imgContainer = document.getElementById("images-page");
-  for (let i = 1; i <= 9; i++) {
-    const file = params.get("anh" + i);
-    if (file) {
-      const fullUrl =
-        "https://www.appsheet.com/template/gettablefileurl?" +
-        "appName=Qu%E1%BA%A3nl%C3%BDd%E1%BB%8Bchv%E1%BB%A5-300959436" +
-        "&tableName=Th%C3%B4ng%20tin%20chung" +
-        "&fileName=" + decodeURIComponent(file);
-      const wrapper = document.createElement("div");
-      const img = document.createElement("img");
-      img.src = fullUrl;
-      img.alt = "Image " + i;
-      wrapper.appendChild(img);
-      const label = document.createElement("div");
-      label.textContent = "Hình " + i;
-      wrapper.appendChild(label);
-      imgContainer.appendChild(wrapper);
-    }
-  }
-
-  // Nút gửi mail
-  function sendEmail() {
-    const email = prompt("Nhập địa chỉ Email người nhận:");
-    if (email) {
-      const subject = "Customer Service Report - " + (params.get("madh") || "");
-      const body = "Kính gửi Quý khách,\n\nĐính kèm báo cáo dịch vụ khách hàng.\n\nTrân trọng,\nNew Technologies Scientific Corporation.";
-      window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    }
+  // GỬI EMAIL
+  function guiGmail() {
+    const subject = encodeURIComponent("Báo cáo dịch vụ khách hàng - " + (document.getElementById("madh").textContent || ""));
+    const body = encodeURIComponent("Kính gửi,\n\nĐính kèm là báo cáo dịch vụ khách hàng.\n\nTrân trọng,\nNew Technologies Scientific Corporation");
+    window.location.href = `mailto:?subject=${subject}&body=${body}`;
   }
 </script>
 </body>
