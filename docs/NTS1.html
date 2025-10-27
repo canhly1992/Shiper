@@ -353,33 +353,40 @@
 Chúng tôi xin gửi đến Quý Công ty **${tencty}** báo cáo chi tiết về dịch vụ kỹ thuật đã được thực hiện.
 
 ─────────────────────────────
-📋 **Thông tin chung**
+📋 **THÔNG TIN CHUNG**
 • Mã báo cáo: ${madh}
+• Loại dịch vụ: ${loaidv}
+• Hãng sản xuất: ${hangsx}
+• Số máy / Serial No.: ${somay}
 • Địa chỉ: ${diachicty}
 • Người liên hệ: ${lienhe}
 • Số điện thoại: ${dienthoai}
 
-─────────────────────────────
-🔧 **Nội dung công việc**
-${mota ? "• " + mota : "• Đã hoàn thành đầy đủ theo yêu cầu kỹ thuật."}
+───────────────────────
+🔧 **NỘI DUNG DỊCH VỤ THỰC HIỆN**
+${mota ? mota : "Các hạng mục đã được thực hiện đầy đủ và đạt yêu cầu kỹ thuật."}
 
-─────────────────────────────
-📅 **Thời gian hoàn tất**: ${ketthuc || "Đã cập nhật đầy đủ"}
-👨‍🔧 **Người thực hiện**: ${kySu}
+───────────────────────
+📅 **THỜI GIAN HOÀN THÀNH**: ${ketthuc || "Đã cập nhật đầy đủ"}
+👨‍🔧 **KỸ SƯ PHỤ TRÁCH**: ${kySu}
 
-─────────────────────────────
-🧾 **Ghi chú**
-Báo cáo này được lập nhằm xác nhận tiến độ và chất lượng dịch vụ mà đội ngũ kỹ thuật của chúng tôi đã thực hiện theo yêu cầu của Quý Khách hàng.
+───────────────────────
+💬 **GHI CHÚ & NHẬN XÉT**
+Báo cáo này được lập nhằm xác nhận tiến độ, kết quả và chất lượng công việc được thực hiện bởi đội ngũ kỹ sư của chúng tôi.  
+Nếu Quý Công ty có bất kỳ yêu cầu hỗ trợ, thắc mắc hoặc phản hồi nào, vui lòng liên hệ với chúng tôi để được hỗ trợ nhanh chóng và tận tâm nhất.
 
-Mọi ý kiến phản hồi hoặc hỗ trợ thêm, Quý Khách vui lòng liên hệ lại theo thông tin bên dưới để được hỗ trợ nhanh chóng.
+───────────────────────
+🙏 **LỜI CẢM ƠN**
+Xin chân thành cảm ơn Quý Công ty đã tin tưởng và hợp tác cùng **CÔNG TY CỔ PHẦN KHOA HỌC CÔNG NGHỆ MỚI (NTSC)**.  
+Chúng tôi luôn nỗ lực mang lại giải pháp kỹ thuật tối ưu và dịch vụ hậu mãi tốt nhất cho Quý Khách hàng.
 
-Trân trọng cảm ơn sự hợp tác của Quý Công ty!
+Trân trọng kính chào!
 
-─────────────────────────────
 **CÔNG TY CỔ PHẦN KHOA HỌC CÔNG NGHỆ MỚI (NTSC)**
-Email: admin@ntslab.net | Hotline: 0909 999 999
-Địa chỉ: Tầng 6, 130 Nguyễn Công Trứ, Quận 1, TP. HCM
-─────────────────────────────`
+📧 Email: admin@ntslab.net  
+☎️ Hotline: 0909 999 999  
+🏢 Địa chỉ: Tầng 6, 130 Nguyễn Công Trứ, P. Nguyễn Thái Bình, Quận 1, TP. HCM
+`
     );
     window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
   }
