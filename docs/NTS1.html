@@ -5,9 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Customer Service Report</title>
 
-<!-- html2pdf.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
 <style>
   @page { size: A4 portrait; margin: 15mm; }
   body {
@@ -212,7 +209,6 @@
 
 <div class="toolbar">
   <button onclick="window.print()">🖨️ In Báo Cáo</button>
-  <button onclick="xuatPDF()">📄 Xuất PDF</button>
   <button onclick="guiGmail()">📧 Gửi Gmail</button>
 </div>
 
@@ -298,36 +294,45 @@
 </div>
 
 <script>
-const params = new URLSearchParams(window.location.search);
-function setValue(id){const el=document.getElementById(id);if(el)el.textContent=params.get(id)?decodeURIComponent(params.get(id)):"";}
-["madh","tencty","diachicty","lienhe","dienthoai","mahang","somay","loaidv","batdau","ketthuc","tongquat","mota","sohieu","hangsx","khoangcach","tinhtrang","dichvu","ghichu","kySu"].forEach(setValue);
-const imgContainer=document.getElementById("images-page");
-for(let i=1;i<=9;i++){const f=params.get("anh"+i);if(f){const u=`https://www.appsheet.com/template/gettablefileurl?appName=Qu%E1%BA%A3nl%C3%BDd%E1%BB%8Bchv%E1%BB%A5-300959436&tableName=Th%C3%B4ng%20tin%20chung&fileName=${decodeURIComponent(f)}`;const w=document.createElement("div");const img=document.createElement("img");img.src=u;w.appendChild(img);imgContainer.appendChild(w);}}
+  const params = new URLSearchParams(window.location.search);
 
-function xuatPDF(){
-  const tencty=document.getElementById("tencty").textContent.trim()||"NoCompany";
-  const madh=document.getElementById("madh").textContent.trim()||"NoNumber";
-  const filename=`${tencty}-${madh}.pdf`.replace(/[^\w\s-]/g,"").replace(/\s+/g,"_");
-  html2pdf().set({margin:0.5,filename,image:{type:'jpeg',quality:0.98},html2canvas:{scale:2},jsPDF:{unit:'in',format:'a4',orientation:'portrait'}}).from(document.body).save();
-}
+  function setValue(id) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = params.get(id) ? decodeURIComponent(params.get(id)) : "";
+  }
 
-// GỬI EMAIL QUA GOOGLE APP SCRIPT
-async function guiGmail(){
-  const madh=document.getElementById("madh").textContent||"";
-  const tencty=document.getElementById("tencty").textContent||"";
-  const subject=`Báo cáo dịch vụ khách hàng - ${madh}`;
-  const body=`Kính gửi Quý khách,<br><br>Đính kèm là báo cáo dịch vụ khách hàng của <b>${tencty}</b>.<br><br>Trân trọng,<br>New Technologies Scientific Corporation`;
-  const recipient="admin@ntslab.net"; // Email nhận
-  try{
-    const res=await fetch("https://script.google.com/macros/s/AKfycbxxxxxxxxxxxxxxxxxxxxxxxx/exec",{ // thay bằng link Web App thật
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({subject,body,recipient})
-    });
-    if(res.ok) alert("✅ Email đã được gửi thành công!");
-    else alert("❌ Gửi thất bại!");
-  }catch(e){alert("⚠️ Lỗi khi gửi email!");}
-}
+  const fields = [
+    "madh","tencty","diachicty","lienhe","dienthoai",
+    "mahang","somay","loaidv","batdau","ketthuc",
+    "tongquat","mota","sohieu","hangsx",
+    "khoangcach","tinhtrang","dichvu","ghichu","kySu"
+  ];
+  fields.forEach(setValue);
+
+  // HIỂN THỊ HÌNH ẢNH
+  const imgContainer = document.getElementById("images-page");
+  for (let i = 1; i <= 9; i++) {
+    const file = params.get("anh" + i);
+    if (file) {
+      const fullUrl = `https://www.appsheet.com/template/gettablefileurl?appName=Qu%E1%BA%A3nl%C3%BDd%E1%BB%8Bchv%E1%BB%A5-300959436&tableName=Th%C3%B4ng%20tin%20chung&fileName=${decodeURIComponent(file)}`;
+      const wrapper = document.createElement("div");
+      const img = document.createElement("img");
+      img.src = fullUrl;
+      img.alt = "Image " + i;
+      wrapper.appendChild(img);
+      const label = document.createElement("div");
+      label.textContent = "Image " + i;
+      wrapper.appendChild(label);
+      imgContainer.appendChild(wrapper);
+    }
+  }
+
+  // GỬI EMAIL
+  function guiGmail() {
+    const subject = encodeURIComponent("Báo cáo dịch vụ khách hàng - " + (document.getElementById("madh").textContent || ""));
+    const body = encodeURIComponent("Kính gửi,\n\nĐính kèm là báo cáo dịch vụ khách hàng.\n\nTrân trọng,\nNew Technologies Scientific Corporation");
+    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+  }
 </script>
 </body>
 </html>
