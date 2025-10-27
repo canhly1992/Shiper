@@ -317,45 +317,48 @@ const loaidv=document.getElementById("loaidv").textContent||"";
 const hangsx=document.getElementById("hangsx").textContent||"";
 const somay=document.getElementById("somay").textContent||"";
 
-const body=encodeURIComponent(
+const body = encodeURIComponent(
 `Kính gửi ${lienhe},
 
-Công ty Cổ phần Khoa học Công nghệ Mới (NTSC) xin gửi đến Quý Công ty ${tencty} báo cáo chi tiết về dịch vụ kỹ thuật đã thực hiện:
+Công ty Cổ phần Khoa học Công nghệ Mới (NTSC) xin gửi đến Quý Công ty *${tencty}* báo cáo chi tiết về dịch vụ kỹ thuật đã thực hiện.
 
-─────────────────────────────
-📋 THÔNG TIN CHUNG
-• Mã biên bản: ${madh}
-• Loại dịch vụ: ${loaidv}
-• Hãng sản xuất: ${hangsx}
-• Số máy: ${somay}
-• Địa chỉ: ${diachicty}
-• Liên hệ: ${lienhe} - ${dienthoai}
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+📋 **THÔNG TIN CHUNG**
+🆔 Mã biên bản: ${madh}
+🧰 Loại dịch vụ: ${loaidv}
+🏭 Hãng sản xuất: ${hangsx}
+🔢 Số máy: ${somay}
+📍 Địa chỉ: ${diachicty}
+👤 Liên hệ: ${lienhe} - ☎️ ${dienthoai}
 
-─────────────────────────────
-🔧 NỘI DUNG DỊCH VỤ
-${mota?mota:"Công việc kiểm tra, bảo trì, xử lý kỹ thuật được thực hiện theo yêu cầu khách hàng."}
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔧 **NỘI DUNG DỊCH VỤ**
+${mota ? "🛠️ " + mota : "🛠️ Công việc kiểm tra, bảo trì, xử lý kỹ thuật được thực hiện theo yêu cầu khách hàng."}
 
-─────────────────────────────
-📅 THỜI GIAN & KỸ SƯ PHỤ TRÁCH
-• Hoàn thành: ${ketthuc||"Đang cập nhật"}
-• Kỹ sư phụ trách: ${kySu}
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+📅 **THỜI GIAN & KỸ SƯ PHỤ TRÁCH**
+⏰ Hoàn thành: ${ketthuc || "Đang cập nhật"}
+👨‍🔧 Kỹ sư phụ trách: ${kySu}
 
-─────────────────────────────
-💬 GHI CHÚ
-Báo cáo này ghi nhận tiến độ, kết quả và chất lượng công việc do đội ngũ kỹ sư NTSC thực hiện.
-Nếu Quý Công ty cần hỗ trợ, vui lòng phản hồi trực tiếp qua email này.
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+💬 **GHI CHÚ**
+Báo cáo này ghi nhận tiến độ, kết quả và chất lượng công việc do đội ngũ kỹ sư **NTSC** thực hiện.  
+Nếu Quý Công ty cần hỗ trợ, vui lòng phản hồi trực tiếp qua email này để được hỗ trợ nhanh chóng.
 
-─────────────────────────────
-🙏 LỜI CẢM ƠN
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+🙏 **LỜI CẢM ƠN**
 Xin trân trọng cảm ơn Quý Công ty đã tin tưởng và hợp tác cùng:
-CÔNG TY CỔ PHẦN KHOA HỌC CÔNG NGHỆ MỚI (NTSC)
-🏢 130 Nguyễn Công Trứ, P. Nguyễn Thái Bình, Q.1, TP.HCM
-☎️ Hotline: 097 222 0906 | 📧 admin@ntslab.net | 🌐 https://newntslab.net/
 
-Trân trọng kính chào,
-${kySu}
+🏢 CÔNG TY CỔ PHẦN KHOA HỌC CÔNG NGHỆ MỚI (NTSC)  
+📍 130 Nguyễn Công Trứ, P. Nguyễn Thái Bình, Q.1, TP.HCM  
+☎️ Hotline: 097 222 0906 | 📧 admin@ntslab.net  
+🌐 https://newntslab.net/
+
+Trân trọng kính chào,  
+👨‍🔧 ${kySu}  
 Phòng Dịch vụ Kỹ thuật - NTSC`
 );
+
 
 window.location.href=`mailto:${to}?subject=${subject}&body=${body}`;
 }
