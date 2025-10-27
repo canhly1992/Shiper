@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Customer Service Report</title>
+<title>Báo cáo dịch vụ khách hàng</title>
 
 <style>
   @page { size: A4 portrait; margin: 15mm; }
@@ -15,8 +15,6 @@
     margin: 0;
     padding: 0;
   }
-
-  /* Nút chức năng */
   .toolbar {
     position: fixed;
     top: 10px;
@@ -50,7 +48,6 @@
     background: white;
   }
 
-  /* Watermark mờ giữa trang */
   .page::before {
     content: "";
     position: absolute;
@@ -164,7 +161,6 @@
     padding-top: 4px;
   }
 
-  /* PAGE 2 - HÌNH ẢNH */
   h2 {
     text-align: center;
     font-size: 18px;
@@ -228,168 +224,141 @@
   </div>
 
   <div class="service-number">
-    <b>Service Request Number / Mã số biên bản:</b> <span id="madh"></span>
+    <b>Mã số biên bản:</b> <span id="madh"></span>
   </div>
 
-  <h1>CUSTOMER SERVICE REPORT / BÁO CÁO DỊCH VỤ KHÁCH HÀNG</h1>
+  <h1>BÁO CÁO DỊCH VỤ KHÁCH HÀNG</h1>
 
   <table class="form">
     <tr>
       <td style="width:45%;">
-        <b>Tên công ty / Company:</b><br><div class="dotted"><span id="tencty"></span></div>
-        <b>Địa chỉ / Address:</b><br><div class="dotted"><span id="diachicty"></span></div>
+        <b>Tên công ty:</b><br><div class="dotted"><span id="tencty"></span></div>
+        <b>Địa chỉ:</b><br><div class="dotted"><span id="diachicty"></span></div>
       </td>
       <td style="width:55%;">
-        <b>Người liên hệ / Contact Name:</b><br><div class="dotted"><span id="lienhe"></span></div>
-        <b>Điện thoại / Telephone:</b> <span class="dotted" style="width:45%;"><span id="dienthoai"></span></span><br>
-        <b>Loại dịch vụ / Service Type:</b><br><div class="dotted"><span id="loaidv"></span></div>
+        <b>Người liên hệ:</b><br><div class="dotted"><span id="lienhe"></span></div>
+        <b>Điện thoại:</b> <span class="dotted" style="width:45%;"><span id="dienthoai"></span></span><br>
+        <b>Loại dịch vụ:</b><br><div class="dotted"><span id="loaidv"></span></div>
       </td>
     </tr>
     <tr>
       <td>
-        <b>Mã hàng / Product Code:</b><br><div class="dotted"><span id="mahang"></span></div>
-        <b>Số máy / Serial No.:</b><br><div class="dotted"><span id="somay"></span></div>
-        <b>Số hiệu / Model No.:</b><br><div class="dotted"><span id="sohieu"></span></div>
+        <b>Mã hàng:</b><br><div class="dotted"><span id="mahang"></span></div>
+        <b>Số máy:</b><br><div class="dotted"><span id="somay"></span></div>
+        <b>Số hiệu:</b><br><div class="dotted"><span id="sohieu"></span></div>
       </td>
       <td>
-        <b>Ngày bắt đầu / Start Date:</b><br><div class="dotted"><span id="batdau"></span></div>
-        <b>Ngày kết thúc / End Date:</b><br><div class="dotted"><span id="ketthuc"></span></div>
-        <b>Hãng sản xuất / Manufacturer:</b><br><div class="dotted"><span id="hangsx"></span></div>
+        <b>Bắt đầu:</b><br><div class="dotted"><span id="batdau"></span></div>
+        <b>Kết thúc:</b><br><div class="dotted"><span id="ketthuc"></span></div>
+        <b>Hãng sản xuất:</b><br><div class="dotted"><span id="hangsx"></span></div>
       </td>
     </tr>
     <tr>
       <td>
-        <b>Tổng quát / Overview:</b><br><div class="dotted"><span id="tongquat"></span></div>
-        <b>Mô tả hàng hoá / Product Description:</b><br><div class="dotted"><span id="mota"></span></div>
+        <b>Tổng quát:</b><br><div class="dotted"><span id="tongquat"></span></div>
+        <b>Mô tả hàng hoá:</b><br><div class="dotted"><span id="mota"></span></div>
       </td>
       <td>
-        <b>Thời gian di chuyển & Khoảng cách / Travel Time & Distance:</b><br><div class="dotted"><span id="khoangcach"></span></div>
+        <b>Thời gian di chuyển & Khoảng cách:</b><br><div class="dotted"><span id="khoangcach"></span></div>
       </td>
     </tr>
   </table>
 
-  <b>Mô tả tình trạng / Problem Description:</b>
+  <b>Mô tả tình trạng:</b>
   <div class="bigbox" id="tinhtrang"></div>
 
-  <b>Dịch vụ đã hoàn thành & Giải thích chi tiết / Services Done & Details:</b>
+  <b>Dịch vụ đã hoàn thành & Giải thích chi tiết:</b>
   <div class="bigbox" id="dichvu"></div>
 
-  <b>Ghi chú / Remark:</b>
+  <b>Ghi chú:</b>
   <div class="bigbox" id="ghichu"></div>
 
-  <b>Tên kỹ sư / Engineer Name:</b> <span id="kySu"></span>
+  <b>Tên kỹ sư:</b> <span id="kySu"></span>
 
   <div class="sign-row">
-    <div class="sign"><div class="sign-line">Customer Service Engineer / Kỹ sư Dịch vụ</div></div>
-    <div class="sign"><div class="sign-line">Customer Signature / Khách hàng ký</div></div>
-    <div class="sign"><div class="sign-line">Date / Ngày</div></div>
+    <div class="sign"><div class="sign-line">Kỹ sư Dịch vụ</div></div>
+    <div class="sign"><div class="sign-line">Khách hàng ký</div></div>
+    <div class="sign"><div class="sign-line">Ngày</div></div>
   </div>
 </div>
 
-<!-- PAGE 2 - HÌNH ẢNH -->
+<!-- PAGE 2 -->
 <div class="page">
-  <h2>HÌNH ẢNH / IMAGES</h2>
+  <h2>HÌNH ẢNH</h2>
   <div class="images" id="images-page"></div>
   <footer></footer>
 </div>
 
 <script>
-  const params = new URLSearchParams(window.location.search);
+const params = new URLSearchParams(window.location.search);
+function setValue(id){const el=document.getElementById(id);if(el)el.textContent=params.get(id)?decodeURIComponent(params.get(id)):"";}
+const fields=["madh","tencty","diachicty","lienhe","dienthoai","mahang","somay","loaidv","batdau","ketthuc","tongquat","mota","sohieu","hangsx","khoangcach","tinhtrang","dichvu","ghichu","kySu"];
+fields.forEach(setValue);
 
-  function setValue(id) {
-    const el = document.getElementById(id);
-    if (el) el.textContent = params.get(id) ? decodeURIComponent(params.get(id)) : "";
-  }
+const imgContainer=document.getElementById("images-page");
+for(let i=1;i<=9;i++){const f=params.get("anh"+i);if(f){const url=`https://www.appsheet.com/template/gettablefileurl?appName=Qu%E1%BA%A3nl%C3%BDd%E1%BB%8Bchv%E1%BB%A5-300959436&tableName=Th%C3%B4ng%20tin%20chung&fileName=${decodeURIComponent(f)}`;const w=document.createElement("div"),img=document.createElement("img");img.src=url;img.alt="Image "+i;w.appendChild(img);const lb=document.createElement("div");lb.textContent="Image "+i;w.appendChild(lb);imgContainer.appendChild(w);}}
 
-  const fields = [
-    "madh","tencty","diachicty","lienhe","dienthoai",
-    "mahang","somay","loaidv","batdau","ketthuc",
-    "tongquat","mota","sohieu","hangsx",
-    "khoangcach","tinhtrang","dichvu","ghichu","kySu"
-  ];
-  fields.forEach(setValue);
+const tencty=params.get("tencty")?decodeURIComponent(params.get("tencty")):"";
+const madh=params.get("madh")?decodeURIComponent(params.get("madh")):"";
+if(tencty||madh)document.title=`${tencty}${tencty&&madh?" - ":""}${madh}`;
 
-  // HIỂN THỊ HÌNH ẢNH
-  const imgContainer = document.getElementById("images-page");
-  for (let i = 1; i <= 9; i++) {
-    const file = params.get("anh" + i);
-    if (file) {
-      const fullUrl = `https://www.appsheet.com/template/gettablefileurl?appName=Qu%E1%BA%A3nl%C3%BDd%E1%BB%8Bchv%E1%BB%A5-300959436&tableName=Th%C3%B4ng%20tin%20chung&fileName=${decodeURIComponent(file)}`;
-      const wrapper = document.createElement("div");
-      const img = document.createElement("img");
-      img.src = fullUrl;
-      img.alt = "Image " + i;
-      wrapper.appendChild(img);
-      const label = document.createElement("div");
-      label.textContent = "Image " + i;
-      wrapper.appendChild(label);
-      imgContainer.appendChild(wrapper);
-    }
-  }
+const email=params.get("email")?decodeURIComponent(params.get("email")):"";
 
-  // === ĐỔI TIÊU ĐỀ TRANG ===
-  const tencty = params.get("tencty") ? decodeURIComponent(params.get("tencty")) : "";
-  const madh = params.get("madh") ? decodeURIComponent(params.get("madh")) : "";
-  if (tencty || madh) {
-    document.title = `${tencty}${tencty && madh ? " - " : ""}${madh}`;
-  }
+function guiGmail(){
+const to=email||"";
+const subject=encodeURIComponent(`${tencty} - Báo cáo dịch vụ kỹ thuật (${madh})`);
+const lienhe=document.getElementById("lienhe").textContent||"";
+const dienthoai=document.getElementById("dienthoai").textContent||"";
+const diachicty=document.getElementById("diachicty").textContent||"";
+const mota=document.getElementById("mota").textContent||"";
+const ketthuc=document.getElementById("ketthuc").textContent||"";
+const kySu=document.getElementById("kySu").textContent||"Kỹ sư phụ trách";
+const loaidv=document.getElementById("loaidv").textContent||"";
+const hangsx=document.getElementById("hangsx").textContent||"";
+const somay=document.getElementById("somay").textContent||"";
 
-  // 🌟 GỬI EMAIL CHUYÊN NGHIỆP
-  const email = params.get("email") ? decodeURIComponent(params.get("email")) : "";
-
-  function guiGmail() {
-    const to = email || "";
-    const subject = encodeURIComponent(`${tencty} - Báo cáo dịch vụ khách hàng (${madh})`);
-    const lienhe = document.getElementById("lienhe").textContent || "";
-    const dienthoai = document.getElementById("dienthoai").textContent || "";
-    const diachicty = document.getElementById("diachicty").textContent || "";
-    const mota = document.getElementById("mota").textContent || "";
-    const ketthuc = document.getElementById("ketthuc").textContent || "";
-    const kySu = document.getElementById("kySu").textContent || "Kỹ sư phụ trách";
-
-    const body = encodeURIComponent(
+const body=encodeURIComponent(
 `Kính gửi ${lienhe},
 
-Chúng tôi xin gửi đến Quý Công ty **${tencty}** báo cáo chi tiết về dịch vụ kỹ thuật đã được thực hiện.
+Công ty Cổ phần Khoa học Công nghệ Mới (NTSC) xin gửi đến Quý Công ty ${tencty} báo cáo chi tiết về dịch vụ kỹ thuật đã thực hiện:
 
 ─────────────────────────────
-📋 **THÔNG TIN CHUNG**
-• Mã báo cáo: ${madh}
+📋 THÔNG TIN CHUNG
+• Mã biên bản: ${madh}
 • Loại dịch vụ: ${loaidv}
 • Hãng sản xuất: ${hangsx}
-• Số máy / Serial No.: ${somay}
+• Số máy: ${somay}
 • Địa chỉ: ${diachicty}
-• Người liên hệ: ${lienhe}
-• Số điện thoại: ${dienthoai}
+• Liên hệ: ${lienhe} - ${dienthoai}
 
-───────────────────────
-🔧 **NỘI DUNG DỊCH VỤ THỰC HIỆN**
-${mota ? mota : "Các hạng mục đã được thực hiện đầy đủ và đạt yêu cầu kỹ thuật."}
+─────────────────────────────
+🔧 NỘI DUNG DỊCH VỤ
+${mota?mota:"Công việc kiểm tra, bảo trì, xử lý kỹ thuật được thực hiện theo yêu cầu khách hàng."}
 
-───────────────────────
-📅 **THỜI GIAN HOÀN THÀNH**: ${ketthuc || "Đã cập nhật đầy đủ"}
-👨‍🔧 **KỸ SƯ PHỤ TRÁCH**: ${kySu}
+─────────────────────────────
+📅 THỜI GIAN & KỸ SƯ PHỤ TRÁCH
+• Hoàn thành: ${ketthuc||"Đang cập nhật"}
+• Kỹ sư phụ trách: ${kySu}
 
-───────────────────────
-💬 **GHI CHÚ & NHẬN XÉT**
-Báo cáo này được lập nhằm xác nhận tiến độ, kết quả và chất lượng công việc được thực hiện bởi đội ngũ kỹ sư của chúng tôi.  
-Nếu Quý Công ty có bất kỳ yêu cầu hỗ trợ, thắc mắc hoặc phản hồi nào, vui lòng liên hệ với chúng tôi để được hỗ trợ nhanh chóng và tận tâm nhất.
+─────────────────────────────
+💬 GHI CHÚ
+Báo cáo này ghi nhận tiến độ, kết quả và chất lượng công việc do đội ngũ kỹ sư NTSC thực hiện.
+Nếu Quý Công ty cần hỗ trợ, vui lòng phản hồi trực tiếp qua email này.
 
-───────────────────────
-🙏 **LỜI CẢM ƠN**
-Xin chân thành cảm ơn Quý Công ty đã tin tưởng và hợp tác cùng **CÔNG TY CỔ PHẦN KHOA HỌC CÔNG NGHỆ MỚI (NTSC)**.  
-Chúng tôi luôn nỗ lực mang lại giải pháp kỹ thuật tối ưu và dịch vụ hậu mãi tốt nhất cho Quý Khách hàng.
+─────────────────────────────
+🙏 LỜI CẢM ƠN
+Xin trân trọng cảm ơn Quý Công ty đã tin tưởng và hợp tác cùng:
+CÔNG TY CỔ PHẦN KHOA HỌC CÔNG NGHỆ MỚI (NTSC)
+🏢 130 Nguyễn Công Trứ, P. Nguyễn Thái Bình, Q.1, TP.HCM
+☎️ Hotline: 0909 999 999 | 📧 admin@ntslab.net | 🌐 https://newntslab.net/
 
-Trân trọng kính chào!
+Trân trọng kính chào,
+${kySu}
+Phòng Dịch vụ Kỹ thuật - NTSC`
+);
 
-**CÔNG TY CỔ PHẦN KHOA HỌC CÔNG NGHỆ MỚI (NTSC)**
-📧 Email: admin@ntslab.net  
-☎️ Hotline: 0909 999 999  
-🏢 Địa chỉ: Tầng 6, 130 Nguyễn Công Trứ, P. Nguyễn Thái Bình, Quận 1, TP. HCM
-`
-    );
-    window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
-  }
+window.location.href=`mailto:${to}?subject=${subject}&body=${body}`;
+}
 </script>
 </body>
 </html>
