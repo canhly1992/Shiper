@@ -353,53 +353,39 @@
 Chúng tôi xin gửi đến Quý Công ty **${tencty}** báo cáo chi tiết về dịch vụ kỹ thuật đã được thực hiện.
 
 ─────────────────────────────
-<div style="font-family:'Segoe UI',Arial,sans-serif; line-height:1.6; color:#333; padding:10px; background:#f9fbfd;">
-  <h2 style="color:#0066cc; text-align:center; margin-bottom:20px;">📋 BÁO CÁO DỊCH VỤ KỸ THUẬT</h2>
+📋 **THÔNG TIN CHUNG**
+• Mã báo cáo: ${madh}
+• Loại dịch vụ: ${loaidv}
+• Hãng sản xuất: ${hangsx}
+• Số máy / Serial No.: ${somay}
+• Địa chỉ: ${diachicty}
+• Người liên hệ: ${lienhe}
+• Số điện thoại: ${dienthoai}
 
-  <div style="border:2px solid #0066cc; border-radius:10px; padding:15px; background:white;">
-    <h3 style="color:#0066cc; border-bottom:1px solid #ccc; padding-bottom:5px;">📋 THÔNG TIN CHUNG</h3>
-    <p><b>• Mã báo cáo:</b> ${madh}</p>
-    <p><b>• Loại dịch vụ:</b> ${loaidv}</p>
-    <p><b>• Hãng sản xuất:</b> ${hangsx}</p>
-    <p><b>• Số máy / Serial No.:</b> ${somay}</p>
-    <p><b>• Địa chỉ:</b> ${diachicty}</p>
-    <p><b>• Người liên hệ:</b> ${lienhe}</p>
-    <p><b>• Số điện thoại:</b> ${dienthoai}</p>
-  </div>
+───────────────────────
+🔧 **NỘI DUNG DỊCH VỤ THỰC HIỆN**
+${mota ? mota : "Các hạng mục đã được thực hiện đầy đủ và đạt yêu cầu kỹ thuật."}
 
-  <div style="border:2px solid #00aaff; border-radius:10px; margin-top:20px; padding:15px; background:#f4faff;">
-    <h3 style="color:#00aaff; border-bottom:1px solid #ccc; padding-bottom:5px;">🔧 NỘI DUNG DỊCH VỤ THỰC HIỆN</h3>
-    <p>${mota ? mota : "Các hạng mục đã được thực hiện đầy đủ và đạt yêu cầu kỹ thuật."}</p>
-  </div>
+───────────────────────
+📅 **THỜI GIAN HOÀN THÀNH**: ${ketthuc || "Đã cập nhật đầy đủ"}
+👨‍🔧 **KỸ SƯ PHỤ TRÁCH**: ${kySu}
 
-  <div style="border:2px solid #ff9933; border-radius:10px; margin-top:20px; padding:15px; background:#fff9f0;">
-    <h3 style="color:#ff9933; border-bottom:1px solid #ccc; padding-bottom:5px;">📅 THỜI GIAN & KỸ SƯ PHỤ TRÁCH</h3>
-    <p><b>• Thời gian hoàn thành:</b> ${ketthuc || "Đã cập nhật đầy đủ"}</p>
-    <p><b>• Kỹ sư phụ trách:</b> ${kySu}</p>
-  </div>
+───────────────────────
+💬 **GHI CHÚ & NHẬN XÉT**
+Báo cáo này được lập nhằm xác nhận tiến độ, kết quả và chất lượng công việc được thực hiện bởi đội ngũ kỹ sư của chúng tôi.  
+Nếu Quý Công ty có bất kỳ yêu cầu hỗ trợ, thắc mắc hoặc phản hồi nào, vui lòng liên hệ với chúng tôi để được hỗ trợ nhanh chóng và tận tâm nhất.
 
-  <div style="border:2px solid #999; border-radius:10px; margin-top:20px; padding:15px; background:#f7f7f7;">
-    <h3 style="color:#444; border-bottom:1px solid #ccc; padding-bottom:5px;">💬 GHI CHÚ & NHẬN XÉT</h3>
-    <p>Báo cáo này được lập nhằm xác nhận tiến độ, kết quả và chất lượng công việc được thực hiện bởi đội ngũ kỹ sư của chúng tôi.</p>
-    <p>Nếu Quý Công ty có bất kỳ yêu cầu hỗ trợ, thắc mắc hoặc phản hồi nào, vui lòng liên hệ để được hỗ trợ nhanh chóng và tận tâm nhất.</p>
-  </div>
+───────────────────────
+🙏 **LỜI CẢM ƠN**
+Xin chân thành cảm ơn Quý Công ty đã tin tưởng và hợp tác cùng **CÔNG TY CỔ PHẦN KHOA HỌC CÔNG NGHỆ MỚI (NTSC)**.  
+Chúng tôi luôn nỗ lực mang lại giải pháp kỹ thuật tối ưu và dịch vụ hậu mãi tốt nhất cho Quý Khách hàng.
 
-  <div style="border:2px solid #009966; border-radius:10px; margin-top:20px; padding:15px; background:#f0fff8;">
-    <h3 style="color:#009966; border-bottom:1px solid #ccc; padding-bottom:5px;">🙏 LỜI CẢM ƠN</h3>
-    <p>Xin chân thành cảm ơn Quý Công ty đã tin tưởng và hợp tác cùng 
-      <b>CÔNG TY CỔ PHẦN KHOA HỌC CÔNG NGHỆ MỚI (NTSC)</b>.</p>
-    <p>Chúng tôi luôn nỗ lực mang lại giải pháp kỹ thuật tối ưu và dịch vụ hậu mãi tốt nhất cho Quý Khách hàng.</p>
-    <p><b>Trân trọng kính chào!</b></p>
-  </div>
+Trân trọng kính chào!
 
-  <div style="margin-top:25px; padding:15px; text-align:center; background:white; border-radius:10px; border-top:3px solid #0066cc;">
-    <h3 style="color:#0066cc; margin-bottom:10px;">CÔNG TY CỔ PHẦN KHOA HỌC CÔNG NGHỆ MỚI (NTSC)</h3>
-    <p>📧 <b>Email:</b> admin@ntslab.net<br>
-       ☎️ <b>Hotline:</b> 0909 999 999<br>
-       🏢 <b>Địa chỉ:</b> Tầng 6, 130 Nguyễn Công Trứ, P. Nguyễn Thái Bình, Quận 1, TP. HCM</p>
-  </div>
-</div>
-
+**CÔNG TY CỔ PHẦN KHOA HỌC CÔNG NGHỆ MỚI (NTSC)**
+📧 Email: admin@ntslab.net  
+☎️ Hotline: 0909 999 999  
+🏢 Địa chỉ: Tầng 6, 130 Nguyễn Công Trứ, P. Nguyễn Thái Bình, Quận 1, TP. HCM
 `
     );
     window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
