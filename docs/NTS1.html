@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Customer Service Report</title>
+<title>Customer Service Report27</title>
 <style>
   @page { size: A4 portrait; margin: 15mm; }
   body {
@@ -20,6 +20,7 @@
     min-height: 297mm;
     padding: 15mm 18mm;
     box-sizing: border-box;
+    page-break-after: always;
   }
 
   .header {
@@ -129,17 +130,18 @@
     padding-top: 4px;
   }
 
-  #images {
+  #images-page {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 10px;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 20px;
   }
-  #images img {
-    width: 32%;
+  #images-page img {
+    width: 30%;
     border: 1px solid #ccc;
-    padding: 3px;
-    border-radius: 3px;
+    padding: 4px;
+    border-radius: 4px;
   }
 
   @media print {
@@ -148,10 +150,11 @@
 </style>
 </head>
 <body>
-<div class="page">
 
+<!-- PAGE 1 -->
+<div class="page">
   <div class="header">
-    <img src="https://kaspersky.nts.com.vn:8081/image/2018/3/3/100000_18(2).jpg" class="logo" alt="Kaspersky Logo">
+    <img src="https://ntsgroup.com.vn/wp-content/uploads/2021/03/nts1.png" class="logo" alt="Logo">
     <div class="company-info">
       <div class="line1">CÔNG TY CỔ PHẦN KHOA HỌC CÔNG NGHỆ MỚI</div>
       <div class="line2">NEW TECHNOLOGIES SCIENTIFIC CORPORATION</div>
@@ -215,13 +218,17 @@
 
   <b>Tên kỹ sư / Engineer Name:</b> <span id="kySu"></span>
 
-  <div id="images"></div>
-
   <div class="sign-row">
     <div class="sign"><div class="sign-line">Customer Service Engineer / Kỹ sư Dịch vụ</div></div>
     <div class="sign"><div class="sign-line">Customer Signature / Khách hàng ký</div></div>
     <div class="sign"><div class="sign-line">Date / Ngày</div></div>
   </div>
+</div>
+
+<!-- PAGE 2 - IMAGES -->
+<div class="page">
+  <h1 style="margin-bottom:15px;">HÌNH ẢNH / IMAGES</h1>
+  <div id="images-page"></div>
 </div>
 
 <script>
@@ -243,13 +250,12 @@
   ];
   fields.forEach(id => setValue(id));
 
-  const imgContainer = document.getElementById("images");
+  // PAGE 2 - IMAGES
+  const imgContainer = document.getElementById("images-page");
   for (let i = 1; i <= 9; i++) {
-    const url = params.get("anh" + i);
-    if (url) {
-      const fullUrl = decodeURIComponent(url).startsWith("http")
-        ? decodeURIComponent(url)
-        : `https://www.appsheet.com/template/gettablefileurl?appName=Qu%E1%BA%A3nl%C3%BDd%E1%BB%8Bchv%E1%BB%A5-300959436&tableName=Th%C3%B4ng%20tin%20chung&fileName=${decodeURIComponent(url)}`;
+    const file = params.get("anh" + i);
+    if (file) {
+      const fullUrl = `https://www.appsheet.com/template/gettablefileurl?appName=Qu%E1%BA%A3nl%C3%BDd%E1%BB%8Bchv%E1%BB%A5-300959436&tableName=Th%C3%B4ng%20tin%20chung&fileName=${decodeURIComponent(file)}`;
       const img = document.createElement("img");
       img.src = fullUrl;
       img.alt = "Image " + i;
