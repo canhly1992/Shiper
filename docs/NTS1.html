@@ -275,11 +275,66 @@
 
   <b>Tên kỹ sư / Engineer Name:</b> <span id="kySu"></span>
 
-  <div class="sign-row">
-    <div class="sign"><div class="sign-line">Customer Service Engineer / Kỹ sư Dịch vụ</div></div>
-    <div class="sign"><div class="sign-line">Customer Signature / Khách hàng ký</div></div>
-    <div class="sign"><div class="sign-line">Date / Ngày</div></div>
+<style>
+  .sign-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+  }
+
+  .sign {
+    width: 32%;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .sign-line {
+    font-weight: bold;
+    margin-bottom: 60px; /* khoảng trống để ký tên */
+  }
+
+  .sign-name {
+    border-top: 1px solid #000;
+    width: 80%;
+    margin: 0 auto;
+    font-style: italic;
+    padding-top: 4px;
+  }
+
+  .date-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    font-size: 13px;
+  }
+
+  .date {
+    width: 32%;
+    text-align: center;
+  }
+</style>
+
+<div class="sign-row">
+  <div class="sign">
+    <div class="sign-line">Customer Service Engineer / Kỹ sư Dịch vụ</div>
+    <div class="sign-name">(Họ và tên)</div>
   </div>
+
+  <div class="sign">
+    <div class="sign-line">Customer Signature / Khách hàng ký</div>
+    <div class="sign-name">(Họ và tên)</div>
+  </div>
+
+  <div class="sign">
+    <div class="sign-line">Witness / Người chứng kiến (nếu có)</div>
+    <div class="sign-name">(Họ và tên)</div>
+  </div>
+</div>
+
+<div class="date-row">
+  <div class="date">Date / Ngày ký kỹ sư: .......... / .......... / ..........</div>
+  <div class="date">Date / Ngày ký khách hàng: .......... / .......... / ..........</div>
+  <div class="date"></div>
 </div>
 
 <div class="page">
