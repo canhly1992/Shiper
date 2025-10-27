@@ -16,6 +16,7 @@
     padding: 0;
   }
 
+  /* Nút chức năng */
   .toolbar {
     position: fixed;
     top: 10px;
@@ -49,6 +50,7 @@
     background: white;
   }
 
+  /* Watermark mờ giữa trang */
   .page::before {
     content: "";
     position: absolute;
@@ -162,6 +164,7 @@
     padding-top: 4px;
   }
 
+  /* PAGE 2 - HÌNH ẢNH */
   h2 {
     text-align: center;
     font-size: 18px;
@@ -232,39 +235,114 @@
 
   <table class="form">
     <tr>
-      <td><b>Tên công ty:</b> <div class="dotted"><span id="tencty"></span></div></td>
-      <td><b>Liên hệ:</b> <div class="dotted"><span id="lienhe"></span></div></td>
+      <td style="width:45%;">
+        <b>Tên công ty / Company:</b><br><div class="dotted"><span id="tencty"></span></div>
+        <b>Địa chỉ / Address:</b><br><div class="dotted"><span id="diachicty"></span></div>
+      </td>
+      <td style="width:55%;">
+        <b>Người liên hệ / Contact Name:</b><br><div class="dotted"><span id="lienhe"></span></div>
+        <b>Điện thoại / Telephone:</b> <span class="dotted" style="width:45%;"><span id="dienthoai"></span></span><br>
+        <b>Loại dịch vụ / Service Type:</b><br><div class="dotted"><span id="loaidv"></span></div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>Mã hàng / Product Code:</b><br><div class="dotted"><span id="mahang"></span></div>
+        <b>Số máy / Serial No.:</b><br><div class="dotted"><span id="somay"></span></div>
+        <b>Số hiệu / Model No.:</b><br><div class="dotted"><span id="sohieu"></span></div>
+      </td>
+      <td>
+        <b>Ngày bắt đầu / Start Date:</b><br><div class="dotted"><span id="batdau"></span></div>
+        <b>Ngày kết thúc / End Date:</b><br><div class="dotted"><span id="ketthuc"></span></div>
+        <b>Hãng sản xuất / Manufacturer:</b><br><div class="dotted"><span id="hangsx"></span></div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>Tổng quát / Overview:</b><br><div class="dotted"><span id="tongquat"></span></div>
+        <b>Mô tả hàng hoá / Product Description:</b><br><div class="dotted"><span id="mota"></span></div>
+      </td>
+      <td>
+        <b>Thời gian di chuyển & Khoảng cách / Travel Time & Distance:</b><br><div class="dotted"><span id="khoangcach"></span></div>
+      </td>
     </tr>
   </table>
 
-  <b>Mô tả tình trạng:</b>
+  <b>Mô tả tình trạng / Problem Description:</b>
   <div class="bigbox" id="tinhtrang"></div>
+
+  <b>Dịch vụ đã hoàn thành & Giải thích chi tiết / Services Done & Details:</b>
+  <div class="bigbox" id="dichvu"></div>
+
+  <b>Ghi chú / Remark:</b>
+  <div class="bigbox" id="ghichu"></div>
+
+  <b>Tên kỹ sư / Engineer Name:</b> <span id="kySu"></span>
+
+  <div class="sign-row">
+    <div class="sign"><div class="sign-line">Customer Service Engineer / Kỹ sư Dịch vụ</div></div>
+    <div class="sign"><div class="sign-line">Customer Signature / Khách hàng ký</div></div>
+    <div class="sign"><div class="sign-line">Date / Ngày</div></div>
+  </div>
 </div>
 
+<!-- PAGE 2 - HÌNH ẢNH -->
 <div class="page">
   <h2>HÌNH ẢNH / IMAGES</h2>
   <div class="images" id="images-page"></div>
+  <footer></footer>
 </div>
 
 <script>
   const params = new URLSearchParams(window.location.search);
 
-  // điền dữ liệu vào các trường
-  ["madh","tencty","lienhe","tinhtrang"].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el) el.textContent=params.get(id)||"";
-  });
+  function setValue(id) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = params.get(id) ? decodeURIComponent(params.get(id)) : "";
+  }
 
-  // lấy email từ link
-  const email = params.get("email") || "";
+  const fields = [
+    "madh","tencty","diachicty","lienhe","dienthoai",
+    "mahang","somay","loaidv","batdau","ketthuc",
+    "tongquat","mota","sohieu","hangsx",
+    "khoangcach","tinhtrang","dichvu","ghichu","kySu"
+  ];
+  fields.forEach(setValue);
 
-  function guiGmail(){
-    const to = email ? email : "";
+  // HIỂN THỊ HÌNH ẢNH
+  const imgContainer = document.getElementById("images-page");
+  for (let i = 1; i <= 9; i++) {
+    const file = params.get("anh" + i);
+    if (file) {
+      const fullUrl = `https://www.appsheet.com/template/gettablefileurl?appName=Qu%E1%BA%A3nl%C3%BDd%E1%BB%8Bchv%E1%BB%A5-300959436&tableName=Th%C3%B4ng%20tin%20chung&fileName=${decodeURIComponent(file)}`;
+      const wrapper = document.createElement("div");
+      const img = document.createElement("img");
+      img.src = fullUrl;
+      img.alt = "Image " + i;
+      wrapper.appendChild(img);
+      const label = document.createElement("div");
+      label.textContent = "Image " + i;
+      wrapper.appendChild(label);
+      imgContainer.appendChild(wrapper);
+    }
+  }
+
+  // TỰ LẤY EMAIL TỪ LINK
+  const email = params.get("email") ? decodeURIComponent(params.get("email")) : "";
+
+  // GỬI EMAIL
+  function guiGmail() {
+    const to = email || "";
     const subject = encodeURIComponent("Báo cáo dịch vụ khách hàng - " + (document.getElementById("madh").textContent || ""));
-    const body = encodeURIComponent("Kính gửi,\n\nĐính kèm là báo cáo dịch vụ khách hàng.\n\nTrân trọng,\nNew Technologies Scientific Corporation");
+    const body = encodeURIComponent(
+      "Kính gửi " + (document.getElementById("lienhe").textContent || "") + ",\n\n" +
+      "Đính kèm là báo cáo dịch vụ khách hàng.\n\n" +
+      "Thông tin công ty: " + (document.getElementById("tencty").textContent || "") + "\n" +
+      "Mã biên bản: " + (document.getElementById("madh").textContent || "") + "\n\n" +
+      "Trân trọng,\nNew Technologies Scientific Corporation"
+    );
     window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
   }
 </script>
-
 </body>
 </html>
