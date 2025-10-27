@@ -3,23 +3,23 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Báo cáo dịch vụ khách hàng</title>
+<title>Customer Service Report</title>
 
 <!-- html2pdf.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <style>
-  @page { size: B4 portrait; margin: 10mm; }
+  @page { size: B4 portrait; margin: 15mm; }
   body {
     font-family: "Times New Roman", Times, serif;
     font-size: 12px;
     color: #000;
+    -webkit-print-color-adjust: exact;
     margin: 0;
     padding: 0;
-    -webkit-print-color-adjust: exact !important;
   }
 
-  /* Toolbar */
+  /* Nút chức năng */
   .toolbar {
     position: fixed;
     top: 10px;
@@ -30,21 +30,22 @@
     z-index: 999;
   }
   .toolbar button {
-    background: linear-gradient(135deg, #004a91, #0070d1);
+    background: #004a91;
     color: white;
     border: none;
-    padding: 8px 12px;
-    border-radius: 8px;
+    padding: 8px 10px;
+    border-radius: 6px;
     font-size: 13px;
     cursor: pointer;
     box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+    transition: background 0.3s;
   }
-  .toolbar button:hover { background: #0058b0; }
+  .toolbar button:hover { background: #0070d1; }
   @media print { .toolbar { display: none; } }
 
   .page {
-    width: 257mm; /* B4 width */
-    min-height: 364mm; /* B4 height */
+    width: 250mm;
+    min-height: 353mm;
     padding: 15mm 18mm;
     box-sizing: border-box;
     position: relative;
@@ -58,8 +59,8 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 500px;
-    height: 500px;
+    width: 450px;
+    height: 450px;
     background: url('https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSZOlj6J-4xEgwSYxcMdhX2u9Uc3xZerGGd6tbiK7yoQzi-WTTZ') center/contain no-repeat;
     opacity: 0.08;
     transform: translate(-50%, -50%);
@@ -77,7 +78,7 @@
   }
 
   .logo {
-    width: 100px;
+    width: 95px;
     height: auto;
     position: absolute;
     left: 0;
@@ -85,8 +86,10 @@
 
   .company-info {
     text-align: center;
+    font-size: 12px;
     line-height: 1.4;
   }
+
   .company-info .line1,
   .company-info .line2 {
     font-weight: bold;
@@ -97,8 +100,10 @@
   .service-number {
     text-align: right;
     margin-top: 8px;
+    font-size: 12px;
   }
   .service-number span {
+    border: none;
     border-bottom: 1px dotted #000;
     display: inline-block;
     min-width: 130px;
@@ -116,9 +121,11 @@
     width: 100%;
     border-collapse: collapse;
     border: 1px solid #000;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    position: relative;
     z-index: 1;
   }
+
   table.form td {
     border: 1px solid #000;
     padding: 5px 6px;
@@ -137,6 +144,7 @@
     min-height: 80px;
     padding: 5px;
     white-space: pre-wrap;
+    position: relative;
     z-index: 1;
   }
 
@@ -144,10 +152,14 @@
     display: flex;
     justify-content: space-between;
     margin-top: 18px;
+    position: relative;
+    z-index: 1;
   }
+
   .sign {
     width: 32%;
     text-align: center;
+    font-size: 12px;
   }
   .sign-line {
     border-top: 1px solid #000;
@@ -155,40 +167,42 @@
     padding-top: 4px;
   }
 
-  /* Trang 2 - Hình ảnh */
+  /* PAGE 2 - HÌNH ẢNH */
   h2 {
     text-align: center;
     font-size: 18px;
+    margin-top: 5px;
+    margin-bottom: 15px;
     color: #004a91;
-    margin-top: 0;
   }
 
   .images {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
+    gap: 18px;
     justify-items: center;
+    align-items: start;
     margin-top: 10px;
   }
 
   .images img {
     width: 100%;
-    height: auto;
-    border-radius: 6px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 8px;
     border: 3px solid #004a91;
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    object-fit: cover;
   }
 
   .images div {
     text-align: center;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 500;
     margin-top: 5px;
   }
 
   footer {
-    margin-top: 30px;
+    margin-top: 40px;
     text-align: center;
     font-size: 11px;
     color: #777;
@@ -203,104 +217,130 @@
   <button onclick="guiGmail()">📧 Gửi Gmail</button>
 </div>
 
-<!-- Trang 1 -->
+<!-- PAGE 1 -->
 <div class="page" id="report">
   <div class="header">
-    <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSZOlj6J-4xEgwSYxcMdhX2u9Uc3xZerGGd6tbiK7yoQzi-WTTZ" class="logo">
+    <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSZOlj6J-4xEgwSYxcMdhX2u9Uc3xZerGGd6tbiK7yoQzi-WTTZ" class="logo" alt="Logo">
     <div class="company-info">
       <div class="line1">CÔNG TY CỔ PHẦN KHOA HỌC CÔNG NGHỆ MỚI</div>
       <div class="line2">NEW TECHNOLOGIES SCIENTIFIC CORPORATION</div>
-      <div>Tầng 6, 130 Nguyễn Công Trứ, P. Nguyễn Thái Bình, Q.1, TP.HCM</div>
-      <div>🌐 https://newntslab.net | 📧 admin@ntslab.net</div>
+      <div class="line3">Tầng 6, 130 Nguyễn Công Trứ, P. Nguyễn Thái Bình, Q.1, TP.HCM</div>
+      <div class="line4">
+        🌐 https://newntslab.net/ | 📧 admin@ntslab.net
+      </div>
     </div>
   </div>
 
-  <div class="service-number"><b>Mã số biên bản:</b> <span id="madh"></span></div>
+  <div class="service-number">
+    <b>Service Request Number / Mã số biên bản:</b> <span id="madh"></span>
+  </div>
 
-  <h1>BÁO CÁO DỊCH VỤ KHÁCH HÀNG</h1>
+  <h1>CUSTOMER SERVICE REPORT / BÁO CÁO DỊCH VỤ KHÁCH HÀNG</h1>
 
   <table class="form">
     <tr>
       <td style="width:45%;">
-        <b>Công ty:</b> <div class="dotted"><span id="tencty"></span></div>
-        <b>Địa chỉ:</b> <div class="dotted"><span id="diachicty"></span></div>
+        <b>Tên công ty / Company:</b><br><div class="dotted"><span id="tencty"></span></div>
+        <b>Địa chỉ / Address:</b><br><div class="dotted"><span id="diachicty"></span></div>
+      </td>
+      <td style="width:55%;">
+        <b>Người liên hệ / Contact Name:</b><br><div class="dotted"><span id="lienhe"></span></div>
+        <b>Điện thoại / Telephone:</b> <span class="dotted" style="width:45%;"><span id="dienthoai"></span></span><br>
+        <b>Loại dịch vụ / Service Type:</b><br><div class="dotted"><span id="loaidv"></span></div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>Mã hàng / Product Code:</b><br><div class="dotted"><span id="mahang"></span></div>
+        <b>Số máy / Serial No.:</b><br><div class="dotted"><span id="somay"></span></div>
+        <b>Số hiệu / Model No.:</b><br><div class="dotted"><span id="sohieu"></span></div>
       </td>
       <td>
-        <b>Liên hệ:</b> <div class="dotted"><span id="lienhe"></span></div>
-        <b>Điện thoại:</b> <div class="dotted"><span id="dienthoai"></span></div>
-        <b>Dịch vụ:</b> <div class="dotted"><span id="loaidv"></span></div>
+        <b>Ngày bắt đầu / Start Date:</b><br><div class="dotted"><span id="batdau"></span></div>
+        <b>Ngày kết thúc / End Date:</b><br><div class="dotted"><span id="ketthuc"></span></div>
+        <b>Hãng sản xuất / Manufacturer:</b><br><div class="dotted"><span id="hangsx"></span></div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>Tổng quát / Overview:</b><br><div class="dotted"><span id="tongquat"></span></div>
+        <b>Mô tả hàng hoá / Product Description:</b><br><div class="dotted"><span id="mota"></span></div>
+      </td>
+      <td>
+        <b>Thời gian di chuyển & Khoảng cách / Travel Time & Distance:</b><br><div class="dotted"><span id="khoangcach"></span></div>
       </td>
     </tr>
   </table>
 
-  <b>Tình trạng:</b>
+  <b>Mô tả tình trạng / Problem Description:</b>
   <div class="bigbox" id="tinhtrang"></div>
 
-  <b>Dịch vụ đã thực hiện:</b>
+  <b>Dịch vụ đã hoàn thành & Giải thích chi tiết / Services Done & Details:</b>
   <div class="bigbox" id="dichvu"></div>
 
-  <b>Ghi chú:</b>
+  <b>Ghi chú / Remark:</b>
   <div class="bigbox" id="ghichu"></div>
 
+  <b>Tên kỹ sư / Engineer Name:</b> <span id="kySu"></span>
+
   <div class="sign-row">
-    <div class="sign"><div class="sign-line">Kỹ sư dịch vụ</div></div>
-    <div class="sign"><div class="sign-line">Khách hàng ký</div></div>
-    <div class="sign"><div class="sign-line">Ngày</div></div>
+    <div class="sign"><div class="sign-line">Customer Service Engineer / Kỹ sư Dịch vụ</div></div>
+    <div class="sign"><div class="sign-line">Customer Signature / Khách hàng ký</div></div>
+    <div class="sign"><div class="sign-line">Date / Ngày</div></div>
   </div>
 </div>
 
-<!-- Trang 2 -->
-<div class="page" id="page2">
+<!-- PAGE 2 -->
+<div class="page">
   <h2>HÌNH ẢNH / IMAGES</h2>
   <div class="images" id="images-page"></div>
-  <footer>© NEW TECHNOLOGIES SCIENTIFIC CORPORATION</footer>
 </div>
 
 <script>
 const params = new URLSearchParams(window.location.search);
-const fields = ["madh","tencty","diachicty","lienhe","dienthoai","loaidv","tinhtrang","dichvu","ghichu"];
-fields.forEach(id => {
-  const el = document.getElementById(id);
-  if (el) el.textContent = params.get(id) ? decodeURIComponent(params.get(id)) : "";
-});
 
-// HIỂN THỊ HÌNH ẢNH (3 ảnh mỗi hàng)
-const imgContainer = document.getElementById("images-page");
-for (let i = 1; i <= 9; i++) {
-  const file = params.get("anh" + i);
-  if (file) {
-    const fullUrl = `https://www.appsheet.com/template/gettablefileurl?appName=Qu%E1%BA%A3nl%C3%BDd%E1%BB%8Bchv%E1%BB%A5-300959436&tableName=Th%C3%B4ng%20tin%20chung&fileName=${decodeURIComponent(file)}`;
-    const div = document.createElement("div");
-    const img = document.createElement("img");
-    img.src = fullUrl;
-    img.crossOrigin = "anonymous";
-    div.appendChild(img);
-    imgContainer.appendChild(div);
+function setValue(id){
+  const el=document.getElementById(id);
+  if(el) el.textContent=params.get(id)?decodeURIComponent(params.get(id)):"";
+}
+["madh","tencty","diachicty","lienhe","dienthoai","mahang","somay","loaidv","batdau","ketthuc","tongquat","mota","sohieu","hangsx","khoangcach","tinhtrang","dichvu","ghichu","kySu"].forEach(setValue);
+
+const imgContainer=document.getElementById("images-page");
+for(let i=1;i<=9;i++){
+  const file=params.get("anh"+i);
+  if(file){
+    const url=`https://www.appsheet.com/template/gettablefileurl?appName=Qu%E1%BA%A3nl%C3%BDd%E1%BB%8Bchv%E1%BB%A5-300959436&tableName=Th%C3%B4ng%20tin%20chung&fileName=${decodeURIComponent(file)}`;
+    const wrapper=document.createElement("div");
+    const img=document.createElement("img");
+    img.src=url;
+    img.alt="Image "+i;
+    wrapper.appendChild(img);
+    imgContainer.appendChild(wrapper);
   }
 }
 
-// XUẤT PDF
-function xuatPDF() {
-  const tencty = document.getElementById("tencty").textContent.trim() || "CongTy";
-  const madh = document.getElementById("madh").textContent.trim() || "MaSo";
-  const filename = `${tencty} - ${madh}.pdf`;
-  const opt = {
-    margin: 0.5,
-    filename: filename,
-    image: { type: "jpeg", quality: 1 },
-    html2canvas: { scale: 3, useCORS: true },
-    jsPDF: { unit: "mm", format: "b4", orientation: "portrait" }
+// Xuất PDF khổ B4
+function xuatPDF(){
+  const tencty=document.getElementById("tencty").textContent.trim()||"NoCompany";
+  const madh=document.getElementById("madh").textContent.trim()||"NoNumber";
+  const filename=`${tencty} - ${madh}.pdf`;
+  const opt={
+    margin:0.3,
+    filename:filename,
+    image:{type:"jpeg",quality:0.98},
+    html2canvas:{scale:2,useCORS:true},
+    jsPDF:{unit:"mm",format:"b4",orientation:"portrait"}
   };
   html2pdf().set(opt).from(document.body).save();
 }
 
-// GỬI EMAIL
-function guiGmail() {
-  const tencty = document.getElementById("tencty").textContent.trim();
-  const madh = document.getElementById("madh").textContent.trim();
-  const subject = `Kính gửi ${tencty} - Báo cáo dịch vụ khách hàng`;
-  const body = `Kính gửi Quý công ty ${tencty},\n\nĐính kèm là báo cáo dịch vụ mã số ${madh}.\nRất mong nhận được phản hồi từ Quý khách.\n\nTrân trọng,\nNew Technologies Scientific Corporation`;
-  window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+// Gửi Gmail
+function guiGmail(){
+  const tencty=document.getElementById("tencty").textContent.trim();
+  const madh=document.getElementById("madh").textContent.trim();
+  const subject=`Kính gửi ${tencty}`;
+  const body=`Kính gửi Quý công ty ${tencty},\n\nĐính kèm là báo cáo dịch vụ khách hàng của mã số ${madh}.\nRất mong Quý công ty xem xét và phản hồi nếu có ý kiến.\n\nTrân trọng cảm ơn!\n\nNew Technologies Scientific Corporation.`;
+  window.location.href=`mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 </script>
 </body>
