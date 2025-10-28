@@ -6,109 +6,62 @@
 <title>Customer Service Report</title>
 
 <style>
-  /* Lề in chuẩn A4 */
   @page { size: A4 portrait; margin: 0.5cm 0.5cm 0.5cm 1.5cm; }
+  body { font-family: "Times New Roman", Times, serif; font-size: 14px; color: #000; margin:0; padding:0; }
+  
+  .toolbar { position: fixed; top: 10px; right: 10px; display: flex; flex-direction: column; gap:6px; z-index:999; }
+  .toolbar button { background:#004a91; color:white; border:none; padding:8px 10px; border-radius:6px; font-size:13px; cursor:pointer; }
+  .toolbar button:hover{background:#0070d1;}
+  @media print{.toolbar{display:none;}}
 
-  body {
-    font-family: "Times New Roman", Times, serif;
-    font-size: 14px;
-    color: #000;
-    -webkit-print-color-adjust: exact;
-    margin: 0;
-    padding: 0;
-  }
+  .page { width:auto; min-height:auto; padding:0.5cm 0.5cm 0.5cm 1.5cm; box-sizing:border-box; position:relative; page-break-after:always; background:white; }
 
-  .toolbar {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    z-index: 999;
-  }
-  .toolbar button {
-    background: #004a91;
-    color: white;
-    border: none;
-    padding: 8px 10px;
-    border-radius: 6px;
-    font-size: 13px;
-    cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.25);
-    transition: background 0.3s;
-  }
-  .toolbar button:hover { background: #0070d1; }
-  @media print { .toolbar { display: none; } }
-
-  /* Page container */
-  .page {
-    width: auto;
-    min-height: auto;
-    padding: 0.5cm 0.5cm 0.5cm 1.5cm; /* top/bottom 0.5cm, left 1.5cm, right 0.5cm */
-    box-sizing: border-box;
-    position: relative;
-    page-break-after: always;
-    background: white;
-  }
-
-  /* Watermark */
   .page::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 400px;
-    height: 400px;
-    background: url('https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSZOlj6J-4xEgwSYxcMdhX2u9Uc3xZerGGd6tbiK7yoQzi-WTTZ') center/contain no-repeat;
-    opacity: 0.08;
-    transform: translate(-50%, -50%);
-    z-index: 0;
+    content:"";
+    position:absolute;
+    top:50%; left:50%;
+    width:400px; height:400px;
+    background:url('https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSZOlj6J-4xEgwSYxcMdhX2u9Uc3xZerGGd6tbiK7yoQzi-WTTZ') center/contain no-repeat;
+    opacity:0.08;
+    transform:translate(-50%,-50%);
+    z-index:0;
   }
 
-  /* Header, logo, company info */
-  .header { display: flex; align-items: center; justify-content: center; margin-bottom: 8px; position: relative; border-bottom: 4px solid #004a91; padding-bottom: 8px; }
-  .logo { width: 95px; height: auto; position: absolute; left: 0; }
-  .company-info { text-align: center; font-size: 12px; line-height: 1.4; }
-  .company-info .line1, .company-info .line2 { font-weight: bold; font-size: 13px; color: #004a91; }
+  .header { display:flex; align-items:center; justify-content:center; margin-bottom:8px; position:relative; border-bottom:4px solid #004a91; padding-bottom:8px; }
+  .logo { width:95px; position:absolute; left:0; }
+  .company-info { text-align:center; font-size:12px; line-height:1.4; }
+  .company-info .line1,.company-info .line2{font-weight:bold; font-size:13px; color:#004a91;}
 
-  .service-number { text-align: right; margin-top: 8px; font-size: 12px; }
-  .service-number span { border: none; border-bottom: 1px dotted #000; display: inline-block; min-width: 130px; }
+  .service-number { text-align:right; margin-top:8px; font-size:12px; }
+  .service-number span{border:none; border-bottom:1px dotted #000; display:inline-block; min-width:130px;}
 
-  h1 { text-align: center; font-size: 18px; margin: 10px 0 12px 0; color: #004a91; text-transform: uppercase; }
+  h1 { text-align:center; font-size:18px; margin:10px 0 12px 0; color:#004a91; text-transform:uppercase; }
 
-  /* Table form */
-  table.form { width: 100%; border-collapse: collapse; border: 1px solid #000; margin-bottom: 8px; position: relative; z-index: 1; }
-  table.form td { border: 1px solid #000; padding: 5px 6px; vertical-align: top; }
-  .dotted { border-bottom: 1px dotted #000; display: inline-block; width: 100%; min-height: 14px; }
+  table.form { width:100%; border-collapse:collapse; border:1px solid #000; margin-bottom:8px; position:relative; z-index:1; }
+  table.form td { border:1px solid #000; padding:5px 6px; vertical-align:top; }
+  .dotted { border-bottom:1px dotted #000; display:inline-block; width:100%; min-height:14px; }
 
-  /* Big boxes */
-  .bigbox { border: 1px solid #000; min-height: 80px; padding: 5px; white-space: pre-wrap; position: relative; z-index: 1; }
+  .bigbox { border:1px solid #000; min-height:80px; padding:5px; white-space:pre-wrap; position:relative; z-index:1; }
 
-  /* Signatures */
-  .sign-row { display: flex; justify-content: space-between; margin-top: 40px; position: relative; z-index: 1; }
-  .sign { width: 48%; text-align: center; font-size: 14px; }
-  .sign-line { font-weight: bold; margin-bottom: 10px; }
-  .sign-name { border-top: 1px solid #000; width: 80%; margin: 0 auto; font-style: italic; padding-top: 4px; position: relative; }
-  .sign-name img { display: block; margin: 0 auto; max-height: 60px; margin-top: 5px; }
-  .date-row { display: flex; justify-content: space-between; margin-top: 15px; font-size: 13px; }
-  .date { width: 48%; text-align: center; }
+  .sign-row { display:flex; justify-content:space-between; margin-top:40px; position:relative; z-index:1; }
+  .sign { width:48%; text-align:center; font-size:14px; }
+  .sign-line { font-weight:bold; margin-bottom:10px; }
+  .sign-name { border-top:1px solid #000; width:80%; margin:0 auto; font-style:italic; padding-top:4px; position:relative; min-height:60px; }
+  .sign-name img { display:block; margin:0 auto; max-height:60px; margin-top:5px; }
+  .date-row { display:flex; justify-content:space-between; margin-top:15px; font-size:13px; }
+  .date { width:48%; text-align:center; }
 
-  h2 { text-align: center; font-size: 18px; margin-top: 5px; margin-bottom: 15px; color: #004a91; }
-
-  /* Image grid */
-  .images { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 18px; justify-items: center; align-items: start; margin-top: 10px; }
-  .images img { width: 100%; max-width: 220px; border-radius: 8px; border: 3px solid #004a91; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
-  .images div { text-align: center; font-size: 13px; font-weight: 500; margin-top: 5px; }
-
-  footer { margin-top: 40px; text-align: center; font-size: 11px; color: #777; }
+  h2 { text-align:center; font-size:18px; margin-top:5px; margin-bottom:15px; color:#004a91; }
+  .images { display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:18px; justify-items:center; align-items:start; margin-top:10px; }
+  .images img { width:100%; max-width:220px; border-radius:8px; border:3px solid #004a91; box-shadow:0 2px 6px rgba(0,0,0,0.2); }
+  .images div { text-align:center; font-size:13px; font-weight:500; margin-top:5px; }
+  footer { margin-top:40px; text-align:center; font-size:11px; color:#777; }
 </style>
 </head>
 <body>
 
 <div class="toolbar">
   <button onclick="window.print()">🖨️ In Báo Cáo</button>
-  <button onclick="guiGmail()">📧 Gửi Gmail</button>
 </div>
 
 <div class="page" id="report">
@@ -143,27 +96,6 @@
         <b>Loại dịch vụ / Service Type:</b><br><div class="dotted"><span id="loaidv"></span></div>
       </td>
     </tr>
-    <tr>
-      <td>
-        <b>Mã hàng / Product Code:</b><br><div class="dotted"><span id="mahang"></span></div>
-        <b>Số máy / Serial No.:</b><br><div class="dotted"><span id="somay"></span></div>
-        <b>Số hiệu / Model No.:</b><br><div class="dotted"><span id="sohieu"></span></div>
-      </td>
-      <td>
-        <b>Ngày bắt đầu / Start Date:</b><br><div class="dotted"><span id="batdau"></span></div>
-        <b>Ngày kết thúc / End Date:</b><br><div class="dotted"><span id="ketthuc"></span></div>
-        <b>Hãng sản xuất / Manufacturer:</b><br><div class="dotted"><span id="hangsx"></span></div>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <b>Tổng quát / Overview:</b><br><div class="dotted"><span id="tongquat"></span></div>
-        <b>Mô tả hàng hoá / Product Description:</b><br><div class="dotted"><span id="mota"></span></div>
-      </td>
-      <td>
-        <b>Thời gian di chuyển & Khoảng cách / Travel Time & Distance:</b><br><div class="dotted"><span id="khoangcach"></span></div>
-      </td>
-    </tr>
   </table>
 
   <b>Mô tả tình trạng / Problem Description:</b>
@@ -174,8 +106,6 @@
 
   <b>Ghi chú / Remark:</b>
   <div class="bigbox" id="ghichu"></div>
-
-  <b>Tên kỹ sư / Engineer Name:</b> <span id="kySu"></span>
 
   <div class="sign-row">
     <div class="sign">
@@ -204,105 +134,44 @@
 <div class="page">
   <h2>HÌNH ẢNH / IMAGES</h2>
   <div class="images" id="images-page"></div>
-  <footer></footer>
 </div>
 
 <script>
   const params = new URLSearchParams(window.location.search);
 
-  function setValue(id) {
+  function setValue(id){
     const el = document.getElementById(id);
-    if (el) el.textContent = params.get(id) ? decodeURIComponent(params.get(id)) : "";
+    if(el) el.textContent = params.get(id) ? decodeURIComponent(params.get(id)) : "";
   }
 
-  const fields = [
-    "madh","tencty","diachicty","lienhe","dienthoai",
-    "mahang","somay","loaidv","batdau","ketthuc",
-    "tongquat","mota","sohieu","hangsx",
-    "khoangcach","tinhtrang","dichvu","ghichu","kySu"
-  ];
+  const fields = ["madh","tencty","diachicty","lienhe","dienthoai","loaidv","tinhtrang","dichvu","ghichu"];
   fields.forEach(setValue);
 
-  const imgContainer = document.getElementById("images-page");
-  for (let i = 1; i <= 9; i++) {
-    const file = params.get("anh" + i);
-    if (file) {
-      const fullUrl = `https://www.appsheet.com/template/gettablefileurl?appName=Qu%E1%BA%A3nl%C3%BDd%E1%BB%8Bchv%E1%BB%A5-300959436&tableName=Th%C3%B4ng%20tin%20chung&fileName=${decodeURIComponent(file)}`;
-      const wrapper = document.createElement("div");
-      const img = document.createElement("img");
-      img.src = fullUrl;
-      img.alt = "Image " + i;
-      wrapper.appendChild(img);
-      const label = document.createElement("div");
-      label.textContent = "Image " + i;
-      wrapper.appendChild(label);
-      imgContainer.appendChild(wrapper);
-    }
-  }
-
-  // Chữ ký kỹ sư
+  // Chữ ký Kỹ sư
   const chukyKysu = params.get("chuky_kysu");
-  if (chukyKysu) {
+  if(chukyKysu){
     document.getElementById("imgChukyKysu").src = decodeURIComponent(chukyKysu);
     document.getElementById("placeholderKysu").style.display = "none";
   }
 
-  // Chữ ký khách
+  // Chữ ký Khách hàng
   const chukyKhach = params.get("chuky_khach");
-  if (chukyKhach) {
+  if(chukyKhach){
     document.getElementById("imgChukyKhach").src = decodeURIComponent(chukyKhach);
     document.getElementById("placeholderKhach").style.display = "none";
   }
 
-  const email = params.get("email") ? decodeURIComponent(params.get("email")) : "";
+  // Hình ảnh
+  const imgContainer = document.getElementById("images-page");
+  for(let i=1;i<=9;i++){
+    const file = params.get("anh"+i);
+    if(file){
+      const img = document.createElement("img");
+      img.src = decodeURIComponent(file);
+      imgContainer.appendChild(img);
+    }
+  }
+</script>
 
-  function guiGmail() {
-    const lienhe = document.getElementById("lienhe").textContent || "";
-    const tencty = document.getElementById("tencty").textContent || "";
-    const madh = document.getElementById("madh").textContent || "";
-    const loaidv = document.getElementById("loaidv").textContent || "";
-    const hangsx = document.getElementById("hangsx").textContent || "";
-    const somay = document.getElementById("somay").textContent || "";
-    const diachicty = document.getElementById("diachicty").textContent || "";
-    const dienthoai = document.getElementById("dienthoai").textContent || "";
-    const mota = document.getElementById("mota").textContent || "";
-    const ketthuc = document.getElementById("ketthuc").textContent || "";
-    const kySu = document.getElementById("kySu").textContent || "";
-
-    const to = email || "";
-    const subject = encodeURIComponent("Báo cáo dịch vụ khách hàng - " + madh);
-
-    const body = encodeURIComponent(
-`Kính gửi ${lienhe},
-
-Công ty Cổ phần Khoa học Công nghệ Mới (NTS) xin gửi đến Quý Công ty *${tencty}* báo cáo chi tiết về dịch vụ kỹ thuật đã thực hiện.
-
-─────── ✦ ───────
-📋 **THÔNG TIN CHUNG**
-🆔 Mã biên bản: ${madh}
-🧰 Loại dịch vụ: ${loaidv}
-🏭 Hãng sản xuất: ${hangsx}
-🔢 Số máy: ${somay}
-📍 Địa chỉ: ${diachicty}
-👤 Liên hệ: ${lienhe} - ☎️ ${dienthoai}
-
-─────── ✦ ───────
-🔧 **NỘI DUNG DỊCH VỤ**
-${mota ? "🛠️ " + mota : "🛠️ Công việc kiểm tra, bảo trì, xử lý kỹ thuật được thực hiện theo yêu cầu khách hàng."}
-
-─────── ✦ ───────
-📅 **THỜI GIAN & KỸ SƯ PHỤ TRÁCH**
-⏰ Hoàn thành: ${ketthuc || "Đang cập nhật"}
-👨‍🔧 Kỹ sư phụ trách: ${kySu}
-
-─────── ✦ ───────
-💬 **GHI CHÚ**
-Báo cáo này ghi nhận tiến độ, kết quả và chất lượng công việc do đội ngũ kỹ sư **NTS** thực hiện.  
-Nếu Quý Công ty cần hỗ trợ, vui lòng phản hồi trực tiếp qua email này để được hỗ trợ nhanh chóng.
-
-─────── ✦ ───────
-🙏 **LỜI CẢM ƠN**
-Xin trân trọng cảm ơn Quý Công ty đã tin tưởng và hợp tác cùng:
-
-🏢 CÔNG TY CỔ PHẦN KHOA HỌC CÔNG NGHỆ MỚI (NTS)  
-📍 130 Nguyễn Công Trứ, P
+</body>
+</html>
