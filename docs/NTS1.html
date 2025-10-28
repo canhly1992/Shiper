@@ -6,7 +6,8 @@
 <title>Customer Service Report</title>
 
 <style>
-  @page { size: A4 portrait; margin: 15mm; }
+  @page { size: A4 portrait; margin: 0.5cm 1.5cm 0.5cm 1.5cm; }
+
   body {
     font-family: "Times New Roman", Times, serif;
     font-size: 14px;
@@ -42,7 +43,7 @@
   .page {
     width: 210mm;
     min-height: 297mm;
-    padding: 15mm 18mm;
+    padding: 0.5cm 1.5cm;
     box-sizing: border-box;
     position: relative;
     page-break-after: always;
@@ -290,7 +291,7 @@
 
   .sign-line {
     font-weight: bold;
-    margin-bottom: 60px; /* khoảng trống để ký */
+    margin-bottom: 60px;
   }
 
   .sign-name {
@@ -372,7 +373,6 @@
 
   const email = params.get("email") ? decodeURIComponent(params.get("email")) : "";
 
-  // ✅ PHIÊN BẢN MỚI CỦA HÀM GỬI EMAIL
   function guiGmail() {
     const lienhe = document.getElementById("lienhe").textContent || "";
     const tencty = document.getElementById("tencty").textContent || "";
