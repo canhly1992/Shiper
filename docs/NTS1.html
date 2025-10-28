@@ -177,63 +177,27 @@
 
   <b>Tên kỹ sư / Engineer Name:</b> <span id="kySu"></span>
 
-<style>
-  .sign-row {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 40px;
-  }
+  <div class="sign-row">
+    <div class="sign">
+      <div class="sign-line">Customer Service Engineer / Kỹ sư Dịch vụ</div>
+      <div class="sign-name" id="chukyKysu">
+        (Họ và tên)
+        <img id="imgChukyKysu" style="display:none; max-width:200px; margin-top:5px; border:none;" />
+      </div>
+    </div>
 
-  .sign {
-    width: 48%;
-    text-align: center;
-    font-size: 14px;
-  }
-
-  .sign-line {
-    font-weight: bold;
-    margin-bottom: 60px;
-  }
-
-  .sign-name {
-    border-top: 1px solid #000;
-    width: 80%;
-    margin: 0 auto;
-    font-style: italic;
-    padding-top: 4px;
-  }
-
-  .date-row {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
-    font-size: 13px;
-  }
-
-  .date {
-    width: 48%;
-    text-align: center;
-  }
-</style>
-
-<div class="sign-row">
-  <div class="sign">
-    <div class="sign-line">Customer Service Engineer / Kỹ sư Dịch vụ</div>
-    <div class="sign-name">(Họ và tên)</div>
+    <div class="sign">
+      <div class="sign-line">Customer Signature / Khách hàng ký</div>
+      <div class="sign-name">(Họ và tên)</div>
+    </div>
   </div>
 
-  <div class="sign">
-    <div class="sign-line">Customer Signature / Khách hàng ký</div>
-    <div class="sign-name">(Họ và tên)</div>
+  <div class="date-row">
+    <div class="date">Date / Ngày ký: .......... / .......... / ..........</div>
+    <div class="date">Date / Ngày ký: .......... / .......... / ..........</div>
   </div>
 </div>
 
-<div class="date-row">
-  <div class="date">Date / Ngày ký: .......... / .......... / ..........</div>
-  <div class="date">Date / Ngày ký: .......... / .......... / ..........</div>
-</div>
-</div>
-  
 <div class="page">
   <h2>HÌNH ẢNH / IMAGES</h2>
   <div class="images" id="images-page"></div>
@@ -255,6 +219,7 @@
   ];
   fields.forEach(setValue);
 
+  // Hiển thị hình ảnh 1-9
   const imgContainer = document.getElementById("images-page");
   for (let i = 1; i <= 9; i++) {
     const file = params.get("anh" + i);
@@ -270,6 +235,17 @@
       wrapper.appendChild(label);
       imgContainer.appendChild(wrapper);
     }
+  }
+
+  // Hiển thị chữ ký kỹ sư nếu có
+  const chukyUrl = params.get("chuky");
+  if (chukyUrl) {
+    const img = document.getElementById("imgChukyKysu");
+    img.src = decodeURIComponent(chukyUrl);
+    img.style.display = "block";
+    // Ẩn text "(Họ và tên)"
+    const signName = document.getElementById("chukyKysu");
+    signName.childNodes[0].textContent = "";
   }
 
   const email = params.get("email") ? decodeURIComponent(params.get("email")) : "";
