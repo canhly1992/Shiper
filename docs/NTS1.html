@@ -82,17 +82,27 @@
 
   .sign-row { display: flex; justify-content: space-between; margin-top: 40px; position: relative; z-index: 1; }
   .sign { width: 48%; text-align: center; font-size: 14px; }
-  .sign-line { font-weight: bold; margin-bottom: 60px; }
+  .sign-line { font-weight: bold; margin-bottom: 10px; }
   .sign-name { border-top: 1px solid #000; width: 80%; margin: 0 auto; font-style: italic; padding-top: 4px; }
+
+  /* Hình ảnh dưới chữ ký kỹ sư */
+  .sign-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+    justify-content: center;
+  }
+  .sign-images img {
+    width: 3cm;
+    height: 2cm;
+    object-fit: cover;
+    border: 1px solid #004a91;
+    border-radius: 4px;
+  }
 
   .date-row { display: flex; justify-content: space-between; margin-top: 15px; font-size: 13px; }
   .date { width: 48%; text-align: center; }
-
-  h2 { text-align: center; font-size: 18px; margin-top: 5px; margin-bottom: 15px; color: #004a91; }
-
-  .images { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 18px; justify-items: center; align-items: start; margin-top: 10px; }
-  .images img { width: 100%; max-width: 220px; border-radius: 8px; border: 3px solid #004a91; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
-  .images div { text-align: center; font-size: 13px; font-weight: 500; margin-top: 5px; }
 
   footer { margin-top: 40px; text-align: center; font-size: 11px; color: #777; }
 </style>
@@ -104,7 +114,6 @@
   <button onclick="guiGmail()">📧 Gửi Gmail</button>
 </div>
 
-<!-- Trang 1: Thông tin báo cáo -->
 <div class="page" id="report">
   <div class="header">
     <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSZOlj6J-4xEgwSYxcMdhX2u9Uc3xZerGGd6tbiK7yoQzi-WTTZ" class="logo" alt="Logo">
@@ -174,7 +183,10 @@
   <div class="sign-row">
     <div class="sign">
       <div class="sign-line">Customer Service Engineer / Kỹ sư Dịch vụ</div>
-      <div class="sign-name">(Họ và tên)</div>
+      <div class="sign-name" id="kySu-name">(Họ và tên)</div>
+
+      <!-- Hình ảnh 10 cái nằm dưới chữ ký kỹ sư -->
+      <div class="sign-images"></div>
     </div>
 
     <div class="sign">
@@ -189,15 +201,9 @@
   </div>
 </div>
 
-<!-- Trang 2: Hình ảnh -->
-<div class="page">
-  <h2>HÌNH ẢNH / IMAGES</h2>
-  <div class="images" id="images-page"></div>
-  <footer></footer>
-</div>
-
 <script>
   const params = new URLSearchParams(window.location.search);
+
   function setValue(id) {
     const el = document.getElementById(id);
     if (el) el.textContent = params.get(id) ? decodeURIComponent(params.get(id)) : "";
@@ -211,21 +217,16 @@
   ];
   fields.forEach(setValue);
 
-  // Hiển thị 10 hình ảnh
-  const imgContainer = document.getElementById("images-page");
+  // Hiển thị hình ảnh dưới chữ ký kỹ sư
+  const signImgContainer = document.querySelector(".sign-images");
   for (let i = 1; i <= 10; i++) {
     const file = params.get("anh" + i);
     if (file) {
       const fullUrl = `https://www.appsheet.com/template/gettablefileurl?appName=Qu%E1%BA%A3nl%C3%BDd%E1%BB%8Bchv%E1%BB%A5-300959436&tableName=Th%C3%B4ng%20tin%20chung&fileName=${decodeURIComponent(file)}`;
-      const wrapper = document.createElement("div");
       const img = document.createElement("img");
       img.src = fullUrl;
       img.alt = "Image " + i;
-      wrapper.appendChild(img);
-      const label = document.createElement("div");
-      label.textContent = "Image " + i;
-      wrapper.appendChild(label);
-      imgContainer.appendChild(wrapper);
+      signImgContainer.appendChild(img);
     }
   }
 
