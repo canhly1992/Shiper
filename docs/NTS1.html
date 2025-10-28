@@ -41,18 +41,16 @@
   .toolbar button:hover { background: #0070d1; }
   @media print { .toolbar { display: none; } }
 
-  /* Page container */
   .page {
     width: auto;
     min-height: auto;
-    padding: 0.5cm 0.5cm 0.5cm 1.5cm; /* top/bottom 0.5cm, left 1.5cm, right 0.5cm */
+    padding: 0.5cm 0.5cm 0.5cm 1.5cm;
     box-sizing: border-box;
     position: relative;
     page-break-after: always;
     background: white;
   }
 
-  /* Watermark */
   .page::before {
     content: "";
     position: absolute;
@@ -66,7 +64,6 @@
     z-index: 0;
   }
 
-  /* Header, logo, company info */
   .header { display: flex; align-items: center; justify-content: center; margin-bottom: 8px; position: relative; border-bottom: 4px solid #004a91; padding-bottom: 8px; }
   .logo { width: 95px; height: auto; position: absolute; left: 0; }
   .company-info { text-align: center; font-size: 12px; line-height: 1.4; }
@@ -77,15 +74,12 @@
 
   h1 { text-align: center; font-size: 18px; margin: 10px 0 12px 0; color: #004a91; text-transform: uppercase; }
 
-  /* Table form */
   table.form { width: 100%; border-collapse: collapse; border: 1px solid #000; margin-bottom: 8px; position: relative; z-index: 1; }
   table.form td { border: 1px solid #000; padding: 5px 6px; vertical-align: top; }
   .dotted { border-bottom: 1px dotted #000; display: inline-block; width: 100%; min-height: 14px; }
 
-  /* Big boxes */
   .bigbox { border: 1px solid #000; min-height: 80px; padding: 5px; white-space: pre-wrap; position: relative; z-index: 1; }
 
-  /* Signatures */
   .sign-row { display: flex; justify-content: space-between; margin-top: 40px; position: relative; z-index: 1; }
   .sign { width: 48%; text-align: center; font-size: 14px; }
   .sign-line { font-weight: bold; margin-bottom: 60px; }
@@ -96,7 +90,6 @@
 
   h2 { text-align: center; font-size: 18px; margin-top: 5px; margin-bottom: 15px; color: #004a91; }
 
-  /* Image grid */
   .images { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 18px; justify-items: center; align-items: start; margin-top: 10px; }
   .images img { width: 100%; max-width: 220px; border-radius: 8px; border: 3px solid #004a91; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
   .images div { text-align: center; font-size: 13px; font-weight: 500; margin-top: 5px; }
@@ -111,6 +104,7 @@
   <button onclick="guiGmail()">📧 Gửi Gmail</button>
 </div>
 
+<!-- Trang 1: Thông tin báo cáo -->
 <div class="page" id="report">
   <div class="header">
     <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSZOlj6J-4xEgwSYxcMdhX2u9Uc3xZerGGd6tbiK7yoQzi-WTTZ" class="logo" alt="Logo">
@@ -177,63 +171,25 @@
 
   <b>Tên kỹ sư / Engineer Name:</b> <span id="kySu"></span>
 
-<style>
-  .sign-row {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 40px;
-  }
+  <div class="sign-row">
+    <div class="sign">
+      <div class="sign-line">Customer Service Engineer / Kỹ sư Dịch vụ</div>
+      <div class="sign-name">(Họ và tên)</div>
+    </div>
 
-  .sign {
-    width: 48%;
-    text-align: center;
-    font-size: 14px;
-  }
-
-  .sign-line {
-    font-weight: bold;
-    margin-bottom: 60px;
-  }
-
-  .sign-name {
-    border-top: 1px solid #000;
-    width: 80%;
-    margin: 0 auto;
-    font-style: italic;
-    padding-top: 4px;
-  }
-
-  .date-row {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
-    font-size: 13px;
-  }
-
-  .date {
-    width: 48%;
-    text-align: center;
-  }
-</style>
-
-<div class="sign-row">
-  <div class="sign">
-    <div class="sign-line">Customer Service Engineer / Kỹ sư Dịch vụ</div>
-    <div class="sign-name">(Họ và tên)</div>
+    <div class="sign">
+      <div class="sign-line">Customer Signature / Khách hàng ký</div>
+      <div class="sign-name">(Họ và tên)</div>
+    </div>
   </div>
 
-  <div class="sign">
-    <div class="sign-line">Customer Signature / Khách hàng ký</div>
-    <div class="sign-name">(Họ và tên)</div>
+  <div class="date-row">
+    <div class="date">Date / Ngày ký: .......... / .......... / ..........</div>
+    <div class="date">Date / Ngày ký: .......... / .......... / ..........</div>
   </div>
 </div>
 
-<div class="date-row">
-  <div class="date">Date / Ngày ký: .......... / .......... / ..........</div>
-  <div class="date">Date / Ngày ký: .......... / .......... / ..........</div>
-</div>
-</div>
-  
+<!-- Trang 2: Hình ảnh -->
 <div class="page">
   <h2>HÌNH ẢNH / IMAGES</h2>
   <div class="images" id="images-page"></div>
@@ -255,8 +211,9 @@
   ];
   fields.forEach(setValue);
 
+  // Hiển thị 10 hình ảnh
   const imgContainer = document.getElementById("images-page");
-  for (let i = 1; i <= 9; i++) {
+  for (let i = 1; i <= 10; i++) {
     const file = params.get("anh" + i);
     if (file) {
       const fullUrl = `https://www.appsheet.com/template/gettablefileurl?appName=Qu%E1%BA%A3nl%C3%BDd%E1%BB%8Bchv%E1%BB%A5-300959436&tableName=Th%C3%B4ng%20tin%20chung&fileName=${decodeURIComponent(file)}`;
@@ -296,7 +253,7 @@
 Công ty Cổ phần Khoa học Công nghệ Mới (NTS) xin gửi đến Quý Công ty *${tencty}* báo cáo chi tiết về dịch vụ kỹ thuật đã thực hiện.
 
 ─────── ✦ ───────
-📋 **THÔNG TIN CHUNG**
+📋 THÔNG TIN CHUNG
 🆔 Mã biên bản: ${madh}
 🧰 Loại dịch vụ: ${loaidv}
 🏭 Hãng sản xuất: ${hangsx}
@@ -305,27 +262,22 @@ Công ty Cổ phần Khoa học Công nghệ Mới (NTS) xin gửi đến Quý C
 👤 Liên hệ: ${lienhe} - ☎️ ${dienthoai}
 
 ─────── ✦ ───────
-🔧 **NỘI DUNG DỊCH VỤ**
-${mota ? "🛠️ " + mota : "🛠️ Công việc kiểm tra, bảo trì, xử lý kỹ thuật được thực hiện theo yêu cầu khách hàng."}
+🔧 NỘI DUNG DỊCH VỤ
+${mota ? mota : "Công việc kiểm tra, bảo trì, xử lý kỹ thuật được thực hiện theo yêu cầu khách hàng."}
 
 ─────── ✦ ───────
-📅 **THỜI GIAN & KỸ SƯ PHỤ TRÁCH**
+📅 THỜI GIAN & KỸ SƯ PHỤ TRÁCH
 ⏰ Hoàn thành: ${ketthuc || "Đang cập nhật"}
 👨🔧 Kỹ sư phụ trách: ${kySu}
 
 ─────── ✦ ───────
-💬 **GHI CHÚ**
-Báo cáo này ghi nhận tiến độ, kết quả và chất lượng công việc do đội ngũ kỹ sư **NTS** thực hiện.  
-Nếu Quý Công ty cần hỗ trợ, vui lòng phản hồi trực tiếp qua email này để được hỗ trợ nhanh chóng.
+💬 GHI CHÚ
+Báo cáo này ghi nhận tiến độ, kết quả và chất lượng công việc do đội ngũ kỹ sư NTS thực hiện.  
+Nếu Quý Công ty cần hỗ trợ, vui lòng phản hồi trực tiếp qua email này.
 
 ─────── ✦ ───────
-🙏 **LỜI CẢM ƠN**
-Xin trân trọng cảm ơn Quý Công ty đã tin tưởng và hợp tác cùng:
-
-🏢 CÔNG TY CỔ PHẦN KHOA HỌC CÔNG NGHỆ MỚI (NTS)  
-📍 130 Nguyễn Công Trứ, P. Nguyễn Thái Bình, Q.1, TP.HCM  
-☎️ Hotline: 097 222 0906 | 📧 admin@ntslab.net  
-🌐 https://newntslab.net/
+🙏 LỜI CẢM ƠN
+Xin trân trọng cảm ơn Quý Công ty đã tin tưởng và hợp tác cùng NTS.
 
 Trân trọng kính chào,  
 👨🔧 ${kySu}  
