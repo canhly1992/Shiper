@@ -6,15 +6,16 @@
 <title>Customer Service Report</title>
 
 <style>
+  /* Lề in chuẩn A4 */
   @page { size: A4 portrait; margin: 0.5cm 0.5cm 0.5cm 1.5cm; }
 
   body {
     font-family: "Times New Roman", Times, serif;
     font-size: 14px;
     color: #000;
+    -webkit-print-color-adjust: exact;
     margin: 0;
     padding: 0;
-    -webkit-print-color-adjust: exact;
   }
 
   .toolbar {
@@ -35,10 +36,12 @@
     font-size: 13px;
     cursor: pointer;
     box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+    transition: background 0.3s;
   }
   .toolbar button:hover { background: #0070d1; }
   @media print { .toolbar { display: none; } }
 
+  /* Page container */
   .page {
     width: auto;
     min-height: auto;
@@ -49,6 +52,7 @@
     background: white;
   }
 
+  /* Watermark */
   .page::before {
     content: "";
     position: absolute;
@@ -62,37 +66,45 @@
     z-index: 0;
   }
 
+  /* Header, logo, company info */
   .header { display: flex; align-items: center; justify-content: center; margin-bottom: 8px; position: relative; border-bottom: 4px solid #004a91; padding-bottom: 8px; }
-  .logo { width: 95px; position: absolute; left: 0; }
+  .logo { width: 95px; height: auto; position: absolute; left: 0; }
   .company-info { text-align: center; font-size: 12px; line-height: 1.4; }
   .company-info .line1, .company-info .line2 { font-weight: bold; font-size: 13px; color: #004a91; }
 
   .service-number { text-align: right; margin-top: 8px; font-size: 12px; }
-  .service-number span { border-bottom: 1px dotted #000; display: inline-block; min-width: 130px; }
+  .service-number span { border: none; border-bottom: 1px dotted #000; display: inline-block; min-width: 130px; }
 
   h1 { text-align: center; font-size: 18px; margin: 10px 0 12px 0; color: #004a91; text-transform: uppercase; }
 
-  table.form { width: 100%; border-collapse: collapse; border: 1px solid #000; margin-bottom: 8px; }
+  /* Table form */
+  table.form { width: 100%; border-collapse: collapse; border: 1px solid #000; margin-bottom: 8px; position: relative; z-index: 1; }
   table.form td { border: 1px solid #000; padding: 5px 6px; vertical-align: top; }
   .dotted { border-bottom: 1px dotted #000; display: inline-block; width: 100%; min-height: 14px; }
 
-  .bigbox { border: 1px solid #000; min-height: 80px; padding: 5px; white-space: pre-wrap; }
+  /* Big boxes */
+  .bigbox { border: 1px solid #000; min-height: 80px; padding: 5px; white-space: pre-wrap; position: relative; z-index: 1; }
 
-  .sign-row { display: flex; justify-content: space-between; margin-top: 40px; }
+  /* Signatures */
+  .sign-row { display: flex; justify-content: space-between; margin-top: 40px; position: relative; z-index: 1; }
   .sign { width: 48%; text-align: center; font-size: 14px; }
-  .sign-line { font-weight: bold; margin-bottom: 60px; }
-  .sign-name { border-top: 1px solid #000; width: 80%; margin: 0 auto; font-style: italic; padding-top: 4px; }
+  .sign-line { font-weight: bold; margin-bottom: 5px; }
+  .sign-name { border: none; width: 100%; margin: 0; font-style: normal; font-weight: bold; font-size: 14px; }
 
   .date-row { display: flex; justify-content: space-between; margin-top: 15px; font-size: 13px; }
   .date { width: 48%; text-align: center; }
 
   h2 { text-align: center; font-size: 18px; margin-top: 5px; margin-bottom: 15px; color: #004a91; }
 
-  .images { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; justify-items: center; align-items: center; margin-top: 10px; }
-  .images img { width: 6.5cm; height: 6.5cm; object-fit: cover; border-radius: 4px; border: 2px solid #004a91; }
+  /* Image grid */
+  .images { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; justify-items: center; align-items: start; margin-top: 10px; }
+  .images img { width: 180px; height: 120px; object-fit: cover; border-radius: 8px; border: 3px solid #004a91; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
+  .images div { text-align: center; font-size: 13px; font-weight: 500; margin-top: 5px; }
 
-  /* Hình 10 dưới chữ ký (không border) */
-  .sign-image-10 img { width: 3cm; height: 2cm; object-fit: cover; margin-top: 8px; border: none; border-radius: 0; }
+  /* Hình 10 dưới tên kỹ sư */
+  .sign-image-10 img { width: 200px; height: auto; object-fit: cover; margin-top: 5px; border: none; border-radius: 0; }
+
+  footer { margin-top: 40px; text-align: center; font-size: 11px; color: #777; }
 </style>
 </head>
 <body>
@@ -102,8 +114,7 @@
   <button onclick="guiGmail()">📧 Gửi Gmail</button>
 </div>
 
-<!-- Trang 1 -->
-<div class="page">
+<div class="page" id="report">
   <div class="header">
     <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSZOlj6J-4xEgwSYxcMdhX2u9Uc3xZerGGd6tbiK7yoQzi-WTTZ" class="logo" alt="Logo">
     <div class="company-info">
@@ -111,7 +122,8 @@
       <div class="line2">NEW TECHNOLOGIES SCIENTIFIC CORPORATION</div>
       <div class="line3">Tầng 6, 130 Nguyễn Công Trứ, P. Nguyễn Thái Bình, Q.1, TP.HCM</div>
       <div class="line4">
-        <span>🌐 https://newntslab.net/</span> | <span>📧 admin@ntslab.net</span>
+        <span>🌐 https://newntslab.net/</span> |
+        <span>📧 admin@ntslab.net</span>
       </div>
     </div>
   </div>
@@ -146,6 +158,15 @@
         <b>Hãng sản xuất / Manufacturer:</b><br><div class="dotted"><span id="hangsx"></span></div>
       </td>
     </tr>
+    <tr>
+      <td>
+        <b>Tổng quát / Overview:</b><br><div class="dotted"><span id="tongquat"></span></div>
+        <b>Mô tả hàng hoá / Product Description:</b><br><div class="dotted"><span id="mota"></span></div>
+      </td>
+      <td>
+        <b>Thời gian di chuyển & Khoảng cách / Travel Time & Distance:</b><br><div class="dotted"><span id="khoangcach"></span></div>
+      </td>
+    </tr>
   </table>
 
   <b>Mô tả tình trạng / Problem Description:</b>
@@ -162,7 +183,7 @@
     <div class="sign">
       <div class="sign-line">Customer Service Engineer / Kỹ sư Dịch vụ</div>
       <div class="sign-name" id="kySu"></div>
-      <div class="sign-image-10"></div>
+      <div class="sign-image-10" id="image10-container"></div>
     </div>
 
     <div class="sign">
@@ -177,48 +198,114 @@
   </div>
 </div>
 
-<!-- Trang 2: Hình 1-9 -->
+<!-- Hình 1-9 trên trang 2 -->
 <div class="page">
   <h2>HÌNH ẢNH / IMAGES</h2>
   <div class="images" id="images-page"></div>
+  <footer></footer>
 </div>
 
 <script>
   const params = new URLSearchParams(window.location.search);
-
-  const fields = ["madh","tencty","diachicty","lienhe","dienthoai","mahang","somay","loaidv","batdau","ketthuc","hangsx","tinhtrang","dichvu","ghichu","kySu"];
-  fields.forEach(id => {
+  function setValue(id) {
     const el = document.getElementById(id);
     if (el) el.textContent = params.get(id) ? decodeURIComponent(params.get(id)) : "";
-  });
-
-  // Hình 10 dưới chữ ký
-  const anh10 = params.get("anh10");
-  if (anh10) {
-    const container10 = document.querySelector(".sign-image-10");
-    const img10 = document.createElement("img");
-    img10.src = `https://www.appsheet.com/template/gettablefileurl?appName=Qu%E1%BA%A3nl%C3%BDd%E1%BB%8Bchv%E1%BB%A5-300959436&tableName=Th%C3%B4ng%20tin%20chung&fileName=${decodeURIComponent(anh10)}`;
-    container10.appendChild(img10);
   }
 
-  // Hình 1-9
+  const fields = [
+    "madh","tencty","diachicty","lienhe","dienthoai",
+    "mahang","somay","loaidv","batdau","ketthuc",
+    "tongquat","mota","sohieu","hangsx",
+    "khoangcach","tinhtrang","dichvu","ghichu","kySu"
+  ];
+  fields.forEach(setValue);
+
   const imgContainer = document.getElementById("images-page");
-  for (let i=1;i<=9;i++){
-    const file = params.get("anh"+i);
-    if(file){
+  for (let i = 1; i <= 9; i++) {
+    const file = params.get("anh" + i);
+    if (file) {
       const fullUrl = `https://www.appsheet.com/template/gettablefileurl?appName=Qu%E1%BA%A3nl%C3%BDd%E1%BB%8Bchv%E1%BB%A5-300959436&tableName=Th%C3%B4ng%20tin%20chung&fileName=${decodeURIComponent(file)}`;
+      const wrapper = document.createElement("div");
       const img = document.createElement("img");
       img.src = fullUrl;
-      img.alt = "Image "+i;
-      imgContainer.appendChild(img);
+      img.alt = "Image " + i;
+      wrapper.appendChild(img);
+      const label = document.createElement("div");
+      label.textContent = "Image " + i;
+      wrapper.appendChild(label);
+      imgContainer.appendChild(wrapper);
     }
   }
 
-  function guiGmail(){
-    const email = params.get("email") ? decodeURIComponent(params.get("email")) : "";
-    const to = email;
-    const subject = encodeURIComponent("Báo cáo dịch vụ khách hàng - " + (params.get("madh") || ""));
-    const body = encodeURIComponent("Xin gửi báo cáo dịch vụ khách hàng.");
+  // Hình 10 dưới chữ ký
+  const file10 = params.get("anh10");
+  if(file10){
+    const img10 = document.createElement("img");
+    img10.src = `https://www.appsheet.com/template/gettablefileurl?appName=Qu%E1%BA%A3nl%C3%BDd%E1%BB%8Bchv%E1%BB%A5-300959436&tableName=Th%C3%B4ng%20tin%20chung&fileName=${decodeURIComponent(file10)}`;
+    img10.alt = "Image 10";
+    document.getElementById("image10-container").appendChild(img10);
+  }
+
+  const email = params.get("email") ? decodeURIComponent(params.get("email")) : "";
+
+  function guiGmail() {
+    const lienhe = document.getElementById("lienhe").textContent || "";
+    const tencty = document.getElementById("tencty").textContent || "";
+    const madh = document.getElementById("madh").textContent || "";
+    const loaidv = document.getElementById("loaidv").textContent || "";
+    const hangsx = document.getElementById("hangsx").textContent || "";
+    const somay = document.getElementById("somay").textContent || "";
+    const diachicty = document.getElementById("diachicty").textContent || "";
+    const dienthoai = document.getElementById("dienthoai").textContent || "";
+    const mota = document.getElementById("mota").textContent || "";
+    const ketthuc = document.getElementById("ketthuc").textContent || "";
+    const kySu = document.getElementById("kySu").textContent || "";
+
+    const to = email || "";
+    const subject = encodeURIComponent("Báo cáo dịch vụ khách hàng - " + madh);
+
+    const body = encodeURIComponent(
+`Kính gửi ${lienhe},
+
+Công ty Cổ phần Khoa học Công nghệ Mới (NTS) xin gửi đến Quý Công ty *${tencty}* báo cáo chi tiết về dịch vụ kỹ thuật đã thực hiện.
+
+─────── ✦ ───────
+📋 THÔNG TIN CHUNG
+🆔 Mã biên bản: ${madh}
+🧰 Loại dịch vụ: ${loaidv}
+🏭 Hãng sản xuất: ${hangsx}
+🔢 Số máy: ${somay}
+📍 Địa chỉ: ${diachicty}
+👤 Liên hệ: ${lienhe} - ☎️ ${dienthoai}
+
+─────── ✦ ───────
+🔧 NỘI DUNG DỊCH VỤ
+${mota ? mota : "Công việc kiểm tra, bảo trì, xử lý kỹ thuật được thực hiện theo yêu cầu khách hàng."}
+
+─────── ✦ ───────
+📅 THỜI GIAN & KỸ SƯ PHỤ TRÁCH
+⏰ Hoàn thành: ${ketthuc || "Đang cập nhật"}
+👨🔧 Kỹ sư phụ trách: ${kySu}
+
+─────── ✦ ───────
+💬 GHI CHÚ
+Báo cáo này ghi nhận tiến độ, kết quả và chất lượng công việc do đội ngũ kỹ sư NTS thực hiện.  
+Nếu Quý Công ty cần hỗ trợ, vui lòng phản hồi trực tiếp qua email này để được hỗ trợ nhanh chóng.
+
+─────── ✦ ───────
+🙏 LỜI CẢM ƠN
+Xin trân trọng cảm ơn Quý Công ty đã tin tưởng và hợp tác cùng:
+
+🏢 CÔNG TY CỔ PHẦN KHOA HỌC CÔNG NGHỆ MỚI (NTS)  
+📍 130 Nguyễn Công Trứ, P. Nguyễn Thái Bình, Q.1, TP.HCM  
+☎️ Hotline: 097 222 0906 | 📧 admin@ntslab.net  
+🌐 https://newntslab.net/
+
+Trân trọng kính chào,  
+👨🔧 ${kySu}  
+Phòng Dịch vụ Kỹ thuật - NTS`
+    );
+
     window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
   }
 </script>
