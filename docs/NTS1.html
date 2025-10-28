@@ -6,7 +6,6 @@
 <title>Customer Service Report</title>
 
 <style>
-  /* Lề in chuẩn A4 */
   @page { size: A4 portrait; margin: 0.5cm 0.5cm 0.5cm 1.5cm; }
 
   body {
@@ -85,24 +84,24 @@
   .sign-line { font-weight: bold; margin-bottom: 10px; }
   .sign-name { border-top: 1px solid #000; width: 80%; margin: 0 auto; font-style: italic; padding-top: 4px; }
 
-  /* Hình ảnh dưới chữ ký kỹ sư */
-  .sign-images {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 8px;
-    justify-content: center;
-  }
-  .sign-images img {
+  /* Hình ảnh dưới chữ ký kỹ sư (chỉ hình 10) */
+  .sign-image-10 img {
     width: 3cm;
     height: 2cm;
     object-fit: cover;
     border: 1px solid #004a91;
     border-radius: 4px;
+    margin-top: 8px;
   }
 
   .date-row { display: flex; justify-content: space-between; margin-top: 15px; font-size: 13px; }
   .date { width: 48%; text-align: center; }
+
+  h2 { text-align: center; font-size: 18px; margin-top: 5px; margin-bottom: 15px; color: #004a91; }
+
+  .images { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 18px; justify-items: center; align-items: start; margin-top: 10px; }
+  .images img { width: 100%; max-width: 220px; border-radius: 8px; border: 3px solid #004a91; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
+  .images div { text-align: center; font-size: 13px; font-weight: 500; margin-top: 5px; }
 
   footer { margin-top: 40px; text-align: center; font-size: 11px; color: #777; }
 </style>
@@ -114,6 +113,7 @@
   <button onclick="guiGmail()">📧 Gửi Gmail</button>
 </div>
 
+<!-- Trang 1 -->
 <div class="page" id="report">
   <div class="header">
     <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSZOlj6J-4xEgwSYxcMdhX2u9Uc3xZerGGd6tbiK7yoQzi-WTTZ" class="logo" alt="Logo">
@@ -178,15 +178,13 @@
   <b>Ghi chú / Remark:</b>
   <div class="bigbox" id="ghichu"></div>
 
-  <b>Tên kỹ sư / Engineer Name:</b> <span id="kySu"></span>
-
   <div class="sign-row">
     <div class="sign">
       <div class="sign-line">Customer Service Engineer / Kỹ sư Dịch vụ</div>
       <div class="sign-name" id="kySu-name">(Họ và tên)</div>
 
-      <!-- Hình ảnh 10 cái nằm dưới chữ ký kỹ sư -->
-      <div class="sign-images"></div>
+      <!-- Hình ảnh 10 nằm dưới chữ ký -->
+      <div class="sign-image-10"></div>
     </div>
 
     <div class="sign">
@@ -198,6 +196,22 @@
   <div class="date-row">
     <div class="date">Date / Ngày ký: .......... / .......... / ..........</div>
     <div class="date">Date / Ngày ký: .......... / .......... / ..........</div>
+  </div>
+</div>
+
+<!-- Trang 2: Hình 1-9 -->
+<div class="page">
+  <h2>Hình ảnh dịch vụ</h2>
+  <div class="images">
+    <script>
+      for (let i = 1; i <= 9; i++) {
+        const file = new URLSearchParams(window.location.search).get("anh"+i);
+        if (file) {
+          const fullUrl = `https://www.appsheet.com/template/gettablefileurl?appName=Qu%E1%BA%A3nl%C3%BDd%E1%BB%8Bchv%E1%BB%A5-300959436&tableName=Th%C3%B4ng%20tin%20chung&fileName=${decodeURIComponent(file)}`;
+          document.write(`<img src="${fullUrl}" alt="Hình ${i}">`);
+        }
+      }
+    </script>
   </div>
 </div>
 
@@ -217,17 +231,14 @@
   ];
   fields.forEach(setValue);
 
-  // Hiển thị hình ảnh dưới chữ ký kỹ sư
-  const signImgContainer = document.querySelector(".sign-images");
-  for (let i = 1; i <= 10; i++) {
-    const file = params.get("anh" + i);
-    if (file) {
-      const fullUrl = `https://www.appsheet.com/template/gettablefileurl?appName=Qu%E1%BA%A3nl%C3%BDd%E1%BB%8Bchv%E1%BB%A5-300959436&tableName=Th%C3%B4ng%20tin%20chung&fileName=${decodeURIComponent(file)}`;
-      const img = document.createElement("img");
-      img.src = fullUrl;
-      img.alt = "Image " + i;
-      signImgContainer.appendChild(img);
-    }
+  // Hiển thị hình 10 dưới chữ ký kỹ sư
+  const sign10Container = document.querySelector(".sign-image-10");
+  const anh10 = params.get("anh10");
+  if (anh10) {
+    const img = document.createElement("img");
+    img.src = `https://www.appsheet.com/template/gettablefileurl?appName=Qu%E1%BA%A3nl%C3%BDd%E1%BB%8Bchv%E1%BB%A5-300959436&tableName=Th%C3%B4ng%20tin%20chung&fileName=${decodeURIComponent(anh10)}`;
+    img.alt = "Hình 10";
+    sign10Container.appendChild(img);
   }
 
   const email = params.get("email") ? decodeURIComponent(params.get("email")) : "";
@@ -251,38 +262,22 @@
     const body = encodeURIComponent(
 `Kính gửi ${lienhe},
 
-Công ty Cổ phần Khoa học Công nghệ Mới (NTS) xin gửi đến Quý Công ty *${tencty}* báo cáo chi tiết về dịch vụ kỹ thuật đã thực hiện.
+Công ty NTS gửi báo cáo dịch vụ cho Quý Công ty *${tencty}*.
 
-─────── ✦ ───────
-📋 THÔNG TIN CHUNG
-🆔 Mã biên bản: ${madh}
-🧰 Loại dịch vụ: ${loaidv}
-🏭 Hãng sản xuất: ${hangsx}
-🔢 Số máy: ${somay}
-📍 Địa chỉ: ${diachicty}
-👤 Liên hệ: ${lienhe} - ☎️ ${dienthoai}
+Mã biên bản: ${madh}
+Loại dịch vụ: ${loaidv}
+Hãng sản xuất: ${hangsx}
+Số máy: ${somay}
+Địa chỉ: ${diachicty}
+Liên hệ: ${lienhe} - ${dienthoai}
 
-─────── ✦ ───────
-🔧 NỘI DUNG DỊCH VỤ
-${mota ? mota : "Công việc kiểm tra, bảo trì, xử lý kỹ thuật được thực hiện theo yêu cầu khách hàng."}
+Nội dung dịch vụ:
+${mota}
 
-─────── ✦ ───────
-📅 THỜI GIAN & KỸ SƯ PHỤ TRÁCH
-⏰ Hoàn thành: ${ketthuc || "Đang cập nhật"}
-👨🔧 Kỹ sư phụ trách: ${kySu}
+Hoàn thành: ${ketthuc}
+Kỹ sư phụ trách: ${kySu}
 
-─────── ✦ ───────
-💬 GHI CHÚ
-Báo cáo này ghi nhận tiến độ, kết quả và chất lượng công việc do đội ngũ kỹ sư NTS thực hiện.  
-Nếu Quý Công ty cần hỗ trợ, vui lòng phản hồi trực tiếp qua email này.
-
-─────── ✦ ───────
-🙏 LỜI CẢM ƠN
-Xin trân trọng cảm ơn Quý Công ty đã tin tưởng và hợp tác cùng NTS.
-
-Trân trọng kính chào,  
-👨🔧 ${kySu}  
-Phòng Dịch vụ Kỹ thuật - NTS`
+Trân trọng!`
     );
 
     window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
