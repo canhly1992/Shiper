@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Customer Service Report</title>
+<title>Customer Service Report1</title>
 
 <style>
   /* Lề in chuẩn A4 */
@@ -45,7 +45,7 @@
   .page {
     width: auto;
     min-height: auto;
-    padding: 0.5cm 0.5cm 0.5cm 1.5cm; /* top/bottom 0.5cm, left 1.5cm, right 0.5cm */
+    padding: 0.5cm 0.5cm 0.5cm 1.5cm;
     box-sizing: border-box;
     position: relative;
     page-break-after: always;
@@ -88,8 +88,25 @@
   /* Signatures */
   .sign-row { display: flex; justify-content: space-between; margin-top: 40px; position: relative; z-index: 1; }
   .sign { width: 48%; text-align: center; font-size: 14px; }
-  .sign-line { font-weight: bold; margin-bottom: 60px; }
-  .sign-name { border-top: 1px solid #000; width: 80%; margin: 0 auto; font-style: italic; padding-top: 4px; }
+  .sign-line { font-weight: bold; margin-bottom: 20px; }
+
+  .sign-name {
+    position: relative;
+    margin-top: 60px;
+    font-style: italic;
+    font-size: 14px;
+    text-align: center;
+  }
+  .sign-name img {
+    max-height: 60px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    position: absolute;
+    top: -55px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 
   .date-row { display: flex; justify-content: space-between; margin-top: 15px; font-size: 13px; }
   .date { width: 48%; text-align: center; }
@@ -180,15 +197,18 @@
   <div class="sign-row">
     <div class="sign">
       <div class="sign-line">Customer Service Engineer / Kỹ sư Dịch vụ</div>
-      <div class="sign-name" id="chukyKysu">
-        (Họ và tên)
-        <img id="imgChukyKysu" style="display:none; max-width:200px; margin-top:5px; border:none;" />
+      <div class="sign-name">
+        <img id="imgChukyKysu" style="display:none;" />
+        <span>(Họ và tên)</span>
       </div>
     </div>
 
     <div class="sign">
       <div class="sign-line">Customer Signature / Khách hàng ký</div>
-      <div class="sign-name">(Họ và tên)</div>
+      <div class="sign-name">
+        <img id="imgChukyKhach" style="display:none;" />
+        <span>(Họ và tên)</span>
+      </div>
     </div>
   </div>
 
@@ -197,7 +217,7 @@
     <div class="date">Date / Ngày ký: .......... / .......... / ..........</div>
   </div>
 </div>
-
+  
 <div class="page">
   <h2>HÌNH ẢNH / IMAGES</h2>
   <div class="images" id="images-page"></div>
@@ -219,7 +239,7 @@
   ];
   fields.forEach(setValue);
 
-  // Hiển thị hình ảnh 1-9
+  // Hiển thị hình ảnh dịch vụ
   const imgContainer = document.getElementById("images-page");
   for (let i = 1; i <= 9; i++) {
     const file = params.get("anh" + i);
@@ -237,15 +257,21 @@
     }
   }
 
-  // Hiển thị chữ ký kỹ sư nếu có
-  const chukyUrl = params.get("chuky");
-  if (chukyUrl) {
+  // Hiển thị chữ ký nếu có
+  const chukyKysu = params.get("chuky_kysu");
+  if (chukyKysu) {
     const img = document.getElementById("imgChukyKysu");
-    img.src = decodeURIComponent(chukyUrl);
+    img.src = decodeURIComponent(chukyKysu);
     img.style.display = "block";
-    // Ẩn text "(Họ và tên)"
-    const signName = document.getElementById("chukyKysu");
-    signName.childNodes[0].textContent = "";
+    img.nextElementSibling.style.display = "none";
+  }
+
+  const chukyKhach = params.get("chuky_khach");
+  if (chukyKhach) {
+    const img = document.getElementById("imgChukyKhach");
+    img.src = decodeURIComponent(chukyKhach);
+    img.style.display = "block";
+    img.nextElementSibling.style.display = "none";
   }
 
   const email = params.get("email") ? decodeURIComponent(params.get("email")) : "";
