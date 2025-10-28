@@ -84,14 +84,14 @@
   .sign-line { font-weight: bold; margin-bottom: 10px; }
   .sign-name { border-top: 1px solid #000; width: 80%; margin: 0 auto; font-style: italic; padding-top: 4px; }
 
-  /* Hình ảnh dưới chữ ký kỹ sư (chỉ hình 10) */
+  /* Hình 10 dưới chữ ký (không border) */
   .sign-image-10 img {
     width: 3cm;
     height: 2cm;
     object-fit: cover;
-    border: 1px solid #004a91;
-    border-radius: 4px;
     margin-top: 8px;
+    border: none;
+    border-radius: 0;
   }
 
   .date-row { display: flex; justify-content: space-between; margin-top: 15px; font-size: 13px; }
@@ -158,32 +158,13 @@
         <b>Hãng sản xuất / Manufacturer:</b><br><div class="dotted"><span id="hangsx"></span></div>
       </td>
     </tr>
-    <tr>
-      <td>
-        <b>Tổng quát / Overview:</b><br><div class="dotted"><span id="tongquat"></span></div>
-        <b>Mô tả hàng hoá / Product Description:</b><br><div class="dotted"><span id="mota"></span></div>
-      </td>
-      <td>
-        <b>Thời gian di chuyển & Khoảng cách / Travel Time & Distance:</b><br><div class="dotted"><span id="khoangcach"></span></div>
-      </td>
-    </tr>
   </table>
-
-  <b>Mô tả tình trạng / Problem Description:</b>
-  <div class="bigbox" id="tinhtrang"></div>
-
-  <b>Dịch vụ đã hoàn thành & Giải thích chi tiết / Services Done & Details:</b>
-  <div class="bigbox" id="dichvu"></div>
-
-  <b>Ghi chú / Remark:</b>
-  <div class="bigbox" id="ghichu"></div>
 
   <div class="sign-row">
     <div class="sign">
       <div class="sign-line">Customer Service Engineer / Kỹ sư Dịch vụ</div>
       <div class="sign-name" id="kySu-name">(Họ và tên)</div>
-
-      <!-- Hình ảnh 10 nằm dưới chữ ký -->
+      <!-- Hình 10 -->
       <div class="sign-image-10"></div>
     </div>
 
@@ -204,84 +185,26 @@
   <h2>Hình ảnh dịch vụ</h2>
   <div class="images">
     <script>
+      const params = new URLSearchParams(window.location.search);
       for (let i = 1; i <= 9; i++) {
-        const file = new URLSearchParams(window.location.search).get("anh"+i);
+        const file = params.get("anh"+i);
         if (file) {
           const fullUrl = `https://www.appsheet.com/template/gettablefileurl?appName=Qu%E1%BA%A3nl%C3%BDd%E1%BB%8Bchv%E1%BB%A5-300959436&tableName=Th%C3%B4ng%20tin%20chung&fileName=${decodeURIComponent(file)}`;
           document.write(`<img src="${fullUrl}" alt="Hình ${i}">`);
         }
       }
+
+      // Hình 10 dưới chữ ký
+      const anh10 = params.get("anh10");
+      if (anh10) {
+        const container10 = document.querySelector(".sign-image-10");
+        const img10 = document.createElement("img");
+        img10.src = `https://www.appsheet.com/template/gettablefileurl?appName=Qu%E1%BA%A3nl%C3%BDd%E1%BB%8Bchv%E1%BB%A5-300959436&tableName=Th%C3%B4ng%20tin%20chung&fileName=${decodeURIComponent(anh10)}`;
+        img10.alt = "Hình 10";
+        container10.appendChild(img10);
+      }
     </script>
   </div>
 </div>
-
-<script>
-  const params = new URLSearchParams(window.location.search);
-
-  function setValue(id) {
-    const el = document.getElementById(id);
-    if (el) el.textContent = params.get(id) ? decodeURIComponent(params.get(id)) : "";
-  }
-
-  const fields = [
-    "madh","tencty","diachicty","lienhe","dienthoai",
-    "mahang","somay","loaidv","batdau","ketthuc",
-    "tongquat","mota","sohieu","hangsx",
-    "khoangcach","tinhtrang","dichvu","ghichu","kySu"
-  ];
-  fields.forEach(setValue);
-
-  // Hiển thị hình 10 dưới chữ ký kỹ sư
-  const sign10Container = document.querySelector(".sign-image-10");
-  const anh10 = params.get("anh10");
-  if (anh10) {
-    const img = document.createElement("img");
-    img.src = `https://www.appsheet.com/template/gettablefileurl?appName=Qu%E1%BA%A3nl%C3%BDd%E1%BB%8Bchv%E1%BB%A5-300959436&tableName=Th%C3%B4ng%20tin%20chung&fileName=${decodeURIComponent(anh10)}`;
-    img.alt = "Hình 10";
-    sign10Container.appendChild(img);
-  }
-
-  const email = params.get("email") ? decodeURIComponent(params.get("email")) : "";
-
-  function guiGmail() {
-    const lienhe = document.getElementById("lienhe").textContent || "";
-    const tencty = document.getElementById("tencty").textContent || "";
-    const madh = document.getElementById("madh").textContent || "";
-    const loaidv = document.getElementById("loaidv").textContent || "";
-    const hangsx = document.getElementById("hangsx").textContent || "";
-    const somay = document.getElementById("somay").textContent || "";
-    const diachicty = document.getElementById("diachicty").textContent || "";
-    const dienthoai = document.getElementById("dienthoai").textContent || "";
-    const mota = document.getElementById("mota").textContent || "";
-    const ketthuc = document.getElementById("ketthuc").textContent || "";
-    const kySu = document.getElementById("kySu").textContent || "";
-
-    const to = email || "";
-    const subject = encodeURIComponent("Báo cáo dịch vụ khách hàng - " + madh);
-
-    const body = encodeURIComponent(
-`Kính gửi ${lienhe},
-
-Công ty NTS gửi báo cáo dịch vụ cho Quý Công ty *${tencty}*.
-
-Mã biên bản: ${madh}
-Loại dịch vụ: ${loaidv}
-Hãng sản xuất: ${hangsx}
-Số máy: ${somay}
-Địa chỉ: ${diachicty}
-Liên hệ: ${lienhe} - ${dienthoai}
-
-Nội dung dịch vụ:
-${mota}
-
-Hoàn thành: ${ketthuc}
-Kỹ sư phụ trách: ${kySu}
-
-Trân trọng!`
-    );
-
-    window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
-  }
-</script>
 </body>
 </html>
